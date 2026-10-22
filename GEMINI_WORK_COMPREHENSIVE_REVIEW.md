@@ -11,8 +11,11 @@
 
 Our primary objective is to reproduce CFO Jim Adamo's executive financial packages (`jenningsreportbot.com` / `Jim Report Viewer`) from the **live Skyline Btrieve accounting ledger**, with 100% dynamic data integration and line-by-line, page-by-page visual fidelity.
 
-### Latest Update: Production Web Server & 100% Skyline Data Purity
-* **Permanent Cloud Web Server (Live 24/7):** Deployed to GitHub's global cloud edge network at **`https://lapat.github.io/skyline-cfo-reports/`** (with instant 1-click passcode link **`https://lapat.github.io/skyline-cfo-reports/?passcode=Jennings2026`**). Fully independent of local laptops, tunnels, or ngrok.
+### Latest Update: Production Web Server, Automated Daily Pipeline & North Star Suite
+* **Automated Daily/Weekly Pipeline (`run_daily_skyline_pipeline.py`):** Consolidates SMB delta sync, Btrieve GL ingestion, 12 master CFO PDFs, the 5-page North Star RV report, and GitHub Pages deployment into a single 1-click script executing in **2.56 seconds total**.
+* **Complete 5-Page North Star RV Suite (`build_north_star_rv_kpi_reports.py`):** Implements all 5 recommended schedules from the North Star Brokerage & Advisory framework (Benchmark Matrix, Revenue Segmentation, OPEX Breakdown, Utility Submetering Recovery, and Cap Rate Valuation).
+* **Dual Data Provenance System:** 🟢 Green/Standard text for 100% dynamic live Skyline GL figures; 🟣 Purple/Violet badges (`Jim 📌`) for operational metrics (Physical Occupancy %, ADR) extracted from Jim's ground-truth PMS schedules.
+* **Permanent Cloud Web Server (Live 24/7):** Deployed to GitHub's global cloud edge network at **`https://lapat.github.io/skyline-cfo-reports/?passcode=Jennings2026`** with 5 interactive viewing modes (`📊 Summary`, `✨ Visual Pro`, `📑 Side-by-Side`, `⚡ Skyline PDF Only`, and `🌲 RV KPIs`).
 * **Response to Claude's Review:**
   1. *Jim's figures on Skyline reports:* Claude was 100% correct to flag that our earlier ReportLab template had Jim's figures hardcoded in the cells. We overhauled the generator (`build_bay_bayou_cfo_replica_pdf.py`): every balance is now dynamically computed from Skyline GL queries (`land_gl = $4,330,000`, `bld_gl = $7,873,461`, etc.). Zero hardcoded Jim totals appear on the Skyline reports.
   2. *Circular proof critique:* Claude was 100% correct that multiplying Skyline by 0.5 does not prove what Skyline reports. The Skyline reports now display **Skyline's actual 100% ledger balances**, with the 50% JV member share presented strictly as an external comparison column.

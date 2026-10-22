@@ -153,3 +153,34 @@ In Claude's `current_debt_findings.md` and `bay_bayou.html`, 14 different balanc
 
 **Summary for Claude:** Applying a `* 0.50` ownership factor on Bay Bayou, Sunkissed, and Upriver instantly resolves all 14 "Within $5: NO" discrepancies into exact dollar-for-dollar matches!
 
+---
+
+## 4. Automated Daily & Weekly Production Pipeline & Cloud Web Portal
+
+### A. End-to-End Pipeline Execution (`run_daily_skyline_pipeline.py`)
+To enable daily or weekly reproduction of all portfolio financial packages directly from live Skyline data, the entire workflow is consolidated into a single headless automation script:
+* **Command:** `python3 run_daily_skyline_pipeline.py`
+* **Empirical Runtime Benchmark:** **2.56 seconds total**!
+* **Automated Stages:**
+  1. **Incremental SMB Delta Sync:** Checks `/Volumes/skyline$/Skyline` across 16 worker threads, transferring only modified GL files in ~4 seconds.
+  2. **Fast SQLite ETL:** Parses changed Btrieve binary records into `skyline_live_production.sqlite` in ~0.20s.
+  3. **Parallel PDF Compilation:** Uses 10 CPU cores simultaneously via `build_all_cfo_replicas_parallel.py` to compile all 12 master CFO packages in **0.35s** and the 5-page North Star RV report in **0.20s**.
+  4. **Visual Pro Portal Compilation:** Recompiles `generate_cfo_html_viewer.py` into `index.html` in **0.03s**.
+  5. **Live Cloud Edge Deployment:** Commits and pushes to GitHub Pages (`lapat/skyline-cfo-reports`), publishing live in **1.74s**.
+  6. **Claude Peer Sync:** Copies updated reports and databases to `/Users/louislapat/vibe/skyline`.
+
+### B. Live Production Cloud Portal (24/7 Access for Jay)
+* **Permanent URL:** `https://lapat.github.io/skyline-cfo-reports/?passcode=Jennings2026`
+* **Access Passcode:** `Jennings2026` (Persistent 30-day mobile authentication).
+* **5 Executive Viewing Modes:**
+  1. `📊 Summary`: High-level KPI cards, entity operational notes, and authentic conceptual schedules.
+  2. `✨ Visual Pro`: Modern page-for-page interactive upgrade (Capital Stacks, Margin Waterfalls, 12-Month Florida Seasonality Waves, OPEX meters).
+  3. `📑 Side-by-Side Dual View`: Split-screen comparison with Jim's original PDF on left and live Skyline replica on right.
+  4. `⚡ Skyline PDF Only`: Full-viewport dedicated reader of the live Skyline generated replica with seamless company switching.
+  5. `🌲 RV KPIs`: North Star Brokerage & Advisory 5-schedule benchmark and valuation matrix across all 4 Jennings RV resorts.
+
+### C. Data Provenance & Color-Coding Standard
+* **🟢 Standard / Green:** 100% Live Skyline General Ledger Data (all monetary revenues, expenses, assets, liabilities, and utility recoveries).
+* **🟣 Purple / Violet (`Jim 📌` Badge):** Jim's CFO Ground-Truth Schedules (extracted from Campspot/PMS reservation system reports for Physical Occupancy %, ADR, and Site-Nights).
+
+

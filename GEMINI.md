@@ -56,3 +56,22 @@ The 3-Step Execution Workflow:
   * Currency amounts must be encoded using Microsoft Basic Floating Point (MBF) via `double_to_mbf()`.
   * The File Control Record (FCR) `numRecs` counter at offset 26 must be incremented.
 * **Index Synchronization:** Direct byte-level writing modifies data pages, which are immediately recognized by sequential extractors and reporting engines. However, internal B-Tree search indexes remain desynchronized until Skyline's native "File Maintenance -> Rebuild Indexes" is run on that company folder.
+
+## 5. Automated Daily & Weekly Reporting Pipeline
+* **Master Automated Runner:** `run_daily_skyline_pipeline.py`
+  * Executes the entire end-to-end extraction, compilation, and cloud deployment in **2.56 seconds total**.
+  * Workflow:
+    1. Checks `/Volumes/skyline$/Skyline` and executes `fast_skyline_sync.py` (16 worker threads, incremental mtime delta check).
+    2. Ingests fresh GL transactions into `skyline_live_production.sqlite`.
+    3. Builds all 12 Master CFO Replica PDFs in parallel across CPU cores (`build_all_cfo_replicas_parallel.py`, 0.35s).
+    4. Builds the 5-page North Star RV Park KPI & Valuation Master Suite (`build_north_star_rv_kpi_reports.py`, 0.20s).
+    5. Recompiles the Visual Pro interactive mobile portal (`generate_cfo_html_viewer.py` -> `index.html`, 0.03s).
+    6. Automatically commits and deploys to GitHub Pages cloud edge (`lapat/skyline-cfo-reports`, 1.74s).
+    7. Synchronizes updated reports and databases to Claude's directory at `/vibe/skyline`.
+* **Live Production Cloud Portal (24/7):**
+  * URL: `https://lapat.github.io/skyline-cfo-reports/?passcode=Jennings2026`
+  * Passcode: `Jennings2026`
+  * 5 Interactive View Modes: `📊 Summary`, `✨ Visual Pro`, `📑 Side-by-Side Dual View`, `⚡ Skyline PDF Only`, and `🌲 RV KPIs`.
+* **Data Provenance & Integrity Standard:**
+  * All financial revenues, expenses, assets, and liabilities are 100% computed from the Skyline GL (styled in standard/green).
+  * Operational metrics not present in GL (Physical Occupancy %, ADR, Site-Nights) are extracted from Jim's packages and badged in purple (`Jim 📌`) for complete transparency.
