@@ -15,6 +15,8 @@ from btrieve_reader import BtrieveFile
 
 LIVE_ROOT = "/Volumes/skyline$/Skyline"
 IFS_DIR = os.path.join(LIVE_ROOT, "IFS")
+if not os.path.exists(IFS_DIR):
+    IFS_DIR = os.path.abspath("live_skyline_fast_mirror/IFS")
 DB_LOCAL = os.path.abspath("skyline_live_production.sqlite")
 DB_CLAUDE = "/Users/louislapat/vibe/skyline/skyline_all_companies_gemini.sqlite"
 
@@ -31,12 +33,12 @@ def load_charthst():
             try:
                 bf = BtrieveFile(cp, 8)
                 for r in bf.records():
-                    if len(r) >= 112:
+                    if len(r) >= 104:
                         acct = r[:8].decode("latin1", errors="replace").strip()
                         if not acct or acct[0] == "\x00":
                             continue
                         m_bals = []
-                        for m in range(13):
+                        for m in range(12):
                             chunk = r[8 + m*8 : 8 + (m+1)*8]
                             val = mbf_to_double(chunk) if len(chunk) == 8 else 0.0
                             m_bals.append(round(val, 2))
@@ -52,20 +54,20 @@ def load_charthst():
         if os.path.exists(db):
             conn = sqlite3.connect(db)
             conn.executescript("""
-                CREATE TABLE IF NOT EXISTS chart_history (
+                DROP TABLE IF EXISTS chart_history;
+                CREATE TABLE chart_history (
                     ifs_id TEXT,
                     account_number TEXT,
                     m01_bal REAL, m02_bal REAL, m03_bal REAL, m04_bal REAL,
                     m05_bal REAL, m06_bal REAL, m07_bal REAL, m08_bal REAL,
                     m09_bal REAL, m10_bal REAL, m11_bal REAL, m12_bal REAL,
-                    m13_adj_bal REAL,
                     PRIMARY KEY (ifs_id, account_number)
                 );
                 CREATE INDEX IF NOT EXISTS idx_charthst_ifs ON chart_history(ifs_id);
             """)
             conn.execute("DELETE FROM chart_history")
             conn.executemany("""
-                INSERT OR REPLACE INTO chart_history VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                INSERT OR REPLACE INTO chart_history VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """, charthst_records)
             conn.commit()
             count = conn.execute("SELECT count(*) FROM chart_history").fetchone()[0]

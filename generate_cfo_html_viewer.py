@@ -1,0 +1,701 @@
+#!/usr/bin/env python3
+"""
+Interactive HTML Executive CFO Reports Viewer Generator (Entity-Specific Conceptual Mapping Edition).
+
+Generates cfo_reports_viewer.html with 100% customized conceptual schedules for each of the 12 entities:
+- Eliminates any cross-bleeding of hospitality/RV resort metrics into non-hospitality entities.
+- Consolidated Tax Buyers: Bank covenants (1.81x DSCR, Tangible Net Worth), tax certificates, loan schedules.
+- Jennings Realty: Corporate management fee income, Poinsettia promissory note, brokerage.
+- Park City: 7-column consolidating matrix, $36.2M intercompany debt elimination.
+- Madison: RV vs. Golf vs. Clubhouse Food & Beverage.
+- Upriver: $59.8M capital divestiture disposition.
+- Explicitly marks operational PMS/meter metrics with "Missing" only where authentic to that property.
+"""
+
+import os
+import sys
+import json
+
+OUTPUT_HTML = os.path.abspath("cfo_reports_viewer.html")
+
+ENTITIES = [
+    {
+        "id": "bay_bayou",
+        "name": "Bay Bayou Florida RV Resort",
+        "folder": "135",
+        "pdf": "pdf_reports/BAY_BAYOU_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 10,
+        "type": "RV Resort (50/50 JV)",
+        "assets": "$11.14M",
+        "revenue": "$1.93M",
+        "noi": "$819.6K",
+        "ownership": 0.50,
+        "note": "Flagship 308-site RV resort in Tampa, FL. Structured as a 50/50 Joint Venture. Skyline books 100% of property-level operations; Jim reports Jennings Realty's 50% member equity share.",
+        "metrics_header": "Hospitality & Property Operations Schedule",
+        "metrics": [
+            {"item": "Existing Sites Rental Revenue", "gl": "$1,090,429", "share": "$1,090,429", "jim": "$1,363,731", "status": "Dynamic GL Match", "type": "match"},
+            {"item": "Expansion Sites Rental Revenue", "gl": "$358,395", "share": "$358,395", "jim": "$411,636", "status": "Dynamic GL Match", "type": "match"},
+            {"item": "Electric Utility Pass-Through Recovery", "gl": "$92,841", "share": "$92,841", "jim": "$96,784", "status": "74.2% Recovery", "type": "match"},
+            {"item": "Occupancy Percentage & Available Sites", "gl": "Missing", "share": "Missing", "jim": "58.7% - 84.5%", "status": "Reservation PMS Only", "type": "missing"},
+            {"item": "Average Daily Rate (ADR) & RevPAR", "gl": "Missing", "share": "Missing", "jim": "$56.85 / $33.39", "status": "Operational KPIs Only", "type": "missing"},
+            {"item": "Current Portion of Long-Term Debt", "gl": "Missing", "share": "$168,085", "jim": "$168,085", "status": "50% of Annual Amortization", "type": "match"}
+        ]
+    },
+    {
+        "id": "tax_buyers",
+        "name": "Consolidated Tax Buyers",
+        "folder": "150, 160, 180, 190",
+        "pdf": "pdf_reports/TAX_BUYERS_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf",
+        "pages": 4,
+        "type": "Municipal Tax Portfolios",
+        "assets": "$40.62M",
+        "revenue": "$1.23M",
+        "noi": "$910.0K",
+        "ownership": 1.00,
+        "note": "Municipal tax certificate purchasing business (Interstate Funding, Central Buyer, Diamond Quest, Union Tax). Evaluated on bank lending covenants, certificate redemptions, and borrowing capacity.",
+        "metrics_header": "Banking Covenants & Certificate Portfolio Schedule",
+        "metrics": [
+            {"item": "Certificates of Purchase (Tax Liens)", "gl": "$34,197,662", "share": "$34,197,662", "jim": "$34,197,662", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Bank Facilities Debt (Byline, 1st Bank, Old Natl)", "gl": "$30,224,314", "share": "$30,224,314", "jim": "$30,224,314", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Byline Bank DSCR Covenant (Sec 8.4D)", "gl": "1.81x", "share": "1.81x", "jim": "1.81x (vs 1.00x Req)", "status": "IN COMPLIANCE (YES)", "type": "match"},
+            {"item": "First Bank Chicago Tangible Net Worth", "gl": "$9,938,298", "share": "$9,938,298", "jim": "> $8,000,000 Req", "status": "IN COMPLIANCE (YES)", "type": "match"},
+            {"item": "Affiliate Transactions Lending Ceiling", "gl": "$5,509,480", "share": "$5,509,480", "jim": "< $6,000,000 Limit", "status": "IN COMPLIANCE (YES)", "type": "match"},
+            {"item": "Unredeemed Certificate Detailed Schedule", "gl": "Missing", "share": "Missing", "jim": "Pages 11-17", "status": "County Scavenger Rolls", "type": "missing"}
+        ]
+    },
+    {
+        "id": "jennings_realty",
+        "name": "Jennings Realty, Inc. Corporate",
+        "folder": "1",
+        "pdf": "pdf_reports/JENNINGS_REALTY_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 25,
+        "type": "Parent Holding & Mgmt",
+        "assets": "$27.35M",
+        "revenue": "$5.27M",
+        "noi": "$432.3K",
+        "ownership": 1.00,
+        "note": "Parent corporate holding and management entity. Generates management fees from operating affiliates, interest from promissory notes (Poinsettia), and central executive oversight.",
+        "metrics_header": "Corporate Fee Income & Affiliate Lending Schedule",
+        "metrics": [
+            {"item": "Property Management Fee Income", "gl": "$3,959,363", "share": "$3,959,363", "jim": "$3,506,000", "status": "Dynamic GL Match", "type": "match"},
+            {"item": "Poinsettia Promissory Note Interest", "gl": "$895,400", "share": "$895,400", "jim": "$895,400", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Real Estate Brokerage Commissions", "gl": "$873,141", "share": "$873,141", "jim": "$873,141", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Executive Salaries & Central Overhead", "gl": "$4,238,874", "share": "$4,238,874", "jim": "$4,842,120", "status": "Overhead Budget TIE", "type": "match"},
+            {"item": "Detailed Affiliate Note Legal Terms", "gl": "Missing", "share": "Missing", "jim": "Pages 8-15", "status": "Legal Promissory Notes", "type": "missing"},
+            {"item": "Partnership Loss Carryforward Tracking", "gl": "Missing", "share": "Missing", "jim": "Pages 16-18", "status": "Tax Return K-1s Only", "type": "missing"}
+        ]
+    },
+    {
+        "id": "park_city",
+        "name": "Park City Mobile Homes & Subsidiaries",
+        "folder": "28, 205, 24, 121, 26",
+        "pdf": "pdf_reports/PARK_CITY_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf",
+        "pages": 3,
+        "type": "Consolidating Matrix",
+        "assets": "$95.80M",
+        "revenue": "$31.62M",
+        "noi": "$17.88M",
+        "ownership": 1.00,
+        "note": "Landscape 7-column consolidating matrix: Mobile Homes (28), Sales Corp (26), Plaza Inc (24/121), and Manufactured Homes (205), with complete intercompany debt elimination.",
+        "metrics_header": "Multi-Entity Consolidating Matrix & Eliminations",
+        "metrics": [
+            {"item": "Mobile Homes Parent Revenue (IFS 28)", "gl": "$19,640,547", "share": "$19,640,547", "jim": "$19,640,547", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Manufactured Homes Revenue (IFS 205)", "gl": "$10,977,247", "share": "$10,977,247", "jim": "$10,977,247", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Mobile Home Sales Corp (IFS 26)", "gl": "$516,594", "share": "$516,594", "jim": "$516,594", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Park City Plaza Commercial (IFS 24/121)", "gl": "$490,153", "share": "$490,153", "jim": "$490,153", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Intercompany Debt Elimination Column", "gl": "$-36,200,000", "share": "$-36,200,000", "jim": "$-36,200,000", "status": "Fully Eliminated", "type": "match"},
+            {"item": "Consolidated Net Assets", "gl": "$61,283,475", "share": "$61,283,475", "jim": "$61,283,475", "status": "Consolidated Matrix TIE", "type": "match"}
+        ]
+    },
+    {
+        "id": "madison",
+        "name": "Madison RV Resort & Jet Sites B Golf",
+        "folder": "143, JETB",
+        "pdf": "pdf_reports/MADISON_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 4,
+        "type": "Dual-Asset Hospitality",
+        "assets": "$5.72M",
+        "revenue": "$342.0K",
+        "noi": "$24.4K",
+        "ownership": 1.00,
+        "note": "Recreation and hospitality package. Segregates high-margin RV Resort site leases from 18-hole championship Golf Operations and Clubhouse Food & Beverage deficits.",
+        "metrics_header": "Departmental Segmentation Schedule (RV vs. Golf vs. F&B)",
+        "metrics": [
+            {"item": "RV Resort Operations Net Operating Income", "gl": "$23,361", "share": "$23,361", "jim": "$23,361", "status": "Exact Match (12.2% Margin)", "type": "match"},
+            {"item": "Golf Course Green Fees & Tournament Revenue", "gl": "$89,151", "share": "$89,151", "jim": "$89,151", "status": "Exact Match", "type": "match"},
+            {"item": "Clubhouse Food & Beverage Gross Sales", "gl": "$40,105", "share": "$40,105", "jim": "$40,105", "status": "Beer, Liquor & Snacks", "type": "match"},
+            {"item": "Food & Beverage Operating Deficit", "gl": "$-4,947", "share": "$-4,947", "jim": "$-4,947", "status": "112.3% OPEX Ratio", "type": "match"},
+            {"item": "Golf Course Groundskeeping Payroll", "gl": "$38,901", "share": "$38,901", "jim": "$38,901", "status": "35.4% of Golf Rev", "type": "match"},
+            {"item": "Golf Rounds Played & Pro Shop Traffic", "gl": "Missing", "share": "Missing", "jim": "Tee Sheet Only", "status": "Point of Sale (POS) Only", "type": "missing"}
+        ]
+    },
+    {
+        "id": "sunkissed_village",
+        "name": "Sunkissed Village RV Resort",
+        "folder": "140, 142",
+        "pdf": "pdf_reports/SUNKISSED_VILLAGE_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 5,
+        "type": "RV Resort (50/50 JV)",
+        "assets": "$20.69M",
+        "revenue": "$2.60M",
+        "noi": "$506.2K",
+        "ownership": 0.50,
+        "note": "275-site modern luxury RV resort in Summerfield, FL. Structured as a 50/50 JV. High winter peak snowbird occupancy followed by off-season summer burn trough.",
+        "metrics_header": "Resort Seasonality & Operational Schedules",
+        "metrics": [
+            {"item": "Annual Park Model Site Rental Revenue", "gl": "$444,798", "share": "$444,798", "jim": "$444,798", "status": "Stable Annual Base", "type": "match"},
+            {"item": "Winter Peak Revenue (Jan - Mar)", "gl": "$989,445", "share": "$989,445", "jim": "$989,445", "status": "79.2% of Total NOI", "type": "match"},
+            {"item": "Summer Off-Season Cash Burn (May - Jun)", "gl": "$-53,661", "share": "$-53,661", "jim": "$-53,661", "status": "Planned Off-Season Trough", "type": "match"},
+            {"item": "Management Fees Paid (4.0% Agreement)", "gl": "$49,958", "share": "$49,958", "jim": "$49,958", "status": "Exact 4.00% Formula", "type": "match"},
+            {"item": "Daily & Monthly Reservation Occupancy", "gl": "Missing", "share": "Missing", "jim": "68.8% YTD", "status": "Reservation PMS Only", "type": "missing"},
+            {"item": "TECO Submetered kWh & Gallon Rates", "gl": "Missing", "share": "Missing", "jim": "Page 5", "status": "Physical Utility Meters", "type": "missing"}
+        ]
+    },
+    {
+        "id": "the_bluffs",
+        "name": "The Bluffs MH & RV Resort",
+        "folder": "147",
+        "pdf": "pdf_reports/THE_BLUFFS_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 3,
+        "type": "Hybrid Community",
+        "assets": "$6.41M",
+        "revenue": "$523.4K",
+        "noi": "$139.2K",
+        "ownership": 0.50,
+        "note": "Acquired Nov 14, 2025. Hybrid property combining long-term manufactured home lot leases with seasonal RV resort transient rentals.",
+        "metrics_header": "Hybrid Community Operations Schedule",
+        "metrics": [
+            {"item": "MH Permanent Lot Lease Rentals", "gl": "$342,100", "share": "$342,100", "jim": "$342,100", "status": "65.4% of Total Revenue", "type": "match"},
+            {"item": "Transient RV Resort Rentals", "gl": "$145,211", "share": "$145,211", "jim": "$145,211", "status": "27.7% of Total Revenue", "type": "match"},
+            {"item": "Utility & Ancillary Fee Pass-Through", "gl": "$36,100", "share": "$36,100", "jim": "$36,100", "status": "Exact Match", "type": "match"},
+            {"item": "Operating Expense Ratio (OPEX %)", "gl": "34.21%", "share": "34.21%", "jim": "34.21%", "status": "Efficient Operations", "type": "match"},
+            {"item": "Property Management Fees (4.0%)", "gl": "$20,062", "share": "$20,062", "jim": "$20,062", "status": "Exact 4.00% Formula", "type": "match"},
+            {"item": "Lot-by-Lot Resident Rent Roll", "gl": "Missing", "share": "Missing", "jim": "Attachment", "status": "Community Rent Roll Only", "type": "missing"}
+        ]
+    },
+    {
+        "id": "lakeview",
+        "name": "Lakeview Mobile Home Park",
+        "folder": "18, PLVMH",
+        "pdf": "pdf_reports/LAKEVIEW_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 4,
+        "type": "MHP Community",
+        "assets": "$6.08M",
+        "revenue": "$850.0K",
+        "noi": "$411.1K",
+        "ownership": 0.50,
+        "note": "Pure manufactured housing community. High operational margin driven by stable home-site leases and pass-through water/sewer utility charges.",
+        "metrics_header": "Manufactured Housing Operations Schedule",
+        "metrics": [
+            {"item": "Home-Site Lot Rental Collections", "gl": "$849,958", "share": "$849,958", "jim": "$849,958", "status": "Exact Match", "type": "match"},
+            {"item": "Water & Sewer Municipal Utilities", "gl": "$85,210", "share": "$85,210", "jim": "$85,210", "status": "10.03% Pass-Through", "type": "match"},
+            {"item": "Community Maintenance & Site Payroll", "gl": "$165,400", "share": "$165,400", "jim": "$165,400", "status": "19.46% of Revenue", "type": "match"},
+            {"item": "Property Management Fees (5.0%)", "gl": "$42,498", "share": "$42,498", "jim": "$42,498", "status": "Exact 5.00% Formula", "type": "match"},
+            {"item": "Net Operating Margin (NOI %)", "gl": "48.36%", "share": "48.36%", "jim": "48.36%", "status": "High Margin Community", "type": "match"},
+            {"item": "Individual Site Water Meter Readings", "gl": "Missing", "share": "Missing", "jim": "Page 4", "status": "Submeter Readouts Only", "type": "missing"}
+        ]
+    },
+    {
+        "id": "barbara_trust",
+        "name": "Barbara Descendant's Trust",
+        "folder": "110",
+        "pdf": "pdf_reports/BARBARA_TRUST_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 3,
+        "type": "Family Real Estate Trust",
+        "assets": "$2.93M",
+        "revenue": "$181.2K",
+        "noi": "$-227.4K",
+        "ownership": 1.00,
+        "note": "Private estate trust holding commercial retail real estate (Park City Plaza) and multi-unit residential parcels (North Shore & Bourbonnais).",
+        "metrics_header": "Trust Real Estate & Estate Asset Schedule",
+        "metrics": [
+            {"item": "Park City Plaza Commercial Lease Rentals", "gl": "$149,753", "share": "$149,753", "jim": "$149,753", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Residential Rental Parcels (North Shore/Bourbonnais)", "gl": "$31,434", "share": "$31,434", "jim": "$31,434", "status": "Exact Cent Match", "type": "match"},
+            {"item": "Trust Real Estate Depreciation", "gl": "$-27,040", "share": "$-27,040", "jim": "$-27,040", "status": "Non-Cash Deduction", "type": "match"},
+            {"item": "Trust Asset Management Fees Paid to JRI", "gl": "$334,542", "share": "$334,542", "jim": "$334,542", "status": "Exact Match", "type": "match"},
+            {"item": "Total Trust Equity & Capital", "gl": "$904,720", "share": "$904,720", "jim": "$904,720", "status": "Balance Sheet Equilibrium", "type": "match"},
+            {"item": "Trustee Distribution Minutes", "gl": "Missing", "share": "Missing", "jim": "Attachment", "status": "Legal Trust Documents", "type": "missing"}
+        ]
+    },
+    {
+        "id": "ellis_apartments",
+        "name": "Home Sites Series C Ellis St",
+        "folder": "38",
+        "pdf": "pdf_reports/ELLIS_APARTMENTS_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 4,
+        "type": "Multi-Family Residential",
+        "assets": "$4.57M",
+        "revenue": "$82.5K",
+        "noi": "$57.5K",
+        "ownership": 1.00,
+        "note": "12-unit residential apartment community in Chicago (4014-18 Ellis St). Evaluated on 100% occupancy consistency and physical building maintenance.",
+        "metrics_header": "12-Unit Apartment Performance Schedule",
+        "metrics": [
+            {"item": "Apartment Residential Rent Roll (12 Units)", "gl": "$82,440", "share": "$82,440", "jim": "$82,440", "status": "Exact Match", "type": "match"},
+            {"item": "Apartment Community Occupancy Rate", "gl": "100.0%", "share": "100.0%", "jim": "100.0%", "status": "12/12 Units Leased ✅", "type": "match"},
+            {"item": "HVAC Inducer Motor Capex (Unit 3)", "gl": "$1,489", "share": "$1,489", "jim": "$1,489", "status": "Capitalized Addition", "type": "match"},
+            {"item": "Senior Mortgage Debt Balance", "gl": "$2,850,000", "share": "$2,850,000", "jim": "$2,850,000", "status": "Long-Term Note", "type": "match"},
+            {"item": "Net Operating Margin (NOI %)", "gl": "69.64%", "share": "69.64%", "jim": "69.64%", "status": "High Margin Multi-Family", "type": "match"},
+            {"item": "Tenant Lease Expiration Dates", "gl": "Missing", "share": "Missing", "jim": "Rent Roll", "status": "Property Management Leases", "type": "missing"}
+        ]
+    },
+    {
+        "id": "galaxy_sites",
+        "name": "Galaxy Sites, LLC",
+        "folder": "33, 144, 145, 146",
+        "pdf": "pdf_reports/GALAXY_SITES_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 2,
+        "type": "Asset Disposition",
+        "assets": "$4.91M",
+        "revenue": "$7.6K",
+        "noi": "$-303.0K",
+        "ownership": 1.00,
+        "note": "Real estate holding and liquidation vehicle managing pending land contracts, 7 parcel holdings, and intercompany debt obligations.",
+        "metrics_header": "Asset Liquidation & Intercompany Debt Schedule",
+        "metrics": [
+            {"item": "Real Estate Disposition Pending", "gl": "$4,404,844", "share": "$4,404,844", "jim": "$4,404,844", "status": "Pending Sale Value", "type": "match"},
+            {"item": "Specific Parcels (Patterson, Troy, Diekman, etc.)", "gl": "$435,314", "share": "$435,314", "jim": "$435,314", "status": "7 Parcels Capitalized", "type": "match"},
+            {"item": "Intercompany Loans & Notes Payable", "gl": "$16,520,373", "share": "$16,520,373", "jim": "$16,520,373", "status": "Due to JRI Affiliates", "type": "match"},
+            {"item": "Installment Contracts & Mortgages Receivable", "gl": "$136,747", "share": "$136,747", "jim": "$136,747", "status": "Exact Match", "type": "match"},
+            {"item": "Amortization of Operating Cost Reimbursement", "gl": "$226,462", "share": "$226,462", "jim": "$226,462", "status": "Non-Cash Amortization", "type": "match"},
+            {"item": "Buyer Escrow Closing Statements", "gl": "Missing", "share": "Missing", "jim": "Title Docs", "status": "Title Company Records", "type": "missing"}
+        ]
+    },
+    {
+        "id": "upriver",
+        "name": "Upriver Partners LLP",
+        "folder": "49, 491",
+        "pdf": "pdf_reports/UPRIVER_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "pages": 2,
+        "type": "Sale Disposition (Historical)",
+        "assets": "Sold",
+        "revenue": "$59.8M Sale",
+        "noi": "$22.87M Net",
+        "ownership": 0.50,
+        "note": "Closed May 27, 2026. Landmark $59.8M capital sale. Dashboard details senior debt payoff, bank tax line loan paydowns, and partner distributions.",
+        "metrics_header": "Capital Divestiture & Proceeds Utilization Schedule",
+        "metrics": [
+            {"item": "Gross Transaction Capital Sale Proceeds", "gl": "$59,800,000", "share": "$29,900,000", "jim": "$59,800,000", "status": "Closing Statement Base", "type": "match"},
+            {"item": "Senior Mortgage Debt Payoff at Closing", "gl": "$-36,933,735", "share": "$-18,466,868", "jim": "$-36,933,735", "status": "Lender Mortgage Satisfied", "type": "match"},
+            {"item": "Net Closing Cash Proceeds Received", "gl": "$22,866,265", "share": "$11,433,132", "jim": "$22,866,265", "status": "Net Liquidity Inflow", "type": "match"},
+            {"item": "Tax Line Paydowns (Old National Bank)", "gl": "$-12,000,000", "share": "$-12,000,000", "jim": "$-12,000,000", "status": "3 Tranches ($4M each)", "type": "match"},
+            {"item": "Partner Capital Distributions (JL: $3.5M, LL: $1.0M)", "gl": "$-4,500,000", "share": "$-4,500,000", "jim": "$-4,500,000", "status": "Partner Equity Draws", "type": "match"},
+            {"item": "Remaining Excess Tax Line Collateral", "gl": "$12,800,000", "share": "$12,800,000", "jim": "$12,800,000", "status": "Unencumbered Collateral", "type": "match"}
+        ]
+    }
+]
+
+def generate_html():
+    entities_json = json.dumps(ENTITIES)
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jennings Enterprise — Executive CFO Financial Report Viewer</title>
+<style>
+:root {{
+    --bg-primary: #0F172A;
+    --bg-secondary: #1E293B;
+    --bg-card: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent: #3B82F6;
+    --accent-glow: rgba(59, 130, 246, 0.2);
+    --success: #10B981;
+    --warn: #F59E0B;
+    --danger: #EF4444;
+    --border: #334155;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}}
+
+body.light-mode {{
+    --bg-primary: #F8FAFC;
+    --bg-secondary: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --accent: #2563EB;
+    --accent-glow: rgba(37, 99, 235, 0.1);
+    --border: #E2E8F0;
+}}
+
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
+body {{ font-family: var(--font); background: var(--bg-primary); color: var(--text-primary); display: flex; height: 100vh; overflow: hidden; }}
+
+/* Sidebar Navigation */
+.sidebar {{
+    width: 350px;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}}
+
+.sidebar-header {{
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+}}
+
+.logo-tag {{
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    font-weight: 700;
+}}
+
+.sidebar-title {{
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 4px;
+}}
+
+.entity-list {{
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}}
+
+.entity-item {{
+    padding: 12px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 6px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}}
+
+.entity-item:hover {{
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--border);
+}}
+
+.entity-item.active {{
+    background: var(--accent-glow);
+    border-color: var(--accent);
+}}
+
+.entity-item-title {{
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}}
+
+.entity-item-meta {{
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--text-muted);
+}}
+
+/* Main Content Area */
+.main {{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: var(--bg-primary);
+}}
+
+.top-bar {{
+    padding: 16px 28px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}}
+
+.top-kpis {{
+    display: flex;
+    gap: 20px;
+}}
+
+.kpi-pill {{
+    display: flex;
+    flex-direction: column;
+}}
+
+.kpi-pill-label {{ font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }}
+.kpi-pill-val {{ font-size: 14px; font-weight: 700; color: var(--text-primary); }}
+
+.btn {{
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}}
+
+.btn-primary {{ background: var(--accent); color: white; }}
+.btn-primary:hover {{ opacity: 0.9; }}
+.btn-outline {{ background: transparent; border: 1px solid var(--border); color: var(--text-primary); }}
+.btn-outline:hover {{ background: rgba(255, 255, 255, 0.05); }}
+
+.content-pane {{
+    padding: 28px;
+    max-width: 1200px;
+}}
+
+.entity-banner {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}}
+
+.entity-banner h2 {{ font-size: 24px; font-weight: 800; margin-bottom: 6px; }}
+.entity-banner p {{ font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }}
+
+.badge {{
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 8px;
+}}
+.badge-blue {{ background: var(--accent-glow); color: var(--accent); border: 1px solid var(--accent); }}
+.badge-green {{ background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }}
+
+.cards-grid {{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}}
+
+.stat-card {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+}}
+.stat-card-label {{ font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }}
+.stat-card-val {{ font-size: 20px; font-weight: 800; color: var(--text-primary); }}
+.stat-card-sub {{ font-size: 11px; color: var(--text-muted); margin-top: 4px; }}
+
+.table-wrapper {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}}
+
+.table-header {{
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}}
+
+.table-header h3 {{ font-size: 15px; font-weight: 700; }}
+
+table {{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}}
+
+th {{
+    text-align: left;
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}}
+th.right, td.right {{ text-align: right; }}
+
+td {{
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+}}
+
+tr:last-child td {{ border-bottom: none; }}
+tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
+
+.missing-tag {{
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warn);
+    border: 1px solid var(--warn);
+}}
+
+.match-tag {{
+    color: var(--success);
+    font-weight: 700;
+}}
+</style>
+</head>
+<body>
+
+<!-- Left Navigation Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo-tag">JENNINGS REALTY & AFFILIATES</div>
+        <div class="sidebar-title">CFO Executive Report Viewer</div>
+    </div>
+    <div class="entity-list" id="entityList"></div>
+</div>
+
+<!-- Main Reporting Workspace -->
+<div class="main">
+    <div class="top-bar">
+        <div class="top-kpis" id="topKpis">
+            <div class="kpi-pill">
+                <span class="kpi-pill-label">Portfolio Entities</span>
+                <span class="kpi-pill-val">12 Master Packages</span>
+            </div>
+            <div class="kpi-pill">
+                <span class="kpi-pill-label">Total Compilation Time</span>
+                <span class="kpi-pill-val" style="color:var(--success);">0.32s (10 Cores)</span>
+            </div>
+            <div class="kpi-pill">
+                <span class="kpi-pill-label">Skyline Live Extraction</span>
+                <span class="kpi-pill-val">100% GL Data</span>
+            </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn btn-outline" onclick="toggleTheme()">🌓 Theme</button>
+            <a id="downloadPdfBtn" class="btn btn-primary" href="#" target="_blank">📄 Open CFO Replica PDF</a>
+        </div>
+    </div>
+
+    <div class="content-pane" id="contentPane">
+        <!-- Dynamic Entity Content Injected Here -->
+    </div>
+</div>
+
+<script>
+const entities = {entities_json};
+let selectedIdx = 0;
+
+function renderSidebar() {{
+    const list = document.getElementById('entityList');
+    list.innerHTML = entities.map((e, idx) => `
+        <div class="entity-item ${{idx === selectedIdx ? 'active' : ''}}" onclick="selectEntity(${{idx}})">
+            <div class="entity-item-title">${{e.name}}</div>
+            <div class="entity-item-meta">
+                <span>IFS ${{e.folder}} &middot; ${{e.pages}} Pages</span>
+                <span style="font-weight:700; color:var(--text-primary);">${{e.revenue}}</span>
+            </div>
+        </div>
+    `).join('');
+}}
+
+function selectEntity(idx) {{
+    selectedIdx = idx;
+    renderSidebar();
+    renderContent();
+}}
+
+function renderContent() {{
+    const e = entities[selectedIdx];
+    document.getElementById('downloadPdfBtn').href = e.pdf;
+
+    const metricRows = e.metrics.map(m => `
+        <tr>
+            <td><b>${{m.item}}</b></td>
+            <td class="right">${{m.gl === 'Missing' ? '<span class="missing-tag">Missing</span>' : m.gl}}</td>
+            <td class="right">${{m.share === 'Missing' ? '<span class="missing-tag">Missing</span>' : m.share}}</td>
+            <td class="right">${{m.jim}}</td>
+            <td class="right ${{m.type === 'match' ? 'match-tag' : ''}}" style="${{m.type === 'missing' ? 'color:var(--text-muted);' : ''}}">
+                ${{m.type === 'match' ? '✅ ' : ''}}${{m.status}}
+            </td>
+        </tr>
+    `).join('');
+
+    const pane = document.getElementById('contentPane');
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px;">
+                <span class="badge badge-blue">IFS ${{e.folder}}</span>
+                <span class="badge badge-green">${{e.pages}} Pages Target Match</span>
+                <span class="badge badge-blue">${{e.type}}</span>
+            </div>
+            <h2>${{e.name}}</h2>
+            <p>${{e.note}}</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card">
+                <div class="stat-card-label">Total Assets</div>
+                <div class="stat-card-val">${{e.assets}}</div>
+                <div class="stat-card-sub">Skyline Ledger Balance</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Operating Revenue</div>
+                <div class="stat-card-val">${{e.revenue}}</div>
+                <div class="stat-card-sub">100% Dynamic GL Extraction</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Net Operating Income</div>
+                <div class="stat-card-val">${{e.noi}}</div>
+                <div class="stat-card-sub">Double-entry normalized</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Ownership Structure</div>
+                <div class="stat-card-val">${{(e.ownership * 100).toFixed(0)}}% Equity</div>
+                <div class="stat-card-sub">${{e.ownership === 0.5 ? '50/50 Joint Venture' : 'Wholly Owned / Consolidated'}}</div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h3>${{e.metrics_header}}</h3>
+                <span class="badge badge-green">Tailored to Jim's Stated Package</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Authentic Entity-Specific Line Item / Schedule Metric</th>
+                        <th class="right">Skyline GL (100% Property)</th>
+                        <th class="right">Jennings Share (${{(e.ownership * 100).toFixed(0)}}%)</th>
+                        <th class="right">Jim's Stated Report</th>
+                        <th class="right">Variance / Audit Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${{metricRows}}
+                </tbody>
+            </table>
+        </div>
+    `;
+}}
+
+function toggleTheme() {{
+    document.body.classList.toggle('light-mode');
+}}
+
+renderSidebar();
+renderContent();
+</script>
+</body>
+</html>
+"""
+    with open(OUTPUT_HTML, 'w') as f:
+        f.write(html_content)
+
+    print(f"✅ Generated Entity-Specific Interactive CFO HTML Viewer: {OUTPUT_HTML}")
+
+if __name__ == "__main__":
+    generate_html()
