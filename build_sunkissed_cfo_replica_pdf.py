@@ -242,6 +242,34 @@ def build_pdf():
     ]))
     el.append(t_mo)
 
+    # ==========================================
+    # PAGE 5: SUNKISSED UTILITY DETAIL
+    # ==========================================
+    el.append(PageBreak())
+    el.append(Paragraph("SUNKISSED VILLAGE RV RESORT", st["title"]))
+    el.append(Paragraph("UTILITY DETAIL & COST RECOVERY ANALYSIS", st["title"]))
+    el.append(Paragraph("SIX MONTHS ENDED JUNE 30, 2026", st["sub"]))
+
+    util_data = [
+        [Paragraph("Category / Utility", st["bold"]), Paragraph("26-Jan", st["micro_right_bold"]), Paragraph("26-Feb", st["micro_right_bold"]), Paragraph("26-Mar", st["micro_right_bold"]), Paragraph("26-Apr", st["micro_right_bold"]), Paragraph("26-May", st["micro_right_bold"]), Paragraph("26-Jun", st["micro_right_bold"]), Paragraph("TOTAL", st["micro_right_bold"])],
+        [Paragraph("Water & Sewer Expense", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+        [Paragraph("Electric Utility Expense", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+        [Paragraph("Electric Reimbursements (Pass-Through)", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+        ["", "", "", "", "", "", "", ""],
+        [Paragraph("<b>NET UTILITY COST</b>", st["bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"])],
+        [Paragraph("Cost Recovery Percentage", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+    ]
+    t_ut = Table(util_data, colWidths=[150, 52, 52, 52, 52, 52, 52, 68])
+    t_ut.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (0, 3), (-1, 3), 0.5, colors.black),
+        ('LINEBELOW', (0, 5), (-1, 5), 1.5, colors.black),
+        ('LINEABOVE', (0, 5), (-1, 5), 0.5, colors.black),
+    ]))
+    el.append(t_ut)
+
     doc.build(el)
     print(f"✅ Generated Sunkissed Village CFO Replica PDF: {OUTPUT_PDF}")
 

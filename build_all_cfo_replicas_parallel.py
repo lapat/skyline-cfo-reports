@@ -73,7 +73,32 @@ def build_jennings_realty():
     st = get_base_styles()
     el = []
 
-    # Page 1: Balance Sheet
+    # Page 1: Cover / Table of Contents
+    el.append(Paragraph("JENNINGS REALTY, INC. AND SUBSIDIARIES", st["title"]))
+    el.append(Paragraph("CONSOLIDATED FINANCIAL STATEMENTS", st["title"]))
+    el.append(Paragraph("NINE MONTHS ENDED MAY 31, 2026", st["sub"]))
+    el.append(Spacer(1, 40))
+    
+    toc_data = [
+        [Paragraph("<b>Table of Contents / Index of Schedules</b>", st["bold"]), Paragraph("<b>Page</b>", st["right_bold"])],
+        [Paragraph("Consolidated Balance Sheet", st["reg"]), Paragraph("2", st["right"])],
+        [Paragraph("Consolidated Statement of Earnings", st["reg"]), Paragraph("3", st["right"])],
+        [Paragraph("Consolidated Statement of Cash Flows", st["reg"]), Paragraph("4", st["right"])],
+        [Paragraph("Consolidating Balance Sheet", st["reg"]), Paragraph("5", st["right"])],
+        [Paragraph("Consolidating Statement of Earnings", st["reg"]), Paragraph("6", st["right"])],
+        [Paragraph("Consolidating Statement of Cash Flows", st["reg"]), Paragraph("7", st["right"])],
+        [Paragraph("Supporting Schedules & Affiliate Notes (Pages 8-25)", st["reg"]), Paragraph("8-25", st["right"])],
+    ]
+    t_toc = Table(toc_data, colWidths=[350, 100])
+    t_toc.setStyle(TableStyle([
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+    ]))
+    el.append(t_toc)
+
+    # Page 2: Balance Sheet
+    el.append(PageBreak())
     el.append(Paragraph("JENNINGS REALTY, INC. AND AFFILIATES", st["title"]))
     el.append(Paragraph("BALANCE SHEET (CORPORATE & MANAGEMENT)", st["title"]))
     el.append(Paragraph("MAY 31, 2026 (NINE MONTHS ENDED Q3 FY 2026)", st["sub"]))
@@ -149,8 +174,60 @@ def build_jennings_realty():
         ('LINEABOVE', (2, 12), (3, 12), 0.5, colors.black),
     ]))
     el.append(t_pnl)
+
+    # Pages 3-25: Supporting Schedules & Operational Reports (Populated with 'Missing' where not in GL)
+    jennings_pages = [
+        ("CONSOLIDATED STATEMENT OF CASH FLOWS", "Cash Flow from Operations, Investing, and Financing"),
+        ("CONSOLIDATING BALANCE SHEET", "Parent Company & Subsidiary Columnar Breakdown"),
+        ("CONSOLIDATING STATEMENT OF EARNINGS", "Multi-Entity Income Statement Eliminations"),
+        ("CONSOLIDATING CASH FLOWS", "Intercompany Cash Transfers and Sweeps"),
+        ("ACCOUNTS RECEIVABLE FROM RELATED PARTIES", "Affiliate Billings, Advances, and Short-Term Balances"),
+        ("NOTES RECEIVABLE FROM RELATED PARTIES", "Promissory Notes, Interest Rates, and Maturity Schedules"),
+        ("INSTALLMENT CONTRACTS RECEIVABLE", "Portfolio Purchase Contracts & Deferred Gain Calculations"),
+        ("ACCOUNTS PAYABLE TO RELATED PARTIES", "Centralized Operating Expenses Billed from Affiliates"),
+        ("NOTES PAYABLE TO RELATED PARTIES", "Intercompany Credit Lines & Borrowings"),
+        ("NOTES PAYABLE TO NON-RELATED PARTIES", "Bank Credit Facilities & Third-Party Promissory Notes"),
+        ("LONG TERM DEBT SCHEDULE", "Maturities, Collateral Assets, and Restrictive Covenants"),
+        ("MANAGEMENT FEE INCOME DETAIL", "Property-by-Property 4.0% - 11.75% Calculations"),
+        ("INVESTMENTS IN AFFILIATES & SUBSIDIARIES", "Equity Method Tracking & Cost Basis Adjustments"),
+        ("PARTNERSHIP LOSSES & EXCESS DISTRIBUTIONS", "Suspended Loss Carryforwards & Capital Account Deficits"),
+        ("PARTNERSHIP INCOME (LOSS) SUMMARY", "Schedule K-1 Reconciliation to GAAP Ledger"),
+        ("COMPARATIVE OPERATING EXPENSE DETAIL", "Executive Compensation, Legal, Overhead & Technology"),
+        ("EXPENSE VARIANCE COMMENTS", "Detailed Explanations for Significant Budget Variances"),
+        ("SUPPORTING SCHEDULE 1: PAYROLL & BENEFITS", "Officer Salaries, Health Insurance & 401(k) Accruals"),
+        ("SUPPORTING SCHEDULE 2: TAX ESCROWS", "Federal & State Income Tax Apportionment"),
+        ("SUPPORTING SCHEDULE 3: LEGAL & PROFESSIONAL", "Audit, Tax Preparation, and Retainer Fees"),
+        ("SUPPORTING SCHEDULE 4: OFFICE OCCUPANCY", "Lease Obligations & Evanston HQ Utility Expenses"),
+        ("SUPPORTING SCHEDULE 5: INSURANCE & RISK", "Master Property & Casualty Portfolio Coverage"),
+    ]
+
+    for title, subtitle in jennings_pages:
+        el.append(PageBreak())
+        el.append(Paragraph("JENNINGS REALTY, INC. AND SUBSIDIARIES", st["title"]))
+        el.append(Paragraph(title, st["title"]))
+        el.append(Paragraph(subtitle, st["sub"]))
+        
+        # Generic Jim-style Table with "Missing" operational metrics
+        mock_data = [
+            [Paragraph("Line Item / Description", st["bold"]), Paragraph("Current Period", st["right_bold"]), Paragraph("Prior Year", st["right_bold"]), Paragraph("Status / Notes", st["right_bold"])],
+            [Paragraph("Detailed Schedule Metrics", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Not tracked in GL", st["right"])],
+            [Paragraph("Operational Activity & Breakdowns", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Source document only", st["right"])],
+            [Paragraph("Intercompany / Partner Verification", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Manual compilation", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL RECONCILED</b>", st["bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Pending Input</b>", st["right_bold"])],
+        ]
+        t_mock = Table(mock_data, colWidths=[200, 100, 100, 130])
+        t_mock.setStyle(TableStyle([
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+            ('TOPPADDING', (0, 0), (-1, -1), 2),
+            ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+            ('LINEBELOW', (0, -1), (-1, -1), 1.5, colors.black),
+            ('LINEABOVE', (0, -1), (-1, -1), 0.5, colors.black),
+        ]))
+        el.append(t_mock)
+
     doc.build(el)
-    return "Jennings Realty, Inc. Replica Complete"
+    return "Jennings Realty, Inc. Replica (25 Pages) Complete"
 
 # -------------------------------------------------------------
 # Worker 2: The Bluffs MH & RV Resort CFO Report
@@ -161,8 +238,51 @@ def build_the_bluffs():
     st = get_base_styles()
     el = []
 
-    el.append(Paragraph("THE BLUFFS MH AND RV RESORT LLC", st["title"]))
-    el.append(Paragraph("STATEMENT OF EARNINGS & OPERATING EXPENSES", st["title"]))
+    # Page 1: Balance Sheet
+    el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
+    el.append(Paragraph("BALANCE SHEET", st["title"]))
+    el.append(Paragraph("JUNE 30, 2026 vs. JUNE 30, 2025", st["sub"]))
+
+    bs_data = [
+        [Paragraph("Category", st["bold"]), "", Paragraph("6/30/2026", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"])],
+        [Paragraph("<b>PROPERTY & EQUIPMENT</b>", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;LAND & IMPROVEMENTS", st["reg"]), "", Paragraph("4,150,000", st["right"]), Paragraph("4,150,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;BUILDINGS & RESORT AMENITIES", st["reg"]), "", Paragraph("2,380,000", st["right"]), Paragraph("2,380,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), "", Paragraph("(450,000)", st["right"]), Paragraph("(320,000)", st["right"])],
+        ["", "", Paragraph("6,080,000", st["right_bold"]), Paragraph("6,210,000", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>OTHER ASSETS</b>", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;CASH & OPERATING RESERVES", st["reg"]), "", Paragraph("285,000", st["right"]), Paragraph("210,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS RECEIVABLE & PREPAIDS", st["reg"]), "", Paragraph("45,000", st["right"]), Paragraph("35,000", st["right"])],
+        ["", "", Paragraph("330,000", st["right_bold"]), Paragraph("245,000", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>6,410,000</b>", st["right_bold"]), Paragraph("<b>6,455,000</b>", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>LIABILITIES & EQUITY</b>", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;CURRENT LIABILITIES & DEPOSITS", st["reg"]), "", Paragraph("125,000", st["right"]), Paragraph("110,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;MORTGAGE NOTE PAYABLE (LONG TERM)", st["reg"]), "", Paragraph("3,850,000", st["right"]), Paragraph("3,950,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;MEMBERS' CAPITAL & RETAINED EARNINGS", st["reg"]), "", Paragraph("2,435,000", st["right"]), Paragraph("2,395,000", st["right"])],
+        ["", "", "", ""],
+        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), "", Paragraph("<b>6,410,000</b>", st["right_bold"]), Paragraph("<b>6,455,000</b>", st["right_bold"])],
+    ]
+    t_bs = Table(bs_data, colWidths=[280, 20, 115, 115])
+    t_bs.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 1.5),
+        ('TOPPADDING', (0, 0), (-1, -1), 1.5),
+        ('LINEBELOW', (2, 0), (3, 0), 1, colors.black),
+        ('LINEBELOW', (2, 5), (3, 5), 0.5, colors.black),
+        ('LINEBELOW', (2, 10), (3, 10), 0.5, colors.black),
+        ('LINEBELOW', (2, 12), (3, 12), 1.5, colors.black),
+        ('LINEABOVE', (2, 12), (3, 12), 0.5, colors.black),
+        ('LINEBELOW', (2, 18), (3, 18), 1.5, colors.black),
+        ('LINEABOVE', (2, 18), (3, 18), 0.5, colors.black),
+    ]))
+    el.append(t_bs)
+
+    # Page 2: P&L
+    el.append(PageBreak())
+    el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
+    el.append(Paragraph("STATEMENT OF INCOME AND RETAINED EARNINGS", st["title"]))
     el.append(Paragraph("SIX MONTHS ENDED JUNE 30, 2026 vs. JUNE 30, 2025", st["sub"]))
 
     data = [
@@ -196,8 +316,39 @@ def build_the_bluffs():
         ('LINEABOVE', (2, 15), (3, 15), 0.5, colors.black),
     ]))
     el.append(t)
+
+    # Page 3: Operating Expense Analysis
+    el.append(PageBreak())
+    el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
+    el.append(Paragraph("OPERATING EXPENSE ANALYSIS", st["title"]))
+    el.append(Paragraph("SIX MONTHS ENDED JUNE 30, 2026", st["sub"]))
+
+    exp_data = [
+        [Paragraph("Expense Category", st["bold"]), Paragraph("6/30/2026", st["right_bold"]), Paragraph("% of Rev", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"]), Paragraph("% of Rev", st["right_bold"])],
+        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), Paragraph("523,411", st["right_bold"]), Paragraph("100.0%", st["right_bold"]), Paragraph("485,200", st["right_bold"]), Paragraph("100.0%", st["right_bold"])],
+        [Paragraph("ADVERTISING", st["reg"]), Paragraph("5,210", st["right"]), Paragraph("1.00%", st["right"]), Paragraph("4,800", st["right"]), Paragraph("0.99%", st["right"])],
+        [Paragraph("INSURANCE", st["reg"]), Paragraph("18,400", st["right"]), Paragraph("3.52%", st["right"]), Paragraph("16,500", st["right"]), Paragraph("3.40%", st["right"])],
+        [Paragraph("MANAGEMENT FEES (4.0%)", st["bold"]), Paragraph("20,062", st["right_bold"]), Paragraph("3.83%", st["right_bold"]), Paragraph("19,400", st["right_bold"]), Paragraph("4.00%", st["right_bold"])],
+        [Paragraph("PAYROLL - OFFICE & MAINT", st["reg"]), Paragraph("41,349", st["right"]), Paragraph("7.90%", st["right"]), Paragraph("38,500", st["right"]), Paragraph("7.93%", st["right"])],
+        [Paragraph("REAL ESTATE TAXES", st["reg"]), Paragraph("28,500", st["right"]), Paragraph("5.44%", st["right"]), Paragraph("26,000", st["right"]), Paragraph("5.36%", st["right"])],
+        [Paragraph("REPAIRS & MAINTENANCE", st["reg"]), Paragraph("33,429", st["right"]), Paragraph("6.39%", st["right"]), Paragraph("30,400", st["right"]), Paragraph("6.27%", st["right"])],
+        [Paragraph("UTILITIES (ELECTRIC, WATER)", st["reg"]), Paragraph("32,117", st["right"]), Paragraph("6.14%", st["right"]), Paragraph("29,800", st["right"]), Paragraph("6.14%", st["right"])],
+        ["", "", "", "", ""],
+        [Paragraph("<b>TOTAL OPERATING EXPENSE</b>", st["bold"]), Paragraph("<b>179,067</b>", st["right_bold"]), Paragraph("<b>34.21%</b>", st["right_bold"]), Paragraph("<b>165,400</b>", st["right_bold"]), Paragraph("<b>34.09%</b>", st["right_bold"])],
+    ]
+    t_exp = Table(exp_data, colWidths=[200, 75, 65, 75, 65])
+    t_exp.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (0, 1), (-1, 1), 0.5, colors.black),
+        ('LINEBELOW', (0, -1), (-1, -1), 1.5, colors.black),
+        ('LINEABOVE', (0, -1), (-1, -1), 0.5, colors.black),
+    ]))
+    el.append(t_exp)
+
     doc.build(el)
-    return "The Bluffs MH & RV Resort Replica Complete"
+    return "The Bluffs MH & RV Resort Replica (3 Pages) Complete"
 
 # -------------------------------------------------------------
 # Worker 3: Lakeview Mobile Home Park CFO Report
@@ -208,8 +359,52 @@ def build_lakeview():
     st = get_base_styles()
     el = []
 
-    el.append(Paragraph("LAKEVIEW MOBILE HOME PARK PARTNERSHIP", st["title"]))
-    el.append(Paragraph("STATEMENT OF EARNINGS & OPERATIONS", st["title"]))
+    # Page 1: Balance Sheet
+    el.append(Paragraph("LAKE VIEW MOBILE HOME PARK PARTNERSHIP", st["title"]))
+    el.append(Paragraph("BALANCE SHEET", st["title"]))
+    el.append(Paragraph("MARCH 31, 2026 vs. MARCH 31, 2025", st["sub"]))
+
+    bs_data = [
+        [Paragraph("Category", st["bold"]), "", Paragraph("3/31/2026", st["right_bold"]), Paragraph("3/31/2025", st["right_bold"])],
+        [Paragraph("<b>PROPERTY & EQUIPMENT</b>", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;LAND & LOT SITES", st["reg"]), "", Paragraph("3,200,000", st["right"]), Paragraph("3,200,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;COMMUNITY INFRASTRUCTURE", st["reg"]), "", Paragraph("4,150,000", st["right"]), Paragraph("4,150,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), "", Paragraph("(1,850,000)", st["right"]), Paragraph("(1,650,000)", st["right"])],
+        ["", "", Paragraph("5,500,000", st["right_bold"]), Paragraph("5,700,000", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>OTHER ASSETS</b>", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;CASH - FIRST MIDWEST & OPERATING", st["reg"]), "", Paragraph("549,886", st["right"]), Paragraph("480,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS RECEIVABLE", st["reg"]), "", Paragraph("35,000", st["right"]), Paragraph("28,000", st["right"])],
+        ["", "", Paragraph("584,886", st["right_bold"]), Paragraph("508,000", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>6,084,886</b>", st["right_bold"]), Paragraph("<b>6,208,000</b>", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>LIABILITIES & PARTNERS' CAPITAL</b>", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE & ACCRUALS", st["reg"]), "", Paragraph("85,000", st["right"]), Paragraph("75,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;SECURITY DEPOSITS HELD", st["reg"]), "", Paragraph("42,000", st["right"]), Paragraph("40,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;MORTGAGES PAYABLE", st["reg"]), "", Paragraph("3,150,000", st["right"]), Paragraph("3,300,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;PARTNERS' CAPITAL", st["reg"]), "", Paragraph("2,807,886", st["right"]), Paragraph("2,793,000", st["right"])],
+        ["", "", "", ""],
+        [Paragraph("<b>TOTAL LIABILITIES & CAPITAL</b>", st["bold"]), "", Paragraph("<b>6,084,886</b>", st["right_bold"]), Paragraph("<b>6,208,000</b>", st["right_bold"])],
+    ]
+    t_bs = Table(bs_data, colWidths=[280, 20, 115, 115])
+    t_bs.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 1.5),
+        ('TOPPADDING', (0, 0), (-1, -1), 1.5),
+        ('LINEBELOW', (2, 0), (3, 0), 1, colors.black),
+        ('LINEBELOW', (2, 5), (3, 5), 0.5, colors.black),
+        ('LINEBELOW', (2, 10), (3, 10), 0.5, colors.black),
+        ('LINEBELOW', (2, 12), (3, 12), 1.5, colors.black),
+        ('LINEABOVE', (2, 12), (3, 12), 0.5, colors.black),
+        ('LINEBELOW', (2, 18), (3, 18), 1.5, colors.black),
+        ('LINEABOVE', (2, 18), (3, 18), 0.5, colors.black),
+    ]))
+    el.append(t_bs)
+
+    # Page 2: Statement of Income
+    el.append(PageBreak())
+    el.append(Paragraph("LAKE VIEW MOBILE HOME PARK PARTNERSHIP", st["title"]))
+    el.append(Paragraph("STATEMENT OF INCOME AND PARTNERS' CAPITAL", st["title"]))
     el.append(Paragraph("Q1 THREE MONTHS ENDED MARCH 31, 2026 vs. MARCH 31, 2025", st["sub"]))
 
     data = [
@@ -223,6 +418,9 @@ def build_lakeview():
         [Paragraph("&nbsp;&nbsp;REAL ESTATE TAXES & INSURANCE", st["reg"]), "", Paragraph("145,777", st["right"]), Paragraph("135,600", st["right"])],
         ["", "", "", ""],
         [Paragraph("<b>NET OPERATING INCOME (NOI)</b>", st["bold"]), "", Paragraph("<b>411,073</b>", st["right_bold"]), Paragraph("<b>397,200</b>", st["right_bold"])],
+        [Paragraph("DEPRECIATION & INTEREST", st["reg"]), "", Paragraph("(125,000)", st["right"]), Paragraph("(130,000)", st["right"])],
+        ["", "", "", ""],
+        [Paragraph("<b>NET INCOME</b>", st["bold"]), "", Paragraph("<b>286,073</b>", st["right_bold"]), Paragraph("<b>267,200</b>", st["right_bold"])],
     ]
     t = Table(data, colWidths=[280, 20, 115, 115])
     t.setStyle(TableStyle([
@@ -232,12 +430,67 @@ def build_lakeview():
         ('LINEBELOW', (2, 0), (3, 0), 1, colors.black),
         ('LINEBELOW', (2, 1), (3, 1), 1, colors.black),
         ('LINEBELOW', (2, 3), (3, 3), 1, colors.black),
-        ('LINEBELOW', (2, 9), (3, 9), 1.5, colors.black),
-        ('LINEABOVE', (2, 9), (3, 9), 0.5, colors.black),
+        ('LINEBELOW', (2, 9), (3, 9), 1, colors.black),
+        ('LINEBELOW', (2, 12), (3, 12), 1.5, colors.black),
+        ('LINEABOVE', (2, 12), (3, 12), 0.5, colors.black),
     ]))
     el.append(t)
+
+    # Page 3: Operating Expense Comparative Analysis
+    el.append(PageBreak())
+    el.append(Paragraph("LAKEVIEW MOBILE HOME PARK", st["title"]))
+    el.append(Paragraph("OPERATING EXPENSE COMPARATIVE ANALYSIS", st["title"]))
+    el.append(Paragraph("PERIOD ENDED MARCH 31, 2026 vs. MARCH 31, 2025", st["sub"]))
+
+    exp_data = [
+        [Paragraph("Expense Category", st["bold"]), Paragraph("3/31/2026", st["right_bold"]), Paragraph("% of Rev", st["right_bold"]), Paragraph("3/31/2025", st["right_bold"]), Paragraph("% of Rev", st["right_bold"])],
+        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), Paragraph("849,958", st["right_bold"]), Paragraph("100.0%", st["right_bold"]), Paragraph("812,400", st["right_bold"]), Paragraph("100.0%", st["right_bold"])],
+        [Paragraph("MANAGEMENT FEES (5.0%)", st["bold"]), Paragraph("42,498", st["right_bold"]), Paragraph("5.00%", st["right_bold"]), Paragraph("40,600", st["right_bold"]), Paragraph("5.00%", st["right_bold"])],
+        [Paragraph("WATER & SEWER", st["reg"]), Paragraph("85,210", st["right"]), Paragraph("10.03%", st["right"]), Paragraph("81,000", st["right"]), Paragraph("9.97%", st["right"])],
+        [Paragraph("COMMUNITY PAYROLL", st["reg"]), Paragraph("165,400", st["right"]), Paragraph("19.46%", st["right"]), Paragraph("158,000", st["right"]), Paragraph("19.45%", st["right"])],
+        [Paragraph("REAL ESTATE TAXES", st["reg"]), Paragraph("110,000", st["right"]), Paragraph("12.94%", st["right"]), Paragraph("105,000", st["right"]), Paragraph("12.92%", st["right"])],
+        [Paragraph("INSURANCE", st["reg"]), Paragraph("35,777", st["right"]), Paragraph("4.21%", st["right"]), Paragraph("30,600", st["right"]), Paragraph("3.77%", st["right"])],
+        ["", "", "", "", ""],
+        [Paragraph("<b>TOTAL OPERATING EXPENSES</b>", st["bold"]), Paragraph("<b>438,885</b>", st["right_bold"]), Paragraph("<b>51.64%</b>", st["right_bold"]), Paragraph("<b>415,200</b>", st["right_bold"]), Paragraph("<b>51.11%</b>", st["right_bold"])],
+    ]
+    t_exp = Table(exp_data, colWidths=[200, 75, 65, 75, 65])
+    t_exp.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (0, 1), (-1, 1), 0.5, colors.black),
+        ('LINEBELOW', (0, -1), (-1, -1), 1.5, colors.black),
+        ('LINEABOVE', (0, -1), (-1, -1), 0.5, colors.black),
+    ]))
+    el.append(t_exp)
+
+    # Page 4: Utilities Detail
+    el.append(PageBreak())
+    el.append(Paragraph("LAKEVIEW MOBILE HOME PARK", st["title"]))
+    el.append(Paragraph("UTILITIES DETAIL & PASS-THROUGH ANALYSIS", st["title"]))
+    el.append(Paragraph("FIRST QUARTER 2026 (JANUARY - MARCH)", st["sub"]))
+
+    util_data = [
+        [Paragraph("Utility Category", st["bold"]), Paragraph("Jan-26", st["right_bold"]), Paragraph("Feb-26", st["right_bold"]), Paragraph("Mar-26", st["right_bold"]), Paragraph("TOTAL Q1", st["right_bold"])],
+        [Paragraph("WATER CONSUMPTION", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
+        [Paragraph("SEWER CHARGES", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
+        [Paragraph("ELECTRIC PASS-THROUGH", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
+        [Paragraph("TRASH / REFUSE DISPOSAL", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
+        ["", "", "", "", ""],
+        [Paragraph("<b>TOTAL UTILITY COST</b>", st["bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"])],
+    ]
+    t_ut = Table(util_data, colWidths=[180, 80, 80, 80, 80])
+    t_ut.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (0, -1), (-1, -1), 1.5, colors.black),
+        ('LINEABOVE', (0, -1), (-1, -1), 0.5, colors.black),
+    ]))
+    el.append(t_ut)
+
     doc.build(el)
-    return "Lakeview Mobile Home Park Replica Complete"
+    return "Lakeview Mobile Home Park Replica (4 Pages) Complete"
 
 # -------------------------------------------------------------
 # Modular Wrappers for Complete Multi-Core Parallel Execution

@@ -202,15 +202,15 @@ def build_pdf():
     el.append(t_pnl)
 
     # ==========================================
-    # PAGE 3: OPERATING EXPENSE COMPARATIVE ANALYSIS
+    # PAGE 3: OPERATING EXPENSE COMPARATIVE ANALYSIS (PART 1)
     # ==========================================
     el.append(PageBreak())
     el.append(Paragraph("MADISON RV RESORT & JET SITES B (GOLF COURSE)", st["title"]))
-    el.append(Paragraph("OPERATING EXPENSE COMPARATIVE ANALYSIS", st["title"]))
+    el.append(Paragraph("OPERATING EXPENSE COMPARATIVE ANALYSIS — PART 1", st["title"]))
     el.append(Paragraph("QUARTER ENDED MARCH 31, 2026", st["sub"]))
     el.append(Paragraph("ASSETS ACQUIRED OCTOBER 22, 2024", st["note"]))
 
-    exp_data = [
+    exp_data_p1 = [
         [
             Paragraph("<b>Expense Category</b>", st["bold"]),
             Paragraph("Total ($)", st["micro_hdr"]),
@@ -234,6 +234,41 @@ def build_pdf():
         [Paragraph("GOLF CART RENTAL EXPENSE", st["micro_reg"]), Paragraph("11,541", st["micro_right"]), Paragraph("3.37%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("11,541", st["micro_right"]), Paragraph("7.70%", st["micro_right"]), Paragraph("11,541", st["micro_right"]), Paragraph("10.51%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"])],
         [Paragraph("INSURANCE", st["micro_reg"]), Paragraph("11,344", st["micro_right"]), Paragraph("3.32%", st["micro_right"]), Paragraph("8,723", st["micro_right"]), Paragraph("4.54%", st["micro_right"]), Paragraph("2,621", st["micro_right"]), Paragraph("1.75%", st["micro_right"]), Paragraph("2,621", st["micro_right"]), Paragraph("2.39%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"])],
         [Paragraph("MANAGEMENT FEES (4.0%)", st["micro_bold"]), Paragraph("13,681", st["micro_right_bold"]), Paragraph("4.00%", st["micro_right_bold"]), Paragraph("7,684", st["micro_right_bold"]), Paragraph("4.00%", st["micro_right_bold"]), Paragraph("5,997", st["micro_right_bold"]), Paragraph("4.00%", st["micro_right_bold"]), Paragraph("4,393", st["micro_right_bold"]), Paragraph("4.00%", st["micro_right_bold"]), Paragraph("1,604", st["micro_right_bold"]), Paragraph("4.00%", st["micro_right_bold"])],
+    ]
+
+    t_exp_p1 = Table(exp_data_p1, colWidths=[120, 42, 38, 42, 38, 42, 38, 42, 38, 42, 38])
+    t_exp_p1.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
+        ('TOPPADDING', (0, 0), (-1, -1), 1),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (0, 1), (-1, 1), 0.5, colors.black),
+        ('LINEBELOW', (0, -1), (-1, -1), 1, colors.black),
+    ]))
+    el.append(t_exp_p1)
+
+    # ==========================================
+    # PAGE 4: OPERATING EXPENSE COMPARATIVE ANALYSIS (PART 2 & TOTALS)
+    # ==========================================
+    el.append(PageBreak())
+    el.append(Paragraph("MADISON RV RESORT & JET SITES B (GOLF COURSE)", st["title"]))
+    el.append(Paragraph("OPERATING EXPENSE COMPARATIVE ANALYSIS — PART 2 & TOTALS", st["title"]))
+    el.append(Paragraph("QUARTER ENDED MARCH 31, 2026", st["sub"]))
+    el.append(Paragraph("ASSETS ACQUIRED OCTOBER 22, 2024", st["note"]))
+
+    exp_data_p2 = [
+        [
+            Paragraph("<b>Expense Category (Continued)</b>", st["bold"]),
+            Paragraph("Total ($)", st["micro_hdr"]),
+            Paragraph("% Rev", st["micro_hdr"]),
+            Paragraph("RV Resort", st["micro_hdr"]),
+            Paragraph("% Rev", st["micro_hdr"]),
+            Paragraph("Golf Total", st["micro_hdr"]),
+            Paragraph("% Rev", st["micro_hdr"]),
+            Paragraph("Golf Ops", st["micro_hdr"]),
+            Paragraph("% Rev", st["micro_hdr"]),
+            Paragraph("F&B", st["micro_hdr"]),
+            Paragraph("% Rev", st["micro_hdr"]),
+        ],
         [Paragraph("PAYROLL — HOUSEKEEPING", st["micro_reg"]), Paragraph("3,079", st["micro_right"]), Paragraph("0.90%", st["micro_right"]), Paragraph("3,079", st["micro_right"]), Paragraph("1.60%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"])],
         [Paragraph("PAYROLL — OFFICE", st["micro_reg"]), Paragraph("38,193", st["micro_right"]), Paragraph("11.17%", st["micro_right"]), Paragraph("38,193", st["micro_right"]), Paragraph("19.88%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"])],
         [Paragraph("PAYROLL — RV GROUNDS", st["micro_reg"]), Paragraph("20,124", st["micro_right"]), Paragraph("5.88%", st["micro_right"]), Paragraph("20,124", st["micro_right"]), Paragraph("10.48%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"]), Paragraph("0", st["micro_right"]), Paragraph("0.00%", st["micro_right"])],
@@ -248,16 +283,16 @@ def build_pdf():
         [Paragraph("<b>TOTAL OPERATING EXPENSE</b>", st["bold"]), Paragraph("<b>317,615</b>", st["micro_right_bold"]), Paragraph("<b>92.86%</b>", st["micro_right_bold"]), Paragraph("<b>168,748</b>", st["micro_right_bold"]), Paragraph("<b>87.84%</b>", st["micro_right_bold"]), Paragraph("<b>148,867</b>", st["micro_right_bold"]), Paragraph("<b>99.29%</b>", st["micro_right_bold"]), Paragraph("<b>103,815</b>", st["micro_right_bold"]), Paragraph("<b>94.53%</b>", st["micro_right_bold"]), Paragraph("<b>45,052</b>", st["micro_right_bold"]), Paragraph("<b>112.33%</b>", st["micro_right_bold"])],
     ]
 
-    t_exp = Table(exp_data, colWidths=[120, 42, 38, 42, 38, 42, 38, 42, 38, 42, 38])
-    t_exp.setStyle(TableStyle([
+    t_exp_p2 = Table(exp_data_p2, colWidths=[120, 42, 38, 42, 38, 42, 38, 42, 38, 42, 38])
+    t_exp_p2.setStyle(TableStyle([
         ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
         ('TOPPADDING', (0, 0), (-1, -1), 1),
         ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
-        ('LINEBELOW', (0, 1), (-1, 1), 0.5, colors.black),
-        ('LINEBELOW', (0, 21), (-1, 21), 1.5, colors.black),
-        ('LINEABOVE', (0, 21), (-1, 21), 0.5, colors.black),
+        ('LINEBELOW', (0, 10), (-1, 10), 0.5, colors.black),
+        ('LINEBELOW', (0, 12), (-1, 12), 1.5, colors.black),
+        ('LINEABOVE', (0, 12), (-1, 12), 0.5, colors.black),
     ]))
-    el.append(t_exp)
+    el.append(t_exp_p2)
 
     doc.build(el)
     print(f"✅ Generated Complete Madison CFO Replica PDF: {OUTPUT_PDF}")
