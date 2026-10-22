@@ -33,14 +33,22 @@ def run_pipeline(push_to_cloud=True):
     print("JENNINGS REALTY — AUTOMATED DAILY SKYLINE FINANCIAL PIPELINE")
     print("=" * 80)
 
-    # Step 1: Check SMB Mount & Delta Sync
+    # Step 1: Check SMB Mount & Delta Sync from Live Mapped Share
     if os.path.exists(SMB_MOUNT):
-        log("Live Skyline share is mounted at /Volumes/skyline$. Running high-speed delta sync...", "🔄")
+        log(f"🟢 LIVE MAPPED DRIVE DETECTED at {SMB_MOUNT}", "🔗")
+        log("Checking for newly posted transactions on Windows server...", "🔄")
         t0 = time.time()
+        # 1a. Fast parallel delta sync of modified GL files (16 threads)
         res_sync = subprocess.run([sys.executable, "fast_skyline_sync.py"], capture_output=True, text=True)
-        log(f"Delta sync complete in {time.time() - t0:.2f}s", "✅")
+        # 1b. Ingest newly updated ledger files into local production SQLite database
+        res_extract = subprocess.run([sys.executable, "extract_live_mapped_skyline.py"], capture_output=True, text=True)
+        # 1c. Refresh prior-year history buckets
+        subprocess.run([sys.executable, "load_charthst_and_audit.py"], capture_output=True, text=True)
+        log(f"Live Skyline mapped drive sync & ETL complete in {time.time() - t0:.2f}s", "✅")
     else:
-        log("Live Skyline SMB share not currently mounted. Proceeding with existing local database mirror...", "ℹ️")
+        log("🟡 MAPPED DRIVE OFFLINE: /Volumes/skyline$ is not currently mounted.", "⚠️")
+        log("To connect to live server: Connect to office network/VPN and mount 'smb://172.17.21.167/skyline$'.", "ℹ️")
+        log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")
 
     # Step 2: Compile All 12 Master CFO Replica Packages in Parallel
     log("Compiling all 12 Master CFO PDF Replica Packages across CPU cores...", "⚙️")
