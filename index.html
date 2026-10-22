@@ -810,6 +810,7 @@ function selectEntity(idx) {
     renderContent();
     updateIframes();
     if (currentViewMode === 'visual') renderVisualProView();
+    if (currentViewMode === 'northstar') renderNorthStarView();
 }
 
 function setViewMode(mode) {
@@ -832,14 +833,13 @@ function setViewMode(mode) {
     fullPdfPane.classList.toggle('active', mode === 'skyline_pdf');
     northStarPane.style.display = (mode === 'northstar') ? 'block' : 'none';
 
+    updateIframes();
+
     const e = entities[selectedIdx];
     if (mode === 'split') {
-        updateIframes();
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
     } else if (mode === 'skyline_pdf') {
-        document.getElementById('skylineFullIframe').src = e.pdf + "#view=FitH";
-        document.getElementById('popoutFullReplicaBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Fullscreen';
     } else if (mode === 'visual') {
@@ -858,12 +858,28 @@ function setViewMode(mode) {
 
 function updateIframes() {
     const e = entities[selectedIdx];
-    document.getElementById('jimIframe').src = e.jim_pdf + "#view=FitH";
-    document.getElementById('replicaIframe').src = e.pdf + "#view=FitH";
-    document.getElementById('popoutJimBtn').href = e.jim_pdf;
-    document.getElementById('popoutReplicaBtn').href = e.pdf;
-    document.getElementById('jimPdfBadge').innerText = e.pages + " Pages Original";
-    document.getElementById('replicaPdfBadge').innerText = e.pages + "/" + e.pages + " Exact Match";
+    if (!e) return;
+    const jimIframe = document.getElementById('jimIframe');
+    const replicaIframe = document.getElementById('replicaIframe');
+    const skylineFullIframe = document.getElementById('skylineFullIframe');
+
+    if (jimIframe) jimIframe.src = e.jim_pdf + "#view=FitH";
+    if (replicaIframe) replicaIframe.src = e.pdf + "#view=FitH";
+    if (skylineFullIframe) skylineFullIframe.src = e.pdf + "#view=FitH";
+
+    const popoutJimBtn = document.getElementById('popoutJimBtn');
+    const popoutReplicaBtn = document.getElementById('popoutReplicaBtn');
+    const popoutFullReplicaBtn = document.getElementById('popoutFullReplicaBtn');
+
+    if (popoutJimBtn) popoutJimBtn.href = e.jim_pdf;
+    if (popoutReplicaBtn) popoutReplicaBtn.href = e.pdf;
+    if (popoutFullReplicaBtn) popoutFullReplicaBtn.href = e.pdf;
+
+    const jimPdfBadge = document.getElementById('jimPdfBadge');
+    const replicaPdfBadge = document.getElementById('replicaPdfBadge');
+
+    if (jimPdfBadge) jimPdfBadge.innerText = e.pages + " Pages Original";
+    if (replicaPdfBadge) replicaPdfBadge.innerText = e.pages + "/" + e.pages + " Exact Match";
 }
 
 function setVisualPage(pg) {
