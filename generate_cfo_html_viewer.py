@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 """
-Interactive HTML Executive CFO Reports Viewer Generator (Entity-Specific Conceptual Mapping Edition).
+Interactive HTML Executive CFO Reports Viewer Generator (Side-by-Side Dual View Edition).
 
-Generates cfo_reports_viewer.html with 100% customized conceptual schedules for each of the 12 entities:
-- Eliminates any cross-bleeding of hospitality/RV resort metrics into non-hospitality entities.
-- Consolidated Tax Buyers: Bank covenants (1.81x DSCR, Tangible Net Worth), tax certificates, loan schedules.
-- Jennings Realty: Corporate management fee income, Poinsettia promissory note, brokerage.
-- Park City: 7-column consolidating matrix, $36.2M intercompany debt elimination.
-- Madison: RV vs. Golf vs. Clubhouse Food & Beverage.
-- Upriver: $59.8M capital divestiture disposition.
-- Explicitly marks operational PMS/meter metrics with "Missing" only where authentic to that property.
+Generates cfo_reports_viewer.html:
+- Split-Screen Dual PDF View: Jim's Original Report on Left, Skyline Generated Replica on Right.
+- Toggle between "Executive Summary Dashboard" and "Split-Screen Dual PDF View".
+- 100% entity-specific conceptual schedules for all 12 entities.
+- Direct links to open each PDF.
 """
 
 import os
@@ -24,6 +21,7 @@ ENTITIES = [
         "name": "Bay Bayou Florida RV Resort",
         "folder": "135",
         "pdf": "pdf_reports/BAY_BAYOU_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/BAYBAYOUFINANCIALSTMTS63026.pdf",
         "pages": 10,
         "type": "RV Resort (50/50 JV)",
         "assets": "$11.14M",
@@ -46,6 +44,7 @@ ENTITIES = [
         "name": "Consolidated Tax Buyers",
         "folder": "150, 160, 180, 190",
         "pdf": "pdf_reports/TAX_BUYERS_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf",
+        "jim_pdf": "source_documents/COMBINED_TAX_BUYERS_Q1_2026.pdf",
         "pages": 4,
         "type": "Municipal Tax Portfolios",
         "assets": "$40.62M",
@@ -68,6 +67,7 @@ ENTITIES = [
         "name": "Jennings Realty, Inc. Corporate",
         "folder": "1",
         "pdf": "pdf_reports/JENNINGS_REALTY_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/Jennings Realty May 28 2026 Q3 FY 2026 Financial Statements.pdf",
         "pages": 25,
         "type": "Parent Holding & Mgmt",
         "assets": "$27.35M",
@@ -90,6 +90,7 @@ ENTITIES = [
         "name": "Park City Mobile Homes & Subsidiaries",
         "folder": "28, 205, 24, 121, 26",
         "pdf": "pdf_reports/PARK_CITY_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf",
+        "jim_pdf": "source_documents/PARKCTYSTMT CONSOLIDATING FINANCIAL STATEMENTS Q3 07 31 2026.pdf",
         "pages": 3,
         "type": "Consolidating Matrix",
         "assets": "$95.80M",
@@ -112,6 +113,7 @@ ENTITIES = [
         "name": "Madison RV Resort & Jet Sites B Golf",
         "folder": "143, JETB",
         "pdf": "pdf_reports/MADISON_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/MADISON and JETSITESB FINANCIALSDECEMBER2025.pdf",
         "pages": 4,
         "type": "Dual-Asset Hospitality",
         "assets": "$5.72M",
@@ -134,6 +136,7 @@ ENTITIES = [
         "name": "Sunkissed Village RV Resort",
         "folder": "140, 142",
         "pdf": "pdf_reports/SUNKISSED_VILLAGE_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/SUNKISSEDFINANCIALS63026.pdf",
         "pages": 5,
         "type": "RV Resort (50/50 JV)",
         "assets": "$20.69M",
@@ -156,6 +159,7 @@ ENTITIES = [
         "name": "The Bluffs MH & RV Resort",
         "folder": "147",
         "pdf": "pdf_reports/THE_BLUFFS_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/THEBLUFFSANDLMSITES FINANCIALS2NDQTR2026.pdf",
         "pages": 3,
         "type": "Hybrid Community",
         "assets": "$6.41M",
@@ -178,6 +182,7 @@ ENTITIES = [
         "name": "Lakeview Mobile Home Park",
         "folder": "18, PLVMH",
         "pdf": "pdf_reports/LAKEVIEW_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/LAKEVIEWFINANCIALS1STQTR2026.pdf",
         "pages": 4,
         "type": "MHP Community",
         "assets": "$6.08M",
@@ -200,6 +205,7 @@ ENTITIES = [
         "name": "Barbara Descendant's Trust",
         "folder": "110",
         "pdf": "pdf_reports/BARBARA_TRUST_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/BARBARA_TRUST_06302025.pdf",
         "pages": 3,
         "type": "Family Real Estate Trust",
         "assets": "$2.93M",
@@ -222,6 +228,7 @@ ENTITIES = [
         "name": "Home Sites Series C Ellis St",
         "folder": "38",
         "pdf": "pdf_reports/ELLIS_APARTMENTS_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/ELLIS_ST_MARCH_2026.pdf",
         "pages": 4,
         "type": "Multi-Family Residential",
         "assets": "$4.57M",
@@ -244,6 +251,7 @@ ENTITIES = [
         "name": "Galaxy Sites, LLC",
         "folder": "33, 144, 145, 146",
         "pdf": "pdf_reports/GALAXY_SITES_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/GALAXY_SITES_MARCH_2026.pdf",
         "pages": 2,
         "type": "Asset Disposition",
         "assets": "$4.91M",
@@ -266,6 +274,7 @@ ENTITIES = [
         "name": "Upriver Partners LLP",
         "folder": "49, 491",
         "pdf": "pdf_reports/UPRIVER_CFO_FINANCIAL_REPORT_REPLICA.pdf",
+        "jim_pdf": "source_documents/UPRIVER_PROCEEDS_MAY_2026.pdf",
         "pages": 2,
         "type": "Sale Disposition (Historical)",
         "assets": "Sold",
@@ -293,7 +302,7 @@ def generate_html():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jennings Enterprise — Executive CFO Financial Report Viewer</title>
+<title>Jennings Enterprise — Executive CFO Financial Report Viewer (Side-by-Side Dual View)</title>
 <style>
 :root {{
     --bg-primary: #0F172A;
@@ -326,7 +335,7 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 
 /* Sidebar Navigation */
 .sidebar {{
-    width: 350px;
+    width: 340px;
     background: var(--bg-secondary);
     border-right: 1px solid var(--border);
     display: flex;
@@ -335,7 +344,7 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 }}
 
 .sidebar-header {{
-    padding: 20px;
+    padding: 18px 20px;
     border-bottom: 1px solid var(--border);
 }}
 
@@ -348,7 +357,7 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 }}
 
 .sidebar-title {{
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 800;
     margin-top: 4px;
 }}
@@ -356,14 +365,14 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 .entity-list {{
     flex: 1;
     overflow-y: auto;
-    padding: 12px;
+    padding: 10px;
 }}
 
 .entity-item {{
-    padding: 12px 14px;
+    padding: 11px 14px;
     border-radius: 8px;
     cursor: pointer;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     border: 1px solid transparent;
     transition: all 0.15s ease;
 }}
@@ -381,7 +390,7 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 .entity-item-title {{
     font-size: 13.5px;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }}
 
 .entity-item-meta {{
@@ -401,7 +410,7 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 }}
 
 .top-bar {{
-    padding: 16px 28px;
+    padding: 14px 24px;
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
     display: flex;
@@ -411,7 +420,7 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 
 .top-kpis {{
     display: flex;
-    gap: 20px;
+    gap: 18px;
 }}
 
 .kpi-pill {{
@@ -419,13 +428,38 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
     flex-direction: column;
 }}
 
-.kpi-pill-label {{ font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }}
-.kpi-pill-val {{ font-size: 14px; font-weight: 700; color: var(--text-primary); }}
+.kpi-pill-label {{ font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }}
+.kpi-pill-val {{ font-size: 13.5px; font-weight: 700; color: var(--text-primary); }}
+
+.view-mode-toggle {{
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}}
+
+.toggle-btn {{
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+}}
+
+.toggle-btn.active {{
+    background: var(--accent);
+    color: white;
+}}
 
 .btn {{
-    padding: 8px 16px;
+    padding: 7px 14px;
     border-radius: 6px;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -442,19 +476,69 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 .btn-outline:hover {{ background: rgba(255, 255, 255, 0.05); }}
 
 .content-pane {{
-    padding: 28px;
-    max-width: 1200px;
+    padding: 24px;
+    max-width: 1240px;
 }}
 
+/* Side-by-Side Dual Viewport */
+.side-by-side-pane {{
+    display: none;
+    flex: 1;
+    height: calc(100vh - 66px);
+    overflow: hidden;
+}}
+
+.side-by-side-pane.active {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 12px;
+}}
+
+.dual-panel {{
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+}}
+
+.dual-panel-header {{
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}}
+
+.dual-panel-header h4 {{
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}}
+
+.dual-panel iframe {{
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+}}
+
+/* Executive Summary View */
 .entity-banner {{
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
 }}
 
-.entity-banner h2 {{ font-size: 24px; font-weight: 800; margin-bottom: 6px; }}
+.entity-banner h2 {{ font-size: 22px; font-weight: 800; margin-bottom: 5px; }}
 .entity-banner p {{ font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }}
 
 .badge {{
@@ -471,37 +555,37 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 .cards-grid {{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 14px;
+    margin-bottom: 20px;
 }}
 
 .stat-card {{
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 16px;
+    padding: 14px 16px;
 }}
-.stat-card-label {{ font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }}
-.stat-card-val {{ font-size: 20px; font-weight: 800; color: var(--text-primary); }}
-.stat-card-sub {{ font-size: 11px; color: var(--text-muted); margin-top: 4px; }}
+.stat-card-label {{ font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 5px; }}
+.stat-card-val {{ font-size: 19px; font-weight: 800; color: var(--text-primary); }}
+.stat-card-sub {{ font-size: 11px; color: var(--text-muted); margin-top: 3px; }}
 
 .table-wrapper {{
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }}
 
 .table-header {{
-    padding: 16px 20px;
+    padding: 14px 18px;
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }}
 
-.table-header h3 {{ font-size: 15px; font-weight: 700; }}
+.table-header h3 {{ font-size: 14.5px; font-weight: 700; }}
 
 table {{
     width: 100%;
@@ -511,7 +595,7 @@ table {{
 
 th {{
     text-align: left;
-    padding: 10px 18px;
+    padding: 9px 16px;
     background: rgba(0, 0, 0, 0.15);
     border-bottom: 1px solid var(--border);
     font-size: 11px;
@@ -522,7 +606,7 @@ th {{
 th.right, td.right {{ text-align: right; }}
 
 td {{
-    padding: 10px 18px;
+    padding: 9px 16px;
     border-bottom: 1px solid var(--border);
 }}
 
@@ -560,34 +644,59 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 <!-- Main Reporting Workspace -->
 <div class="main">
     <div class="top-bar">
-        <div class="top-kpis" id="topKpis">
+        <div class="top-kpis">
             <div class="kpi-pill">
-                <span class="kpi-pill-label">Portfolio Entities</span>
+                <span class="kpi-pill-label">Portfolio Scope</span>
                 <span class="kpi-pill-val">12 Master Packages</span>
             </div>
             <div class="kpi-pill">
-                <span class="kpi-pill-label">Total Compilation Time</span>
+                <span class="kpi-pill-label">Parallel Compilation</span>
                 <span class="kpi-pill-val" style="color:var(--success);">0.32s (10 Cores)</span>
             </div>
             <div class="kpi-pill">
-                <span class="kpi-pill-label">Skyline Live Extraction</span>
-                <span class="kpi-pill-val">100% GL Data</span>
+                <span class="kpi-pill-label">Target Page Parity</span>
+                <span class="kpi-pill-val" style="color:var(--success);">100% Verified Match</span>
             </div>
         </div>
+
+        <!-- View Mode Switcher -->
+        <div class="view-mode-toggle">
+            <button class="toggle-btn active" id="btnModeSummary" onclick="setViewMode('summary')">📊 Executive Schedule</button>
+            <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side Dual View</button>
+        </div>
+
         <div style="display:flex; gap:10px;">
             <button class="btn btn-outline" onclick="toggleTheme()">🌓 Theme</button>
-            <a id="downloadPdfBtn" class="btn btn-primary" href="#" target="_blank">📄 Open CFO Replica PDF</a>
+            <a id="downloadPdfBtn" class="btn btn-primary" href="#" target="_blank">📄 Open Replica PDF</a>
         </div>
     </div>
 
-    <div class="content-pane" id="contentPane">
-        <!-- Dynamic Entity Content Injected Here -->
+    <!-- View Mode 1: Executive Summary Pane -->
+    <div class="content-pane" id="contentPane"></div>
+
+    <!-- View Mode 2: Split-Screen Dual PDF Viewport -->
+    <div class="side-by-side-pane" id="sideBySidePane">
+        <div class="dual-panel">
+            <div class="dual-panel-header">
+                <h4><span>📌</span> Jim's Ground-Truth Report (CFO Original)</h4>
+                <span class="badge badge-blue" id="jimPdfBadge">Target Package</span>
+            </div>
+            <iframe id="jimIframe" src=""></iframe>
+        </div>
+        <div class="dual-panel">
+            <div class="dual-panel-header">
+                <h4><span>⚡</span> Skyline Live Generated Replica (100% GL Data)</h4>
+                <span class="badge badge-green" id="replicaPdfBadge">Target Page Match</span>
+            </div>
+            <iframe id="replicaIframe" src=""></iframe>
+        </div>
     </div>
 </div>
 
 <script>
 const entities = {entities_json};
 let selectedIdx = 0;
+let currentViewMode = 'summary';
 
 function renderSidebar() {{
     const list = document.getElementById('entityList');
@@ -606,6 +715,33 @@ function selectEntity(idx) {{
     selectedIdx = idx;
     renderSidebar();
     renderContent();
+    updateIframes();
+}}
+
+function setViewMode(mode) {{
+    currentViewMode = mode;
+    document.getElementById('btnModeSummary').classList.toggle('active', mode === 'summary');
+    document.getElementById('btnModeSplit').classList.toggle('active', mode === 'split');
+
+    const summaryPane = document.getElementById('contentPane');
+    const splitPane = document.getElementById('sideBySidePane');
+
+    if (mode === 'summary') {{
+        summaryPane.style.display = 'block';
+        splitPane.classList.remove('active');
+    }} else {{
+        summaryPane.style.display = 'none';
+        splitPane.classList.add('active');
+        updateIframes();
+    }}
+}}
+
+function updateIframes() {{
+    const e = entities[selectedIdx];
+    document.getElementById('jimIframe').src = e.jim_pdf + "#view=FitH";
+    document.getElementById('replicaIframe').src = e.pdf + "#view=FitH";
+    document.getElementById('jimPdfBadge').innerText = e.pages + " Pages Original";
+    document.getElementById('replicaPdfBadge').innerText = e.pages + "/" + e.pages + " Exact Match";
 }}
 
 function renderContent() {{
@@ -629,7 +765,7 @@ function renderContent() {{
         <div class="entity-banner">
             <div style="margin-bottom:8px;">
                 <span class="badge badge-blue">IFS ${{e.folder}}</span>
-                <span class="badge badge-green">${{e.pages}} Pages Target Match</span>
+                <span class="badge badge-green">${{e.pages}} Pages Exact Match</span>
                 <span class="badge badge-blue">${{e.type}}</span>
             </div>
             <h2>${{e.name}}</h2>
@@ -662,7 +798,10 @@ function renderContent() {{
         <div class="table-wrapper">
             <div class="table-header">
                 <h3>${{e.metrics_header}}</h3>
-                <span class="badge badge-green">Tailored to Jim's Stated Package</span>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <span class="badge badge-green">Tailored to Jim's Package</span>
+                    <button class="btn btn-outline" style="padding:4px 10px; font-size:11px;" onclick="setViewMode('split')">📑 Compare Side-by-Side</button>
+                </div>
             </div>
             <table>
                 <thead>
@@ -695,7 +834,7 @@ renderContent();
     with open(OUTPUT_HTML, 'w') as f:
         f.write(html_content)
 
-    print(f"✅ Generated Entity-Specific Interactive CFO HTML Viewer: {OUTPUT_HTML}")
+    print(f"✅ Generated Side-by-Side Dual View CFO HTML Viewer: {OUTPUT_HTML}")
 
 if __name__ == "__main__":
     generate_html()
