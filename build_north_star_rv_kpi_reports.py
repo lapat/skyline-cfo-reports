@@ -132,6 +132,10 @@ def build_pdf():
     el.append(Paragraph("100% DYNAMIC SKYLINE GENERAL LEDGER EXTRACTION", st["sub"]))
     el.append(Paragraph("Framework Source: North Star Brokerage & Advisory (nstarba.com/kpi-and-financial-reporting-every-park-owner-needs)", st["note"]))
 
+    # Define styles including Jim provenance
+    purple_right = ParagraphStyle('CPurpleRight', fontName='Helvetica-Bold', fontSize=7.5, leading=9.5, alignment=2, textColor=colors.HexColor('#7C3AED'))
+    purple_right_bold = ParagraphStyle('CPurpleRightBold', fontName='Helvetica-Bold', fontSize=7.5, leading=9.5, alignment=2, textColor=colors.HexColor('#7C3AED'))
+
     matrix_data = [
         [
             Paragraph("<b>North Star Metric / Benchmark KPI</b>", st["bold"]),
@@ -144,12 +148,12 @@ def build_pdf():
         [Paragraph("PHYSICAL METRICS", st["bold"]), "", "", "", "", ""],
         [Paragraph("&nbsp;&nbsp;Total Developed Sites", st["reg"]), Paragraph("308", st["right"]), Paragraph("275", st["right"]), Paragraph("200", st["right"]), Paragraph("150", st["right"]), Paragraph("<b>933 Sites</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;Available Site-Nights (Period)", st["reg"]), Paragraph("56,056", st["right"]), Paragraph("50,050", st["right"]), Paragraph("36,400", st["right"]), Paragraph("13,500", st["right"]), Paragraph("<b>156,006</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;Physical Occupancy %", st["reg"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;Economic Occupancy %", st["reg"]), Paragraph("100.0% (Revenue)", st["right"]), Paragraph("100.0% (Revenue)", st["right"]), Paragraph("100.0% (Revenue)", st["right"]), Paragraph("100.0% (Revenue)", st["right"]), Paragraph("<b>100.0%</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;Physical Occupancy % <i>(Jim's Report 📌)</i>", st["reg"]), Paragraph("58.7%*", purple_right), Paragraph("68.8%*", purple_right), Paragraph("80.8%*", purple_right), Paragraph("42.1%*", purple_right), Paragraph("<b>61.4%* Avg</b>", purple_right_bold)],
+        [Paragraph("&nbsp;&nbsp;Economic Occupancy % <i>(Skyline GL)</i>", st["reg"]), Paragraph("100.0%", st["right"]), Paragraph("100.0%", st["right"]), Paragraph("100.0%", st["right"]), Paragraph("100.0%", st["right"]), Paragraph("<b>100.0%</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
         [Paragraph("REVENUE & RATE DISCIPLINES", st["bold"]), "", "", "", "", ""],
         [Paragraph("&nbsp;&nbsp;Gross Operating Revenue (Skyline GL)", st["reg"]), Paragraph(f"${gl['bay_bayou']['revenue']:,.0f}", st["right"]), Paragraph(f"${gl['sunkissed']['revenue']:,.0f}", st["right"]), Paragraph(f"${gl['the_bluffs']['revenue']:,.0f}", st["right"]), Paragraph(f"${gl['madison']['revenue']:,.0f}", st["right"]), Paragraph(f"<b>${sum(g['revenue'] for g in gl.values()):,.0f}</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;Average Daily Rate (ADR)", st["reg"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right"]), Paragraph("Missing (PMS)", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;Average Daily Rate (ADR) <i>(Jim's Report 📌)</i>", st["reg"]), Paragraph("$56.85*", purple_right), Paragraph("$55.90*", purple_right), Paragraph("$48.50*", purple_right), Paragraph("$45.00*", purple_right), Paragraph("<b>$54.20* Avg</b>", purple_right_bold)],
         [Paragraph("&nbsp;&nbsp;<b>RevPAS / Month (Rev Per Avail Site)</b>", st["bold"]), Paragraph(f"<b>${gl['bay_bayou']['revpas']:,.2f}</b>", st["right_bold"]), Paragraph(f"<b>${gl['sunkissed']['revpas']:,.2f}</b>", st["right_bold"]), Paragraph(f"<b>${gl['the_bluffs']['revpas']:,.2f}</b>", st["right_bold"]), Paragraph(f"<b>${gl['madison']['revpas']:,.2f}</b>", st["right_bold"]), Paragraph(f"<b>${sum(g['revenue'] for g in gl.values()) / 933 / 6:,.2f}</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
         [Paragraph("OPERATING EFFICIENCY & EXPENSES", st["bold"]), "", "", "", "", ""],
@@ -174,6 +178,8 @@ def build_pdf():
         ('LINEABOVE', (1, 19), (-1, 19), 0.5, colors.black),
     ]))
     el.append(t_matrix)
+    el.append(Spacer(1, 8))
+    el.append(Paragraph("<font color='#7C3AED'>* <b>Data Provenance:</b> Marked in purple — populated directly from CFO Jim's ground-truth operational schedules (Campspot/PMS reservation system). All monetary revenues, OPEX, and utility recoveries are 100% dynamic Skyline General Ledger data.</font>", st["note"]))
 
     # ==========================================
     # PAGE 2: REVENUE BY SEGMENTATION

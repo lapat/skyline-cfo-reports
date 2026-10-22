@@ -470,6 +470,37 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
     font-weight: 700;
 }
 
+/* Jim CFO Provenance Badge */
+.jim-data {
+    color: #C084FC;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-end;
+}
+.jim-badge {
+    background: rgba(168, 85, 247, 0.25);
+    color: #E9D5FF;
+    border: 1px solid #A855F7;
+    font-size: 9.5px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.provenance-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 11.5px;
+    padding: 8px 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid var(--border);
+}
+
 /* Toast notification */
 .toast {
     position: fixed;
@@ -1105,6 +1136,12 @@ function renderNorthStarView() {
             <p>Standardized operational, rate discipline, and acquisition reporting aligned with the North Star Brokerage & Advisory framework (<a href="https://nstarba.com/kpi-and-financial-reporting-every-park-owner-needs/" target="_blank" style="color:var(--accent);">nstarba.com</a>). Every figure is computed dynamically from live Skyline General Ledger data.</p>
         </div>
 
+        <div class="provenance-legend">
+            <span><b>Data Provenance:</b></span>
+            <span>🟢 Standard / Green = 100% Live Skyline General Ledger Data</span>
+            <span>🟣 <span class="jim-badge">Jim 📌</span> = Jim's CFO Ground-Truth Schedules (PMS Reservation System)</span>
+        </div>
+
         <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Developed Sites</div>
@@ -1154,7 +1191,7 @@ function renderNorthStarView() {
                         <td class="right"><b>933 Sites</b></td>
                     </tr>
                     <tr>
-                        <td><b>Gross Operating Revenue</b></td>
+                        <td><b>Gross Operating Revenue (Skyline GL)</b></td>
                         <td class="right">$3,793,570</td>
                         <td class="right">$2,599,444</td>
                         <td class="right">$793,658</td>
@@ -1168,6 +1205,30 @@ function renderNorthStarView() {
                         <td class="right">$661.38</td>
                         <td class="right">$324.68</td>
                         <td class="right"><b>$1,309.70 Avg</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Physical Occupancy %</b> <i>(Jim's Report 📌)</i></td>
+                        <td class="right"><span class="jim-data">58.73% <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">68.84% <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">80.80% <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">42.10% <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data"><b>61.40% Avg</b> <span class="jim-badge">Jim 📌</span></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Average Daily Rate (ADR)</b> <i>(Jim's Report 📌)</i></td>
+                        <td class="right"><span class="jim-data">$56.85 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">$55.90 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">$48.50 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">$45.00 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data"><b>$54.20 Avg</b> <span class="jim-badge">Jim 📌</span></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Occupied & Rented Site-Nights</b> <i>(Jim's Report 📌)</i></td>
+                        <td class="right"><span class="jim-data">32,920 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">33,452 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">29,411 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data">5,683 <span class="jim-badge">Jim 📌</span></span></td>
+                        <td class="right"><span class="jim-data"><b>101,466 Total</b> <span class="jim-badge">Jim 📌</span></span></td>
                     </tr>
                     <tr>
                         <td>Operating Expenses (OPEX)</td>
@@ -1200,22 +1261,6 @@ function renderNorthStarView() {
                         <td class="right"><b>$-345,496</b></td>
                         <td class="right"><b>$-973,584</b></td>
                         <td class="right"><b>Annualizing $2.7M</b></td>
-                    </tr>
-                    <tr>
-                        <td>Physical Occupancy % (PMS / Campspot)</td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                    </tr>
-                    <tr>
-                        <td>Average Daily Rate (ADR)</td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
-                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
                     </tr>
                 </tbody>
             </table>
