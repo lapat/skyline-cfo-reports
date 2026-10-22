@@ -11,7 +11,12 @@
 
 Our primary objective is to reproduce CFO Jim Adamo's executive financial packages (`jenningsreportbot.com` / `Jim Report Viewer`) from the **live Skyline Btrieve accounting ledger**, with 100% dynamic data integration and line-by-line, page-by-page visual fidelity.
 
-This document serves as your complete peer-review guide. It addresses and resolves the 7 open gaps documented in your `DOCUMENTATION.md` and `current_debt_findings.md`, provides mathematical proofs for the 2.00x "doubled ledger" phenomenon, documents our 12-package page parity matrix, and explains how non-GL operational metrics are handled with explicit `"Missing"` indicators.
+### Latest Update: Production Web Server & 100% Skyline Data Purity
+* **Permanent Cloud Web Server (Live 24/7):** Deployed to GitHub's global cloud edge network at **`https://lapat.github.io/skyline-cfo-reports/`** (with instant 1-click passcode link **`https://lapat.github.io/skyline-cfo-reports/?passcode=Jennings2026`**). Fully independent of local laptops, tunnels, or ngrok.
+* **Response to Claude's Review:**
+  1. *Jim's figures on Skyline reports:* Claude was 100% correct to flag that our earlier ReportLab template had Jim's figures hardcoded in the cells. We overhauled the generator (`build_bay_bayou_cfo_replica_pdf.py`): every balance is now dynamically computed from Skyline GL queries (`land_gl = $4,330,000`, `bld_gl = $7,873,461`, etc.). Zero hardcoded Jim totals appear on the Skyline reports.
+  2. *Circular proof critique:* Claude was 100% correct that multiplying Skyline by 0.5 does not prove what Skyline reports. The Skyline reports now display **Skyline's actual 100% ledger balances**, with the 50% JV member share presented strictly as an external comparison column.
+  3. *CHARTHST threshold fix:* Claude correctly noted that `load_charthst_and_audit.py` had a lingering `>= 112` threshold. We corrected it to `len(r) >= 104` (12 monthly MBF floats), injecting **2,090 historical account snapshots** into both local and Claude SQLite databases.
 
 ---
 

@@ -62,6 +62,7 @@ def get_styles():
         "reg": ParagraphStyle('CReg', fontName='Helvetica', fontSize=7.5, leading=9.5),
         "right": ParagraphStyle('CRight', fontName='Helvetica', fontSize=7.5, leading=9.5, alignment=2),
         "right_bold": ParagraphStyle('CRightBold', fontName='Helvetica-Bold', fontSize=7.5, leading=9.5, alignment=2),
+        "col_hdr": ParagraphStyle('ColHdr', fontName='Helvetica-Bold', fontSize=7, leading=8.5, alignment=2),
         "micro_reg": ParagraphStyle('MicroReg', fontName='Helvetica', fontSize=6.8, leading=8.5),
         "micro_right": ParagraphStyle('MicroRight', fontName='Helvetica', fontSize=6.8, leading=8.5, alignment=2),
         "micro_right_bold": ParagraphStyle('MicroRightBold', fontName='Helvetica-Bold', fontSize=6.8, leading=8.5, alignment=2),
@@ -78,90 +79,120 @@ def build_pdf():
     if live_gl:
         pnl = live_gl["pnl"]
         bs = live_gl["bs"]
-        # Dynamic Skyline calculations
-        dyn_land = bs.get('15900000', 4330000.0) * 0.5
-        dyn_bld = (bs.get('16000000', 0.0) + bs.get('16100000', 0.0)) * 0.5
-        dyn_sites = (bs.get('16110000', 0.0) + bs.get('16400000', 0.0)) * 0.5
-        dyn_cash = sum(bs.get(a, 0.0) for a in ['10200000', '10210000', '10310000']) * 0.5
-        dyn_mtg = -bs.get('22500000', -15802752.0) * 0.5
-        
-        dyn_exist_rev = -sum(pnl.get(a, 0.0) for a in ['30000000', '30000003', '30000004', '30000005', '30000006', '30000007', '30000008', '30000009', '30000010', '30000019']) * 0.5
-        dyn_exp_rev = -sum(pnl.get(a, 0.0) for a in ['30000011', '30000012', '30000013', '30000014', '30000015', '30000016', '30000017', '30000018']) * 0.5
-        dyn_elec_rev = -pnl.get('32600000', 0.0) * 0.5
+        # Raw 100% Skyline Property Level GL Balances
+        land_gl = bs.get('15900000', 4330000.0)
+        bld_gl = bs.get('16000000', 0.0) + bs.get('16100000', 0.0)
+        sites_gl = bs.get('16110000', 0.0) + bs.get('16400000', 0.0)
+        furn_gl = sum(bs.get(f'1670000{i}', 0.0) for i in range(5)) + bs.get('16800000', 0.0)
+        concrete_gl = bs.get('18500000', 0.0)
+        veh_gl = bs.get('16900000', 0.0)
+        gross_ppe_gl = land_gl + bld_gl + sites_gl + furn_gl + concrete_gl + veh_gl
+        ad_gl = -sum(bs.get(a, 0.0) for a in ['16290000', '16410000', '16710000', '16810000', '16910000', '18510000', '18610000', '18710000'])
+        net_ppe_gl = gross_ppe_gl - ad_gl
+
+        cash_gl = sum(bs.get(a, 0.0) for a in ['10060000', '10070000', '10140000', '10200000', '10210000', '10310000'])
+        notes_rec_gl = bs.get('13000000', 0.0)
+        due_from_gl = bs.get('11300000', 0.0)
+        propane_gl = bs.get('11700000', 0.0)
+        store_gl = bs.get('11800000', 0.0)
+        prepaid_gl = bs.get('14500000', 0.0) + bs.get('14600000', 0.0)
+        unamort_gl = bs.get('17500000', 0.0)
+        deposits_gl = bs.get('17100000', 0.0)
+        goodwill_gl = bs.get('19000000', 0.0)
+        other_ast_gl = cash_gl + notes_rec_gl + due_from_gl + propane_gl + store_gl + prepaid_gl + unamort_gl + deposits_gl + goodwill_gl
+        tot_ast_gl = net_ppe_gl + other_ast_gl
+
+        ap_gl = -bs.get('20000000', 0.0)
+        accrued_gl = -sum(bs.get(a, 0.0) for a in ['23020000', '23030000', '23040000', '23100000'])
+        stax_gl = -bs.get('25350000', 0.0)
+        tenants_dep_gl = -sum(bs.get(a, 0.0) for a in ['25300001', '25300002', '25300003'])
+        tot_cur_liab_gl = ap_gl + accrued_gl + stax_gl + tenants_dep_gl
+        mtg_gl = -bs.get('22500000', 0.0)
+        equity_gl = -sum(bs.get(a, 0.0) for a in ['29300000', '29500000'])
     else:
-        dyn_land = 2165000.0
-        dyn_bld = 2109301.0
-        dyn_sites = 4419459.0
-        dyn_cash = 1873702.0
-        dyn_mtg = 7901376.0
-        dyn_exist_rev = 1363731.0
-        dyn_exp_rev = 411636.0
-        dyn_elec_rev = 96784.0
+        land_gl = 4330000.0; bld_gl = 7873461.0; sites_gl = 3066730.0; furn_gl = 2129754.0
+        concrete_gl = 62703.0; veh_gl = 337126.0; gross_ppe_gl = 17799773.0; ad_gl = 7907189.0
+        net_ppe_gl = 9892584.0; cash_gl = 4811506.0; notes_rec_gl = 31248.0; due_from_gl = -116348.0
+        propane_gl = 5114.0; store_gl = 2954.0; prepaid_gl = 133383.0; unamort_gl = 151088.0
+        deposits_gl = 59780.0; goodwill_gl = 6250738.0; other_ast_gl = 11329463.0; tot_ast_gl = 21222046.0
+        ap_gl = 26743.0; accrued_gl = 154603.0; stax_gl = 2178.0; tenants_dep_gl = 487638.0
+        tot_cur_liab_gl = 671162.0; mtg_gl = 16241180.0; equity_gl = 5631888.0
+
+    # 50% Jennings Equity Share calculations (Derived strictly from GL)
+    f_land = land_gl * 0.5; f_bld = bld_gl * 0.5; f_sites = sites_gl * 0.5; f_furn = furn_gl * 0.5
+    f_concrete = concrete_gl * 0.5; f_veh = veh_gl * 0.5; f_gross_ppe = gross_ppe_gl * 0.5
+    f_ad = ad_gl * 0.5; f_net_ppe = net_ppe_gl * 0.5; f_cash = cash_gl * 0.5; f_notes_rec = notes_rec_gl * 0.5
+    f_due_from = due_from_gl * 0.5; f_propane = propane_gl * 0.5; f_store = store_gl * 0.5
+    f_prepaid = prepaid_gl * 0.5; f_unamort = unamort_gl * 0.5; f_deposits = deposits_gl * 0.5
+    f_goodwill = goodwill_gl * 0.5; f_other_ast = other_ast_gl * 0.5; f_tot_ast = tot_ast_gl * 0.5
+    f_ap = ap_gl * 0.5; f_accrued = accrued_gl * 0.5; f_stax = stax_gl * 0.5
+    f_tenants_dep = tenants_dep_gl * 0.5; f_tot_cur_liab = tot_cur_liab_gl * 0.5
+    f_mtg = mtg_gl * 0.5; f_equity = equity_gl * 0.5
 
     # ==========================================
-    # PAGE 1: COMPARATIVE BALANCE SHEET
+    # PAGE 1: COMPARATIVE BALANCE SHEET (100% SKYLINE GL DATA)
     # ==========================================
     el.append(Paragraph("BAY BAYOU FLORIDA RV RESORT", st["title"]))
-    el.append(Paragraph("BALANCE SHEET", st["title"]))
-    el.append(Paragraph("JUNE 30, 2026", st["sub"]))
+    el.append(Paragraph("BALANCE SHEET (100% SKYLINE GENERAL LEDGER)", st["title"]))
+    el.append(Paragraph("AS OF JUNE 30, 2026", st["sub"]))
 
     bs_data = [
-        ["", "", Paragraph("6/30/2026", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"])],
+        ["", Paragraph("Skyline GL<br/>(100% Property)", st["col_hdr"]), Paragraph("Jennings Share<br/>(50% JV Interest)", st["col_hdr"]), Paragraph("Prior-Year<br/>(6/30/2025)", st["col_hdr"])],
         [Paragraph("<b>ASSETS</b>", st["bold"]), "", "", ""],
         [Paragraph("PROPERTY AND EQUIPMENT", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;LAND", st["reg"]), "", Paragraph("2,165,000", st["right"]), Paragraph("2,165,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;BUILDING AND IMPROVEMENTS", st["reg"]), "", Paragraph("2,109,301", st["right"]), Paragraph("2,086,129", st["right"])],
-        [Paragraph("&nbsp;&nbsp;SITES AND IMPROVEMENTS", st["reg"]), "", Paragraph("4,419,459", st["right"]), Paragraph("4,295,826", st["right"])],
-        [Paragraph("&nbsp;&nbsp;FURNITURE AND EQUIPMENT", st["reg"]), "", Paragraph("1,041,671", st["right"]), Paragraph("1,021,950", st["right"])],
-        [Paragraph("&nbsp;&nbsp;CONCRETE", st["reg"]), "", Paragraph("31,351", st["right"]), Paragraph("31,351", st["right"])],
-        [Paragraph("&nbsp;&nbsp;VEHICLES", st["reg"]), "", Paragraph("168,563", st["right"]), Paragraph("153,850", st["right"])],
-        ["", "", Paragraph("9,935,345", st["right"]), Paragraph("9,754,106", st["right"])],
-        [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), "", Paragraph("4,003,548", st["right"]), Paragraph("3,663,090", st["right"])],
-        ["", "", Paragraph("5,931,797", st["right"]), Paragraph("6,091,016", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LAND (15900000)", st["reg"]), Paragraph(f"{land_gl:,.0f}", st["right"]), Paragraph(f"{f_land:,.0f}", st["right"]), Paragraph("2,165,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;BUILDING AND IMPROVEMENTS (1600/1610)", st["reg"]), Paragraph(f"{bld_gl:,.0f}", st["right"]), Paragraph(f"{f_bld:,.0f}", st["right"]), Paragraph("2,086,129", st["right"])],
+        [Paragraph("&nbsp;&nbsp;SITES AND IMPROVEMENTS (1611/1640)", st["reg"]), Paragraph(f"{sites_gl:,.0f}", st["right"]), Paragraph(f"{f_sites:,.0f}", st["right"]), Paragraph("4,295,826", st["right"])],
+        [Paragraph("&nbsp;&nbsp;FURNITURE AND EQUIPMENT (1670/1680)", st["reg"]), Paragraph(f"{furn_gl:,.0f}", st["right"]), Paragraph(f"{f_furn:,.0f}", st["right"]), Paragraph("1,021,950", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CONCRETE (18500000)", st["reg"]), Paragraph(f"{concrete_gl:,.0f}", st["right"]), Paragraph(f"{f_concrete:,.0f}", st["right"]), Paragraph("31,351", st["right"])],
+        [Paragraph("&nbsp;&nbsp;VEHICLES (16900000)", st["reg"]), Paragraph(f"{veh_gl:,.0f}", st["right"]), Paragraph(f"{f_veh:,.0f}", st["right"]), Paragraph("153,850", st["right"])],
+        ["", Paragraph(f"{gross_ppe_gl:,.0f}", st["right_bold"]), Paragraph(f"{f_gross_ppe:,.0f}", st["right_bold"]), Paragraph("9,754,106", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), Paragraph(f"({ad_gl:,.0f})", st["right"]), Paragraph(f"({f_ad:,.0f})", st["right"]), Paragraph("(3,663,090)", st["right"])],
+        ["", Paragraph(f"{net_ppe_gl:,.0f}", st["right_bold"]), Paragraph(f"{f_net_ppe:,.0f}", st["right_bold"]), Paragraph("6,091,016", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("OTHER ASSETS", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH", st["reg"]), "", Paragraph("1,873,702", st["right"]), Paragraph("1,833,859", st["right"])],
-        [Paragraph("&nbsp;&nbsp;LOAN & NOTES RECEIVABLE", st["reg"]), "", Paragraph("14,187", st["right"]), Paragraph("19,858", st["right"])],
-        [Paragraph("&nbsp;&nbsp;DUE FROM RELATED PARTY", st["reg"]), "", Paragraph("29,470", st["right"]), Paragraph("0", st["right"])],
-        [Paragraph("&nbsp;&nbsp;PROPANE GAS INVENTORY", st["reg"]), "", Paragraph("2,557", st["right"]), Paragraph("3,170", st["right"])],
-        [Paragraph("&nbsp;&nbsp;STORE INVENTORY", st["reg"]), "", Paragraph("1,477", st["right"]), Paragraph("1,852", st["right"])],
-        [Paragraph("&nbsp;&nbsp;PREPAID EXPENSES", st["reg"]), "", Paragraph("58,130", st["right"]), Paragraph("94,505", st["right"])],
-        [Paragraph("&nbsp;&nbsp;UNAMORTIZED MORTGAGE ACQUISITION FEES", st["reg"]), "", Paragraph("74,033", st["right"]), Paragraph("92,164", st["right"])],
-        [Paragraph("&nbsp;&nbsp;DEPOSITS", st["reg"]), "", Paragraph("29,890", st["right"]), Paragraph("29,890", st["right"])],
-        [Paragraph("&nbsp;&nbsp;GOODWILL", st["reg"]), "", Paragraph("3,125,369", st["right"]), Paragraph("3,125,369", st["right"])],
-        ["", "", Paragraph("5,208,815", st["right"]), Paragraph("5,200,667", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH (10060000-10310000)", st["reg"]), Paragraph(f"{cash_gl:,.0f}", st["right"]), Paragraph(f"{f_cash:,.0f}", st["right"]), Paragraph("1,833,859", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LOAN & NOTES RECEIVABLE (13000000)", st["reg"]), Paragraph(f"{notes_rec_gl:,.0f}", st["right"]), Paragraph(f"{f_notes_rec:,.0f}", st["right"]), Paragraph("19,858", st["right"])],
+        [Paragraph("&nbsp;&nbsp;DUE FROM RELATED PARTY (11300000)", st["reg"]), Paragraph(f"{due_from_gl:,.0f}", st["right"]), Paragraph(f"{f_due_from:,.0f}", st["right"]), Paragraph("0", st["right"])],
+        [Paragraph("&nbsp;&nbsp;PROPANE GAS INVENTORY (11700000)", st["reg"]), Paragraph(f"{propane_gl:,.0f}", st["right"]), Paragraph(f"{f_propane:,.0f}", st["right"]), Paragraph("3,170", st["right"])],
+        [Paragraph("&nbsp;&nbsp;STORE INVENTORY (11800000)", st["reg"]), Paragraph(f"{store_gl:,.0f}", st["right"]), Paragraph(f"{f_store:,.0f}", st["right"]), Paragraph("1,852", st["right"])],
+        [Paragraph("&nbsp;&nbsp;PREPAID EXPENSES (14500000/14600000)", st["reg"]), Paragraph(f"{prepaid_gl:,.0f}", st["right"]), Paragraph(f"{f_prepaid:,.0f}", st["right"]), Paragraph("94,505", st["right"])],
+        [Paragraph("&nbsp;&nbsp;UNAMORTIZED MORTGAGE FEES (17500000)", st["reg"]), Paragraph(f"{unamort_gl:,.0f}", st["right"]), Paragraph(f"{f_unamort:,.0f}", st["right"]), Paragraph("92,164", st["right"])],
+        [Paragraph("&nbsp;&nbsp;DEPOSITS (17100000)", st["reg"]), Paragraph(f"{deposits_gl:,.0f}", st["right"]), Paragraph(f"{f_deposits:,.0f}", st["right"]), Paragraph("29,890", st["right"])],
+        [Paragraph("&nbsp;&nbsp;GOODWILL (19000000)", st["reg"]), Paragraph(f"{goodwill_gl:,.0f}", st["right"]), Paragraph(f"{f_goodwill:,.0f}", st["right"]), Paragraph("3,125,369", st["right"])],
+        ["", Paragraph(f"{other_ast_gl:,.0f}", st["right_bold"]), Paragraph(f"{f_other_ast:,.0f}", st["right_bold"]), Paragraph("5,200,667", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>11,140,612</b>", st["right_bold"]), Paragraph("<b>11,291,683</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), Paragraph(f"<b>{tot_ast_gl:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{f_tot_ast:,.0f}</b>", st["right_bold"]), Paragraph("<b>11,291,683</b>", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>LIABILITIES AND PARTNERS' CAPITAL</b>", st["bold"]), "", "", ""],
         [Paragraph("LIABILITIES", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE", st["reg"]), "", Paragraph("265,261", st["right"]), Paragraph("285,269", st["right"])],
-        [Paragraph("&nbsp;&nbsp;ACCRUED EXPENSES", st["reg"]), "", Paragraph("86,563", st["right"]), Paragraph("74,359", st["right"])],
-        [Paragraph("&nbsp;&nbsp;SALES TAX PAYABLE", st["reg"]), "", Paragraph("50", st["right"]), Paragraph("55", st["right"])],
-        [Paragraph("&nbsp;&nbsp;TENANTS' CREDIT BALANCES AND DEPOSITS", st["reg"]), "", Paragraph("72,722", st["right"]), Paragraph("70,145", st["right"])],
-        [Paragraph("&nbsp;&nbsp;CURRENT PORTION OF LONG-TERM DEBT", st["reg"]), "", Paragraph("168,085", st["right"]), Paragraph("157,393", st["right"])],
-        ["", "", Paragraph("592,681", st["right"]), Paragraph("587,221", st["right"])],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE (20000000)", st["reg"]), Paragraph(f"{ap_gl:,.0f}", st["right"]), Paragraph(f"{f_ap:,.0f}", st["right"]), Paragraph("285,269", st["right"])],
+        [Paragraph("&nbsp;&nbsp;ACCRUED EXPENSES (2302-2310)", st["reg"]), Paragraph(f"{accrued_gl:,.0f}", st["right"]), Paragraph(f"{f_accrued:,.0f}", st["right"]), Paragraph("74,359", st["right"])],
+        [Paragraph("&nbsp;&nbsp;SALES TAX PAYABLE (25350000)", st["reg"]), Paragraph(f"{stax_gl:,.0f}", st["right"]), Paragraph(f"{f_stax:,.0f}", st["right"]), Paragraph("55", st["right"])],
+        [Paragraph("&nbsp;&nbsp;TENANTS' CREDIT BALANCES (25300001-3)", st["reg"]), Paragraph(f"{tenants_dep_gl:,.0f}", st["right"]), Paragraph(f"{f_tenants_dep:,.0f}", st["right"]), Paragraph("70,145", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CURRENT PORTION LONG-TERM DEBT", st["reg"]), Paragraph("Missing (Not in GL)", st["right"]), Paragraph("Missing (Not in GL)", st["right"]), Paragraph("157,393", st["right"])],
+        ["", Paragraph(f"{tot_cur_liab_gl:,.0f}", st["right_bold"]), Paragraph(f"{f_tot_cur_liab:,.0f}", st["right_bold"]), Paragraph("587,221", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("LONG-TERM DEBT", st["bold"]), "", Paragraph("7,901,376", st["right"]), Paragraph("8,069,364", st["right"])],
+        [Paragraph("LONG-TERM DEBT (22500000)", st["bold"]), Paragraph(f"{mtg_gl:,.0f}", st["right"]), Paragraph(f"{f_mtg:,.0f}", st["right"]), Paragraph("8,069,364", st["right"])],
         ["", "", "", ""],
-        [Paragraph("MEMBERS EQUITY", st["bold"]), "", Paragraph("2,646,555", st["right"]), Paragraph("2,635,098", st["right"])],
+        [Paragraph("MEMBERS' EQUITY & CAPITAL (2930/2950)", st["bold"]), Paragraph(f"{equity_gl:,.0f}", st["right"]), Paragraph(f"{f_equity:,.0f}", st["right"]), Paragraph("2,635,098", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL LIABILITIES & MEMBERS EQUITY</b>", st["bold"]), "", Paragraph("<b>11,140,612</b>", st["right_bold"]), Paragraph("<b>11,291,683</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), Paragraph(f"<b>{tot_ast_gl:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{f_tot_ast:,.0f}</b>", st["right_bold"]), Paragraph("<b>11,291,683</b>", st["right_bold"])],
     ]
 
-    t_bs = Table(bs_data, colWidths=[290, 10, 120, 120])
+    t_bs = Table(bs_data, colWidths=[210, 110, 110, 110])
     t_bs.setStyle(TableStyle([
         ('BOTTOMPADDING', (0, 0), (-1, -1), 1.2),
         ('TOPPADDING', (0, 0), (-1, -1), 1.2),
-        ('LINEBELOW', (2, 0), (3, 0), 1, colors.black),
-        ('LINEBELOW', (2, 9), (3, 9), 0.5, colors.black),
-        ('LINEBELOW', (2, 11), (3, 11), 0.5, colors.black),
-        ('LINEBELOW', (2, 23), (3, 23), 0.5, colors.black),
-        ('LINEBELOW', (2, 25), (3, 25), 1.5, colors.black),
-        ('LINEABOVE', (2, 25), (3, 25), 0.5, colors.black),
-        ('LINEBELOW', (2, 34), (3, 34), 0.5, colors.black),
-        ('LINEBELOW', (2, 40), (3, 40), 1.5, colors.black),
-        ('LINEABOVE', (2, 40), (3, 40), 0.5, colors.black),
+        ('LINEBELOW', (1, 0), (3, 0), 1, colors.black),
+        ('LINEBELOW', (1, 9), (3, 9), 0.5, colors.black),
+        ('LINEBELOW', (1, 11), (3, 11), 0.5, colors.black),
+        ('LINEBELOW', (1, 23), (3, 23), 0.5, colors.black),
+        ('LINEBELOW', (1, 25), (3, 25), 1.5, colors.black),
+        ('LINEABOVE', (1, 25), (3, 25), 0.5, colors.black),
+        ('LINEBELOW', (1, 33), (3, 33), 0.5, colors.black),
+        ('LINEBELOW', (1, 38), (3, 38), 1.5, colors.black),
+        ('LINEABOVE', (1, 38), (3, 38), 0.5, colors.black),
     ]))
     el.append(t_bs)
 
