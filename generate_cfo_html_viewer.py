@@ -1047,11 +1047,14 @@ function checkAuth() {{
     const queryPass = urlParams.get('passcode');
     const queryComp = urlParams.get('company');
 
+    let authed = false;
     if (queryPass === PASSCODE) {{
         localStorage.setItem('cfo_passcode', PASSCODE);
         document.getElementById('authOverlay').style.display = 'none';
+        authed = true;
     }} else if (localStorage.getItem('cfo_passcode') === PASSCODE) {{
         document.getElementById('authOverlay').style.display = 'none';
+        authed = true;
     }} else {{
         document.getElementById('authOverlay').style.display = 'flex';
         return false;
@@ -1062,7 +1065,7 @@ function checkAuth() {{
         const found = entities.findIndex(e => e.id === queryComp);
         if (found !== -1) selectedIdx = found;
     }}
-    return true;
+    return authed;
 }}
 
 function submitPasscode(e) {{
@@ -1072,6 +1075,9 @@ function submitPasscode(e) {{
         localStorage.setItem('cfo_passcode', PASSCODE);
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('authError').style.display = 'none';
+        renderSidebar();
+        renderContent();
+        updateIframes();
     }} else {{
         document.getElementById('authError').style.display = 'block';
     }}
@@ -1080,20 +1086,45 @@ function submitPasscode(e) {{
 function copyShareLink() {{
     const e = entities[selectedIdx];
     const url = window.location.origin + window.location.pathname + `?passcode=${{PASSCODE}}&company=${{e.id}}`;
-    navigator.clipboard.writeText(url).then(() => {{
-        const t = document.getElementById('toastMsg');
-        t.innerText = `Link for ${{e.name}} copied with passcode!`;
-        t.style.display = 'block';
-        setTimeout(() => {{ t.style.display = 'none'; }}, 2500);
-    }});
+    const toast = document.getElementById('toastMsg');
+
+    const showToast = () => {{
+        toast.innerText = `Link for ${{e.name}} copied with passcode!`;
+        toast.style.display = 'block';
+        setTimeout(() => {{ toast.style.display = 'none'; }}, 2500);
+    }};
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {{
+        navigator.clipboard.writeText(url).then(showToast).catch(() => {{
+            fallbackCopy(url);
+            showToast();
+        }});
+    }} else {{
+        fallbackCopy(url);
+        showToast();
+    }}
+}}
+
+function fallbackCopy(text) {{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {{ document.execCommand('copy'); }} catch (err) {{}}
+    document.body.removeChild(ta);
 }}
 
 function filterCompanies(q) {{
     const term = q.toLowerCase().trim();
     const list = document.getElementById('entityList');
-    list.innerHTML = entities.map((e, idx) => {{
+    let matchedCount = 0;
+    const itemsHtml = entities.map((e, idx) => {{
         const matches = e.name.toLowerCase().includes(term) || e.folder.includes(term) || e.type.toLowerCase().includes(term);
         if (!matches && term) return '';
+        matchedCount++;
         return `
             <div class="entity-item ${{idx === selectedIdx ? 'active' : ''}}" onclick="selectEntity(${{idx}})">
                 <div class="entity-item-title">${{e.name}}</div>
@@ -1104,6 +1135,12 @@ function filterCompanies(q) {{
             </div>
         `;
     }}).join('');
+
+    if (matchedCount === 0 && term) {{
+        list.innerHTML = `<div style="padding:24px 16px; text-align:center; color:var(--text-muted); font-size:12px;">No entities match "<b>${{term}}</b>"</div>`;
+    }} else {{
+        list.innerHTML = itemsHtml;
+    }}
 }}
 
 function renderSidebar() {{
@@ -1869,6 +1906,7 @@ function toggleTheme() {{
 
 renderSidebar();
 renderContent();
+updateIframes();
 checkAuth();
 </script>
 </body>
