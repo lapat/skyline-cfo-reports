@@ -628,9 +628,166 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
     color: var(--success);
     font-weight: 700;
 }}
+
+/* Mobile Responsiveness for Jay (iPhone, iPad, Android) */
+@media (max-width: 900px) {{
+    body {{
+        flex-direction: column;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }}
+    .sidebar {{
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid var(--border);
+    }}
+    .sidebar-header {{
+        padding: 14px 16px;
+    }}
+    .entity-list {{
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 14px;
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+    }}
+    .entity-item {{
+        min-width: 220px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+        padding: 10px 12px;
+    }}
+    .main {{
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }}
+    .top-bar {{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px 16px;
+    }}
+    .top-kpis {{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }}
+    .kpi-pill-val {{
+        font-size: 12px;
+    }}
+    .view-mode-toggle {{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }}
+    .toggle-btn {{
+        text-align: center;
+        padding: 8px;
+    }}
+    .content-pane {{
+        padding: 14px;
+    }}
+    .cards-grid {{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }}
+    .stat-card {{
+        padding: 12px;
+    }}
+    .stat-card-val {{
+        font-size: 17px;
+    }}
+    .side-by-side-pane.active {{
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 10px;
+    }}
+    .dual-panel {{
+        height: 65vh;
+        margin-bottom: 14px;
+    }}
+    .table-wrapper {{
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }}
+    table {{
+        min-width: 550px;
+    }}
+}}
+@media (max-width: 500px) {{
+    .cards-grid {{
+        grid-template-columns: 1fr;
+    }}
+    .top-kpis {{
+        grid-template-columns: 1fr;
+    }}
+}}
+/* Authentication Lock Overlay */
+.auth-overlay {{
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #0F172A;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}}
+.auth-card {{
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 32px 28px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}}
+.auth-input {{
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #0F172A;
+    color: #F8FAFC;
+    font-size: 16px;
+    margin-bottom: 14px;
+    text-align: center;
+    letter-spacing: 2px;
+    outline: none;
+}}
+.auth-btn {{
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    background: #3B82F6;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}}
 </style>
 </head>
 <body>
+
+<!-- Client-Side Passcode Lock Screen -->
+<div class="auth-overlay" id="authOverlay">
+    <div class="auth-card">
+        <div class="logo-tag">JENNINGS REALTY & AFFILIATES</div>
+        <h2 style="font-size:20px; margin: 8px 0 6px;">Executive Portal</h2>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom: 20px;">Enter portfolio passcode to view CFO executive reports and live Skyline financials.</p>
+        <form onsubmit="submitPasscode(event)">
+            <input type="password" id="passcodeInput" class="auth-input" placeholder="••••••••" autofocus required>
+            <button type="submit" class="auth-btn">Unlock Executive Reports</button>
+            <div id="authError" style="color:var(--danger); font-size:12px; margin-top:10px; display:none;">Incorrect passcode. Please try again.</div>
+        </form>
+    </div>
+</div>
 
 <!-- Left Navigation Sidebar -->
 <div class="sidebar">
@@ -694,9 +851,38 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 </div>
 
 <script>
+const PASSCODE = "Jennings2026";
 const entities = {entities_json};
 let selectedIdx = 0;
 let currentViewMode = 'summary';
+
+function checkAuth() {{
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryPass = urlParams.get('passcode');
+    if (queryPass === PASSCODE) {{
+        localStorage.setItem('cfo_passcode', PASSCODE);
+        document.getElementById('authOverlay').style.display = 'none';
+        return true;
+    }}
+    if (localStorage.getItem('cfo_passcode') === PASSCODE) {{
+        document.getElementById('authOverlay').style.display = 'none';
+        return true;
+    }}
+    document.getElementById('authOverlay').style.display = 'flex';
+    return false;
+}}
+
+function submitPasscode(e) {{
+    e.preventDefault();
+    const val = document.getElementById('passcodeInput').value.trim();
+    if (val === PASSCODE) {{
+        localStorage.setItem('cfo_passcode', PASSCODE);
+        document.getElementById('authOverlay').style.display = 'none';
+        document.getElementById('authError').style.display = 'none';
+    }} else {{
+        document.getElementById('authError').style.display = 'block';
+    }}
+}}
 
 function renderSidebar() {{
     const list = document.getElementById('entityList');
@@ -827,6 +1013,7 @@ function toggleTheme() {{
 
 renderSidebar();
 renderContent();
+checkAuth();
 </script>
 </body>
 </html>
