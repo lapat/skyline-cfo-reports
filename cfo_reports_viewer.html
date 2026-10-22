@@ -486,27 +486,87 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
     display: none;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness & Touch Optimization */
 @media (max-width: 900px) {
     body { flex-direction: column; height: auto; overflow-x: hidden; overflow-y: auto; }
-    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 2px solid var(--border); }
-    .entity-list { display: flex; flex-direction: row; overflow-x: auto; padding: 10px 12px; gap: 8px; -webkit-overflow-scrolling: touch; }
-    .entity-item { min-width: 220px; margin-bottom: 0; flex-shrink: 0; padding: 10px; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .sidebar-header { padding: 12px 14px; }
+    .entity-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 14px;
+        gap: 10px;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+    .entity-item {
+        min-width: 240px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+        padding: 12px 14px;
+        scroll-snap-align: start;
+        border-radius: 10px;
+    }
     .main { width: 100%; height: auto; overflow: visible; }
-    .top-bar { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 14px; }
-    .top-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-    .view-mode-toggle { width: 100%; }
-    .content-pane { padding: 12px; }
-    .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .side-by-side-pane.active { grid-template-columns: 1fr; height: auto; padding: 8px; }
-    .dual-panel { height: 60vh; margin-bottom: 12px; }
-    .full-pdf-pane.active { height: 75vh; }
-    table { min-width: 520px; }
-    .table-wrapper { overflow-x: auto; }
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 12px 14px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(8px);
+    }
+    .top-kpis {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    .view-mode-toggle {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px;
+        display: flex;
+        gap: 4px;
+    }
+    .toggle-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        flex-shrink: 0;
+        min-height: 38px;
+    }
+    .content-pane { padding: 14px; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .side-by-side-pane.active { grid-template-columns: 1fr; height: auto; padding: 10px; }
+    .dual-panel { height: 65vh; margin-bottom: 14px; }
+    .full-pdf-pane.active { height: 80vh; padding: 10px; }
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+    }
+    table { min-width: 600px; }
+    .mobile-scroll-hint {
+        display: block !important;
+        font-size: 11px;
+        color: var(--accent);
+        margin-bottom: 6px;
+        text-align: right;
+    }
 }
 @media (max-width: 500px) {
     .cards-grid { grid-template-columns: 1fr; }
-    .top-kpis { grid-template-columns: 1fr; }
+    .top-kpis { grid-template-columns: 1fr; gap: 6px; }
+    .entity-item { min-width: 210px; padding: 10px 12px; }
+    .stat-card-val { font-size: 16px; }
+    .entity-banner h2 { font-size: 18px; }
+}
+
+.mobile-scroll-hint {
+    display: none;
 }
 
 /* Authentication Lock Overlay */
@@ -565,7 +625,7 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
         <h2 style="font-size:20px; margin: 8px 0 6px;">Executive Portal</h2>
         <p style="font-size:13px; color:var(--text-muted); margin-bottom: 20px;">Enter portfolio passcode to view CFO executive reports and live Skyline financials.</p>
         <form onsubmit="submitPasscode(event)">
-            <input type="password" id="passcodeInput" class="auth-input" placeholder="••••••••" autofocus required>
+            <input type="password" id="passcodeInput" class="auth-input" placeholder="••••••••" autofocus required autocapitalize="none" autocomplete="current-password" autocorrect="off" spellcheck="false" inputmode="text">
             <button type="submit" class="auth-btn">Unlock Executive Reports</button>
             <div id="authError" style="color:var(--danger); font-size:12px; margin-top:10px; display:none;">Incorrect passcode. Please try again.</div>
         </form>
