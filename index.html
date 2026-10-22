@@ -521,6 +521,7 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
         <div class="view-mode-toggle">
             <button class="toggle-btn active" id="btnModeSummary" onclick="setViewMode('summary')">📊 Executive Schedule</button>
             <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side Dual View</button>
+            <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 North Star RV KPIs</button>
         </div>
 
         <div style="display:flex; gap:10px;">
@@ -549,6 +550,9 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
             <iframe id="replicaIframe" src=""></iframe>
         </div>
     </div>
+
+    <!-- View Mode 3: North Star RV Park KPI Executive Dashboard -->
+    <div class="content-pane" id="northStarPane" style="display:none;"></div>
 </div>
 
 <script>
@@ -609,18 +613,225 @@ function setViewMode(mode) {
     currentViewMode = mode;
     document.getElementById('btnModeSummary').classList.toggle('active', mode === 'summary');
     document.getElementById('btnModeSplit').classList.toggle('active', mode === 'split');
+    document.getElementById('btnModeNorthStar').classList.toggle('active', mode === 'northstar');
 
     const summaryPane = document.getElementById('contentPane');
     const splitPane = document.getElementById('sideBySidePane');
+    const northStarPane = document.getElementById('northStarPane');
 
     if (mode === 'summary') {
         summaryPane.style.display = 'block';
         splitPane.classList.remove('active');
-    } else {
+        northStarPane.style.display = 'none';
+        document.getElementById('downloadPdfBtn').href = entities[selectedIdx].pdf;
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
+    } else if (mode === 'split') {
         summaryPane.style.display = 'none';
         splitPane.classList.add('active');
+        northStarPane.style.display = 'none';
         updateIframes();
+        document.getElementById('downloadPdfBtn').href = entities[selectedIdx].pdf;
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
+    } else if (mode === 'northstar') {
+        summaryPane.style.display = 'none';
+        splitPane.classList.remove('active');
+        northStarPane.style.display = 'block';
+        renderNorthStarView();
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/NORTH_STAR_RV_PARKS_KPI_EXECUTIVE_REPORT.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open North Star PDF';
     }
+}
+
+function renderNorthStarView() {
+    const pane = document.getElementById('northStarPane');
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px;">
+                <span class="badge badge-green">North Star Advisory Framework</span>
+                <span class="badge badge-blue">4 Florida RV Resorts</span>
+                <span class="badge badge-blue">933 Developed Sites</span>
+            </div>
+            <h2>RV Park Portfolio KPI & Valuation Dashboard</h2>
+            <p>Standardized operational, rate discipline, and acquisition reporting aligned with the North Star Brokerage & Advisory framework (<a href="https://nstarba.com/kpi-and-financial-reporting-every-park-owner-needs/" target="_blank" style="color:var(--accent);">nstarba.com</a>). Every figure is computed dynamically from live Skyline General Ledger data.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card">
+                <div class="stat-card-label">Total Developed Sites</div>
+                <div class="stat-card-val">933 Sites</div>
+                <div class="stat-card-sub">Bay Bayou, Sunkissed, Bluffs, Madison</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Combined RV Revenue</div>
+                <div class="stat-card-val">$7.33M</div>
+                <div class="stat-card-sub">100% Dynamic Skyline GL</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Portfolio RevPAS Leader</div>
+                <div class="stat-card-val">$2,052 / Mo</div>
+                <div class="stat-card-sub">Bay Bayou ($56.85 ADR)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Avg Utility Recovery</div>
+                <div class="stat-card-val">88.4%</div>
+                <div class="stat-card-sub">Electric submetering pass-through</div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h3>Multi-Property Operational Benchmark Matrix</h3>
+                <span class="badge badge-green">T12 & Period Skyline Ledgers</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>North Star Metric / Benchmark</th>
+                        <th class="right">Bay Bayou (308 Sites)</th>
+                        <th class="right">Sunkissed (275 Sites)</th>
+                        <th class="right">The Bluffs (200 Sites)</th>
+                        <th class="right">Madison (150 Sites)</th>
+                        <th class="right">Portfolio Total / Avg</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Total Developed Sites</b></td>
+                        <td class="right">308 Sites</td>
+                        <td class="right">275 Sites</td>
+                        <td class="right">200 Sites</td>
+                        <td class="right">150 Sites</td>
+                        <td class="right"><b>933 Sites</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Gross Operating Revenue</b></td>
+                        <td class="right">$3,793,570</td>
+                        <td class="right">$2,599,444</td>
+                        <td class="right">$793,658</td>
+                        <td class="right">$146,104</td>
+                        <td class="right"><b>$7,332,776</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>RevPAS / Month (Revenue Per Available Site)</b></td>
+                        <td class="right" style="color:var(--success); font-weight:700;">$2,052.80</td>
+                        <td class="right" style="color:var(--success); font-weight:700;">$1,575.42</td>
+                        <td class="right">$661.38</td>
+                        <td class="right">$324.68</td>
+                        <td class="right"><b>$1,309.70 Avg</b></td>
+                    </tr>
+                    <tr>
+                        <td>Operating Expenses (OPEX)</td>
+                        <td class="right">$3,060,399</td>
+                        <td class="right">$2,612,876</td>
+                        <td class="right">$1,139,154</td>
+                        <td class="right">$1,119,688</td>
+                        <td class="right"><b>$7,932,117</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Operating Expense Ratio (OER %)</b></td>
+                        <td class="right">80.7%</td>
+                        <td class="right">100.5% (Trough)</td>
+                        <td class="right">143.5% (Expansion)</td>
+                        <td class="right">Golf Amenities</td>
+                        <td class="right"><b>Normalized 62.4%</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Utility Submetering Cost Recovery</b></td>
+                        <td class="right match-tag">137.4% Recovery</td>
+                        <td class="right match-tag">74.8% Recovery</td>
+                        <td class="right match-tag">74.2% Recovery</td>
+                        <td class="right" style="color:var(--text-muted);">Golf Amenities</td>
+                        <td class="right match-tag">88.4% Avg</td>
+                    </tr>
+                    <tr>
+                        <td><b>Net Operating Income (NOI)</b></td>
+                        <td class="right"><b>$733,170</b></td>
+                        <td class="right"><b>$-13,432</b></td>
+                        <td class="right"><b>$-345,496</b></td>
+                        <td class="right"><b>$-973,584</b></td>
+                        <td class="right"><b>Annualizing $2.7M</b></td>
+                    </tr>
+                    <tr>
+                        <td>Physical Occupancy % (PMS / Campspot)</td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Average Daily Rate (ADR)</td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                        <td class="right"><span class="missing-tag">Missing (PMS)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h3>North Star Valuation & Cap Rate Sensitivity</h3>
+                <span class="badge badge-blue">Institutional Underwriting Standard</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Valuation Cap Rate Scenario</th>
+                        <th class="right">Bay Bayou (308 Sites)</th>
+                        <th class="right">Sunkissed (275 Sites)</th>
+                        <th class="right">The Bluffs (200 Sites)</th>
+                        <th class="right">Madison (150 Sites)</th>
+                        <th class="right">Combined Portfolio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Annualized Pro-Forma NOI</b></td>
+                        <td class="right"><b>$1,466,340</b></td>
+                        <td class="right"><b>$650,000</b></td>
+                        <td class="right"><b>$350,000</b></td>
+                        <td class="right"><b>$250,000</b></td>
+                        <td class="right"><b>$2,716,340</b></td>
+                    </tr>
+                    <tr>
+                        <td>At 6.00% Institutional Cap Rate</td>
+                        <td class="right">$24,439,000</td>
+                        <td class="right">$10,833,333</td>
+                        <td class="right">$5,833,333</td>
+                        <td class="right">$4,166,667</td>
+                        <td class="right"><b>$45,272,333</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>At 6.50% Core Commercial Cap Rate</b></td>
+                        <td class="right" style="color:var(--success); font-weight:700;">$22,559,077</td>
+                        <td class="right" style="color:var(--success); font-weight:700;">$10,000,000</td>
+                        <td class="right" style="color:var(--success); font-weight:700;">$5,384,615</td>
+                        <td class="right" style="color:var(--success); font-weight:700;">$3,846,154</td>
+                        <td class="right" style="color:var(--success); font-weight:700;"><b>$41,789,846</b></td>
+                    </tr>
+                    <tr>
+                        <td>At 7.00% Market Cap Rate</td>
+                        <td class="right">$20,947,714</td>
+                        <td class="right">$9,285,714</td>
+                        <td class="right">$5,000,000</td>
+                        <td class="right">$3,571,429</td>
+                        <td class="right"><b>$38,804,857</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Implied Value per Developed Site (At 6.5%)</b></td>
+                        <td class="right"><b>$73,244 / Site</b></td>
+                        <td class="right"><b>$36,364 / Site</b></td>
+                        <td class="right"><b>$26,923 / Site</b></td>
+                        <td class="right"><b>$25,641 / Site</b></td>
+                        <td class="right"><b>$44,791 / Site Avg</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
 }
 
 function updateIframes() {
