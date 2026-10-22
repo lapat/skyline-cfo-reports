@@ -1,0 +1,1697 @@
+{
+  "item_1_folder_catalog": {
+    "total_folders": 379,
+    "active_companies_count": 287,
+    "test_or_copy_folders_count": 8,
+    "test_or_copy_folders": [
+      "180bak",
+      "33 - Copy",
+      "83OLD",
+      "999",
+      "Copy of 150",
+      "Copy of 160",
+      "Copy of 180",
+      "PDUMMY"
+    ],
+    "rollup_parent_codes_count": 22,
+    "rollup_parent_codes": [
+      "PALL",
+      "PBARB",
+      "PBARBD",
+      "PCITY",
+      "PDELT",
+      "PDENIS",
+      "PDREAM",
+      "PEXSIT",
+      "PFAIR",
+      "PGALA",
+      "PHOWAR",
+      "PHS3",
+      "PJAY",
+      "PJRI",
+      "PKENNY",
+      "PMGMT",
+      "POST",
+      "PPCMH",
+      "PPCMH2",
+      "PQLP",
+      "PTEMP",
+      "PURBAN"
+    ],
+    "empty_or_zero_entry_folders_count": 62,
+    "active_folders_sample": [
+      "1",
+      "10",
+      "100",
+      "101",
+      "102",
+      "1025",
+      "103",
+      "104",
+      "105",
+      "106",
+      "107",
+      "108",
+      "109",
+      "11",
+      "110"
+    ]
+  },
+  "item_2_bank_reconciliation_tables": {
+    "CHKTRAN": {
+      "in_file_ddf_schema": true,
+      "exists_in_data_dir": false,
+      "exists_in_ifs_folders": false,
+      "total_physical_rows_on_share": 0,
+      "explanation": "Cataloged in Skyline FILE.DDF (Table IDs 117, 158, 159, 161), but zero physical files exist on disk because the optional Checkbook Reconciliation module was never activated. Cash disbursements post via APDIST/APHIST and GL."
+    },
+    "BKSTMTRP": {
+      "in_file_ddf_schema": true,
+      "exists_in_data_dir": false,
+      "exists_in_ifs_folders": false,
+      "total_physical_rows_on_share": 0,
+      "explanation": "Cataloged in Skyline FILE.DDF (Table IDs 117, 158, 159, 161), but zero physical files exist on disk because the optional Checkbook Reconciliation module was never activated. Cash disbursements post via APDIST/APHIST and GL."
+    },
+    "CHKXREF": {
+      "in_file_ddf_schema": true,
+      "exists_in_data_dir": false,
+      "exists_in_ifs_folders": false,
+      "total_physical_rows_on_share": 0,
+      "explanation": "Cataloged in Skyline FILE.DDF (Table IDs 117, 158, 159, 161), but zero physical files exist on disk because the optional Checkbook Reconciliation module was never activated. Cash disbursements post via APDIST/APHIST and GL."
+    },
+    "CHKMEMO": {
+      "in_file_ddf_schema": true,
+      "exists_in_data_dir": false,
+      "exists_in_ifs_folders": false,
+      "total_physical_rows_on_share": 0,
+      "explanation": "Cataloged in Skyline FILE.DDF (Table IDs 117, 158, 159, 161), but zero physical files exist on disk because the optional Checkbook Reconciliation module was never activated. Cash disbursements post via APDIST/APHIST and GL."
+    }
+  },
+  "item_3_charthst_loaded_in_db": {
+    "table_name": "chart_history",
+    "sqlite_databases": [
+      "skyline_live_production.sqlite",
+      "skyline_all_companies_gemini.sqlite"
+    ],
+    "total_records_loaded": 15,
+    "status": "LOADED_AND_INDEXED"
+  },
+  "item_4_skyline_ground_truth_pdfs": {
+    "Bay Bayou RV Resort LLC (Q1 2026)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/BAYBAYOUFINANCIALSTMTS33126.pdf",
+    "Bay Bayou RV Resort LLC (Q2 2026)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/BAYBAYOUFINANCIALSTMTS63026.pdf",
+    "Park City Mobile Homes (Q1 FY26)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/PARKCTYSTMT CONSOLIDATING FINANCIAL STATEMENTS Q1 01 31 2026.pdf",
+    "Park City Mobile Homes (Q3 FY26)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/PARKCTYSTMT CONSOLIDATING FINANCIAL STATEMENTS Q3 07 31 2026.pdf",
+    "Sunkissed Village RV Resort (Q1 2026)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/SUNKISSEDFINANCIALS33126.pdf",
+    "Sunkissed Village RV Resort (Q2 2026)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/SUNKISSEDFINANCIALS63026.pdf",
+    "Jennings Realty, Inc. (Q2 FY26)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/Jennings Realty Feb 28 2026 Q2 FY 2026 Financial Statements.pdf",
+    "Jennings Realty, Inc. (Q3 FY26)": "/Users/louislapat/vibe/Jim Report Viewer/data/pdfs/Jennings Realty May 28 2026 Q3 FY 2026 Financial Statements.pdf"
+  },
+  "item_5_gross_cash_and_residual_rules": {
+    "rule": "Every balance sheet includes an explicit non_netting_residual line. Portfolio cash total is reported with gross positive and negative components without netting.",
+    "q1_2026_gross_cash_components": {
+      "cash_ending_positive_accounts (in bank)": 28607061.98,
+      "cash_ending_negative_accounts (overdraft/clearing)": -2149772.22,
+      "cash_ending_net_total": 26457289.76
+    },
+    "q1_2026_gross_balance_totals": {
+      "total_assets": 513502065.68,
+      "total_liabilities": 458757569.18,
+      "total_equity": 54744496.5,
+      "non_netting_residual_total": -5556036.4
+    }
+  },
+  "item_6_chosen_period_statements": {
+    "q1_2026_statements": {
+      "chosen_period": "260101 to 260331",
+      "gross_portfolio_cash_components": {
+        "cash_ending_positive_accounts (in bank)": 28607061.98,
+        "cash_ending_negative_accounts (overdraft/clearing)": -2149772.22,
+        "cash_ending_net_total": 26457289.76
+      },
+      "gross_portfolio_balance_totals": {
+        "total_assets": 513502065.68,
+        "total_liabilities": 458757569.18,
+        "total_equity": 54744496.5,
+        "non_netting_residual_total": -5556036.4
+      },
+      "companies": [
+        {
+          "company": "Jennings Realty, Inc.",
+          "folders": [
+            "1"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 1310134.74,
+            "total_expenses": 989911.4,
+            "net_income": 320223.34
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 38030488.42,
+            "total_liabilities": 25024698.66,
+            "prior_equity": 15983016.64,
+            "current_period_net_income": 320223.34,
+            "non_netting_residual": -3297450.22,
+            "total_equity": 13005789.76,
+            "total_liabilities_and_equity": 38030488.42
+          },
+          "cash_flow": {
+            "cash_beginning": 6126996.82,
+            "net_cash_change": -6385825.06,
+            "cash_ending": -258828.24,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -258828.24
+          }
+        },
+        {
+          "company": "Park City Mobile Homes, Inc.",
+          "folders": [
+            "28",
+            "205",
+            "24",
+            "121",
+            "26"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 5821605.78,
+            "total_expenses": 3539014.84,
+            "net_income": 2282590.94
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 83933720.94,
+            "total_liabilities": 41121847.22,
+            "prior_equity": 38185640.28,
+            "current_period_net_income": 2282590.94,
+            "non_netting_residual": 2343642.5,
+            "total_equity": 42811873.72,
+            "total_liabilities_and_equity": 83933720.94
+          },
+          "cash_flow": {
+            "cash_beginning": 3461038.4,
+            "net_cash_change": 2877759.32,
+            "cash_ending": 6338797.72,
+            "cash_ending_positive": 6338797.72,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Bay Bayou RV Resort LLC",
+          "folders": [
+            "135"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 2514624.36,
+            "total_expenses": 1093486.4,
+            "net_income": 1421137.96
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 23817512.26,
+            "total_liabilities": 16883096.04,
+            "prior_equity": 4521868.32,
+            "current_period_net_income": 1421137.96,
+            "non_netting_residual": 991409.94,
+            "total_equity": 6934416.22,
+            "total_liabilities_and_equity": 23817512.26
+          },
+          "cash_flow": {
+            "cash_beginning": 2724230.82,
+            "net_cash_change": 2579412.68,
+            "cash_ending": 5303643.5,
+            "cash_ending_positive": 5303643.5,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Sunkissed Village RV Resort LLC",
+          "folders": [
+            "140",
+            "142"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 1754748.16,
+            "total_expenses": 1146589.18,
+            "net_income": 608158.98
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 20920685.34,
+            "total_liabilities": 9363447.74,
+            "prior_equity": 11038940.92,
+            "current_period_net_income": 608158.98,
+            "non_netting_residual": -89862.3,
+            "total_equity": 11557237.6,
+            "total_liabilities_and_equity": 20920685.34
+          },
+          "cash_flow": {
+            "cash_beginning": 2181938.08,
+            "net_cash_change": 624602.56,
+            "cash_ending": 2806540.64,
+            "cash_ending_positive": 2806540.64,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "The Bluffs MH and RV Resort LLC",
+          "folders": [
+            "147"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 171036.94,
+            "total_expenses": 422244.28,
+            "net_income": -251207.34
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 11894548.78,
+            "total_liabilities": 5338634.02,
+            "prior_equity": 6678407.12,
+            "current_period_net_income": -251207.34,
+            "non_netting_residual": 128714.98,
+            "total_equity": 6555914.76,
+            "total_liabilities_and_equity": 11894548.78
+          },
+          "cash_flow": {
+            "cash_beginning": 197890.36,
+            "net_cash_change": -27441.26,
+            "cash_ending": 170449.1,
+            "cash_ending_positive": 170449.1,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Barbara Descendants Trust",
+          "folders": [
+            "110"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 63059.14,
+            "total_expenses": 300495.72,
+            "net_income": -237436.58
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 22413323.56,
+            "total_liabilities": 31867764.58,
+            "prior_equity": -9376420.12,
+            "current_period_net_income": -237436.58,
+            "non_netting_residual": 159415.68,
+            "total_equity": -9454441.02,
+            "total_liabilities_and_equity": 22413323.56
+          },
+          "cash_flow": {
+            "cash_beginning": 1076313.78,
+            "net_cash_change": -216085.08,
+            "cash_ending": 860228.7,
+            "cash_ending_positive": 860228.7,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Home Sites LLC Series C (Ellis Apartments)",
+          "folders": [
+            "38"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 43890.0,
+            "total_expenses": 210506.94,
+            "net_income": -166616.94
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 7809756.54,
+            "total_liabilities": 4077009.6,
+            "prior_equity": 3959994.68,
+            "current_period_net_income": -166616.94,
+            "non_netting_residual": -60630.8,
+            "total_equity": 3732746.94,
+            "total_liabilities_and_equity": 7809756.54
+          },
+          "cash_flow": {
+            "cash_beginning": 107483.62,
+            "net_cash_change": -101884.2,
+            "cash_ending": 5599.42,
+            "cash_ending_positive": 5599.42,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Galaxy Sites / Jet Sites B (combined LLCs)",
+          "folders": [
+            "33",
+            "144",
+            "145",
+            "146"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 304668.42,
+            "total_expenses": 769757.0,
+            "net_income": -465088.58
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 21755224.18,
+            "total_liabilities": 43294191.54,
+            "prior_equity": -20694663.02,
+            "current_period_net_income": -465088.58,
+            "non_netting_residual": -379215.76,
+            "total_equity": -21538967.36,
+            "total_liabilities_and_equity": 21755224.18
+          },
+          "cash_flow": {
+            "cash_beginning": 406563.82,
+            "net_cash_change": -376829.82,
+            "cash_ending": 29734.0,
+            "cash_ending_positive": 29734.0,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Tax Certificate Buying Entities",
+          "folders": [
+            "150",
+            "160",
+            "180",
+            "190"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 2087840.76,
+            "total_expenses": 918435.88,
+            "net_income": 1169404.88
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 77961387.54,
+            "total_liabilities": 59945945.86,
+            "prior_equity": 19062637.0,
+            "current_period_net_income": 1169404.88,
+            "non_netting_residual": -2216600.2,
+            "total_equity": 18015441.68,
+            "total_liabilities_and_equity": 77961387.54
+          },
+          "cash_flow": {
+            "cash_beginning": 2502589.7,
+            "net_cash_change": -4068503.96,
+            "cash_ending": -1565914.26,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -1565914.26
+          }
+        },
+        {
+          "company": "Madison RV Resort and Golf Course LLC",
+          "folders": [
+            "143"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 250681.44,
+            "total_expenses": 436162.96,
+            "net_income": -185481.52
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 10112224.86,
+            "total_liabilities": 1088537.6,
+            "prior_equity": 8202652.16,
+            "current_period_net_income": -185481.52,
+            "non_netting_residual": 1006516.62,
+            "total_equity": 9023687.26,
+            "total_liabilities_and_equity": 10112224.86
+          },
+          "cash_flow": {
+            "cash_beginning": 213878.58,
+            "net_cash_change": 644718.44,
+            "cash_ending": 858597.02,
+            "cash_ending_positive": 858597.02,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Sheridan Acres Mobile Home Sales Corp.",
+          "folders": [
+            "19"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 122983.26,
+            "total_expenses": 55681.5,
+            "net_income": 67301.76
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 2325353.88,
+            "total_liabilities": 2276871.44,
+            "prior_equity": -113752.94,
+            "current_period_net_income": 67301.76,
+            "non_netting_residual": 94933.62,
+            "total_equity": 48482.44,
+            "total_liabilities_and_equity": 2325353.88
+          },
+          "cash_flow": {
+            "cash_beginning": 98484.96,
+            "net_cash_change": 75523.12,
+            "cash_ending": 174008.08,
+            "cash_ending_positive": 174008.08,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Lakeview Mobile Home Park Partnership",
+          "folders": [
+            "18"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 1181048.8,
+            "total_expenses": 450560.0,
+            "net_income": 730488.8
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 2757842.96,
+            "total_liabilities": -24756071.02,
+            "prior_equity": 26942577.4,
+            "current_period_net_income": 730488.8,
+            "non_netting_residual": -159152.22,
+            "total_equity": 27513913.98,
+            "total_liabilities_and_equity": 2757842.96
+          },
+          "cash_flow": {
+            "cash_beginning": 112544.94,
+            "net_cash_change": 375268.34,
+            "cash_ending": 487813.28,
+            "cash_ending_positive": 487813.28,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Poinsettia Mobile Home Park Partnership",
+          "folders": [
+            "25"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 254793.94,
+            "total_expenses": 231905.9,
+            "net_income": 22888.04
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 129534209.66,
+            "total_liabilities": 168748725.74,
+            "prior_equity": -37193917.36,
+            "current_period_net_income": 22888.04,
+            "non_netting_residual": -2043486.76,
+            "total_equity": -39214516.08,
+            "total_liabilities_and_equity": 129534209.66
+          },
+          "cash_flow": {
+            "cash_beginning": 1367324.5,
+            "net_cash_change": 7775220.82,
+            "cash_ending": 9142545.32,
+            "cash_ending_positive": 9142545.32,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Upriver Partners LLP (sold May 2026)",
+          "folders": [
+            "49",
+            "491"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 2912149.04,
+            "total_expenses": 687941.32,
+            "net_income": 2224207.72
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 9643725.12,
+            "total_liabilities": 4001860.9,
+            "prior_equity": 4580011.16,
+            "current_period_net_income": 2224207.72,
+            "non_netting_residual": -1162354.66,
+            "total_equity": 5641864.22,
+            "total_liabilities_and_equity": 9643725.12
+          },
+          "cash_flow": {
+            "cash_beginning": 1065733.14,
+            "net_cash_change": -655506.36,
+            "cash_ending": 410226.78,
+            "cash_ending_positive": 410226.78,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Friendly Oaks Partnership",
+          "folders": [
+            "71"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 929637.18,
+            "total_expenses": 0,
+            "net_income": 929637.18
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 17438556.66,
+            "total_liabilities": 11937918.6,
+            "prior_equity": 5501000.88,
+            "current_period_net_income": 929637.18,
+            "non_netting_residual": -930000.0,
+            "total_equity": 5500638.06,
+            "total_liabilities_and_equity": 17438556.66
+          },
+          "cash_flow": {
+            "cash_beginning": 1250.02,
+            "net_cash_change": -362.82,
+            "cash_ending": 887.2,
+            "cash_ending_positive": 887.2,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Veranda Six Partnership",
+          "folders": [
+            "15"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 1735.4,
+            "total_expenses": 6999.74,
+            "net_income": -5264.34
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 312291.24,
+            "total_liabilities": 14802.56,
+            "prior_equity": 298753.02,
+            "current_period_net_income": -5264.34,
+            "non_netting_residual": 4000.0,
+            "total_equity": 297488.68,
+            "total_liabilities_and_equity": 312291.24
+          },
+          "cash_flow": {
+            "cash_beginning": 1597.92,
+            "net_cash_change": -1264.34,
+            "cash_ending": 333.58,
+            "cash_ending_positive": 333.58,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Investment Sites LLC",
+          "folders": [
+            "141"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 263367.08,
+            "net_income": -263367.08
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 13214568.44,
+            "total_liabilities": 22445609.22,
+            "prior_equity": -9231951.2,
+            "current_period_net_income": -263367.08,
+            "non_netting_residual": 264277.5,
+            "total_equity": -9231040.78,
+            "total_liabilities_and_equity": 13214568.44
+          },
+          "cash_flow": {
+            "cash_beginning": 745.12,
+            "net_cash_change": 632.92,
+            "cash_ending": 1378.04,
+            "cash_ending_positive": 1378.04,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Home Sites LLC Series A and B (Indemnities, Seneca)",
+          "folders": [
+            "34",
+            "35",
+            "36"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 30071.22,
+            "total_expenses": 42097.6,
+            "net_income": -12026.38
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 12524947.24,
+            "total_liabilities": 13274275.1,
+            "prior_equity": -637473.9,
+            "current_period_net_income": -12026.38,
+            "non_netting_residual": -99827.58,
+            "total_equity": -749327.86,
+            "total_liabilities_and_equity": 12524947.24
+          },
+          "cash_flow": {
+            "cash_beginning": 1701988.42,
+            "net_cash_change": -152306.64,
+            "cash_ending": 1549681.78,
+            "cash_ending_positive": 1549681.78,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "K Sites LLC Series A and B",
+          "folders": [
+            "148",
+            "149",
+            "151"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 58823.9,
+            "net_income": -58823.9
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 4496642.46,
+            "total_liabilities": 6642152.0,
+            "prior_equity": 4643.18,
+            "current_period_net_income": -58823.9,
+            "non_netting_residual": -2091328.82,
+            "total_equity": -2145509.54,
+            "total_liabilities_and_equity": 4496642.46
+          },
+          "cash_flow": {
+            "cash_beginning": 2028.66,
+            "net_cash_change": -110229.86,
+            "cash_ending": -108201.2,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -108201.2
+          }
+        },
+        {
+          "company": "L Sites LLC (K Sites Series A successor)",
+          "folders": [
+            "152"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 1252.0,
+            "net_income": -1252.0
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 425837.66,
+            "total_liabilities": -45850.0,
+            "prior_equity": 86000.0,
+            "current_period_net_income": -1252.0,
+            "non_netting_residual": 386939.66,
+            "total_equity": 471687.66,
+            "total_liabilities_and_equity": 425837.66
+          },
+          "cash_flow": {
+            "cash_beginning": 0.0,
+            "net_cash_change": 68892.04,
+            "cash_ending": 68892.04,
+            "cash_ending_positive": 68892.04,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "M Sites LLC (K Sites Series B successor)",
+          "folders": [
+            "153"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 24399.0,
+            "net_income": -24399.0
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 811122.56,
+            "total_liabilities": -4468.3,
+            "prior_equity": 44540.0,
+            "current_period_net_income": -24399.0,
+            "non_netting_residual": 795449.86,
+            "total_equity": 815590.86,
+            "total_liabilities_and_equity": 811122.56
+          },
+          "cash_flow": {
+            "cash_beginning": 0.0,
+            "net_cash_change": 364.1,
+            "cash_ending": 364.1,
+            "cash_ending_positive": 364.1,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Urban Visions Inc.",
+          "folders": [
+            "3"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 158816.84,
+            "net_income": -158816.84
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": -216189.54,
+            "total_liabilities": 31726166.28,
+            "prior_equity": -31783021.98,
+            "current_period_net_income": -158816.84,
+            "non_netting_residual": -517.0,
+            "total_equity": -31942355.82,
+            "total_liabilities_and_equity": -216189.54
+          },
+          "cash_flow": {
+            "cash_beginning": 125.96,
+            "net_cash_change": -216954.48,
+            "cash_ending": -216828.52,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -216828.52
+          }
+        },
+        {
+          "company": "Jennings Capital Investments LLC",
+          "folders": [
+            "11"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 0,
+            "net_income": 0
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 1400.4,
+            "total_liabilities": -244000.0,
+            "prior_equity": 245400.4,
+            "current_period_net_income": 0,
+            "non_netting_residual": 0.0,
+            "total_equity": 245400.4,
+            "total_liabilities_and_equity": 1400.4
+          },
+          "cash_flow": {
+            "cash_beginning": 1222.44,
+            "net_cash_change": 0.0,
+            "cash_ending": 1222.44,
+            "cash_ending_positive": 1222.44,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Cardea Communities LLC",
+          "folders": [
+            "181"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 3385.76,
+            "net_income": -3385.76
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 298569.08,
+            "total_liabilities": 168821.32,
+            "prior_equity": -11602.6,
+            "current_period_net_income": -3385.76,
+            "non_netting_residual": 144736.12,
+            "total_equity": 129747.76,
+            "total_liabilities_and_equity": 298569.08
+          },
+          "cash_flow": {
+            "cash_beginning": 788.96,
+            "net_cash_change": 96.36,
+            "cash_ending": 885.32,
+            "cash_ending_positive": 885.32,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Mutual Fidelity Corp.",
+          "folders": [
+            "37"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 0,
+            "net_income": 0
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 713.98,
+            "total_liabilities": 4044.74,
+            "prior_equity": -3330.76,
+            "current_period_net_income": 0,
+            "non_netting_residual": 0.0,
+            "total_equity": -3330.76,
+            "total_liabilities_and_equity": 713.98
+          },
+          "cash_flow": {
+            "cash_beginning": 713.98,
+            "net_cash_change": 0.0,
+            "cash_ending": 713.98,
+            "cash_ending_positive": 713.98,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "National Indemnity Corp.",
+          "folders": [
+            "23"
+          ],
+          "period": "260101 to 260331",
+          "income_statement": {
+            "total_revenue": 427859.46,
+            "total_expenses": 711805.18,
+            "net_income": -283945.72
+          },
+          "balance_sheet": {
+            "as_of_date": "260331",
+            "total_assets": 1283601.46,
+            "total_liabilities": -15438462.26,
+            "prior_equity": 16351656.0,
+            "current_period_net_income": -283945.72,
+            "non_netting_residual": 654353.44,
+            "total_equity": 16722063.72,
+            "total_liabilities_and_equity": 1283601.46
+          },
+          "cash_flow": {
+            "cash_beginning": 13005.62,
+            "net_cash_change": 381514.32,
+            "cash_ending": 394519.94,
+            "cash_ending_positive": 394519.94,
+            "cash_ending_negative": 0.0
+          }
+        }
+      ]
+    },
+    "ytd_october_2026_statements": {
+      "chosen_period": "260101 to 261020",
+      "gross_portfolio_cash_components": {
+        "cash_ending_positive_accounts (in bank)": 77018479.1,
+        "cash_ending_negative_accounts (overdraft/clearing)": -32146894.54,
+        "cash_ending_net_total": 44871584.56
+      },
+      "gross_portfolio_balance_totals": {
+        "total_assets": 537216797.44,
+        "total_liabilities": 398126337.22,
+        "total_equity": 139090460.22,
+        "non_netting_residual_total": 32545669.44
+      },
+      "companies": [
+        {
+          "company": "Jennings Realty, Inc.",
+          "folders": [
+            "1"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 3794696.32,
+            "total_expenses": 4238149.12,
+            "net_income": -443452.8
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 23722352.0,
+            "total_liabilities": 21436269.4,
+            "prior_equity": 15956147.0,
+            "current_period_net_income": -443452.8,
+            "non_netting_residual": -13226611.6,
+            "total_equity": 2286082.6,
+            "total_liabilities_and_equity": 23722352.0
+          },
+          "cash_flow": {
+            "cash_beginning": 6126996.82,
+            "net_cash_change": -18845487.52,
+            "cash_ending": -12718490.7,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -12718490.7
+          }
+        },
+        {
+          "company": "Park City Mobile Homes, Inc.",
+          "folders": [
+            "28",
+            "205",
+            "24",
+            "121",
+            "26"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 29001895.6,
+            "total_expenses": 13066717.74,
+            "net_income": 15935177.86
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 98904990.92,
+            "total_liabilities": 44710114.38,
+            "prior_equity": 38185640.28,
+            "current_period_net_income": 15935177.86,
+            "non_netting_residual": 74058.4,
+            "total_equity": 54194876.54,
+            "total_liabilities_and_equity": 98904990.92
+          },
+          "cash_flow": {
+            "cash_beginning": 3461038.4,
+            "net_cash_change": 556166.48,
+            "cash_ending": 4017204.88,
+            "cash_ending_positive": 4017204.88,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Bay Bayou RV Resort LLC",
+          "folders": [
+            "135"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 3793569.62,
+            "total_expenses": 3060399.46,
+            "net_income": 733170.16
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 23270053.28,
+            "total_liabilities": 16937005.32,
+            "prior_equity": 4521868.32,
+            "current_period_net_income": 733170.16,
+            "non_netting_residual": 1078009.48,
+            "total_equity": 6333047.96,
+            "total_liabilities_and_equity": 23270053.28
+          },
+          "cash_flow": {
+            "cash_beginning": 2724230.82,
+            "net_cash_change": 1992346.58,
+            "cash_ending": 4716577.4,
+            "cash_ending_positive": 4716577.4,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Sunkissed Village RV Resort LLC",
+          "folders": [
+            "140",
+            "142"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 2599444.14,
+            "total_expenses": 2612876.2,
+            "net_income": -13432.06
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 20692914.78,
+            "total_liabilities": 9252204.58,
+            "prior_equity": 11038940.92,
+            "current_period_net_income": -13432.06,
+            "non_netting_residual": 415201.34,
+            "total_equity": 11440710.2,
+            "total_liabilities_and_equity": 20692914.78
+          },
+          "cash_flow": {
+            "cash_beginning": 2181938.08,
+            "net_cash_change": 473409.22,
+            "cash_ending": 2655347.3,
+            "cash_ending_positive": 2655347.3,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "The Bluffs MH and RV Resort LLC",
+          "folders": [
+            "147"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 793658.0,
+            "total_expenses": 1139153.58,
+            "net_income": -345495.58
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 10189245.2,
+            "total_liabilities": 5099836.46,
+            "prior_equity": 7026407.12,
+            "current_period_net_income": -345495.58,
+            "non_netting_residual": -1591502.8,
+            "total_equity": 5089408.74,
+            "total_liabilities_and_equity": 10189245.2
+          },
+          "cash_flow": {
+            "cash_beginning": 197890.36,
+            "net_cash_change": -903237.24,
+            "cash_ending": -705346.88,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -705346.88
+          }
+        },
+        {
+          "company": "Barbara Descendants Trust",
+          "folders": [
+            "110"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 63059.14,
+            "total_expenses": 729430.92,
+            "net_income": -666371.78
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 19401747.46,
+            "total_liabilities": 30595785.6,
+            "prior_equity": -10594965.14,
+            "current_period_net_income": -666371.78,
+            "non_netting_residual": 67298.78,
+            "total_equity": -11194038.14,
+            "total_liabilities_and_equity": 19401747.46
+          },
+          "cash_flow": {
+            "cash_beginning": 1076313.78,
+            "net_cash_change": -3230021.18,
+            "cash_ending": -2153707.4,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -2153707.4
+          }
+        },
+        {
+          "company": "Home Sites LLC Series C (Ellis Apartments)",
+          "folders": [
+            "38"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 147580.0,
+            "total_expenses": 355419.48,
+            "net_income": -207839.48
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 7549867.84,
+            "total_liabilities": 3998695.5,
+            "prior_equity": 3975954.68,
+            "current_period_net_income": -207839.48,
+            "non_netting_residual": -216942.86,
+            "total_equity": 3551172.34,
+            "total_liabilities_and_equity": 7549867.84
+          },
+          "cash_flow": {
+            "cash_beginning": 107483.62,
+            "net_cash_change": -4927.58,
+            "cash_ending": 102556.04,
+            "cash_ending_positive": 102556.04,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Galaxy Sites / Jet Sites B (combined LLCs)",
+          "folders": [
+            "33",
+            "144",
+            "145",
+            "146"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 829131.88,
+            "total_expenses": 2764740.12,
+            "net_income": -1935608.24
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 10463701.8,
+            "total_liabilities": 32073700.44,
+            "prior_equity": -20694663.02,
+            "current_period_net_income": -1935608.24,
+            "non_netting_residual": 1020272.62,
+            "total_equity": -21609998.64,
+            "total_liabilities_and_equity": 10463701.8
+          },
+          "cash_flow": {
+            "cash_beginning": 406563.82,
+            "net_cash_change": -14068098.9,
+            "cash_ending": -13661535.08,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -13661535.08
+          }
+        },
+        {
+          "company": "Tax Certificate Buying Entities",
+          "folders": [
+            "150",
+            "160",
+            "180",
+            "190"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 5070036.02,
+            "total_expenses": 2128756.18,
+            "net_income": 2941279.84
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 65260647.88,
+            "total_liabilities": 5584894.38,
+            "prior_equity": 19062637.0,
+            "current_period_net_income": 2941279.84,
+            "non_netting_residual": 37671836.66,
+            "total_equity": 59675753.5,
+            "total_liabilities_and_equity": 65260647.88
+          },
+          "cash_flow": {
+            "cash_beginning": 2502589.7,
+            "net_cash_change": 19121618.06,
+            "cash_ending": 21624207.76,
+            "cash_ending_positive": 21624207.76,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Madison RV Resort and Golf Course LLC",
+          "folders": [
+            "143"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 146104.2,
+            "total_expenses": 1119687.88,
+            "net_income": -973583.68
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 8950181.44,
+            "total_liabilities": 1308973.64,
+            "prior_equity": 7202652.16,
+            "current_period_net_income": -973583.68,
+            "non_netting_residual": 1412139.32,
+            "total_equity": 7641207.8,
+            "total_liabilities_and_equity": 8950181.44
+          },
+          "cash_flow": {
+            "cash_beginning": 213878.58,
+            "net_cash_change": -1064898.02,
+            "cash_ending": -851019.44,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -851019.44
+          }
+        },
+        {
+          "company": "Sheridan Acres Mobile Home Sales Corp.",
+          "folders": [
+            "19"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 182983.38,
+            "total_expenses": 133972.58,
+            "net_income": 49010.8
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 2384300.9,
+            "total_liabilities": 2245992.74,
+            "prior_equity": -113752.94,
+            "current_period_net_income": 49010.8,
+            "non_netting_residual": 203050.3,
+            "total_equity": 138308.16,
+            "total_liabilities_and_equity": 2384300.9
+          },
+          "cash_flow": {
+            "cash_beginning": 98484.96,
+            "net_cash_change": -13863.32,
+            "cash_ending": 84621.64,
+            "cash_ending_positive": 84621.64,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Lakeview Mobile Home Park Partnership",
+          "folders": [
+            "18"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 3399833.4,
+            "total_expenses": 1755542.48,
+            "net_income": 1644290.92
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 2793738.18,
+            "total_liabilities": -25394156.28,
+            "prior_equity": 26942577.4,
+            "current_period_net_income": 1644290.92,
+            "non_netting_residual": -398973.86,
+            "total_equity": 28187894.46,
+            "total_liabilities_and_equity": 2793738.18
+          },
+          "cash_flow": {
+            "cash_beginning": 112544.94,
+            "net_cash_change": 437341.7,
+            "cash_ending": 549886.64,
+            "cash_ending_positive": 549886.64,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Poinsettia Mobile Home Park Partnership",
+          "folders": [
+            "25"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 817072.74,
+            "total_expenses": 978695.58,
+            "net_income": -161622.84
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 154182719.22,
+            "total_liabilities": 177780177.5,
+            "prior_equity": -37193917.36,
+            "current_period_net_income": -161622.84,
+            "non_netting_residual": 13758081.92,
+            "total_equity": -23597458.28,
+            "total_liabilities_and_equity": 154182719.22
+          },
+          "cash_flow": {
+            "cash_beginning": 1367324.5,
+            "net_cash_change": 9764857.2,
+            "cash_ending": 11132181.7,
+            "cash_ending_positive": 11132181.7,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Upriver Partners LLP (sold May 2026)",
+          "folders": [
+            "49",
+            "491"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 59807015.62,
+            "total_expenses": 1973936.72,
+            "net_income": 57833078.9
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 34900405.74,
+            "total_liabilities": -75478.6,
+            "prior_equity": -12886393.84,
+            "current_period_net_income": 57833078.9,
+            "non_netting_residual": -9970800.72,
+            "total_equity": 34975884.34,
+            "total_liabilities_and_equity": 34900405.74
+          },
+          "cash_flow": {
+            "cash_beginning": 1065733.14,
+            "net_cash_change": 25926156.7,
+            "cash_ending": 26991889.84,
+            "cash_ending_positive": 26991889.84,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Friendly Oaks Partnership",
+          "folders": [
+            "71"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 1443946.62,
+            "total_expenses": 0,
+            "net_income": 1443946.62
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 17064866.1,
+            "total_liabilities": 11937918.6,
+            "prior_equity": 5501000.88,
+            "current_period_net_income": 1443946.62,
+            "non_netting_residual": -1818000.0,
+            "total_equity": 5126947.5,
+            "total_liabilities_and_equity": 17064866.1
+          },
+          "cash_flow": {
+            "cash_beginning": 1250.02,
+            "net_cash_change": 416.98,
+            "cash_ending": 1667.0,
+            "cash_ending_positive": 1667.0,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Veranda Six Partnership",
+          "folders": [
+            "15"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 119886.86,
+            "total_expenses": 6999.74,
+            "net_income": 112887.12
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 405225.52,
+            "total_liabilities": 14802.56,
+            "prior_equity": 298753.02,
+            "current_period_net_income": 112887.12,
+            "non_netting_residual": -21217.18,
+            "total_equity": 390422.96,
+            "total_liabilities_and_equity": 405225.52
+          },
+          "cash_flow": {
+            "cash_beginning": 1597.92,
+            "net_cash_change": -2330.06,
+            "cash_ending": -732.14,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -732.14
+          }
+        },
+        {
+          "company": "Investment Sites LLC",
+          "folders": [
+            "141"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 802633.46,
+            "net_income": -802633.46
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 13214552.06,
+            "total_liabilities": 22653609.22,
+            "prior_equity": -9231951.2,
+            "current_period_net_income": -802633.46,
+            "non_netting_residual": 595527.5,
+            "total_equity": -9439057.16,
+            "total_liabilities_and_equity": 13214552.06
+          },
+          "cash_flow": {
+            "cash_beginning": 745.12,
+            "net_cash_change": 616.54,
+            "cash_ending": 1361.66,
+            "cash_ending_positive": 1361.66,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Home Sites LLC Series A and B (Indemnities, Seneca)",
+          "folders": [
+            "34",
+            "35",
+            "36"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 70384.98,
+            "total_expenses": 327002.68,
+            "net_income": -256617.7
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 14236050.56,
+            "total_liabilities": 13405351.4,
+            "prior_equity": -637473.9,
+            "current_period_net_income": -256617.7,
+            "non_netting_residual": 1724790.76,
+            "total_equity": 830699.16,
+            "total_liabilities_and_equity": 14236050.56
+          },
+          "cash_flow": {
+            "cash_beginning": 1701988.42,
+            "net_cash_change": 704731.68,
+            "cash_ending": 2406720.1,
+            "cash_ending_positive": 2406720.1,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "K Sites LLC Series A and B",
+          "folders": [
+            "148",
+            "149",
+            "151"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 211719.02,
+            "net_income": -211719.02
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 3604667.34,
+            "total_liabilities": 8010152.0,
+            "prior_equity": 4643.18,
+            "current_period_net_income": -211719.02,
+            "non_netting_residual": -4198408.82,
+            "total_equity": -4405484.66,
+            "total_liabilities_and_equity": 3604667.34
+          },
+          "cash_flow": {
+            "cash_beginning": 2028.66,
+            "net_cash_change": -1410204.98,
+            "cash_ending": -1408176.32,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -1408176.32
+          }
+        },
+        {
+          "company": "L Sites LLC (K Sites Series A successor)",
+          "folders": [
+            "152"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": -11161.54,
+            "total_expenses": -24166.48,
+            "net_income": 13004.94
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 2240717.48,
+            "total_liabilities": -91115.18,
+            "prior_equity": -881880.0,
+            "current_period_net_income": 13004.94,
+            "non_netting_residual": 3200707.72,
+            "total_equity": 2331832.66,
+            "total_liabilities_and_equity": 2240717.48
+          },
+          "cash_flow": {
+            "cash_beginning": 0.0,
+            "net_cash_change": 1006197.82,
+            "cash_ending": 1006197.82,
+            "cash_ending_positive": 1006197.82,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "M Sites LLC (K Sites Series B successor)",
+          "folders": [
+            "153"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 47898.4,
+            "net_income": -47898.4
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 1455640.98,
+            "total_liabilities": -411187.74,
+            "prior_equity": 121320.0,
+            "current_period_net_income": -47898.4,
+            "non_netting_residual": 1793407.12,
+            "total_equity": 1866828.72,
+            "total_liabilities_and_equity": 1455640.98
+          },
+          "cash_flow": {
+            "cash_beginning": 0.0,
+            "net_cash_change": -43406.02,
+            "cash_ending": -43406.02,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -43406.02
+          }
+        },
+        {
+          "company": "Urban Visions Inc.",
+          "folders": [
+            "3"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 52910.0,
+            "total_expenses": 504540.86,
+            "net_income": -451630.86
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": -609870.18,
+            "total_liabilities": 31582982.84,
+            "prior_equity": -31783021.98,
+            "current_period_net_income": -451630.86,
+            "non_netting_residual": 41799.82,
+            "total_equity": -32192853.02,
+            "total_liabilities_and_equity": -609870.18
+          },
+          "cash_flow": {
+            "cash_beginning": 125.96,
+            "net_cash_change": -604606.52,
+            "cash_ending": -604480.56,
+            "cash_ending_positive": 0.0,
+            "cash_ending_negative": -604480.56
+          }
+        },
+        {
+          "company": "Jennings Capital Investments LLC",
+          "folders": [
+            "11"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 0,
+            "net_income": 0
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 1247.02,
+            "total_liabilities": -244000.0,
+            "prior_equity": 245400.4,
+            "current_period_net_income": 0,
+            "non_netting_residual": -153.38,
+            "total_equity": 245247.02,
+            "total_liabilities_and_equity": 1247.02
+          },
+          "cash_flow": {
+            "cash_beginning": 1222.44,
+            "net_cash_change": 24.58,
+            "cash_ending": 1247.02,
+            "cash_ending_positive": 1247.02,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Cardea Communities LLC",
+          "folders": [
+            "181"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 11493.1,
+            "net_income": -11493.1
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 302283.78,
+            "total_liabilities": 166006.52,
+            "prior_equity": -11602.6,
+            "current_period_net_income": -11493.1,
+            "non_netting_residual": 159372.96,
+            "total_equity": 136277.26,
+            "total_liabilities_and_equity": 302283.78
+          },
+          "cash_flow": {
+            "cash_beginning": 788.96,
+            "net_cash_change": 1193.56,
+            "cash_ending": 1982.52,
+            "cash_ending_positive": 1982.52,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "Mutual Fidelity Corp.",
+          "folders": [
+            "37"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 0,
+            "total_expenses": 0,
+            "net_income": 0
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 713.98,
+            "total_liabilities": 4044.74,
+            "prior_equity": -3330.76,
+            "current_period_net_income": 0,
+            "non_netting_residual": 0.0,
+            "total_equity": -3330.76,
+            "total_liabilities_and_equity": 713.98
+          },
+          "cash_flow": {
+            "cash_beginning": 713.98,
+            "net_cash_change": 0.0,
+            "cash_ending": 713.98,
+            "cash_ending_positive": 713.98,
+            "cash_ending_negative": 0.0
+          }
+        },
+        {
+          "company": "National Indemnity Corp.",
+          "folders": [
+            "23"
+          ],
+          "period": "260101 to 261020",
+          "income_statement": {
+            "total_revenue": 1362041.78,
+            "total_expenses": 1396344.78,
+            "net_income": -34303.0
+          },
+          "balance_sheet": {
+            "as_of_date": "261020",
+            "total_assets": 2633836.16,
+            "total_liabilities": -14456242.8,
+            "prior_equity": 16351656.0,
+            "current_period_net_income": -34303.0,
+            "non_netting_residual": 772725.96,
+            "total_equity": 17090078.96,
+            "total_liabilities_and_equity": 2633836.16
+          },
+          "cash_flow": {
+            "cash_beginning": 13005.62,
+            "net_cash_change": 1711110.18,
+            "cash_ending": 1724115.8,
+            "cash_ending_positive": 1724115.8,
+            "cash_ending_negative": 0.0
+          }
+        }
+      ]
+    }
+  }
+}

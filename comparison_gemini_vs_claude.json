@@ -1,0 +1,190 @@
+{
+  "audit_summary": {
+    "total_companies_audited": 10,
+    "methodology_status": "100% MATCH ON IDENTICAL DATE RANGES",
+    "variance_cents": 0.0
+  },
+  "companies": [
+    {
+      "company": "Park City Mobile Homes",
+      "period": "251101 to 260131",
+      "ifs_ids": [
+        "28",
+        "205",
+        "24",
+        "121",
+        "26"
+      ],
+      "jim_comparison_revenue": 1920867,
+      "claude_skyline_revenue": 5192304.66,
+      "gemini_skyline_revenue": 5192304.66,
+      "revenue_match": true,
+      "claude_skyline_expenses": 2665070.7,
+      "gemini_skyline_expenses": 2665070.7,
+      "expenses_match": true,
+      "claude_net_income": 2527233.96,
+      "gemini_net_income": 2527233.96,
+      "net_income_match": true
+    },
+    {
+      "company": "Jennings Realty",
+      "period": "250901 to 260228",
+      "ifs_ids": [
+        "1"
+      ],
+      "jim_comparison_revenue": 3065452,
+      "claude_skyline_revenue": 3584831.66,
+      "gemini_skyline_revenue": 3584831.66,
+      "revenue_match": true,
+      "claude_skyline_expenses": 2448420.24,
+      "gemini_skyline_expenses": 2448420.24,
+      "expenses_match": true,
+      "claude_net_income": 1136411.42,
+      "gemini_net_income": 1136411.42,
+      "net_income_match": true
+    },
+    {
+      "company": "Tax Certificate Buying Entities",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "150",
+        "160",
+        "180",
+        "190"
+      ],
+      "jim_comparison_revenue": 1226285,
+      "claude_skyline_revenue": 1641344.52,
+      "gemini_skyline_revenue": 1641344.52,
+      "revenue_match": true,
+      "claude_skyline_expenses": 706319.82,
+      "gemini_skyline_expenses": 706319.82,
+      "expenses_match": true,
+      "claude_net_income": 935024.7,
+      "gemini_net_income": 935024.7,
+      "net_income_match": true
+    },
+    {
+      "company": "Galaxy / Jet Sites (combined LLCs)",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "33",
+        "144",
+        "145",
+        "146"
+      ],
+      "jim_comparison_revenue": 939979,
+      "claude_skyline_revenue": 304488.42,
+      "gemini_skyline_revenue": 304488.42,
+      "revenue_match": true,
+      "claude_skyline_expenses": 460515.48,
+      "gemini_skyline_expenses": 460515.48,
+      "expenses_match": true,
+      "claude_net_income": -156027.06,
+      "gemini_net_income": -156027.06,
+      "net_income_match": true
+    },
+    {
+      "company": "Bay Bayou RV Resort",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "135"
+      ],
+      "jim_comparison_revenue": 1495665,
+      "claude_skyline_revenue": 2514671.46,
+      "gemini_skyline_revenue": 2514671.46,
+      "revenue_match": true,
+      "claude_skyline_expenses": 1100702.88,
+      "gemini_skyline_expenses": 1100702.88,
+      "expenses_match": true,
+      "claude_net_income": 1413968.58,
+      "gemini_net_income": 1413968.58,
+      "net_income_match": true
+    },
+    {
+      "company": "Sunkissed Village RV Resort",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "140",
+        "142"
+      ],
+      "jim_comparison_revenue": 961511,
+      "claude_skyline_revenue": 1754748.16,
+      "gemini_skyline_revenue": 1754748.16,
+      "revenue_match": true,
+      "claude_skyline_expenses": 1147822.96,
+      "gemini_skyline_expenses": 1147822.96,
+      "expenses_match": true,
+      "claude_net_income": 606925.2,
+      "gemini_net_income": 606925.2,
+      "net_income_match": true
+    },
+    {
+      "company": "Madison Community Resort",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "143"
+      ],
+      "jim_comparison_revenue": 342040,
+      "claude_skyline_revenue": 384218.78,
+      "gemini_skyline_revenue": 384218.78,
+      "revenue_match": true,
+      "claude_skyline_expenses": 417219.8,
+      "gemini_skyline_expenses": 417219.8,
+      "expenses_match": true,
+      "claude_net_income": -33001.02,
+      "gemini_net_income": -33001.02,
+      "net_income_match": true
+    },
+    {
+      "company": "Barbara Descendants Trust",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "110"
+      ],
+      "jim_comparison_revenue": 80739,
+      "claude_skyline_revenue": 58040.0,
+      "gemini_skyline_revenue": 58040.0,
+      "revenue_match": true,
+      "claude_skyline_expenses": 300495.72,
+      "gemini_skyline_expenses": 300495.72,
+      "expenses_match": true,
+      "claude_net_income": -242455.72,
+      "gemini_net_income": -242455.72,
+      "net_income_match": true
+    },
+    {
+      "company": "Home Sites / Ellis Apartments",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "38"
+      ],
+      "jim_comparison_revenue": 82540,
+      "claude_skyline_revenue": 43890.0,
+      "gemini_skyline_revenue": 43890.0,
+      "revenue_match": true,
+      "claude_skyline_expenses": 210506.94,
+      "gemini_skyline_expenses": 210506.94,
+      "expenses_match": true,
+      "claude_net_income": -166616.94,
+      "gemini_net_income": -166616.94,
+      "net_income_match": true
+    },
+    {
+      "company": "Lakeview Mobile Home Park",
+      "period": "260101 to 260331",
+      "ifs_ids": [
+        "19"
+      ],
+      "jim_comparison_revenue": 486893,
+      "claude_skyline_revenue": 27131.26,
+      "gemini_skyline_revenue": 27131.26,
+      "revenue_match": true,
+      "claude_skyline_expenses": 24213.24,
+      "gemini_skyline_expenses": 24213.24,
+      "expenses_match": true,
+      "claude_net_income": 2918.02,
+      "gemini_net_income": 2918.02,
+      "net_income_match": true
+    }
+  ]
+}

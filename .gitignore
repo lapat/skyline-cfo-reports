@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.class
+
+# macOS metadata
+.DS_Store
+
+# Large binary mirrors and sandbox
+live_skyline_fast_mirror/
+sandbox/
+*.sqlite
+*.sqlite-journal
+
+# Python virtualenvs
+venv/
+.env/

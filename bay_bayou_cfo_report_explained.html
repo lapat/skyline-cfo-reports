@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bay Bayou CFO Financial Report — The Executive Masterclass</title>
+    <!-- Chart.js for interactive analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1B365D;
+            --primary-light: #2A4D7E;
+            --accent: #00A86B;
+            --accent-warm: #E67E22;
+            --danger: #E74C3C;
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #2C3E50;
+            --text-muted: #7F8C8D;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0F2038 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #CBD5E1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge-bar {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .kpi-card.green { border-color: var(--accent); }
+        .kpi-card.orange { border-color: var(--accent-warm); }
+        .kpi-card.blue { border-color: #3498DB; }
+
+        .kpi-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* Sections */
+        .section-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+
+        .section-box h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #EDF2F7;
+            padding-bottom: 10px;
+        }
+
+        /* Chart Containers */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 850px) {
+            .charts-row { grid-template-columns: 1fr; }
+        }
+
+        .chart-box {
+            background: #FAFCFF;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+        }
+
+        .chart-box h3 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        /* Deep Dive Cards */
+        .deep-dive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .deep-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+        }
+
+        .deep-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .deep-card p {
+            font-size: 0.88rem;
+            color: #4A5568;
+            margin-bottom: 8px;
+        }
+
+        .highlight-quote {
+            background: #EBF8FF;
+            border-left: 4px solid #3182CE;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #2B6CB0;
+            margin: 15px 0;
+        }
+
+        /* Page Breakdown Accordions */
+        .page-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .page-header {
+            background: #F1F5F9;
+            padding: 14px 18px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .page-header:hover {
+            background: #E2E8F0;
+        }
+
+        .page-body {
+            padding: 18px;
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.85rem;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: #F1F5F9;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .num { text-align: right; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BAY BAYOU FLORIDA RV RESORT</h1>
+    <p>Executive Financial Report Masterclass — Deconstructing CFO Jim's 10-Page Masterpiece</p>
+    <div class="badge-bar">
+        <span class="badge">Period: Jan 1 – Jun 30, 2026</span>
+        <span class="badge">Property: 302 Sites (Tampa, FL)</span>
+        <span class="badge">Underlying Ledger: Skyline IFS 135</span>
+        <span class="badge">Mortgage: $7.9M Byline Bank (6.5%)</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- KPI Top Cards -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">6-Month Total Revenue</div>
+            <div class="kpi-value">$1,931,607</div>
+            <div class="kpi-sub">Rent + Utilities + Ancillary</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-title">Net Operating Income (NOI)</div>
+            <div class="kpi-value">$819,607</div>
+            <div class="kpi-sub">42.43% Operating Margin</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Mortgage Debt Service</div>
+            <div class="kpi-value">($266,776)</div>
+            <div class="kpi-sub">Byline Bank 6.5% Fixed</div>
+        </div>
+        <div class="kpi-card orange">
+            <div class="kpi-title">Depreciation (Non-Cash)</div>
+            <div class="kpi-value">($161,640)</div>
+            <div class="kpi-sub">Tax shield write-down</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-title">Bottom-Line Net Income</div>
+            <div class="kpi-value">$385,621</div>
+            <div class="kpi-sub">Passes to Members' Equity</div>
+        </div>
+        <div class="kpi-card blue">
+            <div class="kpi-title">Total Book Assets</div>
+            <div class="kpi-value">$11,140,612</div>
+            <div class="kpi-sub">$5.9M Real Estate + $5.2M Other</div>
+        </div>
+    </div>
+
+    <!-- Section 1: The Executive Philosophy -->
+    <div class="section-box">
+        <h2>💡 Why Jay Loves This Report (And Why Standard Accounting Fails Him)</h2>
+        <p>If you hand Jay a standard QuickBooks or raw Skyline general ledger printout, he will reject it. Why? Because generic accounting tools treat an RV resort like a grocery store or an office building. Jim’s 10-page package is tailored specifically to <strong>RV park economics</strong> and <strong>Jay’s executive decision-making needs</strong>:</p>
+
+        <div class="deep-dive-grid">
+            <div class="deep-card">
+                <h4>1. Operational NOI vs. Financing</h4>
+                <p>Standard software buries interest and depreciation in total expenses, showing a low net income of $385K. Jim draws a hard line at <strong>Operating Income (NOI = $819,607)</strong>.</p>
+                <p><strong>Why Jay cares:</strong> This proves the park manager is doing a killer job operating the park (42% margin), regardless of how Jay chose to finance the mortgage.</p>
+            </div>
+            <div class="deep-card">
+                <h4>2. The Capital Expansion ROI</h4>
+                <p>Jim explicitly divides revenue into <strong>Existing Sites ($1.36M)</strong> vs. <strong>Expansion Sites ($411.6K)</strong>.</p>
+                <p><strong>Why Jay cares:</strong> Jay put millions into building the park expansion. This report proves in black-and-white that the expansion sites produced $411,636 in just 6 months—proving the ROI on his capital investment.</p>
+            </div>
+            <div class="deep-card">
+                <h4>3. The Florida Snowbird Wave</h4>
+                <p>Page 3 reveals the winter seasonality: January produced <strong>+$359K NOI</strong>, while June dropped to <strong>-$41K NOI</strong>.</p>
+                <p><strong>Why Jay cares:</strong> In Florida, winter carries the year. Seeing this monthly curve allows Jay to harvest cash in Q1 to comfortably fund summer off-season operations.</p>
+            </div>
+            <div class="deep-card">
+                <h4>4. Hotel Unit Economics (ADR & RevPAR)</h4>
+                <p>Page 9 tracks <strong>ADR ($56.85)</strong> and <strong>RevPAR ($33.39)</strong>.</p>
+                <p><strong>Why Jay cares:</strong> These are the gold-standard hospitality metrics. It tells him that although occupancy dipped slightly in early spring, rates were raised enough (+$3.58 YoY) to keep cash flow intact.</p>
+            </div>
+        </div>
+
+        <div class="highlight-quote">
+            "The magic of Jim's report is that it answers Jay's three fundamental questions in under 60 seconds: (1) Did my park managers run an efficient operation? Yes ($820K NOI). (2) Did my new expansion sites pay off? Yes ($412K revenue). (3) Is our debt service covered? Yes (3.07x debt service coverage ratio)."
+        </div>
+    </div>
+
+    <!-- Section 2: Interactive Visual Analytics -->
+    <div class="section-box">
+        <h2>📊 Visual Analytics: The Core Economic Drivers</h2>
+        
+        <div class="charts-row">
+            <div class="chart-box">
+                <h3>The 6-Month Seasonality Curve (Monthly Revenue vs. NOI)</h3>
+                <canvas id="seasonalityChart" height="200"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>Revenue Mix by Stay Length ($1.93M Total)</h3>
+                <canvas id="revenueMixChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-box">
+                <h3>Top Operating Expense Categories ($1.11M Total)</h3>
+                <canvas id="expenseChart" height="200"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>Utility Cost Recovery ($190.8K Expense vs. $96.8K Billed)</h3>
+                <canvas id="utilityChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Page-by-Page Plain English Guide -->
+    <div class="section-box">
+        <h2>📖 Page-by-Page Guide to Jim's 10-Page Report</h2>
+        <p style="margin-bottom: 15px;">Here is the intuitive, plain-English explanation of every page in `BAYBAYOUFINANCIALSTMTS63026.pdf`:</p>
+
+        <!-- Page 1 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Page 1: Comparative Balance Sheet (June 30, 2026 vs June 30, 2025)</span>
+                <span class="pill">Balance Sheet</span>
+            </div>
+            <div class="page-body">
+                <p><strong>What it tells us:</strong> What Bay Bayou owns (Assets), what it owes (Liabilities), and what Jay & partners actually own free-and-clear (Members' Equity).</p>
+                <ul>
+                    <li><strong>Property & Equipment ($5,931,797 net):</strong> Land is carried at cost ($2.17M). Site improvements ($4.42M) and buildings ($2.11M) are depreciated down by $4.00M in accumulated depreciation.</li>
+                    <li><strong>Cash ($1,873,702):</strong> Liquid money sitting across Bay Bayou's operating and payroll accounts at Fifth Third Bank.</li>
+                    <li><strong>Goodwill ($3,125,369):</strong> Premium value recognized upon acquisition representing the park's brand, waterfront location, and established reputation.</li>
+                    <li><strong>Long-Term Debt ($7,901,376):</strong> The Byline Bank mortgage. It originated at $8.5M and has been paid down from $8.07M last year, proving steady principal reduction.</li>
+                    <li><strong>Members' Equity ($2,646,555):</strong> The net worth of the partnership. Reconciles 100% to ending equity on Page 2!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Page 2: Statement of Income & Retained Earnings</span>
+                <span class="pill">P&L</span>
+            </div>
+            <div class="page-body">
+                <p><strong>What it tells us:</strong> The official profit waterfall from top-line sales to bottom-line net income.</p>
+                <ul>
+                    <li><strong>Total Revenue ($1,931,607):</strong> Rental leases from existing sites ($1.36M) and expansion sites ($411.6K), plus electricity ($96.8K), laundry ($24.5K), and propane ($10.5K).</li>
+                    <li><strong>Operating Expenses ($1,112,000):</strong> Pure day-to-day property operating costs (payroll, landscaping, utilities, management fees).</li>
+                    <li><strong>Operating Income / NOI ($819,607):</strong> The true earnings engine. <strong>42.43%</strong> of every dollar taken in falls to NOI!</li>
+                    <li><strong>Financing Deductions:</strong> Mortgage interest ($266,776) and non-cash depreciation ($161,640) deduct $433,986 from NOI.</li>
+                    <li><strong>Net Income ($385,621):</strong> Taxable profit added to Beginning Equity ($2,260,934) to arrive at Ending Equity ($2,646,555).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pages 3 & 4 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Pages 3 & 4: Detail by Month (Jan – Jun 2026)</span>
+                <span class="pill">Seasonality Matrix</span>
+            </div>
+            <div class="page-body">
+                <p><strong>What it tells us:</strong> The heartbeat of the property month by month.</p>
+                <p>Notice the revenue breakdown by contract duration: <strong>Daily</strong>, <strong>Weekly</strong>, <strong>Monthly</strong>, and <strong>2–6 Month Snowbird contracts</strong>. In winter (Jan–March), 4-month contracts bring in $280K and monthly brings in $433K. In summer (May–June), 4-month drops to $0, and the park relies on annual residents ($281K/yr) and short-term transient guests.</p>
+            </div>
+        </div>
+
+        <!-- Page 5 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Page 5: Operating Expense Comparative Analysis (% of Revenue)</span>
+                <span class="pill">Cost Discipline</span>
+            </div>
+            <div class="page-body">
+                <p><strong>What it tells us:</strong> Cost control benchmarking. Every line is measured against total revenue:</p>
+                <ul>
+                    <li><strong>Management Fees:</strong> Exactly <strong>11.75%</strong> ($226,964). This is the contractual fee paid to affiliated Jennings Realty.</li>
+                    <li><strong>Utilities (Water & Electric):</strong> <strong>9.88%</strong> ($190,835).</li>
+                    <li><strong>Total Payroll (Maintenance + Office):</strong> <strong>12.76%</strong> ($246,406).</li>
+                    <li><strong>Repairs & Maintenance:</strong> <strong>1.83%</strong> ($35,443) — down sharply from 3.15% in 2025!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pages 6, 7 & 8 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Pages 6, 7 & 8: Occupancy & Length-of-Stay Reports</span>
+                <span class="pill">Guest Analytics</span>
+            </div>
+            <div class="page-body">
+                <p><strong>What it tells us:</strong> Where the guest nights came from across the 308 sites:</p>
+                <p>Annual guests generate <strong>8,861 site nights</strong> (25% of occupancy), 4-month snowbirds generate <strong>1,446 nights</strong>, and monthly guests generate <strong>5,338 nights</strong>. Total rented site nights: <strong>32,920 nights</strong> (58.73% 6-month average occupancy).</p>
+            </div>
+        </div>
+
+        <!-- Page 9 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Page 9: ADR & RevPAR (Hospitality Unit Economics)</span>
+                <span class="pill">Unit Economics</span>
+            </div>
+            <div class="page-body">
+                <p><strong>ADR (Average Daily Rate):</strong> The average revenue collected per occupied night: <strong>$56.85</strong> in 2026 vs. $53.27 in 2025. <em>Rates increased by +$3.58/night!</em></p>
+                <p><strong>RevPAR (Revenue Per Available Site):</strong> Total rental revenue divided by total site capacity: <strong>$33.39</strong> in 2026 vs. $35.50 in 2025. <em>Slightly lower because early spring had more vacant sites due to bad weather.</em></p>
+            </div>
+        </div>
+
+        <!-- Page 10 -->
+        <div class="page-card">
+            <div class="page-header">
+                <span>Page 10: Utility Detail & Cost Recovery Analysis</span>
+                <span class="pill">Utility Submetering</span>
+            </div>
+            <div class="page-body">
+                <p><strong>What it tells us:</strong> How effectively the park passes through electricity costs to guests:</p>
+                <ul>
+                    <li>Total Electricity Bill paid to TECO: <strong>$130,503.49</strong></li>
+                    <li>Electric Revenue billed back to guests via site submeters: <strong>$96,784.00</strong></li>
+                    <li><strong>Electric Recovery Ratio: 74.2%</strong> (meaning the park successfully recaptured nearly 3 out of every 4 dollars spent on power!).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Unlabeled Accounts Translation -->
+    <div class="section-box">
+        <h2>🔑 The Secret Decoder: Skyline Unlabeled Accounts Translated</h2>
+        <p>In raw Skyline `CHART.DAT`, over a dozen accounts had blank or generic names. We reverse-engineered their true identity:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Skyline Account #</th>
+                    <th>Skyline Raw Label</th>
+                    <th>Jim's Report Line</th>
+                    <th>True Operational Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>30000004</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>RENTAL INCOME - WEEKLY</td>
+                    <td>7-day snowbird & vacation rental rate tier</td>
+                </tr>
+                <tr>
+                    <td><code>30000005</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>RENTAL INCOME - MONTHLY</td>
+                    <td>Standard 30-day site leases ($433K total)</td>
+                </tr>
+                <tr>
+                    <td><code>30000006</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>RENTAL INCOME - 6 MONTH</td>
+                    <td>Full-winter seasonal snowbird packages</td>
+                </tr>
+                <tr>
+                    <td><code>30000007</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>RENTAL INCOME - YEARLY</td>
+                    <td>Permanent year-round residential site leases</td>
+                </tr>
+                <tr>
+                    <td><code>30000011</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>DAILY - EXPANSION SITES</td>
+                    <td>Daily rentals on the newly constructed expansion lots</td>
+                </tr>
+                <tr>
+                    <td><code>30000013</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>MONTHLY - EXPANSION SITES</td>
+                    <td>Monthly leases on newly constructed expansion lots</td>
+                </tr>
+                <tr>
+                    <td><code>30000016</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>4 MONTH - EXPANSION SITES</td>
+                    <td>4-month winter snowbirds in expansion section</td>
+                </tr>
+                <tr>
+                    <td><code>32600000</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>ELECTRIC INCOME</td>
+                    <td>Guest submeter utility billings ($96,784)</td>
+                </tr>
+                <tr>
+                    <td><code>46700000</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>INTEREST EXPENSE</td>
+                    <td>Byline Bank mortgage interest ($266,776)</td>
+                </tr>
+                <tr>
+                    <td><code>51110000</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>UTILITIES - ELECTRIC</td>
+                    <td>TECO commercial power bills ($130,503)</td>
+                </tr>
+                <tr>
+                    <td><code>51600003</code></td>
+                    <td><em>(unnamed)</em></td>
+                    <td>CABLE TV</td>
+                    <td>Spectrum bulk Wi-Fi and cable TV ($54,153)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    // 1. Seasonality Chart
+    const ctxSeason = document.getElementById('seasonalityChart').getContext('2d');
+    new Chart(ctxSeason, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [
+                {
+                    label: 'Total Revenue ($)',
+                    data: [565330, 505807, 424528, 203271, 125591, 107078],
+                    backgroundColor: '#1B365D'
+                },
+                {
+                    label: 'Net Operating Income ($)',
+                    data: [359422, 284872, 204331, 43767, -31673, -41112],
+                    backgroundColor: function(context) {
+                        const val = context.dataset.data[context.dataIndex];
+                        return val >= 0 ? '#00A86B' : '#E74C3C';
+                    }
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value) { return '$' + (value/1000).toLocaleString() + 'k'; }
+                    }
+                }
+            }
+        }
+    });
+
+    // 2. Revenue Mix Chart
+    const ctxRevMix = document.getElementById('revenueMixChart').getContext('2d');
+    new Chart(ctxRevMix, {
+        type: 'doughnut',
+        data: {
+            labels: ['Monthly Leases', '4-Month Snowbird', 'Expansion Sites', 'Annual Residents', 'Daily / Weekly', 'Utilities & Store'],
+            datasets: [{
+                data: [433328, 280225, 411636, 281298, 233720, 291400],
+                backgroundColor: ['#1B365D', '#3498DB', '#00A86B', '#F39C12', '#9B59B6', '#95A5A6']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'right' }
+            }
+        }
+    });
+
+    // 3. Expense Chart
+    const ctxExp = document.getElementById('expenseChart').getContext('2d');
+    new Chart(ctxExp, {
+        type: 'pie',
+        data: {
+            labels: ['Management Fees (11.75%)', 'Payroll (12.76%)', 'Utilities (9.88%)', 'Real Estate Taxes (3.19%)', 'Refuse/Trash (3.10%)', 'Insurance (2.76%)', 'All Other Ops'],
+            datasets: [{
+                data: [226964, 246406, 190835, 61591, 59807, 53270, 273127],
+                backgroundColor: ['#E67E22', '#2980B9', '#27AE60', '#8E44AD', '#D35400', '#16A085', '#BDC3C7']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'right' }
+            }
+        }
+    });
+
+    // 4. Utility Chart
+    const ctxUtil = document.getElementById('utilityChart').getContext('2d');
+    new Chart(ctxUtil, {
+        type: 'bar',
+        data: {
+            labels: ['Electricity', 'Water', 'Total Utilities'],
+            datasets: [
+                {
+                    label: 'Actual Cost Incurred ($)',
+                    data: [130503, 60332, 190835],
+                    backgroundColor: '#E74C3C'
+                },
+                {
+                    label: 'Reimbursed by Guests ($)',
+                    data: [96784, 0, 96784],
+                    backgroundColor: '#00A86B'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value) { return '$' + (value/1000).toLocaleString() + 'k'; }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

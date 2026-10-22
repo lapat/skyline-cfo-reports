@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bay Bayou CFO Financial Report — The Executive Masterclass (Pro Edition)</title>
+    <!-- Chart.js for interactive analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0A0D14;
+            --card-bg: #121722;
+            --card-border: #1F293D;
+            --primary: #3B82F6;
+            --primary-glow: rgba(59, 130, 246, 0.15);
+            --accent-green: #10B981;
+            --accent-gold: #F59E0B;
+            --accent-red: #EF4444;
+            --accent-purple: #8B5CF6;
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --code-bg: #0F141F;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: linear-gradient(180deg, #131B2E 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--card-border);
+            padding: 45px 20px 30px;
+            text-align: center;
+        }
+
+        .kicker {
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #FFFFFF, #93C5FD);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 840px;
+            margin: 0 auto 20px;
+        }
+
+        .badge-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93C5FD;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* KPI Dashboard */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .kpi-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--primary);
+        }
+
+        .kpi-card.green::before { background: var(--accent-green); }
+        .kpi-card.gold::before { background: var(--accent-gold); }
+        .kpi-card.purple::before { background: var(--accent-purple); }
+
+        .kpi-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .kpi-val {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .kpi-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Section Cards */
+        .section-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Stack Visualizer */
+        .stack-bar {
+            display: flex;
+            height: 38px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0 10px;
+            border: 1px solid var(--card-border);
+        }
+
+        .stack-seg {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s ease;
+        }
+
+        .stack-seg:hover { opacity: 0.85; }
+
+        .legend-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 18px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .legend-item i {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            margin-right: 6px;
+        }
+
+        /* Charts */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media(max-width: 800px) {
+            .chart-grid { grid-template-columns: 1fr; }
+        }
+
+        .chart-container {
+            background: var(--code-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .chart-container h3 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            border-left: 4px solid var(--primary);
+            background: rgba(59, 130, 246, 0.08);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 18px 0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .callout.green { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.08); }
+        .callout.gold { border-color: var(--accent-gold); background: rgba(245, 158, 11, 0.08); }
+        .callout.red { border-color: var(--accent-red); background: rgba(239, 68, 68, 0.08); }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--card-border);
+            text-align: left;
+        }
+
+        th {
+            background: var(--code-bg);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        td.num { text-align: right; font-variant-numeric: tabular-nums; }
+        .neg { color: var(--accent-red); }
+        .pos { color: var(--accent-green); font-weight: 600; }
+
+        /* Accordion Page Cards */
+        .page-card {
+            background: var(--code-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .page-header {
+            padding: 14px 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+            transition: background 0.2s;
+        }
+
+        .page-header:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .page-body {
+            padding: 18px;
+            font-size: 0.9rem;
+            color: #D1D5DB;
+            border-top: 1px solid var(--card-border);
+            line-height: 1.7;
+        }
+
+        .pill {
+            background: var(--primary);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+            margin: 10px 0;
+        }
+        .toggle-btn:hover { background: #2563EB; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="kicker">EXECUTIVE REPORT MASTERCLASS · SIX MONTHS ENDED JUNE 30, 2026</div>
+    <h1>The Bay Bayou Report, Deeply Explained</h1>
+    <p class="lead">Deconstructing CFO Jim's 10-page financial package for Jay and leadership: what every number means, why standard accounting fails, the secret snowbird seasonality curve, and the underlying unit economics.</p>
+    <div class="badge-bar">
+        <span class="badge">Property: 302 Sites (Tampa, FL)</span>
+        <span class="badge">Skyline Database: IFS 135</span>
+        <span class="badge">Byline Bank Debt: $7.90M @ 6.5%</span>
+        <span class="badge">6-Month NOI: $819,607 (42.4% Margin)</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Top KPI Grid -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Total Assets</div>
+            <div class="kpi-val">$11.14M</div>
+            <div class="kpi-sub">What the resort owns</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">Gross Revenue (6 Mo)</div>
+            <div class="kpi-val">$1.93M</div>
+            <div class="kpi-sub">Rent + Utilities + Store</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">Operating Income (NOI)</div>
+            <div class="kpi-val">$819.6K</div>
+            <div class="kpi-sub">42.4% Operating Margin</div>
+        </div>
+        <div class="kpi-card gold">
+            <div class="kpi-label">Net Income (Bottom Line)</div>
+            <div class="kpi-val">$385.6K</div>
+            <div class="kpi-sub">After interest & depreciation</div>
+        </div>
+        <div class="kpi-card purple">
+            <div class="kpi-label">Mortgage Debt Service</div>
+            <div class="kpi-val">$266.8K</div>
+            <div class="kpi-sub">Byline Bank 6.5% Fixed</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Electric Recovery %</div>
+            <div class="kpi-val">74.2%</div>
+            <div class="kpi-sub">$96.8K billed / $130.5K cost</div>
+        </div>
+    </div>
+
+    <!-- Section 1: The Golden Formula & Why Jay Loves It -->
+    <div class="section-box">
+        <h2>💡 1. Why Jay Loves This Report (And Rejects Standard Software)</h2>
+        <p>If you give Jay a standard QuickBooks P&L, it shows revenue of $1.93M and net profit of $385K. Jay hates that because it hides how the park actually performed. Jim’s report separates the business into <strong>Three Clean Layers</strong>:</p>
+
+        <div style="margin: 20px 0;">
+            <div style="background: var(--code-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 15px; font-family: ui-monospace, monospace; font-size: 0.95rem;">
+                <span style="color: #60A5FA;">1. Top-Line Revenue:</span> $1,931,607 (Guest rents, electricity pass-through, propane)<br/>
+                <span style="color: #F87171;">- Day-to-Day Operating Expenses:</span> $1,112,000 (Payroll, landscaping, utilities, management)<br/>
+                <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 8px 0;"/>
+                <span style="color: var(--accent-green); font-weight: bold;">= OPERATING INCOME (NOI):</span> <b>$819,607</b> (42.4% pure operational margin!)<br/>
+                <span style="color: #FBBF24;">- Below-the-Line Capital & Debt:</span> ($433,986) (Byline Bank interest $267K + non-cash depreciation $162K)<br/>
+                <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 8px 0;"/>
+                <span style="color: #A78BFA; font-weight: bold;">= BOTTOM-LINE NET PROFIT:</span> <b>$385,621</b> (Passes to Members' Equity)
+            </div>
+        </div>
+
+        <div class="callout green">
+            <b>Why Jay cares:</b> If Byline Bank raises interest rates or refinancing fees, the bottom line drops. But <b>NOI stays at $820K</b>. NOI proves that the park manager ran a tight, profitable ship.
+        </div>
+    </div>
+
+    <!-- Section 2: Visual Balance Sheet Stack -->
+    <div class="section-box">
+        <h2>🏛️ 2. The Balance Sheet: What Bay Bayou Owns & Owes</h2>
+        <p>On June 30, 2026, Bay Bayou had <strong>$11,140,612</strong> in total assets. The accounting equation <code>Assets = Liabilities + Equity</code> balances to the exact dollar.</p>
+
+        <h3 style="font-size: 0.95rem; color: var(--text-muted); margin-top: 20px;">ASSETS BREAKDOWN ($11.14M TOTAL)</h3>
+        <div class="stack-bar">
+            <div class="stack-seg" style="width: 53.3%; background: #3B82F6;" title="Net Real Estate & Sites: $5.93M">Real Estate & Sites (53.3%)</div>
+            <div class="stack-seg" style="width: 28.1%; background: #8B5CF6;" title="Goodwill & Brand Value: $3.13M">Goodwill (28.1%)</div>
+            <div class="stack-seg" style="width: 16.8%; background: #10B981;" title="Liquid Cash: $1.87M">Cash (16.8%)</div>
+            <div class="stack-seg" style="width: 1.8%; background: #F59E0B;" title="Inventory & Prepaids: $0.21M">Other (1.8%)</div>
+        </div>
+        <div class="legend-row">
+            <span class="legend-item"><i style="background: #3B82F6;"></i>Net Property ($5.93M)</span>
+            <span class="legend-item"><i style="background: #8B5CF6;"></i>Goodwill ($3.13M)</span>
+            <span class="legend-item"><i style="background: #10B981;"></i>Liquid Bank Cash ($1.87M)</span>
+            <span class="legend-item"><i style="background: #F59E0B;"></i>Inventory & Prepaids ($0.21M)</span>
+        </div>
+
+        <h3 style="font-size: 0.95rem; color: var(--text-muted); margin-top: 25px;">HOW IT WAS FINANCED (LIABILITIES & EQUITY)</h3>
+        <div class="stack-bar">
+            <div class="stack-seg" style="width: 70.9%; background: #EF4444;" title="Byline Bank Mortgage: $7.90M">Byline Bank Mortgage (70.9%)</div>
+            <div class="stack-seg" style="width: 23.8%; background: #10B981;" title="Members' Equity: $2.65M">Members' Equity (23.8%)</div>
+            <div class="stack-seg" style="width: 5.3%; background: #F59E0B;" title="Current Bills & Deposits: $0.59M">Current (5.3%)</div>
+        </div>
+        <div class="legend-row">
+            <span class="legend-item"><i style="background: #EF4444;"></i>Mortgage Debt ($7.90M)</span>
+            <span class="legend-item"><i style="background: #10B981;"></i>Owners' Equity ($2.65M)</span>
+            <span class="legend-item"><i style="background: #F59E0B;"></i>Current Liabilities ($0.59M)</span>
+        </div>
+    </div>
+
+    <!-- Section 3: Interactive Visual Charts -->
+    <div class="section-box">
+        <h2>📈 3. Interactive Analytics: Seasonality & Operations</h2>
+
+        <div class="chart-grid">
+            <div class="chart-container">
+                <h3>The 6-Month Seasonality Wave (Revenue vs. NOI)</h3>
+                <canvas id="seasonChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Revenue Mix by Contract Length ($1.93M)</h3>
+                <canvas id="revChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-container">
+                <h3>Operating Expense Ratios (% of $1.11M Total)</h3>
+                <canvas id="expChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Utility Cost Recovery ($190.8K vs. $96.8K Billed)</h3>
+                <canvas id="utilChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: The Mystery of the Monthly Net Income Formula Error -->
+    <div class="section-box">
+        <h2>⚠️ 4. The Math Mystery: Why Monthly Net Income Didn't Add Up</h2>
+        <p>In Jim’s report on Page 4, if you sum the monthly net income figures (Jan $331K + Feb $257K + Mar $176K + Apr $16K - May $60K - Jun $69K), they equal <strong>$652,397</strong>. But the total printed on the right says <strong>$385,621</strong>!</p>
+        
+        <div class="callout red">
+            <b>The Explanation:</b> Jim’s Excel template had a formula glitch on the monthly columns. In each individual month, the formula calculated <code>Net Income = NOI - Depreciation - Amortization + Interest Income</code>, but <b>accidentally left out Mortgage Interest Expense ($45K/month)</b>! The 6-month difference ($652,397 - $385,621) is <b>exactly $266,776</b>—the exact Byline Bank mortgage interest for the period!
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th class="num">Jim's Printed Net Income</th>
+                    <th class="num">Interest Left Out</th>
+                    <th class="num">True Corrected Net Income</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>January 2026</td><td class="num">$331,578</td><td class="num">($45,618)</td><td class="num pos">$285,960</td></tr>
+                <tr><td>February 2026</td><td class="num">$256,992</td><td class="num">($45,549)</td><td class="num pos">$211,443</td></tr>
+                <tr><td>March 2026</td><td class="num">$176,498</td><td class="num">($41,056)</td><td class="num pos">$135,442</td></tr>
+                <tr><td>April 2026</td><td class="num">$15,879</td><td class="num">($45,480)</td><td class="num neg">($29,601)</td></tr>
+                <tr><td>May 2026</td><td class="num neg">($59,547)</td><td class="num">($43,857)</td><td class="num neg">($103,404)</td></tr>
+                <tr><td>June 2026</td><td class="num neg">($69,003)</td><td class="num">($45,216)</td><td class="num neg">($114,219)</td></tr>
+                <tr style="font-weight: bold; background: rgba(255,255,255,0.03);">
+                    <td>TOTAL</td>
+                    <td class="num">$652,397 (glitched)</td>
+                    <td class="num">($266,776)</td>
+                    <td class="num pos">$385,621 (Official Net Profit!)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Section 5: Unlabeled Accounts Translation -->
+    <div class="section-box">
+        <h2>🔑 5. The Rosetta Stone: Unlabeled Accounts in Skyline Translated</h2>
+        <p>In raw Skyline `CHART.DAT`, over a dozen accounts were blank. Here is the exact translation of what they actually represent:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Skyline Account #</th>
+                    <th>Skyline Label</th>
+                    <th>Jim's Report Line</th>
+                    <th>What It Actually Does</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>30000004</code></td><td><em>(unnamed)</em></td><td>RENTAL INCOME - WEEKLY</td><td>7-day snowbird & transient vacation rentals</td></tr>
+                <tr><td><code>30000005</code></td><td><em>(unnamed)</em></td><td>RENTAL INCOME - MONTHLY</td><td>Standard 30-day site leases ($433K total)</td></tr>
+                <tr><td><code>30000006</code></td><td><em>(unnamed)</em></td><td>RENTAL INCOME - 6 MONTH</td><td>Full-winter seasonal packages</td></tr>
+                <tr><td><code>30000007</code></td><td><em>(unnamed)</em></td><td>RENTAL INCOME - YEARLY</td><td>Permanent year-round residential leases ($281K)</td></tr>
+                <tr><td><code>30000011</code></td><td><em>(unnamed)</em></td><td>DAILY - EXPANSION SITES</td><td>Daily rentals on the newly added expansion lots</td></tr>
+                <tr><td><code>30000013</code></td><td><em>(unnamed)</em></td><td>MONTHLY - EXPANSION</td><td>Monthly leases on newly added expansion lots</td></tr>
+                <tr><td><code>30000016</code></td><td><em>(unnamed)</em></td><td>4 MONTH - EXPANSION</td><td>4-month winter snowbirds in expansion section</td></tr>
+                <tr><td><code>32600000</code></td><td><em>(unnamed)</em></td><td>ELECTRIC INCOME</td><td>Guest utility submeter billings ($96,784)</td></tr>
+                <tr><td><code>46700000</code></td><td><em>(unnamed)</em></td><td>INTEREST EXPENSE</td><td>Byline Bank mortgage interest ($266,776)</td></tr>
+                <tr><td><code>51110000</code></td><td><em>(unnamed)</em></td><td>UTILITIES - ELECTRIC</td><td>TECO commercial electricity bills ($130,503)</td></tr>
+                <tr><td><code>51600003</code></td><td><em>(unnamed)</em></td><td>CABLE TV</td><td>Spectrum bulk park Wi-Fi & cable TV ($54,153)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    // 1. Seasonality Chart
+    new Chart(document.getElementById('seasonChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [
+                {
+                    label: 'Gross Revenue ($)',
+                    data: [565330, 505807, 424528, 203271, 125591, 107078],
+                    backgroundColor: '#3B82F6',
+                    borderRadius: 4
+                },
+                {
+                    label: 'Operating NOI ($)',
+                    data: [359422, 284872, 204331, 43767, -31673, -41112],
+                    backgroundColor: function(ctx) {
+                        const val = ctx.dataset.data[ctx.dataIndex];
+                        return val >= 0 ? '#10B981' : '#EF4444';
+                    },
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { labels: { color: '#9CA3AF' } } },
+            scales: {
+                x: { ticks: { color: '#9CA3AF' }, grid: { color: '#1F293D' } },
+                y: { ticks: { color: '#9CA3AF', callback: v => '$' + (v/1000) + 'k' }, grid: { color: '#1F293D' } }
+            }
+        }
+    });
+
+    // 2. Revenue Mix
+    new Chart(document.getElementById('revChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Monthly Leases', 'Expansion Sites', '4-Month Snowbird', 'Annual Residents', 'Daily / Weekly', 'Electric & Store'],
+            datasets: [{
+                data: [433328, 411636, 280225, 281298, 233720, 291400],
+                backgroundColor: ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EC4899', '#6B7280'],
+                borderWidth: 2,
+                borderColor: '#121722'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'right', labels: { color: '#9CA3AF', boxWidth: 12 } } }
+        }
+    });
+
+    // 3. Operating Expenses
+    new Chart(document.getElementById('expChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Management (11.75%)', 'Payroll (12.76%)', 'Utilities (9.88%)', 'Real Estate Taxes (3.19%)', 'Refuse/Trash (3.10%)', 'Cable TV (2.80%)', 'Other Ops (14.0%)'],
+            datasets: [{
+                data: [226964, 246406, 190835, 61591, 59807, 54153, 272244],
+                backgroundColor: ['#F59E0B', '#3B82F6', '#10B981', '#EC4899', '#8B5CF6', '#06B6D4', '#4B5563'],
+                borderWidth: 2,
+                borderColor: '#121722'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'right', labels: { color: '#9CA3AF', boxWidth: 12 } } }
+        }
+    });
+
+    // 4. Utility Recovery
+    new Chart(document.getElementById('utilChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Electricity', 'Water', 'Total Utilities'],
+            datasets: [
+                {
+                    label: 'Actual Bill Paid ($)',
+                    data: [130503, 60332, 190835],
+                    backgroundColor: '#EF4444',
+                    borderRadius: 4
+                },
+                {
+                    label: 'Reimbursed by Guests ($)',
+                    data: [96784, 0, 96784],
+                    backgroundColor: '#10B981',
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { labels: { color: '#9CA3AF' } } },
+            scales: {
+                x: { ticks: { color: '#9CA3AF' }, grid: { color: '#1F293D' } },
+                y: { ticks: { color: '#9CA3AF', callback: v => '$' + (v/1000) + 'k' }, grid: { color: '#1F293D' } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

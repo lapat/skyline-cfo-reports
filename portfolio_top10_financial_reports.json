@@ -1,0 +1,358 @@
+{
+  "portfolio": "Jennings Realty, Inc. & Affiliates",
+  "source": "SS&C Skyline General Ledger",
+  "companies": {
+    "Park City Mobile Homes, Inc.": {
+      "slug": "01_park_city_mobile_homes",
+      "type": "Manufactured Housing Community",
+      "ifs_ids": [
+        "28",
+        "205",
+        "24",
+        "121",
+        "26"
+      ],
+      "period_start": "251101",
+      "period_end": "260612",
+      "income_statement": {
+        "total_revenue": 9637367.22,
+        "total_expenses": 5399196.5,
+        "net_income": 4238170.72
+      },
+      "balance_sheet": {
+        "total_assets": 96681402.62,
+        "current_assets": 85428499.88,
+        "fixed_assets": 30402993.0,
+        "accumulated_depreciation": -19150090.26,
+        "total_liabilities": 36411253.18,
+        "current_liabilities": 46803051.5,
+        "long_term_debt": -10391798.32,
+        "prior_equity": 38185640.28,
+        "current_period_net_income": 4238170.72,
+        "ledger_classification_residual": 17846338.44,
+        "total_equity": 60270149.44,
+        "total_liabilities_and_equity": 96681402.62,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 3461038.4,
+        "net_cash_change": 10529033.04,
+        "ending_cash": 13990071.44
+      }
+    },
+    "Bay Bayou Florida RV Resort": {
+      "slug": "02_bay_bayou_rv_resort",
+      "type": "RV Resort & Hospitality",
+      "ifs_ids": [
+        "135"
+      ],
+      "period_start": "260101",
+      "period_end": "260531",
+      "income_statement": {
+        "total_revenue": 2628274.02,
+        "total_expenses": 1299915.96,
+        "net_income": 1328358.06
+      },
+      "balance_sheet": {
+        "total_assets": 23412511.42,
+        "current_assets": 4991014.72,
+        "fixed_assets": 21008665.52,
+        "accumulated_depreciation": -2587168.82,
+        "total_liabilities": 16926795.5,
+        "current_liabilities": 16926795.5,
+        "long_term_debt": 0.0,
+        "prior_equity": 4521868.32,
+        "current_period_net_income": 1328358.06,
+        "ledger_classification_residual": 635489.54,
+        "total_equity": 6485715.92,
+        "total_liabilities_and_equity": 23412511.42,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 2724230.82,
+        "net_cash_change": 2176175.14,
+        "ending_cash": 4900405.96
+      }
+    },
+    "Jennings Realty, Inc.": {
+      "slug": "03_jennings_realty_inc",
+      "type": "Corporate Holding & Management",
+      "ifs_ids": [
+        "1"
+      ],
+      "period_start": "250901",
+      "period_end": "260612",
+      "income_statement": {
+        "total_revenue": 4536239.76,
+        "total_expenses": 4303921.76,
+        "net_income": 232318.0
+      },
+      "balance_sheet": {
+        "total_assets": 41557193.44,
+        "current_assets": 28739399.12,
+        "fixed_assets": 14293703.46,
+        "accumulated_depreciation": -1475909.14,
+        "total_liabilities": 24481387.78,
+        "current_liabilities": 24481387.78,
+        "long_term_debt": 0,
+        "prior_equity": 15968257.14,
+        "current_period_net_income": 232318.0,
+        "ledger_classification_residual": 875230.52,
+        "total_equity": 17075805.66,
+        "total_liabilities_and_equity": 41557193.44,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 6126996.82,
+        "net_cash_change": -6486686.68,
+        "ending_cash": -359689.86
+      }
+    },
+    "Sunkissed Village RV Resort": {
+      "slug": "04_sunkissed_village_rv_resort",
+      "type": "RV Resort Community & Sales",
+      "ifs_ids": [
+        "140",
+        "142"
+      ],
+      "period_start": "260101",
+      "period_end": "260615",
+      "income_statement": {
+        "total_revenue": 2018942.8,
+        "total_expenses": 1405787.06,
+        "net_income": 613155.74
+      },
+      "balance_sheet": {
+        "total_assets": 21078732.02,
+        "current_assets": 3433257.98,
+        "fixed_assets": 22300102.32,
+        "accumulated_depreciation": -4654628.28,
+        "total_liabilities": 9300358.06,
+        "current_liabilities": 9300358.06,
+        "long_term_debt": 0.0,
+        "prior_equity": 11038940.92,
+        "current_period_net_income": 613155.74,
+        "ledger_classification_residual": 126277.3,
+        "total_equity": 11778373.96,
+        "total_liabilities_and_equity": 21078732.02,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 2181938.08,
+        "net_cash_change": 792054.98,
+        "ending_cash": 2973993.06
+      }
+    },
+    "Tax Certificate Entities": {
+      "slug": "05_tax_certificate_entities",
+      "type": "Municipal Tax Lien Portfolio",
+      "ifs_ids": [
+        "150",
+        "160",
+        "180",
+        "190"
+      ],
+      "period_start": "260101",
+      "period_end": "260615",
+      "income_statement": {
+        "total_revenue": 1953142.34,
+        "total_expenses": 1022879.04,
+        "net_income": 930263.3
+      },
+      "balance_sheet": {
+        "total_assets": 58821435.22,
+        "current_assets": 58821435.22,
+        "fixed_assets": 0.0,
+        "accumulated_depreciation": 0.0,
+        "total_liabilities": 44365179.4,
+        "current_liabilities": 44365179.4,
+        "long_term_debt": 0.0,
+        "prior_equity": 19062637.0,
+        "current_period_net_income": 930263.3,
+        "ledger_classification_residual": -5536644.48,
+        "total_equity": 14456255.82,
+        "total_liabilities_and_equity": 58821435.22,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 2502589.7,
+        "net_cash_change": -20328985.46,
+        "ending_cash": -17826395.76
+      }
+    },
+    "The Bluffs MH & RV Resort": {
+      "slug": "06_the_bluffs_mh_rv_resort",
+      "type": "Hybrid MHP & RV Community",
+      "ifs_ids": [
+        "147"
+      ],
+      "period_start": "260106",
+      "period_end": "260531",
+      "income_statement": {
+        "total_revenue": 203196.74,
+        "total_expenses": 355019.66,
+        "net_income": -151822.92
+      },
+      "balance_sheet": {
+        "total_assets": 12667305.86,
+        "current_assets": 468202.44,
+        "fixed_assets": 12312082.2,
+        "accumulated_depreciation": -112978.78,
+        "total_liabilities": 5358267.5,
+        "current_liabilities": 5358267.5,
+        "long_term_debt": 0.0,
+        "prior_equity": 6678407.12,
+        "current_period_net_income": -151822.92,
+        "ledger_classification_residual": 782454.16,
+        "total_equity": 7309038.36,
+        "total_liabilities_and_equity": 12667305.86,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 197890.36,
+        "net_cash_change": 589062.88,
+        "ending_cash": 786953.24
+      }
+    },
+    "Madison Community Resort": {
+      "slug": "07_madison_community_resort",
+      "type": "Operational Resort Community",
+      "ifs_ids": [
+        "143"
+      ],
+      "period_start": "260102",
+      "period_end": "260531",
+      "income_statement": {
+        "total_revenue": 390001.2,
+        "total_expenses": 491204.42,
+        "net_income": -101203.22
+      },
+      "balance_sheet": {
+        "total_assets": 10249944.98,
+        "current_assets": 1188434.24,
+        "fixed_assets": 9372255.92,
+        "accumulated_depreciation": -310745.18,
+        "total_liabilities": 1004346.66,
+        "current_liabilities": 1004346.66,
+        "long_term_debt": 0.0,
+        "prior_equity": 8202652.16,
+        "current_period_net_income": -101203.22,
+        "ledger_classification_residual": 1144149.38,
+        "total_equity": 9245598.32,
+        "total_liabilities_and_equity": 10249944.98,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 213878.58,
+        "net_cash_change": 496249.12,
+        "ending_cash": 710127.7
+      }
+    },
+    "Home Sites / Galaxy": {
+      "slug": "08_home_sites_galaxy",
+      "type": "Residential Sites & Holdings",
+      "ifs_ids": [
+        "33",
+        "144",
+        "145",
+        "146"
+      ],
+      "period_start": "260101",
+      "period_end": "260531",
+      "income_statement": {
+        "total_revenue": 336879.22,
+        "total_expenses": 654853.92,
+        "net_income": -317974.7
+      },
+      "balance_sheet": {
+        "total_assets": 21589088.0,
+        "current_assets": 8347639.06,
+        "fixed_assets": 13501914.64,
+        "accumulated_depreciation": -260465.7,
+        "total_liabilities": 42955892.18,
+        "current_liabilities": 42955892.18,
+        "long_term_debt": 0.0,
+        "prior_equity": -20694663.02,
+        "current_period_net_income": -317974.7,
+        "ledger_classification_residual": -354166.46,
+        "total_equity": -21366804.18,
+        "total_liabilities_and_equity": 21589088.0,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 406563.82,
+        "net_cash_change": -727773.28,
+        "ending_cash": -321209.46
+      }
+    },
+    "Barbara Descendant's Trust": {
+      "slug": "09_barbara_descendants_trust",
+      "type": "Private Family Entity",
+      "ifs_ids": [
+        "110"
+      ],
+      "period_start": "260107",
+      "period_end": "260529",
+      "income_statement": {
+        "total_revenue": 58040.0,
+        "total_expenses": 528369.98,
+        "net_income": -470329.98
+      },
+      "balance_sheet": {
+        "total_assets": 22019373.24,
+        "current_assets": 516038.38,
+        "fixed_assets": 21503334.86,
+        "accumulated_depreciation": 0.0,
+        "total_liabilities": 32715418.68,
+        "current_liabilities": 22003903.38,
+        "long_term_debt": 10711515.3,
+        "prior_equity": -11388049.72,
+        "current_period_net_income": -470329.98,
+        "ledger_classification_residual": 1162334.26,
+        "total_equity": -10696045.44,
+        "total_liabilities_and_equity": 22019373.24,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 1076313.78,
+        "net_cash_change": -612455.4,
+        "ending_cash": 463858.38
+      }
+    },
+    "Lakeview Mobile Home Park": {
+      "slug": "10_lakeview_mobile_home_park",
+      "type": "Manufactured Housing",
+      "ifs_ids": [
+        "PLVMH",
+        "19"
+      ],
+      "period_start": "190104",
+      "period_end": "260531",
+      "income_statement": {
+        "total_revenue": 30588.18,
+        "total_expenses": 37739.8,
+        "net_income": -7151.62
+      },
+      "balance_sheet": {
+        "total_assets": 4594358.1,
+        "current_assets": 842821.14,
+        "fixed_assets": 9259942.84,
+        "accumulated_depreciation": -5508405.88,
+        "total_liabilities": -9757501.86,
+        "current_liabilities": -9757501.86,
+        "long_term_debt": 0,
+        "prior_equity": -113752.94,
+        "current_period_net_income": -7151.62,
+        "ledger_classification_residual": 14472764.52,
+        "total_equity": 14351859.96,
+        "total_liabilities_and_equity": 4594358.1,
+        "is_balanced": true
+      },
+      "cash_flow": {
+        "beginning_cash": 134751.08,
+        "net_cash_change": -148654.32,
+        "ending_cash": -13903.24
+      }
+    }
+  }
+}
