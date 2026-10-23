@@ -719,9 +719,9 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
     <div class="side-by-side-pane" id="sideBySidePane">
         <div class="dual-panel">
             <div class="dual-panel-header">
-                <h4><span>📌</span> Jim's Ground-Truth Report (CFO Original)</h4>
+                <h4><span>📌</span> Jim's Original CFO Report (Historical Layout Example)</h4>
                 <div style="display:flex; gap:6px; align-items:center;">
-                    <span class="badge badge-blue" id="jimPdfBadge">Target Package</span>
+                    <span class="badge badge-blue" id="jimPdfBadge">Historical Example</span>
                     <a id="popoutJimBtn" class="btn btn-outline" style="padding:2px 8px; font-size:10px;" href="#" target="_blank">↗ Popout</a>
                 </div>
             </div>
@@ -729,9 +729,9 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
         </div>
         <div class="dual-panel">
             <div class="dual-panel-header">
-                <h4><span>⚡</span> Skyline Live Generated Replica (100% GL Data)</h4>
+                <h4><span>⚡</span> Live Skyline Report — Made Today (October 23, 2026)</h4>
                 <div style="display:flex; gap:6px; align-items:center;">
-                    <span class="badge badge-green" id="replicaPdfBadge">Target Page Match</span>
+                    <span class="badge badge-green" id="replicaPdfBadge">Live Skyline GL &middot; Made Today</span>
                     <a id="popoutReplicaBtn" class="btn btn-outline" style="padding:2px 8px; font-size:10px;" href="#" target="_blank">↗ Popout</a>
                 </div>
             </div>
@@ -927,27 +927,28 @@ function setViewMode(mode) {
 function updateIframes() {
     const e = entities[selectedIdx];
     if (!e) return;
+    const cacheBuster = "?v=" + Date.now();
     const jimIframe = document.getElementById('jimIframe');
     const replicaIframe = document.getElementById('replicaIframe');
     const skylineFullIframe = document.getElementById('skylineFullIframe');
 
     if (jimIframe) jimIframe.src = e.jim_pdf + "#view=FitH";
-    if (replicaIframe) replicaIframe.src = e.pdf + "#view=FitH";
-    if (skylineFullIframe) skylineFullIframe.src = e.pdf + "#view=FitH";
+    if (replicaIframe) replicaIframe.src = e.pdf + cacheBuster + "#view=FitH";
+    if (skylineFullIframe) skylineFullIframe.src = e.pdf + cacheBuster + "#view=FitH";
 
     const popoutJimBtn = document.getElementById('popoutJimBtn');
     const popoutReplicaBtn = document.getElementById('popoutReplicaBtn');
     const popoutFullReplicaBtn = document.getElementById('popoutFullReplicaBtn');
 
     if (popoutJimBtn) popoutJimBtn.href = e.jim_pdf;
-    if (popoutReplicaBtn) popoutReplicaBtn.href = e.pdf;
-    if (popoutFullReplicaBtn) popoutFullReplicaBtn.href = e.pdf;
+    if (popoutReplicaBtn) popoutReplicaBtn.href = e.pdf + cacheBuster;
+    if (popoutFullReplicaBtn) popoutFullReplicaBtn.href = e.pdf + cacheBuster;
 
     const jimPdfBadge = document.getElementById('jimPdfBadge');
     const replicaPdfBadge = document.getElementById('replicaPdfBadge');
 
-    if (jimPdfBadge) jimPdfBadge.innerText = e.pages + " Pages Original";
-    if (replicaPdfBadge) replicaPdfBadge.innerText = e.pages + "/" + e.pages + " Exact Match";
+    if (jimPdfBadge) jimPdfBadge.innerText = e.pages + " Pages (Old Layout Example)";
+    if (replicaPdfBadge) replicaPdfBadge.innerText = e.pages + " Pages (Made Today " + new Date().toLocaleDateString() + ")";
 }
 
 function setVisualPage(pg) {
