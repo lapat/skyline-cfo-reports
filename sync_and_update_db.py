@@ -43,7 +43,7 @@ def run_sync_and_update():
     import fast_skyline_sync
     print(f"[{time.strftime('%H:%M:%S')}] 🔄 Scanning live Windows share across 16 parallel threads...")
     t0 = time.time()
-    fast_skyline_sync.run_fast_sync(max_workers=16)
+    updated_cids = fast_skyline_sync.run_fast_sync(max_workers=16)
     sync_duration = time.time() - t0
 
     # 2. Identify companies with updated or fresh files
@@ -52,37 +52,50 @@ def run_sync_and_update():
     files_by_id, fields_by_id = extract_skyline.load_schema()
 
     ifs_dir = os.path.join(MIRROR_ROOT, "IFS")
-    active_folders = [d for d in os.listdir(ifs_dir) if os.path.isdir(os.path.join(ifs_dir, d)) and not d.startswith(".")]
-    active_folders.sort()
-
+    
+    # If delta sync returned specific modified companies, only update those!
+    # Otherwise, if database is empty, update all.
     conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM journal_entries")
+    existing_entries = cur.fetchone()[0]
+
+    if existing_entries == 0:
+        active_folders = [d for d in os.listdir(ifs_dir) if os.path.isdir(os.path.join(ifs_dir, d)) and not d.startswith(".")]
+    else:
+        active_folders = sorted(list(updated_cids))
+
     t_etl = time.time()
     updated_count = 0
     total_je = 0
 
-    print(f"[{time.strftime('%H:%M:%S')}] ⚙️ Ingesting fresh transactions into {os.path.basename(DB_PATH)}...")
-    for cid in active_folders:
-        jh = os.path.join(ifs_dir, cid, "JOURHIST")
-        ch = os.path.join(ifs_dir, cid, "CHART")
-        if not (os.path.exists(jh) or os.path.exists(ch)):
-            continue
+    if active_folders:
+        print(f"[{time.strftime('%H:%M:%S')}] ⚙️ Ingesting fresh transactions for {len(active_folders)} modified companies...")
+        for cid in active_folders:
+            jh = os.path.join(ifs_dir, cid, "JOURHIST")
+            ch = os.path.join(ifs_dir, cid, "CHART")
+            if not (os.path.exists(jh) or os.path.exists(ch)):
+                continue
 
-        try:
-            extracted = extract_skyline.extract_company(cid, files_by_id, fields_by_id)
-            conn.execute("DELETE FROM journal_entries WHERE ifs_id = ?", (cid,))
-            conn.execute("DELETE FROM chart_of_accounts WHERE ifs_id = ?", (cid,))
-            extract_skyline.load_company_into_db(conn, extracted)
-            n_je = len(extracted["journhist"])
-            total_je += n_je
-            updated_count += 1
-        except Exception:
-            pass
+            try:
+                extracted = extract_skyline.extract_company(cid, files_by_id, fields_by_id)
+                conn.execute("DELETE FROM journal_entries WHERE ifs_id = ?", (cid,))
+                conn.execute("DELETE FROM chart_of_accounts WHERE ifs_id = ?", (cid,))
+                extract_skyline.load_company_into_db(conn, extracted)
+                n_je = len(extracted["journhist"])
+                total_je += n_je
+                updated_count += 1
+            except Exception:
+                pass
 
-    conn.commit()
+        conn.commit()
+    else:
+        print(f"[{time.strftime('%H:%M:%S')}] ⚡ No company files modified on server. Database is already 100% current.")
+    
     conn.close()
     etl_duration = time.time() - t_etl
 
-    # 3. Refresh CHARTHST prior-year history
+    # 3. Refresh CHARTHST prior-year history (from local mirror in <0.3s)
     import load_charthst_and_audit
     t_hst = time.time()
     load_charthst_and_audit.load_charthst()

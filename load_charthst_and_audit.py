@@ -13,10 +13,9 @@ sys.path.append("/Users/louislapat/vibe/skyline")
 from extract_skyline import mbf_to_double
 from btrieve_reader import BtrieveFile
 
+LOCAL_MIRROR_IFS = os.path.abspath("live_skyline_fast_mirror/IFS")
 LIVE_ROOT = "/Volumes/skyline$/Skyline"
-IFS_DIR = os.path.join(LIVE_ROOT, "IFS")
-if not os.path.exists(IFS_DIR):
-    IFS_DIR = os.path.abspath("live_skyline_fast_mirror/IFS")
+IFS_DIR = LOCAL_MIRROR_IFS if os.path.exists(LOCAL_MIRROR_IFS) else os.path.join(LIVE_ROOT, "IFS")
 DB_LOCAL = os.path.abspath("skyline_live_production.sqlite")
 DB_CLAUDE = "/Users/louislapat/vibe/skyline/skyline_all_companies_gemini.sqlite"
 

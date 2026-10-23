@@ -20,7 +20,7 @@ SOURCE_DATA = "/Volumes/skyline$/Skyline/DATA"
 DEST_LOCAL = os.path.abspath("live_skyline_fast_mirror")
 ESSENTIAL_TABLES = {"NAMEGL", "CHART", "CHARTHST", "JOURHIST", "JOURTRAN"}
 
-def copy_file_task(task: Tuple[str, str]) -> int:
+def copy_file_task(task: Tuple[str, str]) -> Tuple[str, int]:
     src, dst = task
     try:
         # Check if already up to date
@@ -28,18 +28,18 @@ def copy_file_task(task: Tuple[str, str]) -> int:
             s_stat = os.stat(src)
             d_stat = os.stat(dst)
             if s_stat.st_size == d_stat.st_size and abs(s_stat.st_mtime - d_stat.st_mtime) < 2:
-                return 0 # Already fresh
+                return (dst, 0) # Already fresh
         
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         # Use large buffer copy for SMB
         with open(src, "rb") as fsrc, open(dst, "wb") as fdst:
             shutil.copyfileobj(fsrc, fdst, length=1024 * 1024)
         shutil.copystat(src, dst)
-        return os.path.getsize(dst)
+        return (dst, os.path.getsize(dst))
     except Exception as e:
-        return 0
+        return (dst, 0)
 
-def run_fast_sync(max_workers: int = 16):
+def run_fast_sync(max_workers: int = 16) -> Set[str]:
     print("=" * 75)
     print(f"HIGH-SPEED PARALLEL SYNC: LIVE SKYLINE SHARE -> MAC LOCAL")
     print(f"Workers: {max_workers} parallel threads | Buffer: 1MB chunk streaming")
@@ -47,7 +47,7 @@ def run_fast_sync(max_workers: int = 16):
 
     if not os.path.exists(SOURCE_IFS):
         print(f"Error: {SOURCE_IFS} not mounted!", file=sys.stderr)
-        return
+        return set()
 
     t0 = time.time()
     tasks: List[Tuple[str, str]] = []
@@ -78,15 +78,21 @@ def run_fast_sync(max_workers: int = 16):
 
     copied_bytes = 0
     copied_files = 0
+    updated_cids: Set[str] = set()
     t_start_copy = time.time()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {executor.submit(copy_file_task, task): task for task in tasks}
         for f in concurrent.futures.as_completed(futures):
-            sz = f.result()
+            dst, sz = f.result()
             if sz > 0:
                 copied_bytes += sz
                 copied_files += 1
+                parts = dst.split(os.sep)
+                if "IFS" in parts:
+                    idx = parts.index("IFS")
+                    if idx + 1 < len(parts):
+                        updated_cids.add(parts[idx + 1])
             
             done = copied_files
             if done > 0 and (done % 100 == 0 or done == len(tasks)):
@@ -102,10 +108,12 @@ def run_fast_sync(max_workers: int = 16):
     print("\n" + "=" * 75)
     print("FAST SYNC COMPLETE!")
     print(f"  Total Files Copied: {copied_files:,} / {len(tasks):,}")
+    print(f"  Companies Modified: {len(updated_cids):,}")
     print(f"  Total Data Copied:  {total_mb:.1f} MB")
     print(f"  Average Throughput: {avg_speed:.2f} MB/s")
     print(f"  Total Time:         {t_total:.2f} seconds")
     print("=" * 75)
+    return updated_cids
 
 if __name__ == "__main__":
     run_fast_sync(16)
