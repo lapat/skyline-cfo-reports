@@ -81,7 +81,7 @@ def build_pdf():
     # ==========================================
     el.append(Paragraph("CONSOLIDATED TAX BUYERS", st["title"]))
     el.append(Paragraph("CONSOLIDATING BALANCE SHEET (100% SKYLINE GL)", st["title"]))
-    el.append(Paragraph("AS OF MARCH 31, 2026", st["sub"]))
+    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
     el.append(Paragraph("Prepared from: Skyline General Ledger &middot; 100% Dynamic Accounting Data", st["note"]))
 
     bs_data = [

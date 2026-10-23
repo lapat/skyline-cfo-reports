@@ -135,7 +135,7 @@ def build_pdf():
     # ==========================================
     el.append(Paragraph("BAY BAYOU FLORIDA RV RESORT", st["title"]))
     el.append(Paragraph("BALANCE SHEET (100% SKYLINE GENERAL LEDGER)", st["title"]))
-    el.append(Paragraph("AS OF JUNE 30, 2026", st["sub"]))
+    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
 
     bs_data = [
         ["", Paragraph("Skyline GL<br/>(100% Property)", st["col_hdr"]), Paragraph("Jennings Share<br/>(50% JV Interest)", st["col_hdr"]), Paragraph("Prior-Year<br/>(6/30/2025)", st["col_hdr"])],

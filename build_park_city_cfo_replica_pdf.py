@@ -106,7 +106,7 @@ def build_pdf():
     # ==========================================
     el.append(Paragraph("PARK CITY MOBILE HOMES, INC. AND SUBSIDIARIES", st["title"]))
     el.append(Paragraph("CONSOLIDATING BALANCE SHEET — ASSETS", st["title"]))
-    el.append(Paragraph("JULY 31, 2026", st["sub"]))
+    el.append(Paragraph("AS OF OCTOBER 23, 2026 (LIVE SKYLINE GENERAL LEDGER)", st["sub"]))
 
     # Dynamic Skyline GL Data
     live_data = query_park_city_live_data()
@@ -172,7 +172,7 @@ def build_pdf():
     el.append(PageBreak())
     el.append(Paragraph("PARK CITY MOBILE HOMES, INC. AND SUBSIDIARIES", st["title"]))
     el.append(Paragraph("CONSOLIDATING BALANCE SHEET — LIABILITIES & EQUITY", st["title"]))
-    el.append(Paragraph("JULY 31, 2026", st["sub"]))
+    el.append(Paragraph("AS OF OCTOBER 23, 2026 (LIVE SKYLINE GENERAL LEDGER)", st["sub"]))
 
     liab_data = [
         hdr_row,
