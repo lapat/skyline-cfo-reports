@@ -13,7 +13,7 @@ import os
 import shutil
 import time
 import concurrent.futures
-from typing import List, Tuple
+from typing import List, Tuple, Set
 
 SOURCE_IFS = "/Volumes/skyline$/Skyline/IFS"
 SOURCE_DATA = "/Volumes/skyline$/Skyline/DATA"
