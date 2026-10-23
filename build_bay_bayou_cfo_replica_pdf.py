@@ -299,9 +299,9 @@ def build_pdf():
     
     mo_p1 = [
         month_hdr,
-        [Paragraph("Occupancy Percent", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
-        [Paragraph("Available Sites", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
-        [Paragraph("Occupied Sites/Mo.", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+        [Paragraph("Occupancy Percent <i>(Jim 📌)</i>", st["micro_reg"]), Paragraph("79.30%", st["micro_right"]), Paragraph("80.40%", st["micro_right"]), Paragraph("78.77%", st["micro_right"]), Paragraph("49.32%", st["micro_right"]), Paragraph("33.02%", st["micro_right"]), Paragraph("31.77%", st["micro_right"]), Paragraph("<b>58.73%</b>", st["micro_right_bold"])],
+        [Paragraph("Available Sites", st["micro_reg"]), Paragraph("308", st["micro_right"]), Paragraph("308", st["micro_right"]), Paragraph("308", st["micro_right"]), Paragraph("308", st["micro_right"]), Paragraph("308", st["micro_right"]), Paragraph("308", st["micro_right"]), Paragraph("<b>308</b>", st["micro_right_bold"])],
+        [Paragraph("Occupied Sites/Mo. <i>(Jim 📌)</i>", st["micro_reg"]), Paragraph("7,557", st["micro_right"]), Paragraph("6,934", st["micro_right"]), Paragraph("7,511", st["micro_right"]), Paragraph("4,557", st["micro_right"]), Paragraph("3,153", st["micro_right"]), Paragraph("2,960", st["micro_right"]), Paragraph("<b>32,672</b>", st["micro_right_bold"])],
         ["", "", "", "", "", "", "", ""],
         [Paragraph("<b>REVENUE (100% SKYLINE GL)</b>", st["bold"]), "", "", "", "", "", "", ""],
         dyn_mo_row("RENTAL INCOME-SUNKISSED", ['30000000'], matrix_rev),

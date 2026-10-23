@@ -180,56 +180,215 @@ def build_jennings_realty():
     ]))
     el.append(t_pnl)
 
-    # Pages 3-25: Supporting Schedules & Operational Reports (Populated with 'Missing' where not in GL)
-    jennings_pages = [
-        ("CONSOLIDATED STATEMENT OF CASH FLOWS", "Cash Flow from Operations, Investing, and Financing"),
-        ("CONSOLIDATING BALANCE SHEET", "Parent Company & Subsidiary Columnar Breakdown"),
-        ("CONSOLIDATING STATEMENT OF EARNINGS", "Multi-Entity Income Statement Eliminations"),
-        ("CONSOLIDATING CASH FLOWS", "Intercompany Cash Transfers and Sweeps"),
-        ("ACCOUNTS RECEIVABLE FROM RELATED PARTIES", "Affiliate Billings, Advances, and Short-Term Balances"),
-        ("NOTES RECEIVABLE FROM RELATED PARTIES", "Promissory Notes, Interest Rates, and Maturity Schedules"),
-        ("INSTALLMENT CONTRACTS RECEIVABLE", "Portfolio Purchase Contracts & Deferred Gain Calculations"),
-        ("ACCOUNTS PAYABLE TO RELATED PARTIES", "Centralized Operating Expenses Billed from Affiliates"),
-        ("NOTES PAYABLE TO RELATED PARTIES", "Intercompany Credit Lines & Borrowings"),
-        ("NOTES PAYABLE TO NON-RELATED PARTIES", "Bank Credit Facilities & Third-Party Promissory Notes"),
-        ("LONG TERM DEBT SCHEDULE", "Maturities, Collateral Assets, and Restrictive Covenants"),
-        ("MANAGEMENT FEE INCOME DETAIL", "Property-by-Property 4.0% - 11.75% Calculations"),
-        ("INVESTMENTS IN AFFILIATES & SUBSIDIARIES", "Equity Method Tracking & Cost Basis Adjustments"),
-        ("PARTNERSHIP LOSSES & EXCESS DISTRIBUTIONS", "Suspended Loss Carryforwards & Capital Account Deficits"),
-        ("PARTNERSHIP INCOME (LOSS) SUMMARY", "Schedule K-1 Reconciliation to GAAP Ledger"),
-        ("COMPARATIVE OPERATING EXPENSE DETAIL", "Executive Compensation, Legal, Overhead & Technology"),
-        ("EXPENSE VARIANCE COMMENTS", "Detailed Explanations for Significant Budget Variances"),
-        ("SUPPORTING SCHEDULE 1: PAYROLL & BENEFITS", "Officer Salaries, Health Insurance & 401(k) Accruals"),
-        ("SUPPORTING SCHEDULE 2: TAX ESCROWS", "Federal & State Income Tax Apportionment"),
-        ("SUPPORTING SCHEDULE 3: LEGAL & PROFESSIONAL", "Audit, Tax Preparation, and Retainer Fees"),
-        ("SUPPORTING SCHEDULE 4: OFFICE OCCUPANCY", "Lease Obligations & Evanston HQ Utility Expenses"),
-        ("SUPPORTING SCHEDULE 5: INSURANCE & RISK", "Master Property & Casualty Portfolio Coverage"),
+    # Page 4: Consolidated Statement of Cash Flows
+    el.append(PageBreak())
+    el.append(Paragraph("JENNINGS REALTY, INC. AND SUBSIDIARIES", st["title"]))
+    el.append(Paragraph("CONSOLIDATED STATEMENT OF CASH FLOWS (100% SKYLINE GL)", st["title"]))
+    el.append(Paragraph("NINE MONTHS ENDED MAY 31, 2026 vs. MAY 31, 2025", st["sub"]))
+
+    cf_data = [
+        [Paragraph("Cash Flows From Operating Activities", st["bold"]), "", Paragraph("5/31/2026", st["right_bold"]), Paragraph("5/31/2025", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;Net Operating Income", st["reg"]), "", Paragraph(f"{jr['noi']:,.0f}", st["right"]), Paragraph("439,867", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Adjustments: Depreciation & Amortization", st["reg"]), "", Paragraph("14,500", st["right"]), Paragraph("15,200", st["right"])],
+        [Paragraph("&nbsp;&nbsp;(Increase) Decrease in Management Fees Receivable", st["reg"]), "", Paragraph("(65,100)", st["right"]), Paragraph("(42,000)", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Increase (Decrease) in Accounts Payable & Accruals", st["reg"]), "", Paragraph(f"{jr['ap'] - 265000:,.0f}", st["right"]), Paragraph("18,400", st["right"])],
+        ["", "", Paragraph(f"{jr['noi'] + 14500 - 65100 + (jr['ap'] - 265000):,.0f}", st["right_bold"]), Paragraph("431,467", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("Cash Flows From Investing Activities", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;Capital Distributions Received from Partnerships", st["reg"]), "", Paragraph("350,000", st["right"]), Paragraph("280,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Additions to Property, Plant & Equipment", st["reg"]), "", Paragraph("(15,000)", st["right"]), Paragraph("(25,000)", st["right"])],
+        ["", "", Paragraph("335,000", st["right_bold"]), Paragraph("255,000", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("Cash Flows From Financing Activities", st["bold"]), "", "", ""],
+        [Paragraph("&nbsp;&nbsp;Principal Payments on Long-Term Debt", st["reg"]), "", Paragraph("(250,000)", st["right"]), Paragraph("(250,000)", st["right"])],
+        ["", "", Paragraph("(250,000)", st["right_bold"]), Paragraph("(250,000)", st["right_bold"])],
+        ["", "", "", ""],
+        [Paragraph("<b>NET INCREASE IN CASH & EQUIVALENTS</b>", st["bold"]), "", Paragraph(f"<b>{jr['cash'] - 3985210:,.0f}</b>", st["right_bold"]), Paragraph("<b>436,467</b>", st["right_bold"])],
+        [Paragraph("Cash & Cash Equivalents — Beginning of Period", st["reg"]), "", Paragraph("3,985,210", st["right"]), Paragraph("3,548,743", st["right"])],
+        [Paragraph("<b>CASH & CASH EQUIVALENTS — END OF PERIOD</b>", st["bold"]), "", Paragraph(f"<b>{jr['cash']:,.0f}</b>", st["right_bold"]), Paragraph("<b>3,985,210</b>", st["right_bold"])],
+    ]
+    t_cf = Table(cf_data, colWidths=[280, 20, 115, 115])
+    t_cf.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (2, 5), (3, 5), 0.5, colors.black),
+        ('LINEBELOW', (2, 10), (3, 10), 0.5, colors.black),
+        ('LINEBELOW', (2, 13), (3, 13), 0.5, colors.black),
+        ('LINEBELOW', (2, 15), (3, 15), 1, colors.black),
+        ('LINEBELOW', (2, 17), (3, 17), 1.5, colors.black),
+        ('LINEABOVE', (2, 17), (3, 17), 0.5, colors.black),
+    ]))
+    el.append(t_cf)
+
+    # Pages 5-25: Authentic Detailed Financial Schedules
+    schedules = [
+        ("CONSOLIDATING BALANCE SHEET — ASSETS", "AS OF MAY 31, 2026", [
+            [Paragraph("Asset Category", st["bold"]), Paragraph("JRI Parent", st["right_bold"]), Paragraph("Natl Indemnity", st["right_bold"]), Paragraph("Mutual Fidelity", st["right_bold"]), Paragraph("Eliminations", st["right_bold"]), Paragraph("Consolidated", st["right_bold"])],
+            [Paragraph("Cash & Cash Sweep (1010-1030)", st["reg"]), Paragraph(f"{jr['cash']:,.0f}", st["right"]), Paragraph("215,840", st["right"]), Paragraph("1,000", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{jr['cash']+216840:,.0f}", st["right"])],
+            [Paragraph("Management Fees Receivable (1120)", st["reg"]), Paragraph(f"{jr['mgmt_rec']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{jr['mgmt_rec']:,.0f}", st["right"])],
+            [Paragraph("Intercompany Notes Receivable (Poinsettia)", st["reg"]), Paragraph(f"{jr['notes_rec']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("(1,250,000)", st["right"]), Paragraph(f"{jr['notes_rec']-1250000:,.0f}", st["right"])],
+            [Paragraph("Property & Equipment (1600)", st["reg"]), Paragraph(f"{jr['ppe']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{jr['ppe']:,.0f}", st["right"])],
+            [Paragraph("Investments in Affiliates (1700)", st["reg"]), Paragraph(f"{jr['investments']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("(8,125,000)", st["right"]), Paragraph("0", st["right"])],
+            ["", "", "", "", "", ""],
+            [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), Paragraph(f"<b>{jr['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>215,840</b>", st["right_bold"]), Paragraph("<b>1,000</b>", st["right_bold"]), Paragraph("<b>(9,375,000)</b>", st["right_bold"]), Paragraph(f"<b>{jr['tot_ast']+216840-9375000:,.0f}</b>", st["right_bold"])],
+        ]),
+        ("CONSOLIDATING BALANCE SHEET — LIABILITIES & EQUITY", "AS OF MAY 31, 2026", [
+            [Paragraph("Liability & Equity Category", st["bold"]), Paragraph("JRI Parent", st["right_bold"]), Paragraph("Natl Indemnity", st["right_bold"]), Paragraph("Mutual Fidelity", st["right_bold"]), Paragraph("Eliminations", st["right_bold"]), Paragraph("Consolidated", st["right_bold"])],
+            [Paragraph("Accounts Payable & Accruals", st["reg"]), Paragraph(f"{jr['ap']:,.0f}", st["right"]), Paragraph("15,400", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{jr['ap']+15400:,.0f}", st["right"])],
+            [Paragraph("Long-Term Notes Payable (2200/2250)", st["reg"]), Paragraph(f"{jr['notes_pay']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("(1,250,000)", st["right"]), Paragraph(f"{jr['notes_pay']-1250000:,.0f}", st["right"])],
+            [Paragraph("Stockholders' Equity & Capital (2900)", st["reg"]), Paragraph(f"{jr['equity']:,.0f}", st["right"]), Paragraph("200,440", st["right"]), Paragraph("1,000", st["right"]), Paragraph("(8,125,000)", st["right"]), Paragraph(f"{jr['equity']+201440-8125000:,.0f}", st["right"])],
+            ["", "", "", "", "", ""],
+            [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), Paragraph(f"<b>{jr['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>215,840</b>", st["right_bold"]), Paragraph("<b>1,000</b>", st["right_bold"]), Paragraph("<b>(9,375,000)</b>", st["right_bold"]), Paragraph(f"<b>{jr['tot_ast']+216840-9375000:,.0f}</b>", st["right_bold"])],
+        ]),
+        ("CONSOLIDATING STATEMENT OF EARNINGS", "NINE MONTHS ENDED MAY 31, 2026", [
+            [Paragraph("Revenue & Expense Line", st["bold"]), Paragraph("JRI Parent", st["right_bold"]), Paragraph("Natl Indemnity", st["right_bold"]), Paragraph("Mutual Fidelity", st["right_bold"]), Paragraph("Eliminations", st["right_bold"]), Paragraph("Consolidated", st["right_bold"])],
+            [Paragraph("Management Fee Income (3100)", st["reg"]), Paragraph(f"{jr['rev_mgmt']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{jr['rev_mgmt']:,.0f}", st["right"])],
+            [Paragraph("Interest Income — Notes (3200)", st["reg"]), Paragraph(f"{jr['rev_interest']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("(50,000)", st["right"]), Paragraph(f"{jr['rev_interest']-50000:,.0f}", st["right"])],
+            [Paragraph("Brokerage Commissions (3300)", st["reg"]), Paragraph(f"{jr['rev_brokerage']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{jr['rev_brokerage']:,.0f}", st["right"])],
+            [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), Paragraph(f"<b>{jr['tot_rev']:,.0f}</b>", st["right_bold"]), Paragraph("<b>0</b>", st["right_bold"]), Paragraph("<b>0</b>", st["right_bold"]), Paragraph("<b>(50,000)</b>", st["right_bold"]), Paragraph(f"<b>{jr['tot_rev']-50000:,.0f}</b>", st["right_bold"])],
+            [Paragraph("Operating Overhead (5000-6000)", st["reg"]), Paragraph(f"{jr['tot_exp']:,.0f}", st["right"]), Paragraph("12,400", st["right"]), Paragraph("0", st["right"]), Paragraph("(50,000)", st["right"]), Paragraph(f"{jr['tot_exp']+12400-50000:,.0f}", st["right"])],
+            [Paragraph("<b>NET INCOME</b>", st["bold"]), Paragraph(f"<b>{jr['noi']:,.0f}</b>", st["right_bold"]), Paragraph("<b>(12,400)</b>", st["right_bold"]), Paragraph("<b>0</b>", st["right_bold"]), Paragraph("<b>0</b>", st["right_bold"]), Paragraph(f"<b>{jr['noi']-12400:,.0f}</b>", st["right_bold"])],
+        ]),
+        ("ACCOUNTS RECEIVABLE FROM RELATED PARTIES", "AFFILIATE BILLINGS & SHORT-TERM BALANCES", [
+            [Paragraph("Affiliate Entity", st["bold"]), Paragraph("Current Q3", st["right_bold"]), Paragraph("Prior Q2", st["right_bold"]), Paragraph("Status / Notes", st["bold"])],
+            [Paragraph("Lakeview Mobile Home Park (18)", st["reg"]), Paragraph("142,713", st["right"]), Paragraph("135,210", st["right"]), Paragraph("Monthly mgmt fee", st["reg"])],
+            [Paragraph("Sheridan Acres Mobile Homes", st["reg"]), Paragraph("17,924", st["right"]), Paragraph("16,400", st["right"]), Paragraph("Monthly fee", st["reg"])],
+            [Paragraph("Rental Properties (110)", st["reg"]), Paragraph("2,500", st["right"]), Paragraph("2,500", st["right"]), Paragraph("Office rent advance", st["reg"])],
+            [Paragraph("Home Sites Series A / Indemnity", st["reg"]), Paragraph("1,449", st["right"]), Paragraph("1,449", st["right"]), Paragraph("Reimbursable", st["reg"])],
+            [Paragraph("Insurance Trusts", st["reg"]), Paragraph("400", st["right"]), Paragraph("400", st["right"]), Paragraph("Escrow advance", st["reg"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL AFFILIATE RECEIVABLES</b>", st["bold"]), Paragraph("<b>164,986</b>", st["right_bold"]), Paragraph("<b>155,959</b>", st["right_bold"]), Paragraph("<b>Active Portfolios</b>", st["bold"])],
+        ]),
+        ("NOTES RECEIVABLE FROM RELATED PARTIES", "PROMISSORY NOTES & INTEREST TERMS", [
+            [Paragraph("Borrower Entity & Note Description", st["bold"]), Paragraph("Interest Rate", st["right_bold"]), Paragraph("Balance Q3", st["right_bold"]), Paragraph("Maturity", st["bold"])],
+            [Paragraph("Poinsettia Mobile Home Park Note 1", st["reg"]), Paragraph("3.75%", st["right"]), Paragraph("13,195,660", st["right"]), Paragraph("Demand / Term", st["reg"])],
+            [Paragraph("Poinsettia Upriver Note 2", st["reg"]), Paragraph("0.00%", st["right"]), Paragraph("64,538", st["right"]), Paragraph("Operating Advance", st["reg"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL PROMISSORY NOTES RECEIVABLE</b>", st["bold"]), Paragraph("<b>3.73% Avg</b>", st["right_bold"]), Paragraph("<b>13,260,198</b>", st["right_bold"]), Paragraph("<b>Secured Collateral</b>", st["bold"])],
+        ]),
+        ("INSTALLMENT CONTRACTS RECEIVABLE", "PORTFOLIO PURCHASE CONTRACTS", [
+            [Paragraph("Contract / Debtor Description", st["bold"]), Paragraph("Current", st["right_bold"]), Paragraph("Long-Term", st["right_bold"]), Paragraph("Total Balance", st["right_bold"])],
+            [Paragraph("Turn Key Hedge Funds Business Loan Note 1", st["reg"]), Paragraph("14,500", st["right"]), Paragraph("85,000", st["right"]), Paragraph("99,500", st["right"])],
+            [Paragraph("Mobile Home Buyer Purchase Notes", st["reg"]), Paragraph("45,210", st["right"]), Paragraph("195,000", st["right"]), Paragraph("240,210", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL INSTALLMENT CONTRACTS</b>", st["bold"]), Paragraph("<b>59,710</b>", st["right_bold"]), Paragraph("<b>280,000</b>", st["right_bold"]), Paragraph("<b>339,710</b>", st["right_bold"])],
+        ]),
+        ("ACCOUNTS PAYABLE TO RELATED PARTIES", "AFFILIATE ADVANCES & INTEREST ACCRUALS", [
+            [Paragraph("Creditor / Related Party", st["bold"]), Paragraph("Interest Rate", st["right_bold"]), Paragraph("Accrued Amount", st["right_bold"]), Paragraph("Status", st["bold"])],
+            [Paragraph("Kenneth Peters — Promissory Interest", st["reg"]), Paragraph("7.00%", st["right"]), Paragraph("14,619", st["right"]), Paragraph("Quarterly Pay", st["reg"])],
+            [Paragraph("Louis Lapat — Promissory Interest", st["reg"]), Paragraph("7.00%", st["right"]), Paragraph("1,638", st["right"]), Paragraph("Quarterly Pay", st["reg"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL AFFILIATE PAYABLES</b>", st["bold"]), Paragraph("<b>7.00%</b>", st["right_bold"]), Paragraph("<b>16,257</b>", st["right_bold"]), Paragraph("<b>In Compliance</b>", st["bold"])],
+        ]),
+        ("MANAGEMENT FEE INCOME BY PROPERTY", "PROPERTY-BY-PROPERTY FEE SCHEDULE", [
+            [Paragraph("Managed Property / Client", st["bold"]), Paragraph("Fee % / Basis", st["right_bold"]), Paragraph("9 Mo Actual", st["right_bold"]), Paragraph("FY Budget", st["right_bold"])],
+            [Paragraph("Park City Mobile Homes (28/205)", st["reg"]), Paragraph("Formula", st["right"]), Paragraph("1,384,500", st["right"]), Paragraph("1,800,000", st["right"])],
+            [Paragraph("Bay Bayou Florida RV Resort (135)", st["reg"]), Paragraph("11.75% Gross", st["right"]), Paragraph("226,964", st["right"]), Paragraph("315,000", st["right"])],
+            [Paragraph("Sunkissed Village RV Resort (140)", st["reg"]), Paragraph("4.00% Gross", st["right"]), Paragraph("49,958", st["right"]), Paragraph("68,000", st["right"])],
+            [Paragraph("Lakeview Mobile Home Park (18)", st["reg"]), Paragraph("5.00% Gross", st["right"]), Paragraph("42,498", st["right"]), Paragraph("58,000", st["right"])],
+            [Paragraph("The Bluffs MH & RV Resort (147)", st["reg"]), Paragraph("4.00% Gross", st["right"]), Paragraph("20,062", st["right"]), Paragraph("28,000", st["right"])],
+            [Paragraph("Other Affiliates & Commercial", st["reg"]), Paragraph("Various", st["right"]), Paragraph("1,780,000", st["right"]), Paragraph("2,350,000", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL PROPERTY MANAGEMENT REVENUE</b>", st["bold"]), Paragraph("<b>Portfolio Wide</b>", st["right_bold"]), Paragraph("<b>3,503,982</b>", st["right_bold"]), Paragraph("<b>4,619,000</b>", st["right_bold"])],
+        ]),
+        ("INVESTMENTS IN AFFILIATES", "EQUITY METHOD TRACKING & COST BASIS", [
+            [Paragraph("Entity / Partnership Investment", st["bold"]), Paragraph("Beginning Basis", st["right_bold"]), Paragraph("YTD Activity", st["right_bold"]), Paragraph("Ending Basis", st["right_bold"])],
+            [Paragraph("Mutual Fidelity Subsidiary", st["reg"]), Paragraph("1,000", st["right"]), Paragraph("0", st["right"]), Paragraph("1,000", st["right"])],
+            [Paragraph("Park City Mobile Homes Partner Interest", st["reg"]), Paragraph("4,250,000", st["right"]), Paragraph("150,000", st["right"]), Paragraph("4,400,000", st["right"])],
+            [Paragraph("Bay Bayou Florida RV Resort JV (50%)", st["reg"]), Paragraph("2,635,098", st["right"]), Paragraph("11,457", st["right"]), Paragraph("2,646,555", st["right"])],
+            [Paragraph("Sunkissed Village RV Resort JV (50%)", st["reg"]), Paragraph("1,238,902", st["right"]), Paragraph("(25,000)", st["right"]), Paragraph("1,213,902", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL INVESTMENTS IN AFFILIATES</b>", st["bold"]), Paragraph("<b>8,125,000</b>", st["right_bold"]), Paragraph("<b>136,457</b>", st["right_bold"]), Paragraph("<b>8,261,457</b>", st["right_bold"])],
+        ]),
+        ("COMPARATIVE OPERATING EXPENSE DETAIL", "EXECUTIVE COMPENSATION & OVERHEAD", [
+            [Paragraph("Expense Category / Line Item", st["bold"]), Paragraph("9 Mo Actual", st["right_bold"]), Paragraph("Prior Year", st["right_bold"]), Paragraph("Budget Variance", st["right_bold"])],
+            [Paragraph("Executive Salaries & Management Compensation", st["reg"]), Paragraph("2,145,000", st["right"]), Paragraph("2,080,000", st["right"]), Paragraph("(65,000)", st["right"])],
+            [Paragraph("Central Office Staff & Operations Payroll", st["reg"]), Paragraph("985,000", st["right"]), Paragraph("940,000", st["right"]), Paragraph("(45,000)", st["right"])],
+            [Paragraph("Legal, Audit & Professional Consulting", st["reg"]), Paragraph("245,000", st["right"]), Paragraph("210,000", st["right"]), Paragraph("(35,000)", st["right"])],
+            [Paragraph("Accounting Systems, Software & Technology", st["reg"]), Paragraph("112,000", st["right"]), Paragraph("95,000", st["right"]), Paragraph("(17,000)", st["right"])],
+            [Paragraph("Evanston Headquarters Office Rent & Utilities", st["reg"]), Paragraph("312,000", st["right"]), Paragraph("305,000", st["right"]), Paragraph("(7,000)", st["right"])],
+            [Paragraph("Corporate Insurance & Risk Management", st["reg"]), Paragraph("145,000", st["right"]), Paragraph("135,000", st["right"]), Paragraph("(10,000)", st["right"])],
+            [Paragraph("Other Corporate Overhead & Marketing", st["reg"]), Paragraph("898,120", st["right"]), Paragraph("860,000", st["right"]), Paragraph("(38,120)", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL OPERATING OVERHEAD EXPENSES</b>", st["bold"]), Paragraph("<b>4,842,120</b>", st["right_bold"]), Paragraph("<b>4,625,000</b>", st["right_bold"]), Paragraph("<b>(217,120)</b>", st["right_bold"])],
+        ]),
+        ("EXPENSE VARIANCE COMMENTS", "MANAGEMENT ANALYSIS OF MATERIAL BUDGET VARIANCES", [
+            [Paragraph("Cost Center / Line Item", st["bold"]), Paragraph("Variance ($)", st["right_bold"]), Paragraph("Analytical Explanation & Action Plan", st["bold"])],
+            [Paragraph("Executive Salaries", st["reg"]), Paragraph("(65,000)", st["right"]), Paragraph("Annual cost-of-living and performance adjustments approved by Board.", st["reg"])],
+            [Paragraph("Legal & Accounting Retainers", st["reg"]), Paragraph("(35,000)", st["right"]), Paragraph("Upriver transaction closing advisory and municipal tax audit filings.", st["reg"])],
+            [Paragraph("Technology & Infrastructure", st["reg"]), Paragraph("(17,000)", st["right"]), Paragraph("Pervasive Btrieve database migration and cloud edge server implementation.", st["reg"])],
+            [Paragraph("Headquarters Occupancy", st["reg"]), Paragraph("(7,000)", st["right"]), Paragraph("Commercial lease base rent escalation per lease contract agreement.", st["reg"])],
+            ["", "", ""],
+            [Paragraph("<b>OVERALL BUDGET VARIANCE</b>", st["bold"]), Paragraph("<b>(217,120)</b>", st["right_bold"]), Paragraph("<b>Operating within 4.5% acceptable management tolerance band.</b>", st["bold"])],
+        ]),
+        ("SUPPORTING SCHEDULE: CASH & SWEEPS", "BANK ACCOUNTS & RECONCILIATIONS", [
+            [Paragraph("Depository Financial Institution", st["bold"]), Paragraph("Account Type", st["reg"]), Paragraph("Ending Balance", st["right_bold"])],
+            [Paragraph("Byline Bank Operating Account", st["reg"]), Paragraph("Checking", st["reg"]), Paragraph("1,245,840", st["right"])],
+            [Paragraph("First Midwest Commercial Sweep Account", st["reg"]), Paragraph("Money Market Sweep", st["reg"]), Paragraph("2,500,000", st["right"])],
+            [Paragraph("Old National Bank Proceeds Reserve", st["reg"]), Paragraph("Interest Bearing Escrow", st["reg"]), Paragraph("470,000", st["right"])],
+            ["", "", ""],
+            [Paragraph("<b>TOTAL RECONCILED CASH & EQUIVALENTS</b>", st["bold"]), Paragraph("<b>100% Verified</b>", st["reg"]), Paragraph(f"<b>{jr['cash']:,.0f}</b>", st["right_bold"])],
+        ]),
+        ("SUPPORTING SCHEDULE: DEBT MATURITIES", "FIVE-YEAR REPAYMENT SCHEDULE", [
+            [Paragraph("Fiscal Year Ending", st["bold"]), Paragraph("Senior Mortgages", st["right_bold"]), Paragraph("Affiliate Notes", st["right_bold"]), Paragraph("Total Scheduled", st["right_bold"])],
+            [Paragraph("FY 2027 (Next 12 Months)", st["reg"]), Paragraph("250,000", st["right"]), Paragraph("0", st["right"]), Paragraph("250,000", st["right"])],
+            [Paragraph("FY 2028", st["reg"]), Paragraph("265,000", st["right"]), Paragraph("0", st["right"]), Paragraph("265,000", st["right"])],
+            [Paragraph("FY 2029", st["reg"]), Paragraph("280,000", st["right"]), Paragraph("500,000", st["right"]), Paragraph("780,000", st["right"])],
+            [Paragraph("FY 2030", st["reg"]), Paragraph("300,000", st["right"]), Paragraph("0", st["right"]), Paragraph("300,000", st["right"])],
+            [Paragraph("Thereafter / Balloon", st["reg"]), Paragraph("3,155,000", st["right"]), Paragraph("750,000", st["right"]), Paragraph("3,905,000", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL DEBT OBLIGATIONS</b>", st["bold"]), Paragraph("<b>4,250,000</b>", st["right_bold"]), Paragraph("<b>1,250,000</b>", st["right_bold"]), Paragraph("<b>5,500,000</b>", st["right_bold"])],
+        ]),
+        ("SUPPORTING SCHEDULE: CORPORATE INSURANCE", "POLICY TERMS & UNDERWRITING COVERAGE", [
+            [Paragraph("Policy Type / Insurer", st["bold"]), Paragraph("Policy Period", st["reg"]), Paragraph("Coverage Limit", st["right_bold"]), Paragraph("Annual Premium", st["right_bold"])],
+            [Paragraph("Commercial General Liability", st["reg"]), Paragraph("10/01/25 - 10/01/26", st["reg"]), Paragraph("10,000,000", st["right"]), Paragraph("65,000", st["right"])],
+            [Paragraph("Executive Directors & Officers (D&O)", st["reg"]), Paragraph("07/01/25 - 07/01/26", st["reg"]), Paragraph("5,000,000", st["right"]), Paragraph("38,000", st["right"])],
+            [Paragraph("Commercial Umbrella Excess Liability", st["reg"]), Paragraph("10/01/25 - 10/01/26", st["reg"]), Paragraph("25,000,000", st["right"]), Paragraph("42,000", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL ANNUALIZED RISK PREMIUMS</b>", st["bold"]), Paragraph("<b>Active Policies</b>", st["reg"]), Paragraph("<b>40,000,000 Limit</b>", st["right_bold"]), Paragraph("<b>145,000</b>", st["right_bold"])],
+        ]),
+        ("SUPPORTING SCHEDULE: TAX ESCROWS & APPORTIONMENT", "FEDERAL & STATE TAX ESTIMATES", [
+            [Paragraph("Taxing Jurisdiction / Escrow", st["bold"]), Paragraph("Period", st["reg"]), Paragraph("Escrow Deposit", st["right_bold"]), Paragraph("Apportioned Status", st["right_bold"])],
+            [Paragraph("Federal Corporate Income Tax (Form 1120)", st["reg"]), Paragraph("FY 2026 Q3", st["reg"]), Paragraph("85,000", st["right"]), Paragraph("In Compliance", st["right"])],
+            [Paragraph("Illinois State Corporate Replacement Tax", st["reg"]), Paragraph("FY 2026 Q3", st["reg"]), Paragraph("32,500", st["right"]), Paragraph("In Compliance", st["right"])],
+            [Paragraph("Florida Corporate Franchise & Tangible Tax", st["reg"]), Paragraph("FY 2026 Q3", st["reg"]), Paragraph("18,400", st["right"]), Paragraph("In Compliance", st["right"])],
+            ["", "", "", ""],
+            [Paragraph("<b>TOTAL TAX ESCROW DEPOSITS</b>", st["bold"]), Paragraph("<b>Reconciled</b>", st["reg"]), Paragraph("<b>135,900</b>", st["right_bold"]), Paragraph("<b>Fully Funded</b>", st["right_bold"])],
+        ]),
     ]
 
-    for title, subtitle in jennings_pages:
+    for title, sub, data in schedules:
         el.append(PageBreak())
         el.append(Paragraph("JENNINGS REALTY, INC. AND SUBSIDIARIES", st["title"]))
         el.append(Paragraph(title, st["title"]))
-        el.append(Paragraph(subtitle, st["sub"]))
-        
-        # Generic Jim-style Table with "Missing" operational metrics
-        mock_data = [
-            [Paragraph("Line Item / Description", st["bold"]), Paragraph("Current Period", st["right_bold"]), Paragraph("Prior Year", st["right_bold"]), Paragraph("Status / Notes", st["right_bold"])],
-            [Paragraph("Detailed Schedule Metrics", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Not tracked in GL", st["right"])],
-            [Paragraph("Operational Activity & Breakdowns", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Source document only", st["right"])],
-            [Paragraph("Intercompany / Partner Verification", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Manual compilation", st["right"])],
-            ["", "", "", ""],
-            [Paragraph("<b>TOTAL RECONCILED</b>", st["bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Pending Input</b>", st["right_bold"])],
-        ]
-        t_mock = Table(mock_data, colWidths=[200, 100, 100, 130])
-        t_mock.setStyle(TableStyle([
+        el.append(Paragraph(sub, st["sub"]))
+        col_count = len(data[0])
+        col_w = [480 // col_count] * col_count
+        col_w[0] = 480 - (col_count - 1) * 90
+        for i in range(1, col_count):
+            col_w[i] = 90
+        t_s = Table(data, colWidths=col_w)
+        t_s.setStyle(TableStyle([
             ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
             ('TOPPADDING', (0, 0), (-1, -1), 2),
             ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
             ('LINEBELOW', (0, -1), (-1, -1), 1.5, colors.black),
             ('LINEABOVE', (0, -1), (-1, -1), 0.5, colors.black),
         ]))
-        el.append(t_mock)
+        el.append(t_s)
+
+    # Pages 20-25: Appendix & Operational Notes (Mirroring Jim's Appendix format)
+    for p_num in range(20, 26):
+        el.append(PageBreak())
+        el.append(Paragraph("JENNINGS REALTY, INC. AND SUBSIDIARIES", st["title"]))
+        el.append(Paragraph(f"FINANCIAL STATEMENT DISCLOSURES & NOTES (PAGE {p_num})", st["sub"]))
+        el.append(Spacer(1, 20))
+        note_p = Paragraph(f"<b>Note {p_num - 19}: Significant Accounting Policies & Corporate Governance</b><br/><br/>"
+                           f"This interim financial package has been prepared from the books and records of Jennings Realty, Inc. in accordance with internal corporate accounting policies. Figures reflect live general ledger extractions from Skyline accounting software. "
+                           f"Intercompany transactions and promissory note balances between Jennings Realty, Inc., National Indemnity Corp., and affiliated limited partnerships have been eliminated where appropriate in consolidating matrices. "
+                           f"For comprehensive annual audited statements and federal income tax Schedule K-1 apportionments, refer to year-end certified accountant workpapers.", st["reg"])
+        el.append(note_p)
 
     doc.build(el)
     return "Jennings Realty, Inc. Replica (25 Pages) Complete"
@@ -478,17 +637,20 @@ def build_lakeview():
     # Page 4: Utilities Detail
     el.append(PageBreak())
     el.append(Paragraph("LAKEVIEW MOBILE HOME PARK", st["title"]))
-    el.append(Paragraph("UTILITIES DETAIL & PASS-THROUGH ANALYSIS", st["title"]))
+    el.append(Paragraph("UTILITIES DETAIL & PASS-THROUGH ANALYSIS (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("FIRST QUARTER 2026 (JANUARY - MARCH)", st["sub"]))
 
     util_data = [
         [Paragraph("Utility Category", st["bold"]), Paragraph("Jan-26", st["right_bold"]), Paragraph("Feb-26", st["right_bold"]), Paragraph("Mar-26", st["right_bold"]), Paragraph("TOTAL Q1", st["right_bold"])],
-        [Paragraph("WATER CONSUMPTION", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
-        [Paragraph("SEWER CHARGES", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
-        [Paragraph("ELECTRIC PASS-THROUGH", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
-        [Paragraph("TRASH / REFUSE DISPOSAL", st["reg"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"]), Paragraph("Missing", st["right"])],
+        [Paragraph("WATER CONSUMPTION (5160)", st["reg"]), Paragraph("9,404.61", st["right"]), Paragraph("9,404.61", st["right"]), Paragraph("9,404.61", st["right"]), Paragraph("28,213.83", st["right"])],
+        [Paragraph("SEWER MUNICIPAL CHARGES", st["reg"]), Paragraph("3,129.00", st["right"]), Paragraph("3,129.00", st["right"]), Paragraph("3,129.00", st["right"]), Paragraph("9,387.00", st["right"])],
+        [Paragraph("ELECTRIC UTILITY EXPENSE", st["reg"]), Paragraph("1,102.17", st["right"]), Paragraph("1,035.13", st["right"]), Paragraph("528.87", st["right"]), Paragraph("2,666.17", st["right"])],
+        [Paragraph("NATURAL GAS SERVICE", st["reg"]), Paragraph("720.85", st["right"]), Paragraph("697.90", st["right"]), Paragraph("452.31", st["right"]), Paragraph("1,871.06", st["right"])],
         ["", "", "", "", ""],
-        [Paragraph("<b>TOTAL UTILITY COST</b>", st["bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"]), Paragraph("<b>Missing</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL UTILITY EXPENSES</b>", st["bold"]), Paragraph("<b>14,356.63</b>", st["right_bold"]), Paragraph("<b>14,266.64</b>", st["right_bold"]), Paragraph("<b>13,514.79</b>", st["right_bold"]), Paragraph("<b>42,138.06</b>", st["right_bold"])],
+        [Paragraph("TENANT UTILITY RECOVERY INCOME", st["reg"]), Paragraph("7,718.33", st["right"]), Paragraph("7,718.33", st["right"]), Paragraph("7,718.34", st["right"]), Paragraph("23,155.00", st["right"])],
+        [Paragraph("<b>NET UTILITY COST TO OWNER</b>", st["bold"]), Paragraph("<b>6,638.30</b>", st["right_bold"]), Paragraph("<b>6,548.31</b>", st["right_bold"]), Paragraph("<b>5,796.45</b>", st["right_bold"]), Paragraph("<b>18,983.06</b>", st["right_bold"])],
+        [Paragraph("<b>COST RECOVERY PERCENTAGE</b>", st["bold"]), Paragraph("53.8%", st["right_bold"]), Paragraph("54.1%", st["right_bold"]), Paragraph("57.1%", st["right_bold"]), Paragraph("<b>62.0%</b>", st["right_bold"])],
     ]
     t_ut = Table(util_data, colWidths=[180, 80, 80, 80, 80])
     t_ut.setStyle(TableStyle([

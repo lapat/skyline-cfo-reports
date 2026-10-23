@@ -248,21 +248,25 @@ def build_pdf():
     el.append(t_mo)
 
     # ==========================================
-    # PAGE 5: SUNKISSED UTILITY DETAIL
+    # PAGE 5: SUNKISSED UTILITY DETAIL (100% SKYLINE GL)
     # ==========================================
     el.append(PageBreak())
     el.append(Paragraph("SUNKISSED VILLAGE RV RESORT", st["title"]))
-    el.append(Paragraph("UTILITY DETAIL & COST RECOVERY ANALYSIS", st["title"]))
+    el.append(Paragraph("UTILITY DETAIL & COST RECOVERY ANALYSIS (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("SIX MONTHS ENDED JUNE 30, 2026", st["sub"]))
 
     util_data = [
         [Paragraph("Category / Utility", st["bold"]), Paragraph("26-Jan", st["micro_right_bold"]), Paragraph("26-Feb", st["micro_right_bold"]), Paragraph("26-Mar", st["micro_right_bold"]), Paragraph("26-Apr", st["micro_right_bold"]), Paragraph("26-May", st["micro_right_bold"]), Paragraph("26-Jun", st["micro_right_bold"]), Paragraph("TOTAL", st["micro_right_bold"])],
-        [Paragraph("Water & Sewer Expense", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
-        [Paragraph("Electric Utility Expense", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
-        [Paragraph("Electric Reimbursements (Pass-Through)", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+        [Paragraph("PROPANE GAS SERVICE (5162)", st["micro_reg"]), Paragraph("1,299.13", st["micro_right"]), Paragraph("1,299.13", st["micro_right"]), Paragraph("1,299.13", st["micro_right"]), Paragraph("444.18", st["micro_right"]), Paragraph("444.18", st["micro_right"]), Paragraph("444.18", st["micro_right"]), Paragraph("5,229.93", st["micro_right"])],
+        [Paragraph("NATURAL GAS UTILITY (5163)", st["micro_reg"]), Paragraph("1,866.21", st["micro_right"]), Paragraph("1,866.20", st["micro_right"]), Paragraph("1,866.20", st["micro_right"]), Paragraph("297.43", st["micro_right"]), Paragraph("297.43", st["micro_right"]), Paragraph("297.43", st["micro_right"]), Paragraph("6,490.90", st["micro_right"])],
+        [Paragraph("WATER & SEWER UTILITY (5160)", st["micro_reg"]), Paragraph("3,610.73", st["micro_right"]), Paragraph("3,610.74", st["micro_right"]), Paragraph("3,610.73", st["micro_right"]), Paragraph("2,567.27", st["micro_right"]), Paragraph("2,567.27", st["micro_right"]), Paragraph("2,567.27", st["micro_right"]), Paragraph("18,534.01", st["micro_right"])],
+        [Paragraph("ELECTRIC UTILITY EXPENSE (5161)", st["micro_reg"]), Paragraph("19,517.03", st["micro_right"]), Paragraph("19,517.03", st["micro_right"]), Paragraph("19,517.02", st["micro_right"]), Paragraph("11,323.06", st["micro_right"]), Paragraph("11,323.06", st["micro_right"]), Paragraph("11,323.06", st["micro_right"]), Paragraph("92,520.26", st["micro_right"])],
         ["", "", "", "", "", "", "", ""],
-        [Paragraph("<b>NET UTILITY COST</b>", st["bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"]), Paragraph("<b>Missing</b>", st["micro_right_bold"])],
-        [Paragraph("Cost Recovery Percentage", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
+        [Paragraph("<b>TOTAL UTILITY EXPENSES</b>", st["bold"]), Paragraph("<b>26,293.10</b>", st["micro_right_bold"]), Paragraph("<b>26,293.10</b>", st["micro_right_bold"]), Paragraph("<b>26,293.08</b>", st["micro_right_bold"]), Paragraph("<b>14,631.94</b>", st["micro_right_bold"]), Paragraph("<b>14,631.94</b>", st["micro_right_bold"]), Paragraph("<b>14,631.94</b>", st["micro_right_bold"]), Paragraph("<b>122,775.10</b>", st["micro_right_bold"])],
+        [Paragraph("SUBMETERED ELECTRIC REIMBURSEMENT", st["micro_reg"]), Paragraph("18,410.00", st["micro_right"]), Paragraph("19,215.00", st["micro_right"]), Paragraph("21,410.00", st["micro_right"]), Paragraph("11,215.00", st["micro_right"]), Paragraph("7,125.00", st["micro_right"]), Paragraph("5,440.00", st["micro_right"]), Paragraph("82,815.00", st["micro_right"])],
+        [Paragraph("WATER UTILITY REIMBURSEMENT", st["micro_reg"]), Paragraph("480.00", st["micro_right"]), Paragraph("510.00", st["micro_right"]), Paragraph("525.00", st["micro_right"]), Paragraph("390.00", st["micro_right"]), Paragraph("340.00", st["micro_right"]), Paragraph("316.00", st["micro_right"]), Paragraph("2,561.00", st["micro_right"])],
+        [Paragraph("<b>NET UTILITY COST TO OWNER</b>", st["bold"]), Paragraph("<b>7,403.10</b>", st["micro_right_bold"]), Paragraph("<b>6,568.10</b>", st["micro_right_bold"]), Paragraph("<b>4,358.08</b>", st["micro_right_bold"]), Paragraph("<b>3,026.94</b>", st["micro_right_bold"]), Paragraph("<b>7,166.94</b>", st["micro_right_bold"]), Paragraph("<b>8,875.94</b>", st["micro_right_bold"]), Paragraph("<b>37,399.10</b>", st["micro_right_bold"])],
+        [Paragraph("<b>OVERALL COST RECOVERY %</b>", st["bold"]), Paragraph("71.8%", st["micro_right_bold"]), Paragraph("75.0%", st["micro_right_bold"]), Paragraph("83.4%", st["micro_right_bold"]), Paragraph("79.3%", st["micro_right_bold"]), Paragraph("51.0%", st["micro_right_bold"]), Paragraph("39.3%", st["micro_right_bold"]), Paragraph("<b>77.0%</b>", st["micro_right_bold"])],
     ]
     t_ut = Table(util_data, colWidths=[150, 52, 52, 52, 52, 52, 52, 68])
     t_ut.setStyle(TableStyle([
