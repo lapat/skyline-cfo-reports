@@ -22,32 +22,54 @@ def get_db_cursor():
     conn = sqlite3.connect(DB_PATH)
     return conn, conn.cursor()
 
-def get_entity_balances(ifs_ids: List[str], as_of_date: str = '260630') -> Dict[str, float]:
-    """Returns a dictionary of account -> balance (sum of amount) for given IFS folders."""
+def get_entity_balances(ifs_ids: List[str], as_of_date: str = None) -> Dict[str, float]:
+    """Returns a dictionary of account -> balance (sum of amount) for given IFS folders.
+    If as_of_date is None or 'latest', returns all transactions up to today."""
     conn, cursor = get_db_cursor()
     pl = ",".join("?" for _ in ifs_ids)
-    query = f"""
-    SELECT account, SUM(amount)
-    FROM journal_entries
-    WHERE ifs_id IN ({pl}) AND date <= ?
-    GROUP BY account
-    """
-    params = list(ifs_ids) + [as_of_date]
+    if as_of_date and as_of_date != 'latest':
+        query = f"""
+        SELECT account, SUM(amount)
+        FROM journal_entries
+        WHERE ifs_id IN ({pl}) AND date <= ?
+        GROUP BY account
+        """
+        params = list(ifs_ids) + [as_of_date]
+    else:
+        query = f"""
+        SELECT account, SUM(amount)
+        FROM journal_entries
+        WHERE ifs_id IN ({pl})
+        GROUP BY account
+        """
+        params = list(ifs_ids)
+
     rows = cursor.execute(query, params).fetchall()
     conn.close()
     return {r[0]: (r[1] or 0.0) for r in rows}
 
-def get_entity_pnl_balances(ifs_ids: List[str], start_date: str = '260101', end_date: str = '260630') -> Dict[str, float]:
-    """Returns a dictionary of account -> balance for income statement accounts in period."""
+def get_entity_pnl_balances(ifs_ids: List[str], start_date: str = None, end_date: str = None) -> Dict[str, float]:
+    """Returns a dictionary of account -> balance for income statement accounts in period.
+    If dates are None, returns full YTD up to today."""
     conn, cursor = get_db_cursor()
     pl = ",".join("?" for _ in ifs_ids)
-    query = f"""
-    SELECT account, SUM(amount)
-    FROM journal_entries
-    WHERE ifs_id IN ({pl}) AND date >= ? AND date <= ?
-    GROUP BY account
-    """
-    params = list(ifs_ids) + [start_date, end_date]
+    if start_date and end_date:
+        query = f"""
+        SELECT account, SUM(amount)
+        FROM journal_entries
+        WHERE ifs_id IN ({pl}) AND date >= ? AND date <= ?
+        GROUP BY account
+        """
+        params = list(ifs_ids) + [start_date, end_date]
+    else:
+        query = f"""
+        SELECT account, SUM(amount)
+        FROM journal_entries
+        WHERE ifs_id IN ({pl})
+        GROUP BY account
+        """
+        params = list(ifs_ids)
+
     rows = cursor.execute(query, params).fetchall()
     conn.close()
     return {r[0]: (r[1] or 0.0) for r in rows}
