@@ -85,7 +85,7 @@ def run_sync_and_update():
     # 3. Refresh CHARTHST prior-year history
     import load_charthst_and_audit
     t_hst = time.time()
-    load_charthst_and_audit.audit_and_load(load_to_db=True)
+    load_charthst_and_audit.load_charthst()
     hst_duration = time.time() - t_hst
 
     total_duration = time.time() - t_start
