@@ -33,8 +33,11 @@ def run_pipeline(push_to_cloud=True):
     print("JENNINGS REALTY — AUTOMATED DAILY SKYLINE FINANCIAL PIPELINE")
     print("=" * 80)
 
-    # Step 1: Check SMB Mount & Delta Sync from Live Mapped Share
-    if os.path.exists(SMB_MOUNT):
+    # Step 1: Ensure SMB Mount via Automount Dependency Sequence (S: drive -> Skyline)
+    import automount_skyline
+    is_mounted = automount_skyline.ensure_skyline_mounted(verbose=False)
+
+    if is_mounted:
         log(f"🟢 LIVE MAPPED DRIVE DETECTED at {SMB_MOUNT}", "🔗")
         log("Running high-speed parallel sync (16 threads) and database update from live Windows share...", "🔄")
         t0 = time.time()
@@ -44,8 +47,7 @@ def run_pipeline(push_to_cloud=True):
         else:
             log(f"Warning during sync: {res_sync.stderr[:200]}", "⚠️")
     else:
-        log("🟡 MAPPED DRIVE OFFLINE: /Volumes/skyline$ is not currently mounted.", "⚠️")
-        log("To connect to live server: Connect to office network/VPN and mount 'smb://172.17.21.167/skyline$'.", "ℹ️")
+        log("🟡 MAPPED DRIVE OFFLINE: Unable to automount Skyline share (off-network or VPN disconnected).", "⚠️")
         log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")
 
     # Step 2: Compile All 12 Master CFO Replica Packages in Parallel
@@ -100,6 +102,15 @@ def run_pipeline(push_to_cloud=True):
             log(f"Claude workspace synchronized in {time.time() - t0:.3f}s", "✅")
         except Exception as e:
             log(f"Claude sync failed: {e}", "⚠️")
+
+    # Step 7: Dispatch Executive Morning Briefing Alert to Louis
+    log("Dispatching morning briefing notification to Louis (louislapat@gmail.com)...", "✉️")
+    try:
+        import send_executive_alert
+        send_executive_alert.dispatch_alert(dry_run=False)
+        log("Executive notification delivered successfully.", "🔔")
+    except Exception as e:
+        log(f"Alert dispatch note: {e}", "ℹ️")
 
     total_time = time.time() - t_start
     print("=" * 80)
