@@ -108,27 +108,48 @@ def build_pdf():
     el.append(Paragraph("CONSOLIDATING BALANCE SHEET — ASSETS", st["title"]))
     el.append(Paragraph("JULY 31, 2026", st["sub"]))
 
+    # Dynamic Skyline GL Data
+    live_data = query_park_city_live_data()
+    c28 = live_data["28"]
+    c26 = live_data["26"]
+    cplz = live_data["plaza"]
+    c205 = live_data["205"]
+
+    tot_cash = c28["cash"] + c26["cash"] + cplz["cash"] + c205["cash"]
+    tot_ar = c28["ar"] + c26["ar"] + cplz["ar"] + c205["ar"]
+    tot_inv = c28["inv"] + c26["inv"] + cplz["inv"] + c205["inv"]
+    tot_land = c28["land"] + c26["land"] + cplz["land"] + c205["land"]
+    tot_bld = c28["bld"] + c26["bld"] + cplz["bld"] + c205["bld"]
+    tot_ast = c28["tot_ast"] + c26["tot_ast"] + cplz["tot_ast"] + c205["tot_ast"]
+    tot_rev = c28["rev"] + c26["rev"] + cplz["rev"] + c205["rev"]
+    tot_exp = c28["exp"] + c26["exp"] + cplz["exp"] + c205["exp"]
+
+    elim_debt = -36200000.0
+    cons_ast = tot_ast + elim_debt
+    cons_rev = tot_rev - 450000.0
+    cons_exp = tot_exp - 450000.0
+
     assets_data = [
         hdr_row,
         [Paragraph("<b>CURRENT ASSETS</b>", st["row_hdr"]), "", "", "", "", "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH & CASH EQUIVALENTS", st["reg"]), Paragraph("1,294", st["right"]), Paragraph("88,107", st["right"]), Paragraph("355", st["right"]), Paragraph("1,172,713", st["right"]), Paragraph("1,262,469", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>1,262,469</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;ACCOUNTS RECEIVABLE TRADE", st["reg"]), Paragraph("14,603", st["right"]), Paragraph("161,061", st["right"]), Paragraph("0", st["right"]), Paragraph("175,664", st["right"]), Paragraph("351,328", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>351,328</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;INVENTORIES (HOMES & ACCESSORIES)", st["reg"]), Paragraph("0", st["right"]), Paragraph("1,484,343", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("1,484,343", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>1,484,343</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;CASH & CASH EQUIVALENTS (1010-1030)", st["reg"]), Paragraph(f"{c28['cash']:,.0f}", st["right"]), Paragraph(f"{c26['cash']:,.0f}", st["right"]), Paragraph(f"{cplz['cash']:,.0f}", st["right"]), Paragraph(f"{c205['cash']:,.0f}", st["right"]), Paragraph(f"{tot_cash:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph(f"<b>{tot_cash:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS RECEIVABLE TRADE", st["reg"]), Paragraph(f"{c28['ar']:,.0f}", st["right"]), Paragraph(f"{c26['ar']:,.0f}", st["right"]), Paragraph(f"{cplz['ar']:,.0f}", st["right"]), Paragraph(f"{c205['ar']:,.0f}", st["right"]), Paragraph(f"{tot_ar:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph(f"<b>{tot_ar:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;INVENTORIES (HOMES & ACCESSORIES)", st["reg"]), Paragraph(f"{c28['inv']:,.0f}", st["right"]), Paragraph(f"{c26['inv']:,.0f}", st["right"]), Paragraph(f"{cplz['inv']:,.0f}", st["right"]), Paragraph(f"{c205['inv']:,.0f}", st["right"]), Paragraph(f"{tot_inv:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph(f"<b>{tot_inv:,.0f}</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;INTERCOMPANY NOTES & RECEIVABLES", st["reg"]), Paragraph("1,496,577", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("34,703,423", st["right"]), Paragraph("36,200,000", st["right"]), Paragraph("(36,200,000)", st["right"]), Paragraph("<b>0</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;PREPAID EXPENSES & OTHER ASSETS", st["reg"]), Paragraph("38,550", st["right"]), Paragraph("52,000", st["right"]), Paragraph("12,400", st["right"]), Paragraph("497,050", st["right"]), Paragraph("600,000", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>600,000</b>", st["right_bold"])],
         ["", "", "", "", "", "", "", ""],
-        [Paragraph("<b>TOTAL CURRENT ASSETS</b>", st["row_hdr"]), Paragraph("1,551,024", st["right_bold"]), Paragraph("1,785,511", st["right_bold"]), Paragraph("12,755", st["right_bold"]), Paragraph("36,548,850", st["right_bold"]), Paragraph("39,898,140", st["right_bold"]), Paragraph("(36,200,000)", st["right_bold"]), Paragraph("<b>3,698,140</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL CURRENT ASSETS</b>", st["row_hdr"]), Paragraph(f"{c28['cash']+c28['ar']+c28['inv']+1496577+38550:,.0f}", st["right_bold"]), Paragraph(f"{c26['cash']+c26['ar']+c26['inv']+52000:,.0f}", st["right_bold"]), Paragraph(f"{cplz['cash']+cplz['ar']+12400:,.0f}", st["right_bold"]), Paragraph(f"{c205['cash']+c205['ar']+34703423+497050:,.0f}", st["right_bold"]), Paragraph(f"{tot_cash+tot_ar+tot_inv+36200000+600000:,.0f}", st["right_bold"]), Paragraph("(36,200,000)", st["right_bold"]), Paragraph(f"<b>{tot_cash+tot_ar+tot_inv+600000:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", "", "", "", ""],
         [Paragraph("<b>PROPERTY, PLANT & EQUIPMENT</b>", st["row_hdr"]), "", "", "", "", "", "", ""],
-        [Paragraph("&nbsp;&nbsp;LAND", st["reg"]), Paragraph("911,200", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("911,200", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>911,200</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;BUILDINGS & REAL ESTATE", st["reg"]), Paragraph("594,346", st["right"]), Paragraph("0", st["right"]), Paragraph("1,779,339", st["right"]), Paragraph("0", st["right"]), Paragraph("2,373,685", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>2,373,685</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;SITE INFRASTRUCTURE & CONCRETE", st["reg"]), Paragraph("23,944,149", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("23,944,149", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>23,944,149</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;LAND (1590)", st["reg"]), Paragraph(f"{c28['land']:,.0f}", st["right"]), Paragraph(f"{c26['land']:,.0f}", st["right"]), Paragraph(f"{cplz['land']:,.0f}", st["right"]), Paragraph(f"{c205['land']:,.0f}", st["right"]), Paragraph(f"{tot_land:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph(f"<b>{tot_land:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;BUILDINGS & REAL ESTATE (1600/1610)", st["reg"]), Paragraph(f"{c28['bld']:,.0f}", st["right"]), Paragraph(f"{c26['bld']:,.0f}", st["right"]), Paragraph(f"{cplz['bld']:,.0f}", st["right"]), Paragraph(f"{c205['bld']:,.0f}", st["right"]), Paragraph(f"{tot_bld:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph(f"<b>{tot_bld:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;SITE INFRASTRUCTURE & CONCRETE (1611/1850)", st["reg"]), Paragraph("23,944,149", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("23,944,149", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>23,944,149</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), Paragraph("(18,518,870)", st["right"]), Paragraph("0", st["right"]), Paragraph("(833,999)", st["right"]), Paragraph("0", st["right"]), Paragraph("(19,352,869)", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>(19,352,869)</b>", st["right_bold"])],
         [Paragraph("<b>NET PROPERTY & EQUIPMENT</b>", st["row_hdr"]), Paragraph("6,930,825", st["right_bold"]), Paragraph("0", st["right_bold"]), Paragraph("945,340", st["right_bold"]), Paragraph("0", st["right_bold"]), Paragraph("7,876,165", st["right_bold"]), Paragraph("0", st["right_bold"]), Paragraph("<b>7,876,165</b>", st["right_bold"])],
         ["", "", "", "", "", "", "", ""],
         [Paragraph("&nbsp;&nbsp;INVESTMENTS & LONG-TERM NOTES", st["reg"]), Paragraph("2,918,392", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("46,790,778", st["right"]), Paragraph("49,709,170", st["right"]), Paragraph("0", st["right"]), Paragraph("<b>49,709,170</b>", st["right_bold"])],
         ["", "", "", "", "", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["row_hdr"]), Paragraph("<b>11,400,241</b>", st["right_bold"]), Paragraph("<b>1,785,511</b>", st["right_bold"]), Paragraph("<b>958,095</b>", st["right_bold"]), Paragraph("<b>83,339,628</b>", st["right_bold"]), Paragraph("<b>97,483,475</b>", st["right_bold"]), Paragraph("<b>(36,200,000)</b>", st["right_bold"]), Paragraph("<b>61,283,475</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["row_hdr"]), Paragraph(f"<b>{c28['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{c26['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{cplz['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{c205['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tot_ast:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{elim_debt:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{cons_ast:,.0f}</b>", st["right_bold"])],
     ]
 
     t_ast = Table(assets_data, colWidths=col_w)

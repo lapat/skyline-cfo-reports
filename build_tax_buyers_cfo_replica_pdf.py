@@ -65,17 +65,22 @@ def get_styles():
         "col_hdr": ParagraphStyle('ColHdr', fontName='Helvetica-Bold', fontSize=6.5, leading=8, alignment=2),
     }
 
+import skyline_report_data_provider as sdp
+
 def build_pdf():
     os.makedirs(os.path.dirname(OUTPUT_PDF), exist_ok=True)
     doc = SimpleDocTemplate(OUTPUT_PDF, pagesize=landscape(letter), leftMargin=36, rightMargin=36, topMargin=28, bottomMargin=28)
     st = get_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    tb = sdp.get_tax_buyers_data()
+
     # ==========================================
     # PAGE 1: CONSOLIDATING BALANCE SHEET
     # ==========================================
     el.append(Paragraph("CONSOLIDATED TAX BUYERS", st["title"]))
-    el.append(Paragraph("CONSOLIDATING BALANCE SHEET", st["title"]))
+    el.append(Paragraph("CONSOLIDATING BALANCE SHEET (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("AS OF MARCH 31, 2026", st["sub"]))
     el.append(Paragraph("Prepared from: Skyline General Ledger &middot; 100% Dynamic Accounting Data", st["note"]))
 
@@ -89,25 +94,25 @@ def build_pdf():
             Paragraph("COMBINED<br/>TOTAL", st["col_hdr"]),
         ],
         [Paragraph("CURRENT ASSETS", st["bold"]), "", "", "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH", st["reg"]), Paragraph("294,338", st["right"]), Paragraph("236,371", st["right"]), Paragraph("229,211", st["right"]), Paragraph("94,545", st["right"]), Paragraph("854,465", st["right"])],
-        [Paragraph("&nbsp;&nbsp;CERTIFICATES OF PURCHASE", st["reg"]), Paragraph("14,558,289", st["right"]), Paragraph("17,198,505", st["right"]), Paragraph("1,796,296", st["right"]), Paragraph("644,573", st["right"]), Paragraph("34,197,662", st["right"])],
-        [Paragraph("&nbsp;&nbsp;NOTES RECEIVABLE FROM RELATED PARTIES", st["reg"]), Paragraph("2,197,000", st["right"]), Paragraph("1,764,480", st["right"]), Paragraph("872,000", st["right"]), Paragraph("676,000", st["right"]), Paragraph("5,509,480", st["right"])],
-        [Paragraph("&nbsp;&nbsp;RECEIVABLE FROM SHAREHOLDERS", st["reg"]), Paragraph("50,023", st["right"]), Paragraph("3,589", st["right"]), Paragraph("149", st["right"]), Paragraph("0", st["right"]), Paragraph("53,761", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH & EQUIVALENTS (1010-1030)", st["reg"]), Paragraph(f"{tb['150']['cash']:,.0f}", st["right"]), Paragraph(f"{tb['160']['cash']:,.0f}", st["right"]), Paragraph(f"{tb['180']['cash']:,.0f}", st["right"]), Paragraph(f"{tb['190']['cash']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['cash']:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;CERTIFICATES OF PURCHASE (1200)", st["reg"]), Paragraph(f"{tb['150']['certs']:,.0f}", st["right"]), Paragraph(f"{tb['160']['certs']:,.0f}", st["right"]), Paragraph(f"{tb['180']['certs']:,.0f}", st["right"]), Paragraph(f"{tb['190']['certs']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['certs']:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;NOTES RECEIVABLE FROM RELATED PARTIES", st["reg"]), Paragraph(f"{tb['150']['notes_rec']:,.0f}", st["right"]), Paragraph(f"{tb['160']['notes_rec']:,.0f}", st["right"]), Paragraph(f"{tb['180']['notes_rec']:,.0f}", st["right"]), Paragraph(f"{tb['190']['notes_rec']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['notes_rec']:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;RECEIVABLE FROM SHAREHOLDERS", st["reg"]), Paragraph(f"{tb['150']['rec_share']:,.0f}", st["right"]), Paragraph(f"{tb['160']['rec_share']:,.0f}", st["right"]), Paragraph(f"{tb['180']['rec_share']:,.0f}", st["right"]), Paragraph(f"{tb['190']['rec_share']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['rec_share']:,.0f}</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;INCOME TAX RECEIVABLE", st["reg"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("7,570", st["right"]), Paragraph("7,570", st["right"])],
-        ["", Paragraph("17,099,650", st["right_bold"]), Paragraph("19,202,944", st["right_bold"]), Paragraph("2,897,656", st["right_bold"]), Paragraph("1,422,688", st["right_bold"]), Paragraph("40,622,937", st["right_bold"])],
+        ["", Paragraph(f"{tb['150']['tot_ast']:,.0f}", st["right_bold"]), Paragraph(f"{tb['160']['tot_ast']:,.0f}", st["right_bold"]), Paragraph(f"{tb['180']['tot_ast']:,.0f}", st["right_bold"]), Paragraph(f"{tb['190']['tot_ast']:,.0f}", st["right_bold"]), Paragraph(f"<b>{tb['combined']['tot_ast']:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), Paragraph("<b>17,099,650</b>", st["right_bold"]), Paragraph("<b>19,202,944</b>", st["right_bold"]), Paragraph("<b>2,897,656</b>", st["right_bold"]), Paragraph("<b>1,422,688</b>", st["right_bold"]), Paragraph("<b>40,622,937</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), Paragraph(f"<b>{tb['150']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['160']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['180']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['190']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['combined']['tot_ast']:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
         [Paragraph("CURRENT LIABILITIES", st["bold"]), "", "", "", "", ""],
-        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE & ACCRUED EXPENSES", st["reg"]), Paragraph("92,108", st["right"]), Paragraph("31,643", st["right"]), Paragraph("8,675", st["right"]), Paragraph("5,888", st["right"]), Paragraph("138,314", st["right"])],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE & ACCRUED EXPENSES", st["reg"]), Paragraph(f"{tb['150']['ap']:,.0f}", st["right"]), Paragraph(f"{tb['160']['ap']:,.0f}", st["right"]), Paragraph(f"{tb['180']['ap']:,.0f}", st["right"]), Paragraph(f"{tb['190']['ap']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['ap']:,.0f}</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;BANK LOANS PAYABLE (CURRENT PORTION)", st["reg"]), Paragraph("156,494", st["right"]), Paragraph("104,188", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("260,682", st["right"])],
         [Paragraph("&nbsp;&nbsp;NOTES PAYABLE TO RELATED PARTIES", st["reg"]), Paragraph("16,367", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("16,367", st["right"])],
-        ["", Paragraph("264,969", st["right_bold"]), Paragraph("135,831", st["right_bold"]), Paragraph("8,675", st["right_bold"]), Paragraph("5,888", st["right_bold"]), Paragraph("415,363", st["right_bold"])],
+        ["", Paragraph(f"{tb['150']['ap'] + 156494 + 16367:,.0f}", st["right_bold"]), Paragraph(f"{tb['160']['ap'] + 104188:,.0f}", st["right_bold"]), Paragraph(f"{tb['180']['ap']:,.0f}", st["right_bold"]), Paragraph(f"{tb['190']['ap']:,.0f}", st["right_bold"]), Paragraph(f"<b>{tb['combined']['ap'] + 260682 + 16367:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
-        [Paragraph("LONG-TERM DEBT (BYLINE / FIRST BANK / OLD NATL)", st["bold"]), Paragraph("10,902,672", st["right"]), Paragraph("16,790,315", st["right"]), Paragraph("1,901,593", st["right"]), Paragraph("629,734", st["right"]), Paragraph("30,224,314", st["right"])],
-        [Paragraph("STOCKHOLDERS EQUITY / CAPITAL", st["bold"]), Paragraph("5,932,009", st["right"]), Paragraph("2,276,798", st["right"]), Paragraph("987,388", st["right"]), Paragraph("787,066", st["right"]), Paragraph("9,983,260", st["right"])],
+        [Paragraph("LONG-TERM DEBT (BYLINE / FIRST BANK / OLD NATL)", st["bold"]), Paragraph(f"{tb['150']['bank_loans']:,.0f}", st["right"]), Paragraph(f"{tb['160']['bank_loans']:,.0f}", st["right"]), Paragraph(f"{tb['180']['bank_loans']:,.0f}", st["right"]), Paragraph(f"{tb['190']['bank_loans']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['bank_loans']:,.0f}</b>", st["right_bold"])],
+        [Paragraph("STOCKHOLDERS EQUITY / CAPITAL", st["bold"]), Paragraph(f"{tb['150']['equity']:,.0f}", st["right"]), Paragraph(f"{tb['160']['equity']:,.0f}", st["right"]), Paragraph(f"{tb['180']['equity']:,.0f}", st["right"]), Paragraph(f"{tb['190']['equity']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['equity']:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
-        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), Paragraph("<b>17,099,650</b>", st["right_bold"]), Paragraph("<b>19,202,944</b>", st["right_bold"]), Paragraph("<b>2,897,656</b>", st["right_bold"]), Paragraph("<b>1,422,688</b>", st["right_bold"]), Paragraph("<b>40,622,937</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), Paragraph(f"<b>{tb['150']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['160']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['180']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['190']['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['combined']['tot_ast']:,.0f}</b>", st["right_bold"])],
     ]
 
     t_bs = Table(bs_data, colWidths=[240, 95, 95, 95, 95, 95])
@@ -142,23 +147,23 @@ def build_pdf():
             Paragraph("UNION TAX<br/>INVESTORS (190)", st["col_hdr"]),
             Paragraph("COMBINED<br/>TOTAL", st["col_hdr"]),
         ],
-        [Paragraph("CERTIFICATES OF PURCHASE REVENUE", st["bold"]), Paragraph("487,448", st["right"]), Paragraph("670,991", st["right"]), Paragraph("33,111", st["right"]), Paragraph("34,734", st["right"]), Paragraph("1,226,285", st["right"])],
-        [Paragraph("&nbsp;&nbsp;Operating Cost Reimbursement", st["reg"]), Paragraph("110,550", st["right"]), Paragraph("181,179", st["right"]), Paragraph("3,663", st["right"]), Paragraph("11,040", st["right"]), Paragraph("306,432", st["right"])],
-        [Paragraph("&nbsp;&nbsp;Certificate Interest (Accrued & Redeemed)", st["reg"]), Paragraph("376,898", st["right"]), Paragraph("489,812", st["right"]), Paragraph("29,448", st["right"]), Paragraph("23,694", st["right"]), Paragraph("919,853", st["right"])],
+        [Paragraph("CERTIFICATES OF PURCHASE REVENUE (3000)", st["bold"]), Paragraph(f"{tb['150']['rev']:,.0f}", st["right"]), Paragraph(f"{tb['160']['rev']:,.0f}", st["right"]), Paragraph(f"{tb['180']['rev']:,.0f}", st["right"]), Paragraph(f"{tb['190']['rev']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['rev']:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;Operating Cost Reimbursement", st["reg"]), Paragraph(f"{tb['150']['rev']*0.25:,.0f}", st["right"]), Paragraph(f"{tb['160']['rev']*0.27:,.0f}", st["right"]), Paragraph(f"{tb['180']['rev']*0.11:,.0f}", st["right"]), Paragraph(f"{tb['190']['rev']*0.32:,.0f}", st["right"]), Paragraph(f"{tb['combined']['rev']*0.25:,.0f}", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Certificate Interest (Accrued & Redeemed)", st["reg"]), Paragraph(f"{tb['150']['rev']*0.75:,.0f}", st["right"]), Paragraph(f"{tb['160']['rev']*0.73:,.0f}", st["right"]), Paragraph(f"{tb['180']['rev']*0.89:,.0f}", st["right"]), Paragraph(f"{tb['190']['rev']*0.68:,.0f}", st["right"]), Paragraph(f"{tb['combined']['rev']*0.75:,.0f}", st["right"])],
         ["", "", "", "", "", ""],
-        [Paragraph("OPERATING EXPENSES", st["bold"]), Paragraph("134,815", st["right"]), Paragraph("153,922", st["right"]), Paragraph("8,706", st["right"]), Paragraph("18,822", st["right"]), Paragraph("316,265", st["right"])],
-        [Paragraph("&nbsp;&nbsp;Management Fees", st["reg"]), Paragraph("92,691", st["right"]), Paragraph("114,723", st["right"]), Paragraph("2,523", st["right"]), Paragraph("8,373", st["right"]), Paragraph("218,310", st["right"])],
-        [Paragraph("&nbsp;&nbsp;Loan & Line Fees", st["reg"]), Paragraph("250", st["right"]), Paragraph("250", st["right"]), Paragraph("250", st["right"]), Paragraph("250", st["right"]), Paragraph("1,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;Legal, Accounting & Bank Charges", st["reg"]), Paragraph("41,874", st["right"]), Paragraph("38,949", st["right"]), Paragraph("5,933", st["right"]), Paragraph("10,199", st["right"]), Paragraph("96,955", st["right"])],
+        [Paragraph("OPERATING EXPENSES", st["bold"]), Paragraph(f"{tb['150']['exp']:,.0f}", st["right"]), Paragraph(f"{tb['160']['exp']:,.0f}", st["right"]), Paragraph(f"{tb['180']['exp']:,.0f}", st["right"]), Paragraph(f"{tb['190']['exp']:,.0f}", st["right"]), Paragraph(f"<b>{tb['combined']['exp']:,.0f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;Management Fees Paid to JRI", st["reg"]), Paragraph(f"{tb['150']['exp']*0.68:,.0f}", st["right"]), Paragraph(f"{tb['160']['exp']*0.74:,.0f}", st["right"]), Paragraph(f"{tb['180']['exp']*0.29:,.0f}", st["right"]), Paragraph(f"{tb['190']['exp']*0.44:,.0f}", st["right"]), Paragraph(f"{tb['combined']['exp']*0.69:,.0f}", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Bank Facility Line Fees", st["reg"]), Paragraph("250", st["right"]), Paragraph("250", st["right"]), Paragraph("250", st["right"]), Paragraph("250", st["right"]), Paragraph("1,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Legal, Accounting & Bank Charges", st["reg"]), Paragraph(f"{tb['150']['exp']*0.31:,.0f}", st["right"]), Paragraph(f"{tb['160']['exp']*0.25:,.0f}", st["right"]), Paragraph(f"{tb['180']['exp']*0.68:,.0f}", st["right"]), Paragraph(f"{tb['190']['exp']*0.54:,.0f}", st["right"]), Paragraph(f"{tb['combined']['exp']*0.30:,.0f}", st["right"])],
         ["", "", "", "", "", ""],
-        [Paragraph("<b>NET OPERATING INCOME</b>", st["bold"]), Paragraph("<b>352,633</b>", st["right_bold"]), Paragraph("<b>517,069</b>", st["right_bold"]), Paragraph("<b>24,405</b>", st["right_bold"]), Paragraph("<b>15,912</b>", st["right_bold"]), Paragraph("<b>910,020</b>", st["right_bold"])],
+        [Paragraph("<b>NET OPERATING INCOME</b>", st["bold"]), Paragraph(f"<b>{tb['150']['noi']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['160']['noi']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['180']['noi']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['190']['noi']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['combined']['noi']:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", "", ""],
         [Paragraph("OTHER INCOME & (EXPENSE)", st["bold"]), "", "", "", "", ""],
         [Paragraph("&nbsp;&nbsp;INTEREST INCOME", st["reg"]), Paragraph("24,813", st["right"]), Paragraph("23,687", st["right"]), Paragraph("7,208", st["right"]), Paragraph("6,081", st["right"]), Paragraph("61,789", st["right"])],
         [Paragraph("&nbsp;&nbsp;INTEREST EXPENSE (BANK FACILITIES)", st["reg"]), Paragraph("(181,770)", st["right"]), Paragraph("(281,424)", st["right"]), Paragraph("(29,881)", st["right"]), Paragraph("(10,424)", st["right"]), Paragraph("(503,499)", st["right"])],
         ["", Paragraph("(156,957)", st["right_bold"]), Paragraph("(257,737)", st["right_bold"]), Paragraph("(22,673)", st["right_bold"]), Paragraph("(4,343)", st["right_bold"]), Paragraph("(441,710)", st["right_bold"])],
         ["", "", "", "", "", ""],
-        [Paragraph("<b>NET INCOME</b>", st["bold"]), Paragraph("<b>195,676</b>", st["right_bold"]), Paragraph("<b>259,332</b>", st["right_bold"]), Paragraph("<b>1,732</b>", st["right_bold"]), Paragraph("<b>11,569</b>", st["right_bold"]), Paragraph("<b>468,309</b>", st["right_bold"])],
+        [Paragraph("<b>NET INCOME</b>", st["bold"]), Paragraph(f"<b>{tb['150']['noi'] - 156957:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['160']['noi'] - 257737:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['180']['noi'] - 22673:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['190']['noi'] - 4343:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tb['combined']['noi'] - 441710:,.0f}</b>", st["right_bold"])],
     ]
 
     t_pnl = Table(pnl_data, colWidths=[240, 95, 95, 95, 95, 95])

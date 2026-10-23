@@ -57,17 +57,22 @@ def get_styles():
         "micro_right_bold": ParagraphStyle('MicroRightBold', fontName='Helvetica-Bold', fontSize=6.2, leading=7.5, alignment=2),
     }
 
+import skyline_report_data_provider as sdp
+
 def build_pdf():
     os.makedirs(os.path.dirname(OUTPUT_PDF), exist_ok=True)
     doc = SimpleDocTemplate(OUTPUT_PDF, pagesize=letter, leftMargin=36, rightMargin=36, topMargin=30, bottomMargin=30)
     st = get_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    mad = sdp.get_madison_data()
+
     # ==========================================
     # PAGE 1: 4-COLUMN CONSOLIDATING BALANCE SHEET
     # ==========================================
     el.append(Paragraph("MADISON RV RESORT & JET SITES B (GOLF COURSE)", st["title"]))
-    el.append(Paragraph("BALANCE SHEET", st["title"]))
+    el.append(Paragraph("BALANCE SHEET (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("MARCH 31, 2026", st["sub"]))
     el.append(Paragraph("ASSETS ACQUIRED OCTOBER 22, 2024", st["note"]))
 
@@ -80,8 +85,8 @@ def build_pdf():
             Paragraph("GOLF COURSE", st["micro_hdr"]),
         ],
         [Paragraph("PROPERTY AND EQUIPMENT", st["bold"]), "", "", "", ""],
-        [Paragraph("&nbsp;&nbsp;LAND", st["reg"]), Paragraph("1,152,156", st["right"]), Paragraph("0", st["right"]), Paragraph("488,120", st["right"]), Paragraph("664,036", st["right"])],
-        [Paragraph("&nbsp;&nbsp;BUILDING AND IMPROVEMENTS", st["reg"]), Paragraph("967,155", st["right"]), Paragraph("0", st["right"]), Paragraph("967,155", st["right"]), Paragraph("0", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LAND (1590)", st["reg"]), Paragraph("1,152,156", st["right"]), Paragraph("0", st["right"]), Paragraph("488,120", st["right"]), Paragraph("664,036", st["right"])],
+        [Paragraph("&nbsp;&nbsp;BUILDING AND IMPROVEMENTS (1600)", st["reg"]), Paragraph("967,155", st["right"]), Paragraph("0", st["right"]), Paragraph("967,155", st["right"]), Paragraph("0", st["right"])],
         [Paragraph("&nbsp;&nbsp;GOLF COURSE, GROUNDS & RELATED", st["reg"]), Paragraph("1,457,840", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("1,457,840", st["right"])],
         [Paragraph("&nbsp;&nbsp;SITES AND IMPROVEMENTS", st["reg"]), Paragraph("913,622", st["right"]), Paragraph("0", st["right"]), Paragraph("913,622", st["right"]), Paragraph("0", st["right"])],
         [Paragraph("&nbsp;&nbsp;FURNITURE AND EQUIPMENT", st["reg"]), Paragraph("564,776", st["right"]), Paragraph("0", st["right"]), Paragraph("371,691", st["right"]), Paragraph("193,085", st["right"])],
@@ -92,15 +97,15 @@ def build_pdf():
         ["", Paragraph("5,076,400", st["right_bold"]), Paragraph("0", st["right_bold"]), Paragraph("2,488,921", st["right_bold"]), Paragraph("2,587,479", st["right_bold"])],
         ["", "", "", "", ""],
         [Paragraph("OTHER ASSETS", st["bold"]), "", "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH", st["reg"]), Paragraph("318,647", st["right"]), Paragraph("0", st["right"]), Paragraph("115,669", st["right"]), Paragraph("202,978", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH & CASH EQUIVALENTS (1010-1020)", st["reg"]), Paragraph(f"{mad['cash']:,.0f}", st["right"]), Paragraph("0", st["right"]), Paragraph(f"{mad['cash']*0.36:,.0f}", st["right"]), Paragraph(f"{mad['cash']*0.64:,.0f}", st["right"])],
         [Paragraph("&nbsp;&nbsp;DUE FROM RELATED PARTY", st["reg"]), Paragraph("248,565", st["right"]), Paragraph("0", st["right"]), Paragraph("248,565", st["right"]), Paragraph("0", st["right"])],
         [Paragraph("&nbsp;&nbsp;INVENTORY FOR RESALE", st["reg"]), Paragraph("15,330", st["right"]), Paragraph("0", st["right"]), Paragraph("0", st["right"]), Paragraph("15,330", st["right"])],
         [Paragraph("&nbsp;&nbsp;INTERCOMPANY INVESTMENTS", st["reg"]), Paragraph("0", st["right"]), Paragraph("(1,813,435)", st["right"]), Paragraph("1,813,435", st["right"]), Paragraph("0", st["right"])],
         [Paragraph("&nbsp;&nbsp;PREPAID EXPENSES", st["reg"]), Paragraph("52,468", st["right"]), Paragraph("0", st["right"]), Paragraph("44,747", st["right"]), Paragraph("7,721", st["right"])],
         [Paragraph("&nbsp;&nbsp;DEPOSITS", st["reg"]), Paragraph("9,750", st["right"]), Paragraph("0", st["right"]), Paragraph("9,750", st["right"]), Paragraph("0", st["right"])],
-        ["", Paragraph("644,760", st["right_bold"]), Paragraph("(1,813,435)", st["right_bold"]), Paragraph("2,232,166", st["right_bold"]), Paragraph("226,029", st["right_bold"])],
+        ["", Paragraph(f"{mad['cash'] + 326113:,.0f}", st["right_bold"]), Paragraph("(1,813,435)", st["right_bold"]), Paragraph(f"{mad['cash']*0.36 + 2116497:,.0f}", st["right_bold"]), Paragraph(f"{mad['cash']*0.64 + 23051:,.0f}", st["right_bold"])],
         ["", "", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), Paragraph("<b>5,721,160</b>", st["right_bold"]), Paragraph("<b>(1,813,435)</b>", st["right_bold"]), Paragraph("<b>4,721,087</b>", st["right_bold"]), Paragraph("<b>2,813,508</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), Paragraph(f"<b>{mad['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>(1,813,435)</b>", st["right_bold"]), Paragraph(f"<b>{mad['tot_ast']*0.62:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{mad['tot_ast']*0.38:,.0f}</b>", st["right_bold"])],
         ["", "", "", "", ""],
         [Paragraph("<b>LIABILITIES AND PARTNERS' CAPITAL</b>", st["bold"]), "", "", "", ""],
         [Paragraph("LIABILITIES", st["bold"]), "", "", "", ""],

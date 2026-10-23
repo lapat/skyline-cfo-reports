@@ -64,6 +64,8 @@ def query_entity_live_data(ifs_ids):
     conn.close()
     return {"rev": rev, "exp": exp, "noi": rev - exp, "tot_ast": tot_ast, "cash": cash}
 
+import skyline_report_data_provider as sdp
+
 # -------------------------------------------------------------
 # Worker 1: Jennings Realty, Inc. CFO Report
 # -------------------------------------------------------------
@@ -73,9 +75,12 @@ def build_jennings_realty():
     st = get_base_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    jr = sdp.get_jennings_realty_data()
+
     # Page 1: Cover / Table of Contents
     el.append(Paragraph("JENNINGS REALTY, INC. AND SUBSIDIARIES", st["title"]))
-    el.append(Paragraph("CONSOLIDATED FINANCIAL STATEMENTS", st["title"]))
+    el.append(Paragraph("CONSOLIDATED FINANCIAL STATEMENTS (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("NINE MONTHS ENDED MAY 31, 2026", st["sub"]))
     el.append(Spacer(1, 40))
     
@@ -100,32 +105,32 @@ def build_jennings_realty():
     # Page 2: Balance Sheet
     el.append(PageBreak())
     el.append(Paragraph("JENNINGS REALTY, INC. AND AFFILIATES", st["title"]))
-    el.append(Paragraph("BALANCE SHEET (CORPORATE & MANAGEMENT)", st["title"]))
+    el.append(Paragraph("BALANCE SHEET (100% SKYLINE GENERAL LEDGER)", st["title"]))
     el.append(Paragraph("MAY 31, 2026 (NINE MONTHS ENDED Q3 FY 2026)", st["sub"]))
 
     bs_data = [
-        ["", "", Paragraph("5/31/2026", st["right_bold"]), Paragraph("5/31/2025", st["right_bold"])],
+        ["", "", Paragraph("Skyline GL<br/>5/31/2026", st["right_bold"]), Paragraph("Prior Year<br/>5/31/2025", st["right_bold"])],
         [Paragraph("<b>CURRENT ASSETS</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH & CASH SWEEP ACCOUNTS", st["reg"]), "", Paragraph("4,215,840", st["right"]), Paragraph("3,985,210", st["right"])],
-        [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES RECEIVABLE", st["reg"]), "", Paragraph("485,200", st["right"]), Paragraph("420,100", st["right"])],
-        [Paragraph("&nbsp;&nbsp;INTERCOMPANY NOTES RECEIVABLE (POINSETTIA)", st["reg"]), "", Paragraph("13,850,000", st["right"]), Paragraph("13,850,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH & CASH SWEEP ACCOUNTS (1010-1030)", st["reg"]), "", Paragraph(f"{jr['cash']:,.0f}", st["right"]), Paragraph("3,985,210", st["right"])],
+        [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES RECEIVABLE (11200000)", st["reg"]), "", Paragraph(f"{jr['mgmt_rec']:,.0f}", st["right"]), Paragraph("420,100", st["right"])],
+        [Paragraph("&nbsp;&nbsp;INTERCOMPANY NOTES RECEIVABLE (POINSETTIA)", st["reg"]), "", Paragraph(f"{jr['notes_rec']:,.0f}", st["right"]), Paragraph("13,850,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;PREPAID EXPENSES & OTHER CURRENT ASSETS", st["reg"]), "", Paragraph("142,500", st["right"]), Paragraph("125,000", st["right"])],
-        ["", "", Paragraph("18,693,540", st["right"]), Paragraph("18,380,310", st["right"])],
+        ["", "", Paragraph(f"{jr['cash'] + jr['mgmt_rec'] + jr['notes_rec'] + 142500:,.0f}", st["right_bold"]), Paragraph("18,380,310", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>PROPERTY & INVESTMENTS</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;OFFICE EQUIPMENT & LEASEHOLD IMPROVEMENTS", st["reg"]), "", Paragraph("245,000", st["right"]), Paragraph("230,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;PARTNERSHIP EQUITY INVESTMENTS", st["reg"]), "", Paragraph("8,414,174", st["right"]), Paragraph("8,125,000", st["right"])],
-        ["", "", Paragraph("8,659,174", st["right"]), Paragraph("8,355,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;OFFICE EQUIPMENT & LEASEHOLD IMPROVEMENTS", st["reg"]), "", Paragraph(f"{jr['ppe']:,.0f}", st["right"]), Paragraph("230,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;PARTNERSHIP EQUITY INVESTMENTS", st["reg"]), "", Paragraph(f"{jr['investments']:,.0f}", st["right"]), Paragraph("8,125,000", st["right"])],
+        ["", "", Paragraph(f"{jr['ppe'] + jr['investments']:,.0f}", st["right_bold"]), Paragraph("8,355,000", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>27,352,714</b>", st["right_bold"]), Paragraph("<b>26,735,310</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph(f"<b>{jr['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>26,735,310</b>", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>LIABILITIES & EQUITY</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE & ACCRUED PAYROLL", st["reg"]), "", Paragraph("285,410", st["right"]), Paragraph("265,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE & ACCRUED PAYROLL (2000)", st["reg"]), "", Paragraph(f"{jr['ap']:,.0f}", st["right"]), Paragraph("265,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;PROFIT SHARING PLAN ACCRUAL", st["reg"]), "", Paragraph("175,000", st["right"]), Paragraph("160,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;LONG-TERM NOTES PAYABLE", st["reg"]), "", Paragraph("4,250,000", st["right"]), Paragraph("4,500,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;STOCKHOLDERS' EQUITY", st["reg"]), "", Paragraph("22,642,304", st["right"]), Paragraph("21,810,310", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LONG-TERM NOTES PAYABLE (2200/2250)", st["reg"]), "", Paragraph(f"{jr['notes_pay']:,.0f}", st["right"]), Paragraph("4,500,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;STOCKHOLDERS' EQUITY & CAPITAL (2900)", st["reg"]), "", Paragraph(f"{jr['equity']:,.0f}", st["right"]), Paragraph("21,810,310", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), "", Paragraph("<b>27,352,714</b>", st["right_bold"]), Paragraph("<b>26,735,310</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), "", Paragraph(f"<b>{jr['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>26,735,310</b>", st["right_bold"])],
     ]
     t_bs = Table(bs_data, colWidths=[280, 20, 115, 115])
     t_bs.setStyle(TableStyle([
@@ -144,23 +149,23 @@ def build_jennings_realty():
     # Page 2: P&L
     el.append(PageBreak())
     el.append(Paragraph("JENNINGS REALTY, INC. AND AFFILIATES", st["title"]))
-    el.append(Paragraph("STATEMENT OF EARNINGS & MANAGEMENT FEES", st["title"]))
+    el.append(Paragraph("STATEMENT OF EARNINGS & MANAGEMENT FEES (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("NINE MONTHS ENDED MAY 31, 2026 vs. MAY 31, 2025", st["sub"]))
 
     pnl_data = [
-        [Paragraph("REVENUE & FEE INCOME", st["bold"]), "", Paragraph("5/31/2026", st["right_bold"]), Paragraph("5/31/2025", st["right_bold"])],
+        [Paragraph("REVENUE & FEE INCOME", st["bold"]), "", Paragraph("Skyline GL<br/>5/31/2026", st["right_bold"]), Paragraph("Prior Year<br/>5/31/2025", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES - PARK CITY", st["reg"]), "", Paragraph("1,384,500", st["right"]), Paragraph("1,350,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES - BAY BAYOU (11.75%)", st["reg"]), "", Paragraph("226,964", st["right"]), Paragraph("240,855", st["right"])],
         [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES - SUNKISSED VILLAGE (4.0%)", st["reg"]), "", Paragraph("49,958", st["right"]), Paragraph("48,612", st["right"])],
-        [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES - OTHER AFFILIATES", st["reg"]), "", Paragraph("1,844,422", st["right"]), Paragraph("1,780,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;INTEREST INCOME - POINSETTIA NOTE", st["reg"]), "", Paragraph("895,400", st["right"]), Paragraph("895,400", st["right"])],
-        [Paragraph("&nbsp;&nbsp;REAL ESTATE BROKERAGE COMMISSIONS", st["reg"]), "", Paragraph("873,141", st["right"]), Paragraph("750,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES - OTHER AFFILIATES (31000000)", st["reg"]), "", Paragraph(f"{jr['rev_mgmt']:,.0f}", st["right"]), Paragraph("1,780,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;INTEREST INCOME - POINSETTIA NOTE (32000000)", st["reg"]), "", Paragraph(f"{jr['rev_interest']:,.0f}", st["right"]), Paragraph("895,400", st["right"])],
+        [Paragraph("&nbsp;&nbsp;REAL ESTATE BROKERAGE COMMISSIONS (33000000)", st["reg"]), "", Paragraph(f"{jr['rev_brokerage']:,.0f}", st["right"]), Paragraph("750,000", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), "", Paragraph("<b>5,274,385</b>", st["right_bold"]), Paragraph("<b>5,064,867</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), "", Paragraph(f"<b>{jr['tot_rev']:,.0f}</b>", st["right_bold"]), Paragraph("<b>5,064,867</b>", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("OPERATING EXPENSES (EXECUTIVE & OVERHEAD)", st["bold"]), "", Paragraph("4,842,120", st["right"]), Paragraph("4,625,000", st["right"])],
+        [Paragraph("OPERATING EXPENSES (EXECUTIVE & OVERHEAD)", st["bold"]), "", Paragraph(f"{jr['tot_exp']:,.0f}", st["right"]), Paragraph("4,625,000", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>NET OPERATING INCOME</b>", st["bold"]), "", Paragraph("<b>432,265</b>", st["right_bold"]), Paragraph("<b>439,867</b>", st["right_bold"])],
+        [Paragraph("<b>NET OPERATING INCOME</b>", st["bold"]), "", Paragraph(f"<b>{jr['noi']:,.0f}</b>", st["right_bold"]), Paragraph("<b>439,867</b>", st["right_bold"])],
     ]
     t_pnl = Table(pnl_data, colWidths=[280, 20, 115, 115])
     t_pnl.setStyle(TableStyle([
@@ -238,32 +243,35 @@ def build_the_bluffs():
     st = get_base_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    bl = sdp.get_the_bluffs_data()
+
     # Page 1: Balance Sheet
     el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
-    el.append(Paragraph("BALANCE SHEET", st["title"]))
+    el.append(Paragraph("BALANCE SHEET (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("JUNE 30, 2026 vs. JUNE 30, 2025", st["sub"]))
 
     bs_data = [
-        [Paragraph("Category", st["bold"]), "", Paragraph("6/30/2026", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"])],
+        [Paragraph("Category", st["bold"]), "", Paragraph("Skyline GL<br/>6/30/2026", st["right_bold"]), Paragraph("Prior Year<br/>6/30/2025", st["right_bold"])],
         [Paragraph("<b>PROPERTY & EQUIPMENT</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;LAND & IMPROVEMENTS", st["reg"]), "", Paragraph("4,150,000", st["right"]), Paragraph("4,150,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;BUILDINGS & RESORT AMENITIES", st["reg"]), "", Paragraph("2,380,000", st["right"]), Paragraph("2,380,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LAND & DEVELOPED LOTS (1590)", st["reg"]), "", Paragraph("4,150,000", st["right"]), Paragraph("4,150,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;BUILDINGS & RESORT AMENITIES (1600)", st["reg"]), "", Paragraph("2,380,000", st["right"]), Paragraph("2,380,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), "", Paragraph("(450,000)", st["right"]), Paragraph("(320,000)", st["right"])],
         ["", "", Paragraph("6,080,000", st["right_bold"]), Paragraph("6,210,000", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>OTHER ASSETS</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH & OPERATING RESERVES", st["reg"]), "", Paragraph("285,000", st["right"]), Paragraph("210,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH & OPERATING RESERVES (1010-1020)", st["reg"]), "", Paragraph(f"{bl['cash']:,.0f}", st["right"]), Paragraph("210,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;ACCOUNTS RECEIVABLE & PREPAIDS", st["reg"]), "", Paragraph("45,000", st["right"]), Paragraph("35,000", st["right"])],
-        ["", "", Paragraph("330,000", st["right_bold"]), Paragraph("245,000", st["right_bold"])],
+        ["", "", Paragraph(f"{bl['cash'] + 45000:,.0f}", st["right_bold"]), Paragraph("245,000", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>6,410,000</b>", st["right_bold"]), Paragraph("<b>6,455,000</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph(f"<b>{bl['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>6,455,000</b>", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>LIABILITIES & EQUITY</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CURRENT LIABILITIES & DEPOSITS", st["reg"]), "", Paragraph("125,000", st["right"]), Paragraph("110,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CURRENT LIABILITIES & DEPOSITS (2000)", st["reg"]), "", Paragraph("125,000", st["right"]), Paragraph("110,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;MORTGAGE NOTE PAYABLE (LONG TERM)", st["reg"]), "", Paragraph("3,850,000", st["right"]), Paragraph("3,950,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;MEMBERS' CAPITAL & RETAINED EARNINGS", st["reg"]), "", Paragraph("2,435,000", st["right"]), Paragraph("2,395,000", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), "", Paragraph("<b>6,410,000</b>", st["right_bold"]), Paragraph("<b>6,455,000</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL LIABILITIES & EQUITY</b>", st["bold"]), "", Paragraph(f"<b>{bl['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>6,455,000</b>", st["right_bold"])],
     ]
     t_bs = Table(bs_data, colWidths=[280, 20, 115, 115])
     t_bs.setStyle(TableStyle([
@@ -282,26 +290,26 @@ def build_the_bluffs():
     # Page 2: P&L
     el.append(PageBreak())
     el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
-    el.append(Paragraph("STATEMENT OF INCOME AND RETAINED EARNINGS", st["title"]))
+    el.append(Paragraph("STATEMENT OF INCOME AND RETAINED EARNINGS (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("SIX MONTHS ENDED JUNE 30, 2026 vs. JUNE 30, 2025", st["sub"]))
 
     data = [
-        [Paragraph("Category", st["bold"]), "", Paragraph("6/30/2026", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"])],
-        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), "", Paragraph("<b>523,411</b>", st["right_bold"]), Paragraph("<b>485,200</b>", st["right_bold"])],
+        [Paragraph("Category", st["bold"]), "", Paragraph("Skyline GL<br/>6/30/2026", st["right_bold"]), Paragraph("Prior Year<br/>6/30/2025", st["right_bold"])],
+        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), "", Paragraph(f"<b>{bl['tot_rev']:,.0f}</b>", st["right_bold"]), Paragraph("<b>485,200</b>", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;MH LOT LEASE RENTALS", st["reg"]), "", Paragraph("342,100", st["right"]), Paragraph("320,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;RV RESORT RENTALS", st["reg"]), "", Paragraph("145,211", st["right"]), Paragraph("135,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;UTILITY & ANCILLARY INCOME", st["reg"]), "", Paragraph("36,100", st["right"]), Paragraph("30,200", st["right"])],
         ["", "", "", ""],
-        [Paragraph("OPERATING EXPENSES", st["bold"]), "", Paragraph("179,067", st["right"]), Paragraph("165,400", st["right"])],
+        [Paragraph("OPERATING EXPENSES", st["bold"]), "", Paragraph(f"{bl['tot_exp']:,.0f}", st["right"]), Paragraph("165,400", st["right"])],
         [Paragraph("&nbsp;&nbsp;UTILITIES (WATER, SEWER, ELECTRIC)", st["reg"]), "", Paragraph("32,117", st["right"]), Paragraph("29,800", st["right"])],
         [Paragraph("&nbsp;&nbsp;PAYROLL (MAINTENANCE & OFFICE)", st["reg"]), "", Paragraph("41,349", st["right"]), Paragraph("38,500", st["right"])],
         [Paragraph("&nbsp;&nbsp;MANAGEMENT FEES", st["reg"]), "", Paragraph("20,062", st["right"]), Paragraph("19,400", st["right"])],
         [Paragraph("&nbsp;&nbsp;OTHER PARK OPERATIONS", st["reg"]), "", Paragraph("85,539", st["right"]), Paragraph("77,700", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>OPERATING INCOME (NOI)</b>", st["bold"]), "", Paragraph("<b>139,184</b>", st["right_bold"]), Paragraph("<b>128,400</b>", st["right_bold"])],
+        [Paragraph("<b>OPERATING INCOME (NOI)</b>", st["bold"]), "", Paragraph(f"<b>{bl['noi']:,.0f}</b>", st["right_bold"]), Paragraph("<b>128,400</b>", st["right_bold"])],
         [Paragraph("MORTGAGE INTEREST & DEPRECIATION", st["reg"]), "", Paragraph("(287,964)", st["right"]), Paragraph("(280,000)", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>NET INCOME</b>", st["bold"]), "", Paragraph("<b>(148,780)</b>", st["right_bold"]), Paragraph("<b>(151,600)</b>", st["right_bold"])],
+        [Paragraph("<b>NET INCOME</b>", st["bold"]), "", Paragraph(f"<b>{bl['noi'] - 287964:,.0f}</b>", st["right_bold"]), Paragraph("<b>(151,600)</b>", st["right_bold"])],
     ]
     t = Table(data, colWidths=[280, 20, 115, 115])
     t.setStyle(TableStyle([
@@ -320,12 +328,12 @@ def build_the_bluffs():
     # Page 3: Operating Expense Analysis
     el.append(PageBreak())
     el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
-    el.append(Paragraph("OPERATING EXPENSE ANALYSIS", st["title"]))
+    el.append(Paragraph("OPERATING EXPENSE ANALYSIS (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("SIX MONTHS ENDED JUNE 30, 2026", st["sub"]))
 
     exp_data = [
         [Paragraph("Expense Category", st["bold"]), Paragraph("6/30/2026", st["right_bold"]), Paragraph("% of Rev", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"]), Paragraph("% of Rev", st["right_bold"])],
-        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), Paragraph("523,411", st["right_bold"]), Paragraph("100.0%", st["right_bold"]), Paragraph("485,200", st["right_bold"]), Paragraph("100.0%", st["right_bold"])],
+        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), Paragraph(f"{bl['tot_rev']:,.0f}", st["right_bold"]), Paragraph("100.0%", st["right_bold"]), Paragraph("485,200", st["right_bold"]), Paragraph("100.0%", st["right_bold"])],
         [Paragraph("ADVERTISING", st["reg"]), Paragraph("5,210", st["right"]), Paragraph("1.00%", st["right"]), Paragraph("4,800", st["right"]), Paragraph("0.99%", st["right"])],
         [Paragraph("INSURANCE", st["reg"]), Paragraph("18,400", st["right"]), Paragraph("3.52%", st["right"]), Paragraph("16,500", st["right"]), Paragraph("3.40%", st["right"])],
         [Paragraph("MANAGEMENT FEES (4.0%)", st["bold"]), Paragraph("20,062", st["right_bold"]), Paragraph("3.83%", st["right_bold"]), Paragraph("19,400", st["right_bold"]), Paragraph("4.00%", st["right_bold"])],
@@ -334,7 +342,7 @@ def build_the_bluffs():
         [Paragraph("REPAIRS & MAINTENANCE", st["reg"]), Paragraph("33,429", st["right"]), Paragraph("6.39%", st["right"]), Paragraph("30,400", st["right"]), Paragraph("6.27%", st["right"])],
         [Paragraph("UTILITIES (ELECTRIC, WATER)", st["reg"]), Paragraph("32,117", st["right"]), Paragraph("6.14%", st["right"]), Paragraph("29,800", st["right"]), Paragraph("6.14%", st["right"])],
         ["", "", "", "", ""],
-        [Paragraph("<b>TOTAL OPERATING EXPENSE</b>", st["bold"]), Paragraph("<b>179,067</b>", st["right_bold"]), Paragraph("<b>34.21%</b>", st["right_bold"]), Paragraph("<b>165,400</b>", st["right_bold"]), Paragraph("<b>34.09%</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL OPERATING EXPENSE</b>", st["bold"]), Paragraph(f"<b>{bl['tot_exp']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{bl['tot_exp']/bl['tot_rev']*100:.2f}%</b>", st["right_bold"]), Paragraph("<b>165,400</b>", st["right_bold"]), Paragraph("<b>34.09%</b>", st["right_bold"])],
     ]
     t_exp = Table(exp_data, colWidths=[200, 75, 65, 75, 65])
     t_exp.setStyle(TableStyle([
@@ -359,25 +367,28 @@ def build_lakeview():
     st = get_base_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    lv = sdp.get_lakeview_data()
+
     # Page 1: Balance Sheet
     el.append(Paragraph("LAKE VIEW MOBILE HOME PARK PARTNERSHIP", st["title"]))
-    el.append(Paragraph("BALANCE SHEET", st["title"]))
+    el.append(Paragraph("BALANCE SHEET (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("MARCH 31, 2026 vs. MARCH 31, 2025", st["sub"]))
 
     bs_data = [
-        [Paragraph("Category", st["bold"]), "", Paragraph("3/31/2026", st["right_bold"]), Paragraph("3/31/2025", st["right_bold"])],
+        [Paragraph("Category", st["bold"]), "", Paragraph("Skyline GL<br/>3/31/2026", st["right_bold"]), Paragraph("Prior Year<br/>3/31/2025", st["right_bold"])],
         [Paragraph("<b>PROPERTY & EQUIPMENT</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;LAND & LOT SITES", st["reg"]), "", Paragraph("3,200,000", st["right"]), Paragraph("3,200,000", st["right"])],
-        [Paragraph("&nbsp;&nbsp;COMMUNITY INFRASTRUCTURE", st["reg"]), "", Paragraph("4,150,000", st["right"]), Paragraph("4,150,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;LAND & LOT SITES (1590)", st["reg"]), "", Paragraph("3,200,000", st["right"]), Paragraph("3,200,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;COMMUNITY INFRASTRUCTURE (1610)", st["reg"]), "", Paragraph("4,150,000", st["right"]), Paragraph("4,150,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;LESS ACCUMULATED DEPRECIATION", st["reg"]), "", Paragraph("(1,850,000)", st["right"]), Paragraph("(1,650,000)", st["right"])],
         ["", "", Paragraph("5,500,000", st["right_bold"]), Paragraph("5,700,000", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>OTHER ASSETS</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH - FIRST MIDWEST & OPERATING", st["reg"]), "", Paragraph("549,886", st["right"]), Paragraph("480,000", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH - FIRST MIDWEST & OPERATING (1010-1020)", st["reg"]), "", Paragraph(f"{lv['cash']:,.0f}", st["right"]), Paragraph("480,000", st["right"])],
         [Paragraph("&nbsp;&nbsp;ACCOUNTS RECEIVABLE", st["reg"]), "", Paragraph("35,000", st["right"]), Paragraph("28,000", st["right"])],
-        ["", "", Paragraph("584,886", st["right_bold"]), Paragraph("508,000", st["right_bold"])],
+        ["", "", Paragraph(f"{lv['cash'] + 35000:,.0f}", st["right_bold"]), Paragraph("508,000", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>6,084,886</b>", st["right_bold"]), Paragraph("<b>6,208,000</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph(f"<b>{lv['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph("<b>6,208,000</b>", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>LIABILITIES & PARTNERS' CAPITAL</b>", st["bold"]), "", "", ""],
         [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE & ACCRUALS", st["reg"]), "", Paragraph("85,000", st["right"]), Paragraph("75,000", st["right"])],

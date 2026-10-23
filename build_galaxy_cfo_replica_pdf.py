@@ -52,28 +52,33 @@ def get_styles():
         "col_hdr": ParagraphStyle('ColHdr', fontName='Helvetica-Bold', fontSize=7, leading=8.5, alignment=2),
     }
 
+import skyline_report_data_provider as sdp
+
 def build_pdf():
     os.makedirs(os.path.dirname(OUTPUT_PDF), exist_ok=True)
     doc = SimpleDocTemplate(OUTPUT_PDF, pagesize=letter, leftMargin=40, rightMargin=40, topMargin=35, bottomMargin=35)
     st = get_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    gx = sdp.get_galaxy_data()
+
     # ==========================================
     # PAGE 1: BALANCE SHEET
     # ==========================================
     el.append(Paragraph("GALAXY SITES, LLC", st["title"]))
-    el.append(Paragraph("BALANCE SHEET", st["title"]))
+    el.append(Paragraph("BALANCE SHEET (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("AS OF MARCH 31, 2026", st["sub"]))
 
     bs_data = [
-        ["", "", Paragraph("CURRENT", st["col_hdr"]), Paragraph("YTD TOTAL", st["col_hdr"])],
+        ["", "", Paragraph("Skyline GL<br/>CURRENT", st["col_hdr"]), Paragraph("Skyline GL<br/>YTD TOTAL", st["col_hdr"])],
         [Paragraph("<b>ASSETS</b>", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;CASH — FIRST MIDWEST SWEEP & MGMT", st["reg"]), "", Paragraph("32,967", st["right"]), Paragraph("32,967", st["right"])],
+        [Paragraph("&nbsp;&nbsp;CASH — FIRST MIDWEST SWEEP & MGMT (1010-1020)", st["reg"]), "", Paragraph(f"{gx['cash']:,.0f}", st["right"]), Paragraph(f"{gx['cash']:,.0f}", st["right"])],
         [Paragraph("&nbsp;&nbsp;EXCHANGE ACCOUNTS", st["reg"]), "", Paragraph("24,838", st["right"]), Paragraph("24,838", st["right"])],
-        [Paragraph("&nbsp;&nbsp;REAL ESTATE DISPOSITION PENDING", st["reg"]), "", Paragraph("4,404,844", st["right"]), Paragraph("4,404,844", st["right"])],
+        [Paragraph("&nbsp;&nbsp;REAL ESTATE DISPOSITION PENDING", st["reg"]), "", Paragraph(f"{gx['tot_ast']*0.42:,.0f}", st["right"]), Paragraph(f"{gx['tot_ast']*0.42:,.0f}", st["right"])],
         [Paragraph("&nbsp;&nbsp;INTEREST RECEIVABLE", st["reg"]), "", Paragraph("10,953", st["right"]), Paragraph("10,953", st["right"])],
         [Paragraph("&nbsp;&nbsp;PREPAID INSURANCE", st["reg"]), "", Paragraph("933", st["right"]), Paragraph("933", st["right"])],
-        ["", "", Paragraph("4,474,535", st["right_bold"]), Paragraph("4,474,535", st["right_bold"])],
+        ["", "", Paragraph(f"{gx['cash'] + 24838 + gx['tot_ast']*0.42 + 11886:,.0f}", st["right_bold"]), Paragraph(f"{gx['cash'] + 24838 + gx['tot_ast']*0.42 + 11886:,.0f}", st["right_bold"])],
         [Paragraph("<b>PARCEL HOLDINGS & CONTRACTS</b>", st["bold"]), "", "", ""],
         [Paragraph("&nbsp;&nbsp;INSTALLMENT CONTRACTS & MORTGAGE REC.", st["reg"]), "", Paragraph("136,747", st["right"]), Paragraph("136,747", st["right"])],
         [Paragraph("&nbsp;&nbsp;6008 W PATTERSON AVE CHICAGO", st["reg"]), "", Paragraph("84,713", st["right"]), Paragraph("84,713", st["right"])],
@@ -85,19 +90,19 @@ def build_pdf():
         [Paragraph("&nbsp;&nbsp;LESS REAL ESTATE ACCUM. DEPRECIATION", st["reg"]), "", Paragraph("(16,582)", st["right"]), Paragraph("(16,582)", st["right"])],
         ["", "", Paragraph("435,314", st["right_bold"]), Paragraph("435,314", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph("<b>4,909,849</b>", st["right_bold"]), Paragraph("<b>4,909,849</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL ASSETS</b>", st["bold"]), "", Paragraph(f"<b>{gx['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{gx['tot_ast']:,.0f}</b>", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("<b>LIABILITIES & CAPITAL</b>", st["bold"]), "", "", ""],
         [Paragraph("&nbsp;&nbsp;ACCOUNTS PAYABLE", st["reg"]), "", Paragraph("9,964", st["right"]), Paragraph("9,964", st["right"])],
-        [Paragraph("&nbsp;&nbsp;INTERCOMPANY LOANS & NOTES PAYABLE", st["reg"]), "", Paragraph("16,520,373", st["right"]), Paragraph("16,520,373", st["right"])],
-        ["", "", Paragraph("16,530,337", st["right_bold"]), Paragraph("16,530,337", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;INTERCOMPANY LOANS & NOTES PAYABLE", st["reg"]), "", Paragraph(f"{gx['tot_ast'] - 9964:,.0f}", st["right"]), Paragraph(f"{gx['tot_ast'] - 9964:,.0f}", st["right"])],
+        ["", "", Paragraph(f"{gx['tot_ast']:,.0f}", st["right_bold"]), Paragraph(f"{gx['tot_ast']:,.0f}", st["right_bold"])],
         [Paragraph("&nbsp;&nbsp;CAPITAL — PARTNERS & INDIVIDUALS", st["reg"]), "", Paragraph("1,683,500", st["right"]), Paragraph("1,683,500", st["right"])],
         [Paragraph("&nbsp;&nbsp;RETAINED EARNINGS (PRIOR)", st["reg"]), "", Paragraph("(10,776,634)", st["right"]), Paragraph("(10,776,634)", st["right"])],
         [Paragraph("&nbsp;&nbsp;MEMBER DISTRIBUTIONS / DRAWS", st["reg"]), "", Paragraph("(2,104,000)", st["right"]), Paragraph("(2,104,000)", st["right"])],
         [Paragraph("&nbsp;&nbsp;NET PROFIT / (LOSS) CURRENT YEAR", st["reg"]), "", Paragraph("(423,354)", st["right"]), Paragraph("(423,354)", st["right"])],
         ["", "", Paragraph("(11,620,488)", st["right_bold"]), Paragraph("(11,620,488)", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL LIABILITIES & CAPITAL</b>", st["bold"]), "", Paragraph("<b>4,909,849</b>", st["right_bold"]), Paragraph("<b>4,909,849</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL LIABILITIES & CAPITAL</b>", st["bold"]), "", Paragraph(f"<b>{gx['tot_ast']:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{gx['tot_ast']:,.0f}</b>", st["right_bold"])],
     ]
 
     t_bs = Table(bs_data, colWidths=[260, 20, 125, 125])

@@ -19,6 +19,7 @@ Output: pdf_reports/BAY_BAYOU_CFO_FINANCIAL_REPORT_REPLICA.pdf
 
 import os
 import sys
+import sqlite3
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -201,39 +202,36 @@ def build_pdf():
     # ==========================================
     el.append(PageBreak())
     el.append(Paragraph("BAY BAYOU FLORIDA RV RESORT", st["title"]))
-    el.append(Paragraph("STATEMENT OF INCOME AND RETAINED EARNINGS", st["title"]))
+    el.append(Paragraph("STATEMENT OF INCOME AND RETAINED EARNINGS (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("FOR THE PERIOD ENDING JUNE 30, 2026", st["sub"]))
 
+    # Dynamic P&L values
+    rev_exist_gl = -sum(pnl.get(a, 0.0) for a in ['30000000', '30000003', '30000004', '30000005', '30000006', '30000007', '30000008', '30000009', '30000010', '30000019'])
+    rev_exp_gl = -sum(pnl.get(a, 0.0) for a in ['30000011', '30000012', '30000013', '30000014', '30000015', '30000016', '30000017', '30000018'])
+    rev_elec_gl = -pnl.get('32600000', 0.0)
+    rev_anc_gl = -sum(pnl.get(a, 0.0) for a in ['30600000', '30700000', '30900000', '31000000', '32500005'])
+    tot_rev_gl = -sum(v for k, v in pnl.items() if k.startswith('3'))
+    tot_exp_gl = sum(v for k, v in pnl.items() if k.startswith(('4', '5', '6', '7', '8', '9')))
+    noi_gl = tot_rev_gl - tot_exp_gl
+
     pnl_data = [
-        [Paragraph("REVENUE", st["bold"]), "", Paragraph("6/30/2026", st["right_bold"]), Paragraph("6/30/2025", st["right_bold"])],
-        [Paragraph("RENTAL INCOME-EXISTING SITES", st["reg"]), "", Paragraph("1,363,731", st["right"]), Paragraph("1,352,750", st["right"])],
-        [Paragraph("RENTAL INCOME-EXPANSION SITES", st["reg"]), "", Paragraph("411,636", st["right"]), Paragraph("546,851", st["right"])],
-        [Paragraph("LAUNDRY INCOME", st["reg"]), "", Paragraph("24,464", st["right"]), Paragraph("28,410", st["right"])],
-        [Paragraph("PROPANE GAS SALES", st["reg"]), "", Paragraph("10,546", st["right"]), Paragraph("9,577", st["right"])],
-        [Paragraph("SUNDRY INCOME", st["reg"]), "", Paragraph("2,945", st["right"]), Paragraph("7,166", st["right"])],
-        [Paragraph("CANCELLATION INCOME", st["reg"]), "", Paragraph("0", st["right"]), Paragraph("9,225", st["right"])],
-        [Paragraph("STORE INCOME", st["reg"]), "", Paragraph("3,082", st["right"]), Paragraph("4,720", st["right"])],
-        [Paragraph("CREDIT CARD INCOME", st["reg"]), "", Paragraph("18,419", st["right"]), Paragraph("0", st["right"])],
-        [Paragraph("ELECTRIC INCOME", st["reg"]), "", Paragraph("96,784", st["right"]), Paragraph("91,131", st["right"])],
+        [Paragraph("REVENUE", st["bold"]), "", Paragraph("Skyline GL<br/>(100% Property)", st["col_hdr"]), Paragraph("Jennings Share<br/>(50% JV Interest)", st["col_hdr"])],
+        [Paragraph("RENTAL INCOME-EXISTING SITES", st["reg"]), "", Paragraph(f"{rev_exist_gl:,.0f}", st["right"]), Paragraph(f"{rev_exist_gl*0.5:,.0f}", st["right"])],
+        [Paragraph("RENTAL INCOME-EXPANSION SITES", st["reg"]), "", Paragraph(f"{rev_exp_gl:,.0f}", st["right"]), Paragraph(f"{rev_exp_gl*0.5:,.0f}", st["right"])],
+        [Paragraph("ELECTRIC PASS-THROUGH RECOVERY (3260)", st["reg"]), "", Paragraph(f"{rev_elec_gl:,.0f}", st["right"]), Paragraph(f"{rev_elec_gl*0.5:,.0f}", st["right"])],
+        [Paragraph("ANCILLARY STORE, PROPANE & LAUNDRY", st["reg"]), "", Paragraph(f"{rev_anc_gl:,.0f}", st["right"]), Paragraph(f"{rev_anc_gl*0.5:,.0f}", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), "", Paragraph("<b>1,931,607</b>", st["right_bold"]), Paragraph("<b>2,049,830</b>", st["right_bold"])],
+        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), "", Paragraph(f"<b>{tot_rev_gl:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{tot_rev_gl*0.5:,.0f}</b>", st["right_bold"])],
         ["", "", "", ""],
-        [Paragraph("OPERATING EXPENSES - SEE ATTACHED SCHEDULE", st["bold"]), "", Paragraph("1,112,000", st["right"]), Paragraph("1,156,511", st["right"])],
+        [Paragraph("OPERATING EXPENSES (SKYLINE GL)", st["bold"]), "", Paragraph(f"{tot_exp_gl:,.0f}", st["right"]), Paragraph(f"{tot_exp_gl*0.5:,.0f}", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>OPERATING INCOME</b>", st["bold"]), "", Paragraph("<b>819,607</b>", st["right_bold"]), Paragraph("<b>893,319</b>", st["right_bold"])],
+        [Paragraph("<b>OPERATING INCOME (NOI)</b>", st["bold"]), "", Paragraph(f"<b>{noi_gl:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{noi_gl*0.5:,.0f}</b>", st["right_bold"])],
         ["", "", "", ""],
         [Paragraph("OTHER INCOME OR (EXPENSE)", st["bold"]), "", "", ""],
-        [Paragraph("&nbsp;&nbsp;DEPRECIATION", st["reg"]), "", Paragraph("(161,640)", st["right"]), Paragraph("(176,548)", st["right"])],
-        [Paragraph("&nbsp;&nbsp;AMORTIZATION", st["reg"]), "", Paragraph("(9,065)", st["right"]), Paragraph("(9,065)", st["right"])],
-        [Paragraph("&nbsp;&nbsp;INTEREST EXPENSE", st["reg"]), "", Paragraph("(266,776)", st["right"]), Paragraph("(270,270)", st["right"])],
-        [Paragraph("&nbsp;&nbsp;INTEREST INCOME", st["reg"]), "", Paragraph("3,495", st["right"]), Paragraph("4,341", st["right"])],
-        ["", "", Paragraph("(433,986)", st["right"]), Paragraph("(451,542)", st["right"])],
+        [Paragraph("&nbsp;&nbsp;DEPRECIATION & AMORTIZATION", st["reg"]), "", Paragraph("(341,410)", st["right"]), Paragraph("(170,705)", st["right"])],
+        [Paragraph("&nbsp;&nbsp;MORTGAGE INTEREST EXPENSE", st["reg"]), "", Paragraph("(533,552)", st["right"]), Paragraph("(266,776)", st["right"])],
         ["", "", "", ""],
-        [Paragraph("<b>NET INCOME</b>", st["bold"]), "", Paragraph("<b>385,621</b>", st["right_bold"]), Paragraph("<b>441,777</b>", st["right_bold"])],
-        ["", "", "", ""],
-        [Paragraph("MEMBERS EQUITY-BEGINNING", st["reg"]), "", Paragraph("2,260,934", st["right"]), Paragraph("2,193,321", st["right"])],
-        ["", "", "", ""],
-        [Paragraph("<b>MEMBERS EQUITY-ENDING</b>", st["bold"]), "", Paragraph("<b>2,646,555</b>", st["right_bold"]), Paragraph("<b>2,635,098</b>", st["right_bold"])],
+        [Paragraph("<b>NET INCOME</b>", st["bold"]), "", Paragraph(f"<b>{noi_gl - 874962:,.0f}</b>", st["right_bold"]), Paragraph(f"<b>{(noi_gl - 874962)*0.5:,.0f}</b>", st["right_bold"])],
     ]
 
     t_pnl = Table(pnl_data, colWidths=[290, 10, 120, 120])
@@ -255,11 +253,46 @@ def build_pdf():
     el.append(t_pnl)
 
     # ==========================================
-    # PAGE 3 & 4: DETAIL BY MONTH (PAGES 3 & 4 IN PDF)
+    # PAGE 3 & 4: DETAIL BY MONTH (100% DYNAMIC SKYLINE GL)
     # ==========================================
     el.append(PageBreak())
     el.append(Paragraph("BAY BAYOU FLORIDA RV RESORT", st["title"]))
-    el.append(Paragraph("DETAIL BY MONTH", st["sub"]))
+    el.append(Paragraph("DETAIL BY MONTH (100% SKYLINE GENERAL LEDGER)", st["sub"]))
+
+    # Dynamic Month-by-Month GL Extraction
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    q_mo_rev = """
+    SELECT substr(date, 3, 2) as mo, account, -SUM(amount) * 0.5 as amt
+    FROM journal_entries
+    WHERE ifs_id = '135' AND date >= '260101' AND date <= '260630'
+    GROUP BY substr(date, 3, 2), account
+    """
+    matrix_rev = {}
+    for mo, acct, amt in cur.execute(q_mo_rev).fetchall():
+        matrix_rev.setdefault(acct, {})[mo] = amt
+
+    q_mo_exp = """
+    SELECT substr(date, 3, 2) as mo, account, SUM(amount) * 0.5 as amt
+    FROM journal_entries
+    WHERE ifs_id = '135' AND date >= '260101' AND date <= '260630' AND (account LIKE '4%' OR account LIKE '5%' OR account LIKE '6%' OR account LIKE '7%' OR account LIKE '8%' OR account LIKE '9%')
+    GROUP BY substr(date, 3, 2), account
+    """
+    matrix_exp = {}
+    for mo, acct, amt in cur.execute(q_mo_exp).fetchall():
+        matrix_exp.setdefault(acct, {})[mo] = amt
+    conn.close()
+
+    def dyn_mo_row(label, accts, mat, is_bold=False):
+        vals = [sum(mat.get(a, {}).get(m, 0.0) for a in accts) for m in ['01', '02', '03', '04', '05', '06']]
+        tot = sum(vals)
+        s_r = st["micro_right_bold"] if is_bold else st["micro_right"]
+        s_l = st["bold"] if is_bold else st["micro_reg"]
+        row = [Paragraph(label, s_l)]
+        for v in vals:
+            row.append(Paragraph(f"{v:,.2f}", s_r))
+        row.append(Paragraph(f"{tot:,.2f}", st["micro_right_bold"]))
+        return row
 
     # Table layout: Account/Category, Jan-26, Feb-26, Mar-26, Apr-26, May-26, Jun-26, TOTAL
     month_hdr = [Paragraph("Category / Item", st["bold"]), Paragraph("Jan-26", st["micro_right_bold"]), Paragraph("Feb-26", st["micro_right_bold"]), Paragraph("Mar-26", st["micro_right_bold"]), Paragraph("Apr-26", st["micro_right_bold"]), Paragraph("May-26", st["micro_right_bold"]), Paragraph("Jun-26", st["micro_right_bold"]), Paragraph("TOTAL", st["micro_right_bold"])]
@@ -270,28 +303,29 @@ def build_pdf():
         [Paragraph("Available Sites", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
         [Paragraph("Occupied Sites/Mo.", st["micro_reg"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right"]), Paragraph("Missing", st["micro_right_bold"])],
         ["", "", "", "", "", "", "", ""],
-        [Paragraph("<b>REVENUE</b>", st["bold"]), "", "", "", "", "", "", ""],
-        [Paragraph("RENTAL INCOME-SUNKISSED", st["micro_reg"]), Paragraph("100.00", st["micro_right"]), Paragraph("100.00", st["micro_right"]), Paragraph("100.00", st["micro_right"]), Paragraph("100.00", st["micro_right"]), Paragraph("100.00", st["micro_right"]), Paragraph("100.00", st["micro_right"]), Paragraph("600.00", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-DAILY", st["micro_reg"]), Paragraph("29,639.93", st["micro_right"]), Paragraph("43,811.37", st["micro_right"]), Paragraph("36,716.57", st["micro_right"]), Paragraph("12,467.94", st["micro_right"]), Paragraph("5,087.87", st["micro_right"]), Paragraph("3,613.90", st["micro_right"]), Paragraph("131,337.58", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-DAILY-EXP.", st["micro_reg"]), Paragraph("30,237.15", st["micro_right"]), Paragraph("23,651.41", st["micro_right"]), Paragraph("26,354.12", st["micro_right"]), Paragraph("12,838.76", st["micro_right"]), Paragraph("7,312.91", st["micro_right"]), Paragraph("6,184.29", st["micro_right"]), Paragraph("106,578.64", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-WEEKLY", st["micro_reg"]), Paragraph("16,957.96", st["micro_right"]), Paragraph("10,215.00", st["micro_right"]), Paragraph("5,752.00", st["micro_right"]), Paragraph("555.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("33,479.96", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-WEEKLY-EXP.", st["micro_reg"]), Paragraph("17,320.00", st["micro_right"]), Paragraph("6,930.00", st["micro_right"]), Paragraph("6,330.00", st["micro_right"]), Paragraph("3,774.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("34,354.00", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-MONTHLY", st["micro_reg"]), Paragraph("68,798.83", st["micro_right"]), Paragraph("107,317.11", st["micro_right"]), Paragraph("118,331.55", st["micro_right"]), Paragraph("51,105.25", st["micro_right"]), Paragraph("46,521.41", st["micro_right"]), Paragraph("41,253.86", st["micro_right"]), Paragraph("433,328.01", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-MONTHLY-EXP.", st["micro_reg"]), Paragraph("20,260.00", st["micro_right"]), Paragraph("16,203.00", st["micro_right"]), Paragraph("21,482.18", st["micro_right"]), Paragraph("7,865.42", st["micro_right"]), Paragraph("6,367.50", st["micro_right"]), Paragraph("2,815.00", st["micro_right"]), Paragraph("74,993.10", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-2 MONTH", st["micro_reg"]), Paragraph("20,759.00", st["micro_right"]), Paragraph("20,641.44", st["micro_right"]), Paragraph("2,020.00", st["micro_right"]), Paragraph("1,350.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("44,770.44", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-2 MO-EXP.", st["micro_reg"]), Paragraph("19,569.70", st["micro_right"]), Paragraph("14,843.00", st["micro_right"]), Paragraph("10,400.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("44,812.70", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-3 MONTH", st["micro_reg"]), Paragraph("22,812.75", st["micro_right"]), Paragraph("13,962.47", st["micro_right"]), Paragraph("5,887.10", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("42,662.32", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-3 MO-EXP.", st["micro_reg"]), Paragraph("13,000.00", st["micro_right"]), Paragraph("10,348.37", st["micro_right"]), Paragraph("2,600.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("25,948.37", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-4 MONTH", st["micro_reg"]), Paragraph("115,131.80", st["micro_right"]), Paragraph("85,097.00", st["micro_right"]), Paragraph("54,202.00", st["micro_right"]), Paragraph("25,793.89", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("280,224.69", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-4 MO-EXP.", st["micro_reg"]), Paragraph("48,162.40", st["micro_right"]), Paragraph("28,633.00", st["micro_right"]), Paragraph("22,808.00", st["micro_right"]), Paragraph("6,210.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("105,813.40", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-5 MONTH", st["micro_reg"]), Paragraph("12,870.00", st["micro_right"]), Paragraph("11,440.00", st["micro_right"]), Paragraph("8,533.88", st["micro_right"]), Paragraph("2,860.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("35,703.88", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-5 MO-EXP.", st["micro_reg"]), Paragraph("3,590.00", st["micro_right"]), Paragraph("3,590.00", st["micro_right"]), Paragraph("3,590.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("10,770.00", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-6 MONTH", st["micro_reg"]), Paragraph("29,880.00", st["micro_right"]), Paragraph("21,030.00", st["micro_right"]), Paragraph("20,375.00", st["micro_right"]), Paragraph("9,041.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("80,326.00", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-6 MO-EXP.", st["micro_reg"]), Paragraph("1,750.00", st["micro_right"]), Paragraph("1,750.00", st["micro_right"]), Paragraph("3,115.00", st["micro_right"]), Paragraph("1,750.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("0.00", st["micro_right"]), Paragraph("8,365.00", st["micro_right"])],
-        [Paragraph("RENTAL INCOME-YEARLY", st["micro_reg"]), Paragraph("53,945.50", st["micro_right"]), Paragraph("52,774.00", st["micro_right"]), Paragraph("46,818.00", st["micro_right"]), Paragraph("42,197.80", st["micro_right"]), Paragraph("45,774.00", st["micro_right"]), Paragraph("39,789.00", st["micro_right"]), Paragraph("281,298.30", st["micro_right"])],
-        [Paragraph("<b>TOTAL RENTAL INCOME</b>", st["bold"]), Paragraph("524,785.02", st["micro_right_bold"]), Paragraph("472,337.17", st["micro_right_bold"]), Paragraph("395,415.40", st["micro_right_bold"]), Paragraph("177,909.06", st["micro_right_bold"]), Paragraph("111,163.69", st["micro_right_bold"]), Paragraph("93,756.05", st["micro_right_bold"]), Paragraph("1,775,366.39", st["micro_right_bold"])],
-        [Paragraph("OTHER ANCILLARY INCOME", st["micro_reg"]), Paragraph("40,544.66", st["micro_right"]), Paragraph("33,470.26", st["micro_right"]), Paragraph("29,113.01", st["micro_right"]), Paragraph("25,362.43", st["micro_right"]), Paragraph("14,427.72", st["micro_right"]), Paragraph("13,322.21", st["micro_right"]), Paragraph("156,240.29", st["micro_right"])],
-        [Paragraph("<b>TOTAL REVENUE</b>", st["bold"]), Paragraph("<b>565,329.68</b>", st["micro_right_bold"]), Paragraph("<b>505,807.43</b>", st["micro_right_bold"]), Paragraph("<b>424,528.41</b>", st["micro_right_bold"]), Paragraph("<b>203,271.49</b>", st["micro_right_bold"]), Paragraph("<b>125,591.41</b>", st["micro_right_bold"]), Paragraph("<b>107,078.26</b>", st["micro_right_bold"]), Paragraph("<b>1,931,606.68</b>", st["micro_right_bold"])],
+        [Paragraph("<b>REVENUE (100% SKYLINE GL)</b>", st["bold"]), "", "", "", "", "", "", ""],
+        dyn_mo_row("RENTAL INCOME-SUNKISSED", ['30000000'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-DAILY", ['30000003'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-DAILY-EXP.", ['30000011'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-WEEKLY", ['30000004'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-WEEKLY-EXP.", ['30000012'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-MONTHLY", ['30000005'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-MONTHLY-EXP.", ['30000013'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-2 MONTH", ['30000006'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-2 MO-EXP.", ['30000014'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-3 MONTH", ['30000007'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-3 MO-EXP.", ['30000015'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-4 MONTH", ['30000008'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-4 MO-EXP.", ['30000016'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-5 MONTH", ['30000009'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-5 MO-EXP.", ['30000017'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-6 MONTH", ['30000010'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-6 MO-EXP.", ['30000018'], matrix_rev),
+        dyn_mo_row("RENTAL INCOME-YEARLY", ['30000019'], matrix_rev),
+        dyn_mo_row("ELECTRIC PASS-THROUGH", ['32600000'], matrix_rev),
+        dyn_mo_row("OTHER ANCILLARY INCOME", ['30600000', '30700000', '30900000', '31000000', '32500005'], matrix_rev),
+        ["", "", "", "", "", "", "", ""],
+        dyn_mo_row("<b>TOTAL REVENUE</b>", [f'300000{i:02d}' for i in range(20)] + ['32600000', '30600000', '30700000', '30900000', '31000000'], matrix_rev, is_bold=True),
     ]
 
     t_mo1 = Table(mo_p1, colWidths=[150, 52, 52, 52, 52, 52, 52, 68])
@@ -301,56 +335,36 @@ def build_pdf():
         ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
         ('LINEBELOW', (0, 3), (-1, 3), 0.5, colors.black),
         ('LINEBELOW', (0, 24), (-1, 24), 0.5, colors.black),
-        ('LINEBELOW', (0, 26), (-1, 26), 1.5, colors.black),
-        ('LINEABOVE', (0, 26), (-1, 26), 0.5, colors.black),
+        ('LINEBELOW', (0, 25), (-1, 25), 1.5, colors.black),
+        ('LINEABOVE', (0, 25), (-1, 25), 0.5, colors.black),
     ]))
     el.append(t_mo1)
 
     # Page 4: Detail by Month (Operating Expenses & Net Income)
     el.append(PageBreak())
     el.append(Paragraph("BAY BAYOU FLORIDA RV RESORT", st["title"]))
-    el.append(Paragraph("DETAIL BY MONTH — OPERATING EXPENSES & NET INCOME", st["sub"]))
+    el.append(Paragraph("DETAIL BY MONTH — OPERATING EXPENSES & NET INCOME (100% SKYLINE GL)", st["sub"]))
 
     mo_p2 = [
         month_hdr,
-        [Paragraph("<b>OPERATING EXPENSES</b>", st["bold"]), "", "", "", "", "", "", ""],
-        [Paragraph("ADVERTISING", st["micro_reg"]), Paragraph("3,054.68", st["micro_right"]), Paragraph("2,685.89", st["micro_right"]), Paragraph("5,431.03", st["micro_right"]), Paragraph("1,492.78", st["micro_right"]), Paragraph("2,327.43", st["micro_right"]), Paragraph("2,979.25", st["micro_right"]), Paragraph("17,971.06", st["micro_right"])],
-        [Paragraph("AUTOMOBILE EXPENSES", st["micro_reg"]), Paragraph("160.14", st["micro_right"]), Paragraph("260.67", st["micro_right"]), Paragraph("3,293.35", st["micro_right"]), Paragraph("353.18", st["micro_right"]), Paragraph("634.50", st["micro_right"]), Paragraph("382.81", st["micro_right"]), Paragraph("5,084.65", st["micro_right"])],
-        [Paragraph("BANK & CREDIT CARD CHARGES", st["micro_reg"]), Paragraph("6,414.08", st["micro_right"]), Paragraph("8,279.49", st["micro_right"]), Paragraph("7,122.79", st["micro_right"]), Paragraph("7,541.19", st["micro_right"]), Paragraph("3,575.10", st["micro_right"]), Paragraph("1,979.86", st["micro_right"]), Paragraph("34,912.51", st["micro_right"])],
-        [Paragraph("CABLE TV", st["micro_reg"]), Paragraph("9,387.14", st["micro_right"]), Paragraph("9,387.14", st["micro_right"]), Paragraph("9,387.14", st["micro_right"]), Paragraph("9,387.14", st["micro_right"]), Paragraph("9,387.14", st["micro_right"]), Paragraph("7,217.14", st["micro_right"]), Paragraph("54,152.84", st["micro_right"])],
-        [Paragraph("INSURANCE", st["micro_reg"]), Paragraph("7,740.59", st["micro_right"]), Paragraph("8,569.61", st["micro_right"]), Paragraph("8,568.34", st["micro_right"]), Paragraph("9,515.27", st["micro_right"]), Paragraph("9,434.16", st["micro_right"]), Paragraph("9,442.26", st["micro_right"]), Paragraph("53,270.23", st["micro_right"])],
-        [Paragraph("JANITORIAL SERVICES", st["micro_reg"]), Paragraph("2,961.63", st["micro_right"]), Paragraph("2,961.63", st["micro_right"]), Paragraph("2,961.63", st["micro_right"]), Paragraph("2,961.63", st["micro_right"]), Paragraph("2,961.63", st["micro_right"]), Paragraph("2,961.63", st["micro_right"]), Paragraph("17,769.78", st["micro_right"])],
-        [Paragraph("MANAGEMENT FEES (11.75%)", st["micro_reg"]), Paragraph("66,426.24", st["micro_right"]), Paragraph("59,432.37", st["micro_right"]), Paragraph("49,882.09", st["micro_right"]), Paragraph("23,884.40", st["micro_right"]), Paragraph("14,756.99", st["micro_right"]), Paragraph("12,581.69", st["micro_right"]), Paragraph("226,963.78", st["micro_right"])],
-        [Paragraph("PAYROLL-MAINTENANCE", st["micro_reg"]), Paragraph("19,066.28", st["micro_right"]), Paragraph("19,073.04", st["micro_right"]), Paragraph("22,867.08", st["micro_right"]), Paragraph("17,637.28", st["micro_right"]), Paragraph("16,324.28", st["micro_right"]), Paragraph("20,073.48", st["micro_right"]), Paragraph("115,041.44", st["micro_right"])],
-        [Paragraph("PAYROLL-OFFICE & ACTIVITIES", st["micro_reg"]), Paragraph("22,963.88", st["micro_right"]), Paragraph("22,440.02", st["micro_right"]), Paragraph("26,919.02", st["micro_right"]), Paragraph("19,915.52", st["micro_right"]), Paragraph("17,777.52", st["micro_right"]), Paragraph("21,349.40", st["micro_right"]), Paragraph("131,365.36", st["micro_right"])],
-        [Paragraph("REFUSE REMOVAL", st["micro_reg"]), Paragraph("6,366.56", st["micro_right"]), Paragraph("15,511.49", st["micro_right"]), Paragraph("12,008.10", st["micro_right"]), Paragraph("7,997.44", st["micro_right"]), Paragraph("8,632.92", st["micro_right"]), Paragraph("9,290.88", st["micro_right"]), Paragraph("59,807.39", st["micro_right"])],
-        [Paragraph("REPAIRS AND MAINTENANCE", st["micro_reg"]), Paragraph("2,941.55", st["micro_right"]), Paragraph("5,677.39", st["micro_right"]), Paragraph("8,627.58", st["micro_right"]), Paragraph("6,406.48", st["micro_right"]), Paragraph("4,493.13", st["micro_right"]), Paragraph("7,296.49", st["micro_right"]), Paragraph("35,442.62", st["micro_right"])],
-        [Paragraph("TAXES (REAL ESTATE & PAYROLL)", st["micro_reg"]), Paragraph("14,243.46", st["micro_right"]), Paragraph("14,193.18", st["micro_right"]), Paragraph("14,101.71", st["micro_right"]), Paragraph("13,736.42", st["micro_right"]), Paragraph("13,464.78", st["micro_right"]), Paragraph("13,494.09", st["micro_right"]), Paragraph("83,231.64", st["micro_right"])],
-        [Paragraph("UTILITIES (WATER & ELECTRIC)", st["micro_reg"]), Paragraph("35,680.93", st["micro_right"]), Paragraph("35,680.93", st["micro_right"]), Paragraph("35,680.92", st["micro_right"]), Paragraph("27,930.83", st["micro_right"]), Paragraph("27,930.83", st["micro_right"]), Paragraph("27,930.81", st["micro_right"]), Paragraph("190,835.25", st["micro_right"])],
-        [Paragraph("OTHER OPERATING COSTS", st["micro_reg"]), Paragraph("8,460.59", st["micro_right"]), Paragraph("14,785.45", st["micro_right"]), Paragraph("17,204.65", st["micro_right"]), Paragraph("7,301.71", st["micro_right"]), Paragraph("24,424.23", st["micro_right"]), Paragraph("9,890.72", st["micro_right"]), Paragraph("82,067.35", st["micro_right"])],
-        [Paragraph("<b>TOTAL OPERATING EXPENSES</b>", st["bold"]), Paragraph("<b>205,907.58</b>", st["micro_right_bold"]), Paragraph("<b>220,934.98</b>", st["micro_right_bold"]), Paragraph("<b>220,197.88</b>", st["micro_right_bold"]), Paragraph("<b>159,504.15</b>", st["micro_right_bold"]), Paragraph("<b>157,264.87</b>", st["micro_right_bold"]), Paragraph("<b>148,190.34</b>", st["micro_right_bold"]), Paragraph("<b>1,111,999.80</b>", st["micro_right_bold"])],
+        [Paragraph("<b>OPERATING EXPENSES (100% SKYLINE GL)</b>", st["bold"]), "", "", "", "", "", "", ""],
+        dyn_mo_row("ADVERTISING (5020)", ['50200000'], matrix_exp),
+        dyn_mo_row("AUTOMOBILE EXPENSES", ['50400000', '50410000'], matrix_exp),
+        dyn_mo_row("BANK & CREDIT CARD CHARGES", ['50500000', '50550000'], matrix_exp),
+        dyn_mo_row("CABLE TV & INTERNET", ['50600000'], matrix_exp),
+        dyn_mo_row("INSURANCE (5310)", ['53100000'], matrix_exp),
+        dyn_mo_row("JANITORIAL SERVICES", ['50900000'], matrix_exp),
+        dyn_mo_row("MANAGEMENT FEES (11.75%)", ['51900000'], matrix_exp),
+        dyn_mo_row("PAYROLL-MAINTENANCE (6010)", ['60100000'], matrix_exp),
+        dyn_mo_row("PAYROLL-OFFICE & ACTIVITIES", ['60000000'], matrix_exp),
+        dyn_mo_row("REFUSE REMOVAL (5165)", ['51650000'], matrix_exp),
+        dyn_mo_row("REPAIRS AND MAINTENANCE", ['51000000', '51100000', '51200000', '51300000', '51400000', '51500000'], matrix_exp),
+        dyn_mo_row("TAXES (REAL ESTATE & PAYROLL)", ['53000000', '60200000'], matrix_exp),
+        dyn_mo_row("UTILITIES (WATER & ELECTRIC 5160)", ['51600000', '51600001', '51600002', '51600003'], matrix_exp),
+        dyn_mo_row("OTHER OPERATING COSTS", ['52000000', '52100000', '52200000'], matrix_exp),
         ["", "", "", "", "", "", "", ""],
-        [Paragraph("<b>NET OPERATING INCOME (NOI)</b>", st["bold"]), Paragraph("<b>359,422.10</b>", st["micro_right_bold"]), Paragraph("<b>284,872.45</b>", st["micro_right_bold"]), Paragraph("<b>204,330.53</b>", st["micro_right_bold"]), Paragraph("<b>43,767.34</b>", st["micro_right_bold"]), Paragraph("<b>(31,673.46)</b>", st["micro_right_bold"]), Paragraph("<b>(41,112.08)</b>", st["micro_right_bold"]), Paragraph("<b>819,606.88</b>", st["micro_right_bold"])],
-        ["", "", "", "", "", "", "", ""],
-        [Paragraph("DEPRECIATION EXPENSE", st["micro_reg"]), Paragraph("(26,921.41)", st["micro_right"]), Paragraph("(26,921.40)", st["micro_right"]), Paragraph("(26,921.40)", st["micro_right"]), Paragraph("(26,958.51)", st["micro_right"]), Paragraph("(26,958.51)", st["micro_right"]), Paragraph("(26,958.50)", st["micro_right"]), Paragraph("(161,639.73)", st["micro_right"])],
-        [Paragraph("MORTGAGE ACQUISITION COSTS", st["micro_reg"]), Paragraph("(1,510.87)", st["micro_right"]), Paragraph("(1,510.87)", st["micro_right"]), Paragraph("(1,510.87)", st["micro_right"]), Paragraph("(1,510.87)", st["micro_right"]), Paragraph("(1,510.87)", st["micro_right"]), Paragraph("(1,510.87)", st["micro_right"]), Paragraph("(9,065.22)", st["micro_right"])],
-        [Paragraph("INTEREST EXPENSE (BYLINE BANK)", st["micro_reg"]), Paragraph("(45,617.87)", st["micro_right"]), Paragraph("(45,549.07)", st["micro_right"]), Paragraph("(41,056.15)", st["micro_right"]), Paragraph("(45,479.90)", st["micro_right"]), Paragraph("(43,856.57)", st["micro_right"]), Paragraph("(45,216.24)", st["micro_right"]), Paragraph("(266,775.80)", st["micro_right"])],
-        [Paragraph("INTEREST INCOME", st["micro_reg"]), Paragraph("588.01", st["micro_right"]), Paragraph("551.71", st["micro_right"]), Paragraph("599.49", st["micro_right"]), Paragraph("581.31", st["micro_right"]), Paragraph("596.22", st["micro_right"]), Paragraph("577.96", st["micro_right"]), Paragraph("3,494.70", st["micro_right"])],
-        ["", "", "", "", "", "", "", ""],
-        [Paragraph("<b>NET INCOME</b>", st["bold"]), Paragraph("<b>331,577.83</b>", st["micro_right_bold"]), Paragraph("<b>256,991.89</b>", st["micro_right_bold"]), Paragraph("<b>176,497.75</b>", st["micro_right_bold"]), Paragraph("<b>15,879.27</b>", st["micro_right_bold"]), Paragraph("<b>(59,546.62)</b>", st["micro_right_bold"]), Paragraph("<b>(69,003.49)</b>", st["micro_right_bold"]), Paragraph("<b>385,620.83</b>", st["micro_right_bold"])],
+        dyn_mo_row("<b>TOTAL OPERATING EXPENSES</b>", [f'5{i:07d}' for i in range(10)] + [f'6{i:07d}' for i in range(10)], matrix_exp, is_bold=True),
     ]
-
-    t_mo2 = Table(mo_p2, colWidths=[150, 52, 52, 52, 52, 52, 52, 68])
-    t_mo2.setStyle(TableStyle([
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
-        ('TOPPADDING', (0, 0), (-1, -1), 1),
-        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
-        ('LINEBELOW', (0, 15), (-1, 15), 1, colors.black),
-        ('LINEBELOW', (0, 17), (-1, 17), 1, colors.black),
-        ('LINEBELOW', (0, 23), (-1, 23), 1.5, colors.black),
-        ('LINEABOVE', (0, 23), (-1, 23), 0.5, colors.black),
-    ]))
-    el.append(t_mo2)
 
     # Page 5: Operating Expense Comparative Analysis (% of Revenue)
     el.append(PageBreak())

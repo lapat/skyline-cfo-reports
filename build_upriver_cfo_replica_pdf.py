@@ -39,26 +39,31 @@ def get_styles():
         "col_hdr": ParagraphStyle('ColHdr', fontName='Helvetica-Bold', fontSize=7, leading=8.5, alignment=2),
     }
 
+import skyline_report_data_provider as sdp
+
 def build_pdf():
     os.makedirs(os.path.dirname(OUTPUT_PDF), exist_ok=True)
     doc = SimpleDocTemplate(OUTPUT_PDF, pagesize=letter, leftMargin=40, rightMargin=40, topMargin=35, bottomMargin=35)
     st = get_styles()
     el = []
 
+    # Dynamic Skyline GL Data
+    up = sdp.get_upriver_data()
+
     # ==========================================
     # PAGE 1: PROCEEDS DISPOSITION
     # ==========================================
     el.append(Paragraph("UPRIVER PARTNERS LLP", st["title"]))
-    el.append(Paragraph("CAPITAL ASSET SALE & PROCEEDS DISPOSITION", st["title"]))
+    el.append(Paragraph("CAPITAL ASSET SALE & PROCEEDS DISPOSITION (100% SKYLINE GL)", st["title"]))
     el.append(Paragraph("CLOSING DATE: MAY 27, 2026 (FINAL REVISED)", st["sub"]))
     el.append(Paragraph("Prepared from: Skyline General Ledger &middot; Automated Accounting Engine", st["note"]))
 
     disp_data = [
         ["", "", Paragraph("AMOUNT ($)", st["col_hdr"])],
-        [Paragraph("<b>GROSS CAPITAL SALE PROCEEDS (SKYLINE LEDGER)</b>", st["bold"]), "", Paragraph("<b>59,800,000.00</b>", st["right_bold"])],
-        [Paragraph("&nbsp;&nbsp;Payoff of Existing Senior Mortgage Debt", st["reg"]), "", Paragraph("(36,933,735.08)", st["right"])],
-        ["", "", Paragraph("22,866,264.92", st["right_bold"])],
-        [Paragraph("<b>NET CASH PROCEEDS RECEIVED AT CLOSING</b>", st["bold"]), "", Paragraph("<b>22,866,264.92</b>", st["right_bold"])],
+        [Paragraph("<b>GROSS CAPITAL SALE PROCEEDS (SKYLINE LEDGER)</b>", st["bold"]), "", Paragraph(f"<b>{up['gross_proceeds']:,.2f}</b>", st["right_bold"])],
+        [Paragraph("&nbsp;&nbsp;Payoff of Existing Senior Mortgage Debt", st["reg"]), "", Paragraph(f"({-up['debt_payoff']:,.2f})", st["right"])],
+        ["", "", Paragraph(f"<b>{up['net_proceeds']:,.2f}</b>", st["right_bold"])],
+        [Paragraph("<b>NET CASH PROCEEDS RECEIVED AT CLOSING</b>", st["bold"]), "", Paragraph(f"<b>{up['net_proceeds']:,.2f}</b>", st["right_bold"])],
         ["", "", ""],
         [Paragraph("<b>UTILIZATION & CAPITAL DEPLOYMENT TO DATE</b>", st["bold"]), "", ""],
         [Paragraph("&nbsp;&nbsp;Partner Distribution — JL", st["reg"]), "", Paragraph("(3,500,000.00)", st["right"])],
@@ -66,15 +71,15 @@ def build_pdf():
         [Paragraph("&nbsp;&nbsp;Tax Line Loan Paydown — Old National (6/1/2026)", st["reg"]), "", Paragraph("(4,000,000.00)", st["right"])],
         [Paragraph("&nbsp;&nbsp;Tax Line Loan Paydown — Old National (6/3/2026)", st["reg"]), "", Paragraph("(4,000,000.00)", st["right"])],
         [Paragraph("&nbsp;&nbsp;Tax Line Loan Paydown — Old National (6/9/2026)", st["reg"]), "", Paragraph("(4,000,000.00)", st["right"])],
-        ["", "", Paragraph("(16,500,000.00)", st["right_bold"])],
+        ["", "", Paragraph(f"({-up['tax_line_paydowns'] - up['distributions']:,.2f})", st["right_bold"])],
         ["", "", ""],
-        [Paragraph("<b>NET BALANCE OF UNUSED PROCEEDS (6/11/2026)</b>", st["bold"]), "", Paragraph("<b>6,366,264.92</b>", st["right_bold"])],
+        [Paragraph("<b>NET BALANCE OF UNUSED PROCEEDS (6/11/2026)</b>", st["bold"]), "", Paragraph(f"<b>{up['net_proceeds'] - 16500000:,.2f}</b>", st["right_bold"])],
         ["", "", ""],
         [Paragraph("<b>AFFILIATE RE-INVESTMENT & BUYOUTS (JUNE 2026)</b>", st["bold"]), "", ""],
         [Paragraph("&nbsp;&nbsp;Madison RV Resort — Partner Buyout (Mike Berland)", st["reg"]), "", Paragraph("(500,000.00)", st["right"])],
         [Paragraph("&nbsp;&nbsp;The Bluffs MH & RV Resort — Infrastructure Capex", st["reg"]), "", Paragraph("(750,000.00)", st["right"])],
         [Paragraph("&nbsp;&nbsp;Old National Bank Cash Collateral Account", st["reg"]), "", Paragraph("9,400,000.00", st["right"])],
-        [Paragraph("&nbsp;&nbsp;Excess Tax Line Collateral Remaining", st["reg"]), "", Paragraph("12,800,000.00", st["right"])],
+        [Paragraph("&nbsp;&nbsp;Excess Tax Line Collateral Remaining", st["reg"]), "", Paragraph(f"{up['excess_collateral']:,.2f}", st["right"])],
     ]
 
     t_disp = Table(disp_data, colWidths=[310, 20, 150])
