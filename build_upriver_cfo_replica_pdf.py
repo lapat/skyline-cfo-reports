@@ -51,7 +51,7 @@ def build_pdf():
     el.append(Paragraph("UPRIVER PARTNERS LLP", st["title"]))
     el.append(Paragraph("CAPITAL ASSET SALE & PROCEEDS DISPOSITION", st["title"]))
     el.append(Paragraph("CLOSING DATE: MAY 27, 2026 (FINAL REVISED)", st["sub"]))
-    el.append(Paragraph("Prepared by: James A. Adamo, Controller", st["note"]))
+    el.append(Paragraph("Prepared from: Skyline General Ledger &middot; Automated Accounting Engine", st["note"]))
 
     disp_data = [
         ["", "", Paragraph("AMOUNT ($)", st["col_hdr"])],

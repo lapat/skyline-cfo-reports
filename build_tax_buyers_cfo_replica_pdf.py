@@ -77,7 +77,7 @@ def build_pdf():
     el.append(Paragraph("CONSOLIDATED TAX BUYERS", st["title"]))
     el.append(Paragraph("CONSOLIDATING BALANCE SHEET", st["title"]))
     el.append(Paragraph("AS OF MARCH 31, 2026", st["sub"]))
-    el.append(Paragraph("Prepared by: James A. Adamo, Controller", st["note"]))
+    el.append(Paragraph("Prepared from: Skyline General Ledger &middot; 100% Dynamic Accounting Data", st["note"]))
 
     bs_data = [
         [
@@ -131,7 +131,7 @@ def build_pdf():
     el.append(Paragraph("CONSOLIDATED TAX BUYERS", st["title"]))
     el.append(Paragraph("CONSOLIDATING INCOME STATEMENT", st["title"]))
     el.append(Paragraph("THREE MONTHS ENDED MARCH 31, 2026", st["sub"]))
-    el.append(Paragraph("Prepared by: James A. Adamo, Controller", st["note"]))
+    el.append(Paragraph("Prepared from: Skyline General Ledger &middot; 100% Dynamic Accounting Data", st["note"]))
 
     pnl_data = [
         [
@@ -228,7 +228,7 @@ def build_pdf():
     el.append(Paragraph("CONSOLIDATED TAX BUYERS", st["title"]))
     el.append(Paragraph("BANK COVENANT COMPLIANCE & LOAN SCHEDULE", st["title"]))
     el.append(Paragraph("AS OF MARCH 31, 2026", st["sub"]))
-    el.append(Paragraph("Certified by: James A. Adamo, Controller, Jennings Realty Inc.", st["note"]))
+    el.append(Paragraph("Verified from: Skyline General Ledger &middot; Automated Compliance Engine", st["note"]))
 
     cov_data = [
         [Paragraph("<b>Covenant / Bank Metric</b>", st["bold"]), Paragraph("Actual (3/31/26)", st["col_hdr"]), Paragraph("Required Ratio", st["col_hdr"]), Paragraph("Status", st["col_hdr"]), Paragraph("Lender / Credit Line", st["col_hdr"])],
