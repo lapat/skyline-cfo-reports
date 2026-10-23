@@ -36,15 +36,13 @@ def run_pipeline(push_to_cloud=True):
     # Step 1: Check SMB Mount & Delta Sync from Live Mapped Share
     if os.path.exists(SMB_MOUNT):
         log(f"🟢 LIVE MAPPED DRIVE DETECTED at {SMB_MOUNT}", "🔗")
-        log("Checking for newly posted transactions on Windows server...", "🔄")
+        log("Running high-speed parallel sync (16 threads) and database update from live Windows share...", "🔄")
         t0 = time.time()
-        # 1a. Fast parallel delta sync of modified GL files (16 threads)
-        res_sync = subprocess.run([sys.executable, "fast_skyline_sync.py"], capture_output=True, text=True)
-        # 1b. Ingest newly updated ledger files into local production SQLite database
-        res_extract = subprocess.run([sys.executable, "extract_live_mapped_skyline.py"], capture_output=True, text=True)
-        # 1c. Refresh prior-year history buckets
-        subprocess.run([sys.executable, "load_charthst_and_audit.py"], capture_output=True, text=True)
-        log(f"Live Skyline mapped drive sync & ETL complete in {time.time() - t0:.2f}s", "✅")
+        res_sync = subprocess.run([sys.executable, "sync_and_update_db.py"], capture_output=True, text=True)
+        if res_sync.returncode == 0:
+            log(f"Live Skyline mapped drive sync & ETL complete in {time.time() - t0:.2f}s", "✅")
+        else:
+            log(f"Warning during sync: {res_sync.stderr[:200]}", "⚠️")
     else:
         log("🟡 MAPPED DRIVE OFFLINE: /Volumes/skyline$ is not currently mounted.", "⚠️")
         log("To connect to live server: Connect to office network/VPN and mount 'smb://172.17.21.167/skyline$'.", "ℹ️")
