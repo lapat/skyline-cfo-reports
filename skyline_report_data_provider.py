@@ -244,20 +244,31 @@ def get_jennings_realty_data():
 # 5. SUNKISSED VILLAGE RV RESORT (IFS 140, 142)
 # ==============================================================================
 def get_sunkissed_data():
-    bs = get_entity_balances(['140', '142'], '260630')
-    pnl = get_entity_pnl_balances(['140', '142'], '260101', '260630')
+    bs = get_entity_balances(['140', '142'])
+    pnl = get_entity_pnl_balances(['140', '142'])
 
-    land = bs.get('15900000', 1300000.0)
-    bld_sites = sum(bs.get(a, 0.0) for a in ['16000000', '16100000', '16110000', '16400000'])
-    cash = sum(bs.get(a, 0.0) for a in ['10100000', '10200000', '10300000'])
+    land = bs.get('15000000', 2600000.0)
+    bld_sites = sum(bs.get(f'170{i}0000', 0.0) for i in [0, 1, 2, 4, 5, 6, 7, 8])
+    furn = bs.get('16700000', 867489.82)
+    veh = bs.get('16900000', 68827.72)
+    ad = -(bs.get('16710000', 0.0) + bs.get('16910000', 0.0) + bs.get('17090000', 0.0))
+    net_ppe = land + bld_sites + furn + veh - ad
+
+    cash = sum(bs.get(a, 0.0) for a in ['10140000', '10200000', '10210000', '10310000'])
+    prepaid = bs.get('14500000', 0.0) + bs.get('14600000', 0.0) + bs.get('17500000', 0.0) + bs.get('11700000', 0.0) + bs.get('13010000', 0.0)
     tot_ast = sum(v for k, v in bs.items() if k.startswith('1'))
+
+    ap = -sum(bs.get(a, 0.0) for a in ['20000000', '20100000', '21000000'])
+    deposits = -sum(bs.get(a, 0.0) for a in ['25300000', '25300001', '25300002', '25300003', '25350000'])
     mtg = -sum(bs.get(a, 0.0) for a in ['22000000', '22500000'])
-    equity = -sum(v for k, v in bs.items() if k.startswith('29'))
+    equity = -sum(v for k, v in bs.items() if k.startswith(('26', '27', '28', '29')))
+
     tot_rev = -sum(v for k, v in pnl.items() if k.startswith('3'))
     tot_exp = sum(v for k, v in pnl.items() if k.startswith(('4', '5', '6', '7', '8', '9')))
 
     return {
-        "land": land, "bld_sites": bld_sites, "cash": cash, "tot_ast": tot_ast,
+        "land": land, "bld_sites": bld_sites, "furn": furn, "veh": veh, "ad": ad, "net_ppe": net_ppe,
+        "cash": cash, "prepaid": prepaid, "tot_ast": tot_ast, "ap": ap, "deposits": deposits,
         "mtg": mtg, "equity": equity, "tot_rev": tot_rev, "tot_exp": tot_exp, "noi": tot_rev - tot_exp
     }
 
