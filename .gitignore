@@ -16,3 +16,10 @@ sandbox/
 # Python virtualenvs
 venv/
 .env/
+.env
+
+# Google OAuth tokens and credentials
+credentials/
+*token*.json
+gmail_send_token.json
+example_email_preview.html

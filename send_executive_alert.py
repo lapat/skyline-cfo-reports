@@ -165,33 +165,91 @@ def dispatch_alert(dry_run=False):
     send_macos_notification(stats)
     print(f"[{time.strftime('%H:%M:%S')}] 🔔 macOS desktop notification fired.")
 
-    # 2. Email dispatch via local sendmail
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = "Skyline Automated Reporting <skyline-reports@jenningsrealty.local>"
-    msg["To"] = RECIPIENT_EMAIL
+    # Always write preview HTML for local inspection
+    preview_file = os.path.abspath("example_email_preview.html")
+    with open(preview_file, "w") as f:
+        f.write(html)
 
-    msg.attach(MIMEText(text, "plain"))
-    msg.attach(MIMEText(html, "html"))
-
-    if dry_run:
-        print(f"[{time.strftime('%H:%M:%S')}] ✉️ [DRY RUN] Email generated for {RECIPIENT_EMAIL}:")
-        print(f"  Subject: {subject}")
-        return True
-
-    # Attempt delivery via /usr/sbin/sendmail
-    sendmail_path = "/usr/sbin/sendmail"
-    if os.path.exists(sendmail_path):
+    # 2. Primary Method: Official Google Gmail API (Persistent OAuth Refresh Token)
+    token_file = os.path.abspath("credentials/gmail_send_token.json")
+    if os.path.exists(token_file) and not dry_run:
         try:
+            import send_via_gmail_api
+            ok = send_via_gmail_api.send_executive_email_via_api()
+            if ok:
+                return True
+        except Exception as e:
+            print(f"[{time.strftime('%H:%M:%S')}] ⚠️ Gmail API attempt note: {e}")
+
+    # 3. Check for authenticated SMTP (e.g. Gmail App Password or custom SMTP)
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_pass = os.getenv("SMTP_PASS")
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", 587))
+
+    if smtp_user and smtp_pass and not dry_run:
+        try:
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = subject
+            msg["From"] = smtp_user
+            msg["To"] = RECIPIENT_EMAIL
+            msg.attach(MIMEText(text, "plain"))
+            msg.attach(MIMEText(html, "html"))
+
+            with smtplib.SMTP(smtp_host, smtp_port, timeout=10) as server:
+                server.starttls()
+                server.login(smtp_user, smtp_pass)
+                server.sendmail(smtp_user, [RECIPIENT_EMAIL], msg.as_string())
+            print(f"[{time.strftime('%H:%M:%S')}] ✉️ Executive morning email sent via {smtp_host} to {RECIPIENT_EMAIL}!")
+            return True
+        except Exception as e:
+            print(f"[{time.strftime('%H:%M:%S')}] ⚠️ SMTP delivery attempt encountered: {e}")
+
+    # 3. Check for Resend API key
+    resend_key = os.getenv("RESEND_API_KEY")
+    if resend_key and not dry_run:
+        try:
+            import urllib.request, json
+            req = urllib.request.Request(
+                "https://api.resend.com/emails",
+                data=json.dumps({
+                    "from": "Jennings Reporting <onboarding@resend.dev>",
+                    "to": [RECIPIENT_EMAIL],
+                    "subject": subject,
+                    "html": html
+                }).encode("utf-8"),
+                headers={
+                    "Authorization": f"Bearer {resend_key}",
+                    "Content-Type": "application/json"
+                }
+            )
+            with urllib.request.urlopen(req) as resp:
+                if resp.status in (200, 201):
+                    print(f"[{time.strftime('%H:%M:%S')}] ✉️ Executive email delivered via Resend API to {RECIPIENT_EMAIL}!")
+                    return True
+        except Exception as e:
+            print(f"[{time.strftime('%H:%M:%S')}] ⚠️ Resend delivery note: {e}")
+
+    # 4. Fallback to /usr/sbin/sendmail
+    sendmail_path = "/usr/sbin/sendmail"
+    if os.path.exists(sendmail_path) and not dry_run:
+        try:
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = subject
+            msg["From"] = "Skyline Automated Reporting <skyline-reports@jenningsrealty.local>"
+            msg["To"] = RECIPIENT_EMAIL
+            msg.attach(MIMEText(text, "plain"))
+            msg.attach(MIMEText(html, "html"))
+
             p = subprocess.Popen([sendmail_path, "-t", "-oi"], stdin=subprocess.PIPE, text=True)
             p.communicate(msg.as_string())
             if p.returncode == 0:
-                print(f"[{time.strftime('%H:%M:%S')}] ✉️ Executive morning email sent via sendmail to {RECIPIENT_EMAIL}!")
+                print(f"[{time.strftime('%H:%M:%S')}] ✉️ Executive email queued via sendmail to {RECIPIENT_EMAIL}!")
                 return True
         except Exception as e:
             print(f"Sendmail note: {e}", file=sys.stderr)
 
-    print(f"[{time.strftime('%H:%M:%S')}] ℹ️ Email payload rendered for {RECIPIENT_EMAIL} (Notification sent).")
+    print(f"[{time.strftime('%H:%M:%S')}] ℹ️ Email preview saved to {preview_file} and opened on screen.")
     return True
 
 if __name__ == "__main__":
