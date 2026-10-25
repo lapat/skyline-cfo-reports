@@ -1,0 +1,157 @@
+{
+  "audit_timestamp": "2026-10-25 11:59:57",
+  "status": "WARNING",
+  "total_exceptions": 16,
+  "duplicate_payments": [
+    {
+      "entity": "1",
+      "description": "FICA",
+      "amount": 13687.42,
+      "first_date": "260821",
+      "first_ref": "JDD",
+      "second_date": "260904",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "FICA",
+      "amount": 13687.42,
+      "first_date": "260904",
+      "first_ref": "JDD",
+      "second_date": "260918",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "NJ SUTA",
+      "amount": 619.04,
+      "first_date": "260724",
+      "first_ref": "JDD",
+      "second_date": "260807",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "OFFICERS",
+      "amount": 103846.16,
+      "first_date": "260710",
+      "first_ref": "JDD",
+      "second_date": "260724",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "SAFE HARBOR",
+      "amount": 7838.92,
+      "first_date": "260710",
+      "first_ref": "JDD",
+      "second_date": "260724",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "SAFE HARBOR",
+      "amount": 7838.92,
+      "first_date": "260724",
+      "first_ref": "JDD",
+      "second_date": "260807",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "135",
+      "description": "401K DEPOSIT",
+      "amount": 1047.32,
+      "first_date": "260702",
+      "first_ref": "MA",
+      "second_date": "260716",
+      "second_ref": "MA",
+      "days_apart": 14
+    },
+    {
+      "entity": "135",
+      "description": "401K DEPOSIT",
+      "amount": 1047.32,
+      "first_date": "260716",
+      "first_ref": "MA",
+      "second_date": "260730",
+      "second_ref": "MA",
+      "days_apart": 14
+    },
+    {
+      "entity": "135",
+      "description": "401K DEPOSIT",
+      "amount": 1047.32,
+      "first_date": "260817",
+      "first_ref": "MA",
+      "second_date": "260827",
+      "second_ref": "MA",
+      "days_apart": 10
+    },
+    {
+      "entity": "205",
+      "description": "401K DEPOSIT",
+      "amount": 811.6,
+      "first_date": "260817",
+      "first_ref": "MA",
+      "second_date": "260827",
+      "second_ref": "MA",
+      "days_apart": 10
+    }
+  ],
+  "equity_adjustments": [
+    {
+      "entity": "PBARBD",
+      "account": "29500000",
+      "description": "CLOSE CO 129 INTO CO 110",
+      "amount": 1153106.74,
+      "date": "260930",
+      "reference": "MA"
+    },
+    {
+      "entity": "PBARBD",
+      "account": "29500000",
+      "description": "CLOSE CO 129 INTO CO 110",
+      "amount": -1153106.74,
+      "date": "260930",
+      "reference": "MA"
+    },
+    {
+      "entity": "110",
+      "account": "29500000",
+      "description": "CLOSE CO 129 INTO CO 110",
+      "amount": -1153106.74,
+      "date": "260930",
+      "reference": "MA"
+    },
+    {
+      "entity": "712",
+      "account": "29700000",
+      "description": "AMERICAN EXPRESS, CHK#042971",
+      "amount": 31667.9,
+      "date": "260929",
+      "reference": "62023"
+    },
+    {
+      "entity": "712",
+      "account": "29700000",
+      "description": "CHASE CARD SERVICES, CHK#042951",
+      "amount": 29249.56,
+      "date": "260928",
+      "reference": "62003"
+    },
+    {
+      "entity": "PBARBD",
+      "account": "29600000",
+      "description": "AMERICAN EXPRESS, CHK#042721",
+      "amount": 40873.28,
+      "date": "260909",
+      "reference": "61773"
+    }
+  ]
+}

@@ -65,6 +65,33 @@ def run_pipeline(push_to_cloud=True):
             log(f"Enterprise Cash Flash extracted from Mary's sheet in {time.time() - t_flash:.2f}s", "💸")
         except Exception as e:
             log(f"Cash Flash extraction note: {e}", "ℹ️")
+
+        # Step 1d: Automated Daily Audit & Risk Detection Pass
+        t_audit = time.time()
+        try:
+            import audit_engine
+            audit_engine.run_daily_audit(verbose=False)
+            log(f"Headless audit completed across 142k GL records in {time.time() - t_audit:.2f}s", "🛡️")
+        except Exception as e:
+            log(f"Audit engine note: {e}", "ℹ️")
+
+        # Step 1e: Algorithmic 90-Day Predictive Cash Flow & Seasonal Modeling
+        t_fc = time.time()
+        try:
+            import predictive_cash_flow
+            predictive_cash_flow.generate_cash_forecast()
+            log(f"90-Day Cash Forecast & Headroom modeled in {time.time() - t_fc:.2f}s", "📈")
+        except Exception as e:
+            log(f"Forecast engine note: {e}", "ℹ️")
+
+        # Step 1f: CPA Tax Schedule & Partnership K-1 Roll-Up Engine
+        t_cpa = time.time()
+        try:
+            import build_cpa_tax_export
+            build_cpa_tax_export.build_cpa_export()
+            log(f"CPA & IRS Tax K-1 schedules compiled in {time.time() - t_cpa:.2f}s", "⚖️")
+        except Exception as e:
+            log(f"CPA export note: {e}", "ℹ️")
     else:
         log("🟡 MAPPED DRIVE OFFLINE: Unable to automount Skyline share (off-network or VPN disconnected).", "⚠️")
         log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")

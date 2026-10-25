@@ -1,0 +1,30 @@
+{
+  "forecast_timestamp": "2026-10-25 12:02:19",
+  "current_operating_cash": 28421905.0,
+  "projections": {
+    "day_30": {
+      "period": "November 2026",
+      "projected_cash": 30139405.0,
+      "net_change": 1717500.0,
+      "driver": "Winter season ramp-up (+45% transient site occupancy)"
+    },
+    "day_60": {
+      "period": "December 2026",
+      "projected_cash": 32716905.0,
+      "net_change": 2577500.0,
+      "driver": "Holiday RV site peak and Q4 annual tax sale payoffs"
+    },
+    "day_90": {
+      "period": "January 2027",
+      "projected_cash": 36046905.0,
+      "net_change": 3330000.0,
+      "driver": "Full Florida peak season surge (2.2x summer baseline)"
+    }
+  },
+  "tax_facility_headroom": {
+    "total_line_commitment": 12800000.0,
+    "estimated_drawn": 8500000.0,
+    "available_headroom": 4300000.0,
+    "status": "STRONG LIQUIDITY (33.6% Headroom Available)"
+  }
+}
