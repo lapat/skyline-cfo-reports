@@ -89,24 +89,43 @@ def extract_cash_flash(verbose=True):
 
     total_bank_cash = sum(closing_balances.values())
 
-    # 2. Extract Category Receipts and Disbursements for the entire Month / Active Week
+    # 2. Extract Category Receipts and Disbursements using Horizontal Scanning (Nearest Preceding Label)
     receipts_by_cat = defaultdict(float)
     disbursements_by_cat = defaultdict(float)
+    data_cols_set = set(COL_ENTITY.keys())
 
-    # Scan rows 6 to 535
+    # Structural transaction prefixes
+    valid_prefixes = ("C/R", "C/D", "W/T - IN", "W/T - OUT", "W/T-IN", "W/T-OUT")
+
     for r in range(6, 536):
-        lbl = ws.cell(r, 1).value or ws.cell(r, 10).value or ""
-        lbl_str = str(lbl).strip().upper()
-        if not lbl_str or "BEGINNING" in lbl_str:
-            continue
+        row_vals = [ws.cell(r, c).value for c in range(1, 68)]
+        lbl_col0 = str(row_vals[0] or "").strip().upper()
+        if "BEGINNING BALANCE" in lbl_col0:
+            break  # Reached the summary block, stop counting transactions
 
-        for c, (ekey, ename) in COL_ENTITY.items():
-            val = ws.cell(r, c + 1).value
-            if isinstance(val, (int, float)) and val != 0:
-                if val > 0:
-                    receipts_by_cat[lbl_str] += float(val)
+        # Check if row has an active transaction label
+        current_kind = None
+        current_cat = None
+
+        for c_idx, val in enumerate(row_vals):
+            val_str = str(val or "").strip().upper()
+            
+            # Check if this cell is a label for the current block
+            if any(val_str.startswith(p) for p in valid_prefixes):
+                if val_str.startswith("C/R") or "W/T - IN" in val_str or "W/T-IN" in val_str:
+                    current_kind = "receipt"
+                    current_cat = val_str
                 else:
-                    disbursements_by_cat[lbl_str] += float(val)
+                    current_kind = "disbursement"
+                    current_cat = val_str
+                continue
+
+            # If we encounter a data column and have an active category for this block
+            if c_idx in data_cols_set and isinstance(val, (int, float)) and val != 0:
+                if current_kind == "receipt":
+                    receipts_by_cat[current_cat or "OTHER INCOME"] += float(val)
+                elif current_kind == "disbursement":
+                    disbursements_by_cat[current_cat or "OTHER EXPENSES"] += abs(float(val))
 
     # Top receipts and disbursements
     top_receipts = sorted([{"category": k, "amount": v} for k, v in receipts_by_cat.items() if v > 5000], key=lambda x: x["amount"], reverse=True)

@@ -1,5 +1,5 @@
 {
-  "as_of_date": "2026-10-25 11:32:47",
+  "as_of_date": "2026-10-25 11:56:34",
   "active_tab": "OCT 2026",
   "total_bank_cash": 7532295.593000003,
   "skyline_gl_cash": -846532416.5799981,
@@ -136,88 +136,84 @@
   ],
   "top_receipts": [
     {
-      "category": "2026-11-03 00:00:00",
-      "amount": 18971873.125999983
+      "category": "C/R TRANSFER",
+      "amount": 2178192.61
     },
     {
-      "category": "2026-10-01 00:00:00",
-      "amount": 11775284.15299999
+      "category": "C/R REDEMPTIONS",
+      "amount": 1095293.42
     },
     {
-      "category": "2026-10-02 00:00:00",
-      "amount": 11660745.142999988
+      "category": "C/R RENTS",
+      "amount": 824102.3300000001
     },
     {
-      "category": "2026-10-05 00:00:00",
-      "amount": 11199529.652999988
+      "category": "C/R MANAGEMENT FEES",
+      "amount": 395306.81
     },
     {
-      "category": "2026-10-06 00:00:00",
-      "amount": 10870861.722999988
+      "category": "C/R 1133",
+      "amount": 332775.0
     },
     {
-      "category": "2026-10-15 00:00:00",
-      "amount": 9788357.172999991
+      "category": "C/R INDEMNITY JUDGEMENT",
+      "amount": 323737.12
     },
     {
-      "category": "2026-10-14 00:00:00",
-      "amount": 9680932.432999993
+      "category": "C/R OTHER INSURANCE REFUND",
+      "amount": 67818.76999999999
     },
     {
-      "category": "2026-10-08 00:00:00",
-      "amount": 9680463.282999992
+      "category": "C/R OTHER AFLR",
+      "amount": 18803.14
     },
     {
-      "category": "2026-10-07 00:00:00",
-      "amount": 9658787.93299999
-    },
-    {
-      "category": "2026-10-09 00:00:00",
-      "amount": 9657611.632999992
+      "category": "C/R OTHER SPECTRUM REFUND SUNKISSED",
+      "amount": 6221.23
     }
   ],
   "top_disbursements": [
     {
-      "category": "C/D PAYROLL",
-      "amount": 2463526.5200000005
+      "category": "C/D SUBTAXES",
+      "amount": 2481045.36
     },
     {
       "category": "C/D TRANSFER",
-      "amount": 2234166.0999999996
+      "amount": 2178192.61
     },
     {
       "category": "C/D OPER EXP",
-      "amount": 1221330.1900000002
-    },
-    {
-      "category": "2026-10-06 00:00:00",
-      "amount": 1155472.8199999987
+      "amount": 1243313.34
     },
     {
       "category": "C/D MGMT FEES-OP COSTS",
       "amount": 728081.81
     },
     {
+      "category": "C/D PAYROLL",
+      "amount": 393937.55
+    },
+    {
+      "category": "C/D MORTGAGE PYMT",
+      "amount": 137362.63999999998
+    },
+    {
       "category": "C/D PAYROLL TAXES",
-      "amount": 491765.92999999993
-    },
-    {
-      "category": "2026-10-02 00:00:00",
-      "amount": 321517.82999999856
-    },
-    {
-      "category": "2026-10-05 00:00:00",
-      "amount": 261129.13999999856
-    },
-    {
-      "category": "C/D TAX BUYER INTEREST",
-      "amount": 132303.72
+      "amount": 93024.7
     },
     {
       "category": "C/D FAMILY LOANS",
-      "amount": 97653.9
+      "amount": 78959.52
+    },
+    {
+      "category": "C/D AUTOMATIC MORTGAGE PAYMENTS",
+      "amount": 40060.87
+    },
+    {
+      "category": "C/D E CHECK FEES",
+      "amount": 34343.55
     }
   ],
-  "total_receipts_mtd": 241856506.1819998,
-  "total_disbursements_mtd": -9274915.17
+  "total_receipts_mtd": 5246376.82,
+  "total_disbursements_mtd": 7535724.409999999
 }
