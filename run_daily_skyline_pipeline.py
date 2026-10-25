@@ -56,6 +56,15 @@ def run_pipeline(push_to_cloud=True):
             log(f"Tax Certificate redemptions & purchases extracted in {time.time() - t_tax:.2f}s", "🏛️")
         except Exception as e:
             log(f"Tax certificate extraction note: {e}", "ℹ️")
+
+        # Step 1c: Enterprise Cash Flash Extraction from Mary's Daily Cash Sheet
+        t_flash = time.time()
+        try:
+            import extract_cash_flash
+            extract_cash_flash.extract_cash_flash(verbose=False)
+            log(f"Enterprise Cash Flash extracted from Mary's sheet in {time.time() - t_flash:.2f}s", "💸")
+        except Exception as e:
+            log(f"Cash Flash extraction note: {e}", "ℹ️")
     else:
         log("🟡 MAPPED DRIVE OFFLINE: Unable to automount Skyline share (off-network or VPN disconnected).", "⚠️")
         log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")

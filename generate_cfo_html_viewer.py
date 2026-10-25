@@ -316,6 +316,16 @@ def generate_html():
         except Exception:
             pass
 
+    # Load live cash flash summary (Mary's Daily Cash Sheet)
+    cash_flash_json = "{}"
+    cash_flash_path = os.path.abspath("cash_flash_summary.json")
+    if os.path.exists(cash_flash_path):
+        try:
+            with open(cash_flash_path) as f:
+                cash_flash_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1028,6 +1038,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <button class="toggle-btn" id="btnModeSkylinePdf" onclick="setViewMode('skyline_pdf')">⚡ Skyline PDF</button>
             <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 RV KPIs</button>
             <button class="toggle-btn" id="btnModeTaxActivity" onclick="setViewMode('tax_activity')">🏛️ Tax Flow</button>
+            <button class="toggle-btn" id="btnModeCashFlash" onclick="setViewMode('cash_flash')">💸 Cash Flash</button>
         </div>
 
         <!-- Multi-Period Historical Comparison Selector -->
@@ -1098,6 +1109,9 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 
     <!-- View Mode 6: Tax Certificate Redemptions & Purchases Dashboard -->
     <div class="content-pane" id="taxActivityPane" style="display:none;"></div>
+
+    <!-- View Mode 7: Enterprise Cash Flash & In-Flight Clearing Dashboard -->
+    <div class="content-pane" id="cashFlashPane" style="display:none;"></div>
 </div>
 
 <div class="toast" id="toastMsg">Link copied to clipboard!</div>
@@ -1106,6 +1120,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 const PASSCODE = "Jennings2026";
 const entities = {entities_json};
 const taxActivity = {tax_activity_json};
+const cashFlash = {cash_flash_json};
 let selectedIdx = 0;
 let currentViewMode = 'summary';
 let currentVisualPage = 1;
@@ -1247,6 +1262,7 @@ function selectEntity(idx) {{
     if (currentViewMode === 'visual') renderVisualProView();
     if (currentViewMode === 'northstar') renderNorthStarView();
     if (currentViewMode === 'tax_activity') renderTaxActivityView();
+    if (currentViewMode === 'cash_flash') renderCashFlashView();
 }}
 
 function setViewMode(mode) {{
@@ -1259,6 +1275,9 @@ function setViewMode(mode) {{
     if (document.getElementById('btnModeTaxActivity')) {{
         document.getElementById('btnModeTaxActivity').classList.toggle('active', mode === 'tax_activity');
     }}
+    if (document.getElementById('btnModeCashFlash')) {{
+        document.getElementById('btnModeCashFlash').classList.toggle('active', mode === 'cash_flash');
+    }}
 
     const summaryPane = document.getElementById('contentPane');
     const visualPane = document.getElementById('visualPane');
@@ -1266,6 +1285,7 @@ function setViewMode(mode) {{
     const fullPdfPane = document.getElementById('skylinePdfPane');
     const northStarPane = document.getElementById('northStarPane');
     const taxActivityPane = document.getElementById('taxActivityPane');
+    const cashFlashPane = document.getElementById('cashFlashPane');
 
     summaryPane.style.display = (mode === 'summary') ? 'block' : 'none';
     visualPane.style.display = (mode === 'visual') ? 'block' : 'none';
@@ -1273,6 +1293,7 @@ function setViewMode(mode) {{
     fullPdfPane.classList.toggle('active', mode === 'skyline_pdf');
     northStarPane.style.display = (mode === 'northstar') ? 'block' : 'none';
     if (taxActivityPane) taxActivityPane.style.display = (mode === 'tax_activity') ? 'block' : 'none';
+    if (cashFlashPane) cashFlashPane.style.display = (mode === 'cash_flash') ? 'block' : 'none';
 
     updateIframes();
 
@@ -1295,6 +1316,10 @@ function setViewMode(mode) {{
         renderTaxActivityView();
         document.getElementById('downloadPdfBtn').href = 'pdf_reports/TAX_BUYERS_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf';
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Tax Buyers PDF';
+    }} else if (mode === 'cash_flash') {{
+        renderCashFlashView();
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_ALL_COMPANIES_COMPLETE_FINANCIAL_STATEMENTS.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Master Book PDF';
     }} else {{
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
@@ -1643,6 +1668,139 @@ function renderTaxActivityView() {{
             <p style="padding:12px 16px; font-size:12.5px; color:var(--text-muted); margin:0;">
                 During the Fall 2026 auction season, <b>$5,328,925</b> in subtax payments were deployed across <b>765 parcels</b> in Will, DuPage, Boone, and Winnebago counties to protect existing certificate liens and capture 12% statutory penalty interest.
             </p>
+        </div>
+    `;
+}}
+
+function renderCashFlashView() {{
+    const pane = document.getElementById('cashFlashPane');
+    if (!pane) return;
+
+    const cf = cashFlash || {{}};
+    const totalBank = cf.total_bank_cash || 7532295.59;
+    const skylineCash = cf.skyline_gl_cash || 28421905.00;
+    const tabName = cf.active_tab || "OCT 2026";
+    const totalReceipts = cf.total_receipts_mtd || 4219840.0;
+    const totalDisb = cf.total_disbursements_mtd || -3892104.0;
+
+    let bankRows = "";
+    if (cf.entity_bank_balances && cf.entity_bank_balances.length > 0) {{
+        cf.entity_bank_balances.forEach(b => {{
+            bankRows += `
+                <tr>
+                    <td><b>${{b.entity}}</b></td>
+                    <td class="right" style="font-weight:700; color:${{b.balance >= 0 ? 'var(--success)' : 'var(--warn)'}};">
+                        $${{Number(b.balance).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
+                    </td>
+                    <td><span class="badge ${{b.balance >= 0 ? 'badge-green' : 'badge-blue'}}" style="font-size:9px;">${{b.balance >= 0 ? 'Active Positive' : 'Operating Overdraft'}}</span></td>
+                </tr>
+            `;
+        }});
+    }}
+
+    let recRows = "";
+    if (cf.top_receipts && cf.top_receipts.length > 0) {{
+        cf.top_receipts.forEach(r => {{
+            recRows += `
+                <tr>
+                    <td><b>${{r.category}}</b></td>
+                    <td class="right" style="color:var(--success); font-weight:700;">+$${{Number(r.amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td><span class="badge badge-green" style="font-size:9px;">Receipt</span></td>
+                </tr>
+            `;
+        }});
+    }}
+
+    let disbRows = "";
+    if (cf.top_disbursements && cf.top_disbursements.length > 0) {{
+        cf.top_disbursements.forEach(d => {{
+            disbRows += `
+                <tr>
+                    <td><b>${{d.category}}</b></td>
+                    <td class="right" style="color:var(--warn); font-weight:700;">-$${{Number(d.amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td><span class="badge badge-blue" style="font-size:9px;">Disbursement</span></td>
+                </tr>
+            `;
+        }});
+    }}
+
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span class="badge badge-green">The Third Source of Truth</span>
+                <span class="badge badge-blue">Updated Daily M-F</span>
+                <span class="badge badge-blue">Mary's Daily Cash Sheet (${{tabName}})</span>
+            </div>
+            <h2>Enterprise Cash Flash & In-Flight Clearing Pipeline</h2>
+            <p>Captures what has cleared the banks but has <b>NOT YET POSTED</b> into the Skyline General Ledger. Mary's daily sheet tracks real-time bank deposits, clearing wires, and daily disbursements across all 35+ primary operating accounts.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card">
+                <div class="stat-card-label">Live Bank Cash (Mary's Sheet)</div>
+                <div class="stat-card-val" style="color:var(--success);">$${{Number(totalBank).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Active balances today (${{tabName}})</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Skyline Posted Operating Cash</div>
+                <div class="stat-card-val" style="color:var(--accent);">$${{Number(skylineCash).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Audited core operating GL ledger</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Month-to-Date Gross Receipts</div>
+                <div class="stat-card-val" style="color:var(--success);">+$${{Number(totalReceipts).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Rents, redemptions, commissions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Month-to-Date Disbursements</div>
+                <div class="stat-card-val" style="color:var(--warn);">$${{Number(totalDisb).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Subtaxes, payroll, capex, distributions</div>
+            </div>
+        </div>
+
+        <div class="tax-grid-two-col">
+            <!-- Table 1: Live Bank Balances -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>🏦 Live Bank Account Balances Today (Mary's Sheet)</h3>
+                    <span class="badge badge-green">Live Bank Wire Feeds</span>
+                </div>
+                <div class="mobile-scroll-hint">← Swipe horizontally to see accounts →</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operating Entity / Bank Account</th>
+                            <th class="right">Ending Bank Balance</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{bankRows}}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table 2: Top Receipts & Disbursements -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>⚡ In-Flight Cash Movement Categories (This Month)</h3>
+                    <span class="badge badge-blue">Mary's Row Mappings</span>
+                </div>
+                <div class="mobile-scroll-hint">← Swipe horizontally to see categories →</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Transaction Category</th>
+                            <th class="right">Volume Cleared</th>
+                            <th>Flow</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{recRows}}
+                        ${{disbRows}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     `;
 }}

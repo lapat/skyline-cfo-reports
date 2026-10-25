@@ -1,0 +1,223 @@
+{
+  "as_of_date": "2026-10-25 11:32:47",
+  "active_tab": "OCT 2026",
+  "total_bank_cash": 7532295.593000003,
+  "skyline_gl_cash": -846532416.5799981,
+  "in_flight_unposted": 854064712.1729982,
+  "entity_bank_balances": [
+    {
+      "entity": "JRI Byline Bank",
+      "balance": 1189906.0499999998
+    },
+    {
+      "entity": "Sunkissed Village Operating",
+      "balance": 765449.7099999993
+    },
+    {
+      "entity": "Central Buyer Corp",
+      "balance": 741537.2500000014
+    },
+    {
+      "entity": "Park City Payroll",
+      "balance": 702866.9500000004
+    },
+    {
+      "entity": "Bay Bayou Money Market",
+      "balance": 632905.6800000011
+    },
+    {
+      "entity": "JRI First Bank Money Market",
+      "balance": 518352.46
+    },
+    {
+      "entity": "Sunkissed Money Market",
+      "balance": 416472.7500000006
+    },
+    {
+      "entity": "Interstate Funding Corp",
+      "balance": 293187.223000002
+    },
+    {
+      "entity": "Chalet Rent Account",
+      "balance": 271579.0699999999
+    },
+    {
+      "entity": "Diamond Quest Realty",
+      "balance": 270767.1200000002
+    },
+    {
+      "entity": "J R Inc.",
+      "balance": 237313.22999999797
+    },
+    {
+      "entity": "Lakeview MHP",
+      "balance": 202195.80999999982
+    },
+    {
+      "entity": "Madison Resort",
+      "balance": 190174.83999999988
+    },
+    {
+      "entity": "National Indemnity Corp",
+      "balance": 186393.88000000047
+    },
+    {
+      "entity": "Security Deposits",
+      "balance": 151987.55000000002
+    },
+    {
+      "entity": "The Bluffs West Shore Maint",
+      "balance": 122937.56999999998
+    },
+    {
+      "entity": "Diamond Quest Highland Park",
+      "balance": 120151.5399999999
+    },
+    {
+      "entity": "Jet Sites Clubhouse",
+      "balance": 120003.23999999995
+    },
+    {
+      "entity": "The Bluffs Maintenance",
+      "balance": 99551.47999999997
+    },
+    {
+      "entity": "JRI First Bank Highland Park",
+      "balance": 99297.43000000001
+    },
+    {
+      "entity": "Interstate Funding Byline",
+      "balance": 37116.23999999961
+    },
+    {
+      "entity": "Union Tax Investors",
+      "balance": 35813.01999999958
+    },
+    {
+      "entity": "Sunkissed Sales",
+      "balance": 34912.12000000004
+    },
+    {
+      "entity": "Park City Plaza",
+      "balance": 33329.05
+    },
+    {
+      "entity": "Home Sites Series B",
+      "balance": 15294.27999999994
+    },
+    {
+      "entity": "Mutual Fidelity Corp",
+      "balance": 12897.910000000054
+    },
+    {
+      "entity": "Home Sites Series C Ellis",
+      "balance": 9644.939999999995
+    },
+    {
+      "entity": "Home Sites",
+      "balance": 7528.739999999991
+    },
+    {
+      "entity": "J R Management",
+      "balance": 6221.230000001378
+    },
+    {
+      "entity": "Bay Bayou RV Operating",
+      "balance": 4562.099999999998
+    },
+    {
+      "entity": "Jet Sites B Golf",
+      "balance": 1787.81
+    },
+    {
+      "entity": "The Bluffs West Shore",
+      "balance": 157.32000000000002
+    }
+  ],
+  "top_receipts": [
+    {
+      "category": "2026-11-03 00:00:00",
+      "amount": 18971873.125999983
+    },
+    {
+      "category": "2026-10-01 00:00:00",
+      "amount": 11775284.15299999
+    },
+    {
+      "category": "2026-10-02 00:00:00",
+      "amount": 11660745.142999988
+    },
+    {
+      "category": "2026-10-05 00:00:00",
+      "amount": 11199529.652999988
+    },
+    {
+      "category": "2026-10-06 00:00:00",
+      "amount": 10870861.722999988
+    },
+    {
+      "category": "2026-10-15 00:00:00",
+      "amount": 9788357.172999991
+    },
+    {
+      "category": "2026-10-14 00:00:00",
+      "amount": 9680932.432999993
+    },
+    {
+      "category": "2026-10-08 00:00:00",
+      "amount": 9680463.282999992
+    },
+    {
+      "category": "2026-10-07 00:00:00",
+      "amount": 9658787.93299999
+    },
+    {
+      "category": "2026-10-09 00:00:00",
+      "amount": 9657611.632999992
+    }
+  ],
+  "top_disbursements": [
+    {
+      "category": "C/D PAYROLL",
+      "amount": 2463526.5200000005
+    },
+    {
+      "category": "C/D TRANSFER",
+      "amount": 2234166.0999999996
+    },
+    {
+      "category": "C/D OPER EXP",
+      "amount": 1221330.1900000002
+    },
+    {
+      "category": "2026-10-06 00:00:00",
+      "amount": 1155472.8199999987
+    },
+    {
+      "category": "C/D MGMT FEES-OP COSTS",
+      "amount": 728081.81
+    },
+    {
+      "category": "C/D PAYROLL TAXES",
+      "amount": 491765.92999999993
+    },
+    {
+      "category": "2026-10-02 00:00:00",
+      "amount": 321517.82999999856
+    },
+    {
+      "category": "2026-10-05 00:00:00",
+      "amount": 261129.13999999856
+    },
+    {
+      "category": "C/D TAX BUYER INTEREST",
+      "amount": 132303.72
+    },
+    {
+      "category": "C/D FAMILY LOANS",
+      "amount": 97653.9
+    }
+  ],
+  "total_receipts_mtd": 241856506.1819998,
+  "total_disbursements_mtd": -9274915.17
+}
