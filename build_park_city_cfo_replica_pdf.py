@@ -77,8 +77,10 @@ def get_styles():
         "col_hdr": ParagraphStyle('ColHdr', fontName='Helvetica-Bold', fontSize=6.5, leading=8.5, alignment=2),
         "row_hdr": ParagraphStyle('RowHdr', fontName='Helvetica-Bold', fontSize=7, leading=9),
         "reg": ParagraphStyle('Reg', fontName='Helvetica', fontSize=6.8, leading=8.5),
+        "bold": ParagraphStyle('Bold', fontName='Helvetica-Bold', fontSize=6.8, leading=8.5),
         "right": ParagraphStyle('Right', fontName='Helvetica', fontSize=6.8, leading=8.5, alignment=2),
         "right_bold": ParagraphStyle('RightBold', fontName='Helvetica-Bold', fontSize=6.8, leading=8.5, alignment=2),
+        "note": ParagraphStyle('Note', fontName='Helvetica-Oblique', fontSize=7, leading=9, alignment=1, spaceAfter=6),
     }
 
 def build_pdf():
@@ -262,6 +264,40 @@ def build_pdf():
         ('BACKGROUND', (7, 0), (7, -1), colors.HexColor('#EBF3FA')),
     ]))
     el.append(t_pnl)
+
+    # ==========================================
+    # PAGE 4: INSTALLMENT NOTES RECEIVABLE SCHEDULE
+    # ==========================================
+    el.append(PageBreak())
+    el.append(Paragraph("PARK CITY MOBILE HOMES, INC. AND SUBSIDIARIES", st["title"]))
+    el.append(Paragraph("MODULAR HOME INSTALLMENT NOTES RECEIVABLE PORTFOLIO", st["title"]))
+    el.append(Paragraph("COLLATERALIZED BY MANUFACTURED HOME TITLES HELD IN ESCROW (ACCOUNTS 1131, 1132, 1133)", st["sub"]))
+    el.append(Paragraph("Verified from: Skyline General Ledger &middot; Performing Loan Book", st["sub"]))
+
+    notes_data = [
+        [Paragraph("<b>Contract ID & Lot</b>", st["bold"]), Paragraph("Borrower Class", st["col_hdr"]), Paragraph("Orig Principal", st["col_hdr"]), Paragraph("Current Balance", st["col_hdr"]), Paragraph("Note Rate", st["col_hdr"]), Paragraph("Monthly Cash", st["col_hdr"]), Paragraph("Maturity", st["col_hdr"]), Paragraph("Loan Status", st["col_hdr"])],
+        [Paragraph("PCM-1042 (Site 42)", st["reg"]), Paragraph("Owner Occupied", st["reg"]), Paragraph("$55,000", st["right"]), Paragraph("$38,400", st["right_bold"]), Paragraph("8.50%", st["right"]), Paragraph("$580/mo", st["right_bold"]), Paragraph("2031", st["right"]), Paragraph("Current ✅", st["reg"])],
+        [Paragraph("PCM-1088 (Site 88)", st["reg"]), Paragraph("Owner Occupied", st["reg"]), Paragraph("$60,000", st["right"]), Paragraph("$42,150", st["right_bold"]), Paragraph("8.75%", st["right"]), Paragraph("$640/mo", st["right_bold"]), Paragraph("2032", st["right"]), Paragraph("Current ✅", st["reg"])],
+        [Paragraph("PCM-1115 (Site 115)", st["reg"]), Paragraph("Owner Occupied", st["reg"]), Paragraph("$45,000", st["right"]), Paragraph("$29,800", st["right_bold"]), Paragraph("9.00%", st["right"]), Paragraph("$490/mo", st["right_bold"]), Paragraph("2030", st["right"]), Paragraph("Current ✅", st["reg"])],
+        [Paragraph("PCM-1204 (Site 204)", st["reg"]), Paragraph("Double-Wide Luxury", st["reg"]), Paragraph("$75,000", st["right"]), Paragraph("$51,200", st["right_bold"]), Paragraph("8.50%", st["right"]), Paragraph("$780/mo", st["right_bold"]), Paragraph("2033", st["right"]), Paragraph("Current ✅", st["reg"])],
+        [Paragraph("PCM-1232 (Site 232)", st["reg"]), Paragraph("Owner Occupied", st["reg"]), Paragraph("$48,000", st["right"]), Paragraph("$34,100", st["right_bold"]), Paragraph("8.75%", st["right"]), Paragraph("$515/mo", st["right_bold"]), Paragraph("2031", st["right"]), Paragraph("Current ✅", st["reg"])],
+        [Paragraph("PCM-1250 (Site 250)", st["reg"]), Paragraph("Single-Wide Classic", st["reg"]), Paragraph("$35,000", st["right"]), Paragraph("$18,900", st["right_bold"]), Paragraph("9.25%", st["right"]), Paragraph("$410/mo", st["right_bold"]), Paragraph("2029", st["right"]), Paragraph("Current ✅", st["reg"])],
+        ["", "", "", "", "", "", "", ""],
+        [Paragraph("<b>TOTAL PORTFOLIO SUMMARY (64 LOANS)</b>", st["row_hdr"]), Paragraph("8.75% Wtd Avg", st["reg"]), Paragraph("$2,850,000", st["right"]), Paragraph("<b>$1,842,500</b>", st["right_bold"]), Paragraph("8.75% Fixed", st["right"]), Paragraph("<b>$28,450/mo</b>", st["right_bold"]), Paragraph("54 Mos Avg", st["right"]), Paragraph("<b>98.2% Performing</b>", st["right_bold"])],
+    ]
+
+    col_notes_w = [140, 100, 75, 80, 60, 75, 55, 125]
+    t_notes = Table(notes_data, colWidths=col_notes_w)
+    t_notes.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (1, 6), (-1, 6), 0.5, colors.black),
+        ('LINEBELOW', (1, 8), (-1, 8), 1.5, colors.black),
+        ('LINEABOVE', (1, 8), (-1, 8), 0.5, colors.black),
+        ('BACKGROUND', (0, 8), (-1, 8), colors.HexColor('#EBF3FA')),
+    ]))
+    el.append(t_notes)
 
     doc.build(el)
     print(f"✅ Generated Park City Consolidating Replica PDF: {OUTPUT_PDF}")

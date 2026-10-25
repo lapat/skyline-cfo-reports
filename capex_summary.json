@@ -1,0 +1,119 @@
+{
+  "as_of_date": "2026-10-25 18:20:17",
+  "total_capex_budget": 6750000.0,
+  "total_capex_spent": 4433069.0,
+  "active_capex_remaining": 2342300.0,
+  "projects": [
+    {
+      "id": "the_bluffs_expansion",
+      "name": "The Bluffs MH & RV Resort \u2014 50-Site Expansion",
+      "folder": "147",
+      "status": "Active Civil Work (Phase 1 Complete)",
+      "budget": 2400000.0,
+      "spent_to_date": 842500.0,
+      "pct_complete": 35.1,
+      "remaining_budget": 1557500.0,
+      "target_completion": "Q1 2027 (Prior to Peak)",
+      "projected_annual_noi": 385000.0,
+      "projected_yield": "16.0% Cash-on-Cash",
+      "trades": [
+        {
+          "trade": "Civil Site Grading & Pad Compaction",
+          "budget": 250000.0,
+          "spent": 245000.0,
+          "status": "Completed \u2705"
+        },
+        {
+          "trade": "TECO Primary Underground Electrical Loop",
+          "budget": 320000.0,
+          "spent": 310000.0,
+          "status": "Completed \u2705"
+        },
+        {
+          "trade": "Sewer Lift Station & Water Main Ties",
+          "budget": 300000.0,
+          "spent": 287500.0,
+          "status": "Under Inspection"
+        },
+        {
+          "trade": "Concrete Pads & 50-Amp Pedestals",
+          "budget": 680000.0,
+          "spent": 0.0,
+          "status": "Contracted / Pending"
+        },
+        {
+          "trade": "Asphalt Paving & Site Landscaping",
+          "budget": 850000.0,
+          "spent": 0.0,
+          "status": "Pending"
+        }
+      ]
+    },
+    {
+      "id": "madison_clubhouse_golf",
+      "name": "Madison Resort Clubhouse & Golf Modernization",
+      "folder": "143, JETB",
+      "status": "Active Interior Framing & Irrigation",
+      "budget": 1250000.0,
+      "spent_to_date": 465200.0,
+      "pct_complete": 37.2,
+      "remaining_budget": 784800.0,
+      "target_completion": "December 2026 (Winter Season)",
+      "projected_annual_noi": 145000.0,
+      "projected_yield": "11.6% Return on Capex",
+      "trades": [
+        {
+          "trade": "Championship Fairway Irrigation Pump Station",
+          "budget": 220000.0,
+          "spent": 215000.0,
+          "status": "Completed \u2705"
+        },
+        {
+          "trade": "Clubhouse Event Center Framing & Roof",
+          "budget": 190000.0,
+          "spent": 180200.0,
+          "status": "Framed \u2705"
+        },
+        {
+          "trade": "Pro Shop & Restaurant HVAC Replacement",
+          "budget": 80000.0,
+          "spent": 70000.0,
+          "status": "In Progress"
+        },
+        {
+          "trade": "Banquet Bar, Kitchen Equipment & FF&E",
+          "budget": 760000.0,
+          "spent": 0.0,
+          "status": "Pending Delivery"
+        }
+      ]
+    },
+    {
+      "id": "bay_bayou_expansion",
+      "name": "Bay Bayou Flagship Expansion Phase II (Operational)",
+      "folder": "135",
+      "status": "100% Operational (Proven Cash Generator)",
+      "budget": 3100000.0,
+      "spent_to_date": 3125369.0,
+      "pct_complete": 100.0,
+      "remaining_budget": 0.0,
+      "target_completion": "Fully Operating",
+      "projected_annual_noi": 358395.0,
+      "projected_yield": "11.5% Realized Cash-on-Cash",
+      "trades": [
+        {
+          "trade": "Completed Waterfront RV Sites & Utilities",
+          "budget": 1850000.0,
+          "spent": 1865369.0,
+          "status": "Generating Revenue \u2705"
+        },
+        {
+          "trade": "Pool Pavilion & Dock Expansion",
+          "budget": 1250000.0,
+          "spent": 1260000.0,
+          "status": "Operational \u2705"
+        }
+      ]
+    }
+  ]
+}

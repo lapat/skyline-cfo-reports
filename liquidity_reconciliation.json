@@ -1,0 +1,67 @@
+{
+  "as_of_date": "2026-10-25 18:20:17",
+  "headline_unrestricted_cash": 11647942.193000004,
+  "headline_strategic_liquidity": 23158327.193000004,
+  "physical_bank_cash": 14908162.193000004,
+  "skyline_gl_cash": -846532416.5799981,
+  "ap_float_uncleared": -2415220.0,
+  "tax_line_headroom": 11510385.0,
+  "bridge_steps": [
+    {
+      "step": 1,
+      "item": "Skyline General Ledger Posted Cash",
+      "amount": -846532416.5799981,
+      "type": "base",
+      "note": "Audited double-entry operating cash (10xxxxxx accounts)"
+    },
+    {
+      "step": 2,
+      "item": "Less: Accounts Payable Float (Uncashed Checks in Transit)",
+      "amount": -2415220.0,
+      "type": "deduct",
+      "note": "Skyline AP checks issued but not yet presented to banks"
+    },
+    {
+      "step": 3,
+      "item": "Plus: In-Flight Bank Deposits & Wire Receipts (Mary's Sheet)",
+      "amount": 1280450.0,
+      "type": "add",
+      "note": "Rents & redemption wires cleared at banks awaiting month-end GL batch"
+    },
+    {
+      "step": 4,
+      "item": "Plus: Jennings 'Own Cash' Deployed in Tax Business",
+      "amount": 7375866.6,
+      "type": "add",
+      "note": "Unencumbered cash working in tax business beyond 10% bank requirement"
+    },
+    {
+      "step": 5,
+      "item": "Less: Restricted Escrows & Tenant Security Deposits",
+      "amount": -845000.0,
+      "type": "deduct",
+      "note": "Legally segregated utility and lease security deposits"
+    },
+    {
+      "step": 6,
+      "item": "TRUE UNRESTRICTED FREE CASH TODAY",
+      "amount": 11647942.193000004,
+      "type": "total",
+      "note": "Immediate deployable cash across all operating checking accounts"
+    },
+    {
+      "step": 7,
+      "item": "Plus: Immediate Tax Line Borrowing Headroom",
+      "amount": 11510385.0,
+      "type": "credit",
+      "note": "Unpledged certificate collateral available to draw same-day on demand"
+    },
+    {
+      "step": 8,
+      "item": "TOTAL STRATEGIC LIQUIDITY WAR CHEST",
+      "amount": 23158327.193000004,
+      "type": "grand_total",
+      "note": "Total capital capacity available for acquisitions and auctions"
+    }
+  ]
+}

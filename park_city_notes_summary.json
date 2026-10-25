@@ -1,0 +1,80 @@
+{
+  "as_of_date": "2026-10-25 18:20:17",
+  "total_notes_receivable": 1842500.0,
+  "total_active_loans": 64,
+  "weighted_avg_rate": "8.75% Fixed APR",
+  "monthly_cash_collected": 28450.0,
+  "monthly_principal_amortization": 18200.0,
+  "monthly_interest_income": 10250.0,
+  "annualized_interest_income": 123000.0,
+  "portfolio_delinquency_rate": "1.8%",
+  "collateral_coverage_ltv": "50.1% LTV (Safe Equity Cushion)",
+  "sample_contracts": [
+    {
+      "contract_id": "PCM-1042",
+      "lot": "Site 42",
+      "borrower_type": "Owner Occupied",
+      "orig_principal": 55000.0,
+      "current_balance": 38400.0,
+      "rate": "8.50%",
+      "monthly_pmt": 580.0,
+      "maturity": "2031",
+      "status": "Current \u2705"
+    },
+    {
+      "contract_id": "PCM-1088",
+      "lot": "Site 88",
+      "borrower_type": "Owner Occupied",
+      "orig_principal": 60000.0,
+      "current_balance": 42150.0,
+      "rate": "8.75%",
+      "monthly_pmt": 640.0,
+      "maturity": "2032",
+      "status": "Current \u2705"
+    },
+    {
+      "contract_id": "PCM-1115",
+      "lot": "Site 115",
+      "borrower_type": "Owner Occupied",
+      "orig_principal": 45000.0,
+      "current_balance": 29800.0,
+      "rate": "9.00%",
+      "monthly_pmt": 490.0,
+      "maturity": "2030",
+      "status": "Current \u2705"
+    },
+    {
+      "contract_id": "PCM-1204",
+      "lot": "Site 204",
+      "borrower_type": "Double-Wide Luxury",
+      "orig_principal": 75000.0,
+      "current_balance": 51200.0,
+      "rate": "8.50%",
+      "monthly_pmt": 780.0,
+      "maturity": "2033",
+      "status": "Current \u2705"
+    },
+    {
+      "contract_id": "PCM-1232",
+      "lot": "Site 232",
+      "borrower_type": "Owner Occupied",
+      "orig_principal": 48000.0,
+      "current_balance": 34100.0,
+      "rate": "8.75%",
+      "monthly_pmt": 515.0,
+      "maturity": "2031",
+      "status": "Current \u2705"
+    },
+    {
+      "contract_id": "PCM-1250",
+      "lot": "Site 250",
+      "borrower_type": "Single-Wide Classic",
+      "orig_principal": 35000.0,
+      "current_balance": 18900.0,
+      "rate": "9.25%",
+      "monthly_pmt": 410.0,
+      "maturity": "2029",
+      "status": "Current \u2705"
+    }
+  ]
+}

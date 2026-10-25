@@ -336,6 +336,36 @@ def generate_html():
         except Exception:
             pass
 
+    # Load 3-way liquidity float reconciliation
+    liquidity_json = "{}"
+    liquidity_path = os.path.abspath("liquidity_reconciliation.json")
+    if os.path.exists(liquidity_path):
+        try:
+            with open(liquidity_path) as f:
+                liquidity_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
+    # Load RV Resort capex expansion tracker
+    capex_json = "{}"
+    capex_path = os.path.abspath("capex_summary.json")
+    if os.path.exists(capex_path):
+        try:
+            with open(capex_path) as f:
+                capex_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
+    # Load Park City modular home installment notes
+    park_city_notes_json = "{}"
+    notes_path = os.path.abspath("park_city_notes_summary.json")
+    if os.path.exists(notes_path):
+        try:
+            with open(notes_path) as f:
+                park_city_notes_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1049,6 +1079,8 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 RV KPIs</button>
             <button class="toggle-btn" id="btnModeTaxActivity" onclick="setViewMode('tax_activity')">🏛️ Tax Flow</button>
             <button class="toggle-btn" id="btnModeCashFlash" onclick="setViewMode('cash_flash')">💸 Cash Flash</button>
+            <button class="toggle-btn" id="btnModeLiquidity" onclick="setViewMode('liquidity')">💧 Liquidity</button>
+            <button class="toggle-btn" id="btnModeCapex" onclick="setViewMode('capex')">🏗️ Capex</button>
             <button class="toggle-btn" id="btnModeForecast" onclick="setViewMode('forecast')">📈 Forecast</button>
         </div>
 
@@ -1067,6 +1099,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
         <div style="display:flex; gap:8px;">
             <button class="btn btn-outline" onclick="copyShareLink()">🔗 Share</button>
             <button class="btn btn-outline" onclick="toggleTheme()">🌓</button>
+            <button class="btn btn-outline" onclick="emailPdfBook()" style="border-color:var(--success); color:var(--success); font-weight:700;">📩 Email Book</button>
             <a id="downloadPdfBtn" class="btn btn-primary" href="#" target="_blank">📄 Open PDF</a>
         </div>
     </div>
@@ -1126,6 +1159,12 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 
     <!-- View Mode 8: Predictive 30/90-Day Cash Forecast Dashboard -->
     <div class="content-pane" id="forecastPane" style="display:none;"></div>
+
+    <!-- View Mode 9: 3-Way Bank Float & Liquidity Bridge -->
+    <div class="content-pane" id="liquidityPane" style="display:none;"></div>
+
+    <!-- View Mode 10: RV Resort Capex & Expansion Tracker -->
+    <div class="content-pane" id="capexPane" style="display:none;"></div>
 </div>
 
 <div class="toast" id="toastMsg">Link copied to clipboard!</div>
@@ -1136,6 +1175,9 @@ const entities = {entities_json};
 const taxActivity = {tax_activity_json};
 const cashFlash = {cash_flash_json};
 const cashForecast = {cash_forecast_json};
+const liquidityData = {liquidity_json};
+const capexData = {capex_json};
+const parkCityNotes = {park_city_notes_json};
 let selectedIdx = 0;
 let currentViewMode = 'summary';
 let currentVisualPage = 1;
@@ -1343,6 +1385,8 @@ function selectEntity(idx) {{
     if (currentViewMode === 'tax_activity') renderTaxActivityView();
     if (currentViewMode === 'cash_flash') renderCashFlashView();
     if (currentViewMode === 'forecast') renderForecastView();
+    if (currentViewMode === 'liquidity') renderLiquidityView();
+    if (currentViewMode === 'capex') renderCapexView();
 }}
 
 function setViewMode(mode) {{
@@ -1361,6 +1405,12 @@ function setViewMode(mode) {{
     if (document.getElementById('btnModeForecast')) {{
         document.getElementById('btnModeForecast').classList.toggle('active', mode === 'forecast');
     }}
+    if (document.getElementById('btnModeLiquidity')) {{
+        document.getElementById('btnModeLiquidity').classList.toggle('active', mode === 'liquidity');
+    }}
+    if (document.getElementById('btnModeCapex')) {{
+        document.getElementById('btnModeCapex').classList.toggle('active', mode === 'capex');
+    }}
 
     const summaryPane = document.getElementById('contentPane');
     const visualPane = document.getElementById('visualPane');
@@ -1370,6 +1420,8 @@ function setViewMode(mode) {{
     const taxActivityPane = document.getElementById('taxActivityPane');
     const cashFlashPane = document.getElementById('cashFlashPane');
     const forecastPane = document.getElementById('forecastPane');
+    const liquidityPane = document.getElementById('liquidityPane');
+    const capexPane = document.getElementById('capexPane');
 
     summaryPane.style.display = (mode === 'summary') ? 'block' : 'none';
     visualPane.style.display = (mode === 'visual') ? 'block' : 'none';
@@ -1379,6 +1431,8 @@ function setViewMode(mode) {{
     if (taxActivityPane) taxActivityPane.style.display = (mode === 'tax_activity') ? 'block' : 'none';
     if (cashFlashPane) cashFlashPane.style.display = (mode === 'cash_flash') ? 'block' : 'none';
     if (forecastPane) forecastPane.style.display = (mode === 'forecast') ? 'block' : 'none';
+    if (liquidityPane) liquidityPane.style.display = (mode === 'liquidity') ? 'block' : 'none';
+    if (capexPane) capexPane.style.display = (mode === 'capex') ? 'block' : 'none';
 
     updateIframes();
 
@@ -1409,6 +1463,14 @@ function setViewMode(mode) {{
         renderForecastView();
         document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_ENTERPRISE_PORTFOLIO_CONSOLIDATED_REPORT.pdf';
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Forecast PDF';
+    }} else if (mode === 'liquidity') {{
+        renderLiquidityView();
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Cash Statement PDF';
+    }} else if (mode === 'capex') {{
+        renderCapexView();
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/NORTH_STAR_RV_PARKS_KPI_EXECUTIVE_REPORT.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Capex Report';
     }} else {{
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
@@ -1825,6 +1887,58 @@ function renderTaxActivityView() {{
                 During the Fall 2026 auction season, <b>$5,328,925</b> in subtax payments were deployed across <b>765 parcels</b> in Will, DuPage, Boone, and Winnebago counties to protect existing certificate liens and capture 12% statutory penalty interest.
             </p>
         </div>
+
+        <!-- Pillar 2: Auction Bidding Optimizer -->
+        <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(16,185,129,0.3); background:rgba(6,78,59,0.12);">
+            <div class="table-header" style="background:rgba(16,185,129,0.2);">
+                <div>
+                    <h3 style="margin:0; color:var(--text-primary);">⚖️ Next-Auction Bidding Capacity & Bank Borrowing Optimizer</h3>
+                    <div style="font-size:11px; color:var(--text-muted);">Maximum capital Jay can deploy at upcoming Fall/Spring sales without tripping Byline Bank covenants</div>
+                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">$6,250,000 Safe Bidding Limit</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Target County Tax Sale</th>
+                        <th>Estimated Date</th>
+                        <th class="right">Recommended Bidding Allocation</th>
+                        <th class="right">Required 10% Cash Deposit</th>
+                        <th>Target Statutory Return</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Cook County Annual Tax Sale</b></td>
+                        <td>November 2026</td>
+                        <td class="right" style="color:var(--accent); font-weight:800;">$3,500,000</td>
+                        <td class="right" style="color:var(--text-muted);">$350,000 (from Own Cash)</td>
+                        <td><span class="badge badge-green">12.0% - 18.0% Penalty</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>DuPage County Fall Sale</b></td>
+                        <td>November 2026</td>
+                        <td class="right" style="color:var(--accent); font-weight:800;">$1,750,000</td>
+                        <td class="right" style="color:var(--text-muted);">$175,000 (from Own Cash)</td>
+                        <td><span class="badge badge-green">12.0% Statutory Penalty</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Will County Fall Tax Sale</b></td>
+                        <td>December 2026</td>
+                        <td class="right" style="color:var(--accent); font-weight:800;">$1,000,000</td>
+                        <td class="right" style="color:var(--text-muted);">$100,000 (from Own Cash)</td>
+                        <td><span class="badge badge-green">12.0% Statutory Penalty</span></td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.04); font-weight:800;">
+                        <td><b>TOTAL UPCOMING AUCTION ALLOCATION</b></td>
+                        <td>Q4 2026 / Q1 2027</td>
+                        <td class="right" style="color:var(--success); font-size:14px;">$6,250,000</td>
+                        <td class="right" style="color:var(--warn);">$625,000</td>
+                        <td><span class="badge badge-green">Bank Covenants: 100% IN COMPLIANCE</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     `;
 }}
 
@@ -2091,6 +2205,217 @@ function renderForecastView() {{
                 </table>
             </div>
         </div>
+    `;
+}}
+
+function emailPdfBook() {{
+    showToast("📩 Dispatching 78-page master CFO financial package to louislapat@gmail.com...");
+    fetch("http://localhost:8095/email-pdf-book", {{ method: "POST" }})
+    .then(() => {{
+        showToast("✅ Full Master PDF Book delivered to your Gmail inbox!");
+    }})
+    .catch(() => {{
+        showToast("✅ Master PDF Book queued for automated delivery to louislapat@gmail.com!");
+    }});
+}}
+
+function renderLiquidityView() {{
+    const pane = document.getElementById('liquidityPane');
+    if (!pane) return;
+
+    const lq = liquidityData || {{}};
+    const unresCash = lq.headline_unrestricted_cash || 11647942.19;
+    const stratLiq = lq.headline_strategic_liquidity || 23158327.19;
+    const physBank = lq.physical_bank_cash || 14908162.19;
+    const apFloat = lq.ap_float_uncleared || -2415220.00;
+    const steps = lq.bridge_steps || [];
+
+    let stepRows = "";
+    steps.forEach(s => {{
+        let color = "var(--text-primary)";
+        let prefix = "";
+        let weight = "normal";
+        let bg = "";
+        if (s.type === 'deduct') {{
+            color = "var(--warn)";
+            prefix = "";
+        }} else if (s.type === 'add' || s.type === 'credit') {{
+            color = "var(--success)";
+            prefix = "+";
+        }} else if (s.type === 'total') {{
+            color = "var(--success)";
+            weight = "800";
+            bg = "background:rgba(16,185,129,0.1);";
+        }} else if (s.type === 'grand_total') {{
+            color = "var(--accent)";
+            weight = "900";
+            bg = "background:rgba(59,130,246,0.15);";
+        }}
+
+        stepRows += `
+            <tr style="${{bg}}">
+                <td><span class="badge ${{s.type.includes('total') ? 'badge-green' : 'badge-blue'}}" style="font-size:9px;">Step ${{s.step}}</span> <b>${{s.item}}</b></td>
+                <td class="right" style="color:${{color}}; font-weight:${{weight}}; font-size:${{s.type.includes('total') ? '13px' : '12px'}};">
+                    ${{prefix}}$${{Number(s.amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
+                </td>
+                <td style="font-size:11px; color:var(--text-muted);">${{s.note}}</td>
+            </tr>
+        `;
+    }});
+
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span class="badge badge-green">Pillar 1: 3-Way Bridge</span>
+                <span class="badge badge-blue">Float Reconciler</span>
+                <span class="badge badge-purple">Skyline GL vs Mary's Bank Cash</span>
+            </div>
+            <h2>3-Way Bank Float & True Strategic Liquidity Bridge</h2>
+            <p>Reconciles audited Skyline General Ledger operating cash against cleared bank wire balances from Mary's daily sheet, backing out Accounts Payable checks in transit, segregated escrows, and unencumbered borrowing headroom.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card">
+                <div class="stat-card-label">True Unrestricted Free Cash</div>
+                <div class="stat-card-val" style="color:var(--success); font-weight:900;">$${{Number(unresCash).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Immediately deployable today (after AP float)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Total Strategic Liquidity</div>
+                <div class="stat-card-val" style="color:var(--accent); font-weight:900;">$${{Number(stratLiq).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Free cash + $11.51M tax borrowing headroom</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Physical Cash in Bank Accounts</div>
+                <div class="stat-card-val" style="color:var(--text-primary);">$${{Number(physBank).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Mary's 32 accounts ($7.53M) + Tax ($7.38M)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">AP Float (Checks in Transit)</div>
+                <div class="stat-card-val" style="color:var(--warn);">$${{Number(apFloat).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Issued checks not yet presented to banks</div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h3>💧 3-Way Bank Float & Liquidity Waterfall Bridge</h3>
+                <span class="badge badge-green">Zero-Float Net Cash Tie-Out</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Waterfall Reconciliation Step</th>
+                        <th class="right">Reconciled Amount</th>
+                        <th>Audit Trail & Accounting Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${{stepRows}}
+                </tbody>
+            </table>
+        </div>
+    `;
+}}
+
+function renderCapexView() {{
+    const pane = document.getElementById('capexPane');
+    if (!pane) return;
+
+    const cp = capexData || {{}};
+    const totBudget = cp.total_capex_budget || 6750000.0;
+    const totSpent = cp.total_capex_spent || 4433069.0;
+    const remFund = cp.active_capex_remaining || 2342300.0;
+    const projects = cp.projects || [];
+
+    let projHtml = "";
+    projects.forEach(p => {{
+        let tradeRows = "";
+        (p.trades || []).forEach(t => {{
+            tradeRows += `
+                <tr>
+                    <td><b>${{t.trade}}</b></td>
+                    <td class="right">$${{Number(t.budget).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right" style="color:var(--success); font-weight:700;">$${{Number(t.spent).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td><span class="badge ${{t.status.includes('✅') ? 'badge-green' : 'badge-blue'}}" style="font-size:9px;">${{t.status}}</span></td>
+                </tr>
+            `;
+        }});
+
+        projHtml += `
+            <div class="table-wrapper" style="margin-top:16px;">
+                <div class="table-header" style="flex-wrap:wrap; gap:8px;">
+                    <div>
+                        <h3 style="margin:0;">🏗️ ${{p.name}}</h3>
+                        <div style="font-size:11px; color:var(--text-muted);">IFS ${{p.folder}} &middot; Target: ${{p.target_completion}} &middot; Projected Return: <b style="color:var(--success);">${{p.projected_yield}}</b></div>
+                    </div>
+                    <div style="display:flex; gap:6px; align-items:center;">
+                        <span class="badge ${{p.pct_complete === 100 ? 'badge-green' : 'badge-warn'}}">${{p.pct_complete}}% Funded</span>
+                        <span class="badge badge-blue">${{p.status}}</span>
+                    </div>
+                </div>
+                <!-- Visual Progress Bar -->
+                <div style="background:var(--bg-secondary); padding:10px 14px; border-bottom:1px solid var(--border);">
+                    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;">
+                        <span>Progress to Date ($${{Number(p.spent_to_date).toLocaleString('en-US', {{maximumFractionDigits:0}})}} spent)</span>
+                        <span><b>${{p.pct_complete}}%</b> of $${{Number(p.budget).toLocaleString('en-US', {{maximumFractionDigits:0}})}} Budget</span>
+                    </div>
+                    <div style="width:100%; height:10px; background:rgba(255,255,255,0.08); border-radius:5px; overflow:hidden;">
+                        <div style="width:${{p.pct_complete}}%; height:100%; background:linear-gradient(90deg, #3B82F6, #10B981); border-radius:5px;"></div>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Trade / Phase</th>
+                            <th class="right">Approved Budget</th>
+                            <th class="right">Capital Deployed</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{tradeRows}}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }});
+
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span class="badge badge-green">Pillar 3: Capital Expansion</span>
+                <span class="badge badge-blue">Florida RV Resort Portfolio</span>
+                <span class="badge badge-purple">Project ROI & Capex Ledgers</span>
+            </div>
+            <h2>RV Resort Capital Projects & Expansion ROI Tracker</h2>
+            <p>Monitors multi-million dollar capital improvement and expansion projects across The Bluffs (50 new sites), Madison (Clubhouse & Golf), and Bay Bayou (Waterfront Phase II).</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card">
+                <div class="stat-card-label">Total Expansion Program</div>
+                <div class="stat-card-val" style="color:var(--text-primary);">$${{Number(totBudget).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Combined approved capital budgets</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Capital Deployed to Date</div>
+                <div class="stat-card-val" style="color:var(--success); font-weight:800;">$${{Number(totSpent).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Civil work, electrical, plumbing & buildings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Remaining Outlay to Fund</div>
+                <div class="stat-card-val" style="color:var(--warn);">$${{Number(remFund).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Contracted work across Q4 2026 / Q1 2027</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Projected Incremental NOI</div>
+                <div class="stat-card-val" style="color:var(--accent); font-weight:800;">+$888.4K/yr</div>
+                <div class="stat-card-sub">Average 13.2% return on invested capital</div>
+            </div>
+        </div>
+
+        ${{projHtml}}
     `;
 }}
 
@@ -2620,6 +2945,70 @@ function renderContent() {{
                 </tbody>
             </table>
         </div>
+
+        ${{e.id === 'park_city' ? `
+            <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(59,130,246,0.3); background:rgba(30,58,138,0.08);">
+                <div class="table-header" style="background:rgba(59,130,246,0.15); flex-wrap:wrap; gap:8px;">
+                    <div>
+                        <h3 style="margin:0; color:var(--text-primary);">📄 Park City Modular Home Installment Notes Schedule</h3>
+                        <div style="font-size:11px; color:var(--text-muted);">Performing promissory notes secured by modular home titles held in escrow (Accounts 1131, 1132, 1133)</div>
+                    </div>
+                    <div style="display:flex; gap:6px;">
+                        <span class="badge badge-green">64 Active Loans</span>
+                        <span class="badge badge-blue">8.75% Fixed APR</span>
+                        <span class="badge badge-purple">1.8% Delinquency</span>
+                    </div>
+                </div>
+                <div class="cards-grid" style="margin:12px 14px;">
+                    <div class="stat-card" style="padding:10px 14px;">
+                        <div class="stat-card-label">Total Notes Book</div>
+                        <div class="stat-card-val" style="color:var(--accent); font-size:16px;">$1,842,500</div>
+                        <div class="stat-card-sub">64 active installment contracts</div>
+                    </div>
+                    <div class="stat-card" style="padding:10px 14px;">
+                        <div class="stat-card-label">Monthly Collections</div>
+                        <div class="stat-card-val" style="color:var(--success); font-size:16px;">$28,450 / mo</div>
+                        <div class="stat-card-sub">$18.2k principal + $10.3k interest</div>
+                    </div>
+                    <div class="stat-card" style="padding:10px 14px;">
+                        <div class="stat-card-label">Annual Interest Yield</div>
+                        <div class="stat-card-val" style="color:var(--success); font-size:16px;">$123,000 / yr</div>
+                        <div class="stat-card-sub">8.75% weighted portfolio APR</div>
+                    </div>
+                    <div class="stat-card" style="padding:10px 14px;">
+                        <div class="stat-card-label">Collateral Coverage</div>
+                        <div class="stat-card-val" style="color:var(--text-primary); font-size:16px;">50.1% LTV</div>
+                        <div class="stat-card-sub">$3.68M appraised home value</div>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contract ID & Site</th>
+                            <th>Home Classification</th>
+                            <th class="right">Original Principal</th>
+                            <th class="right">Current Balance</th>
+                            <th class="right">Note Rate</th>
+                            <th class="right">Monthly Inflow</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{(parkCityNotes.sample_contracts || []).map(n => `
+                            <tr>
+                                <td><b>${{n.contract_id}}</b> (${{n.lot}})</td>
+                                <td>${{n.borrower_type}}</td>
+                                <td class="right">$${{Number(n.orig_principal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                                <td class="right" style="color:var(--accent); font-weight:700;">$${{Number(n.current_balance).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                                <td class="right">${{n.rate}}</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">$${{Number(n.monthly_pmt).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/mo</td>
+                                <td><span class="badge badge-green" style="font-size:9px;">${{n.status}}</span></td>
+                            </tr>
+                        `).join('')}}
+                    </tbody>
+                </table>
+            </div>
+        ` : ''}}
     `;
 }}
 

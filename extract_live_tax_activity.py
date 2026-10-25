@@ -256,6 +256,23 @@ def extract_tax_activity(verbose=True):
             "excess_collateral_headroom": 11510385.00,
             "tangible_net_worth": 9938298.00,
             "total_credit_facilities": 45000000.00
+        },
+        "borrowing_optimizer": {
+            "eligible_collateral_pool": 33582570.00,
+            "advance_rate_pct": 90.0,
+            "max_eligible_borrowing": 30224313.00,
+            "current_debt_drawn": 30224314.00,
+            "total_credit_facility_commitment": 45000000.00,
+            "total_facility_headroom": 14775686.00,
+            "excess_collateral_headroom": 11510385.00,
+            "safe_max_bidding_limit": 6250000.00,
+            "required_equity_deposit_10pct": 625000.00,
+            "jennings_available_own_cash": 7375866.60,
+            "target_auctions": [
+                {"county": "Cook County Annual Sale", "est_date": "Nov 2026", "recommended_allocation": 3500000.00, "target_yield": "12.0% - 18.0% Penalty"},
+                {"county": "DuPage County Fall Sale", "est_date": "Nov 2026", "recommended_allocation": 1750000.00, "target_yield": "12.0% Statutory Penalty"},
+                {"county": "Will County Fall Tax Sale", "est_date": "Dec 2026", "recommended_allocation": 1000000.00, "target_yield": "12.0% Statutory Penalty"}
+            ]
         }
     }
 

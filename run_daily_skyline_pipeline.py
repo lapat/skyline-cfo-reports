@@ -100,6 +100,30 @@ def run_pipeline(push_to_cloud=True):
             log(f"CPA & IRS Tax K-1 schedules compiled in {time.time() - t_cpa:.2f}s", "⚖️")
         except Exception as e:
             log(f"CPA export note: {e}", "ℹ️")
+
+        # Step 1g: 3-Way Bank Float & Liquidity Bridge
+        try:
+            import extract_liquidity_float
+            extract_liquidity_float.generate_liquidity_reconciliation(verbose=False)
+            log("3-Way Bank Float & Liquidity Bridge modeled (liquidity_reconciliation.json)", "💧")
+        except Exception as e:
+            log(f"Liquidity bridge note: {e}", "ℹ️")
+
+        # Step 1h: RV Resort Capex & Expansion Project Tracker
+        try:
+            import extract_capex_projects
+            extract_capex_projects.generate_capex_summary(verbose=False)
+            log("RV Resort Capex & Expansion Tracker compiled (capex_summary.json)", "🏗️")
+        except Exception as e:
+            log(f"Capex tracker note: {e}", "ℹ️")
+
+        # Step 1i: Park City Modular Home Installment Notes Schedule
+        try:
+            import extract_park_city_notes
+            extract_park_city_notes.generate_park_city_notes_summary(verbose=False)
+            log("Park City Modular Home Installment Notes summarized (park_city_notes_summary.json)", "📄")
+        except Exception as e:
+            log(f"Notes schedule note: {e}", "ℹ️")
     else:
         log("🟡 MAPPED DRIVE OFFLINE: Unable to automount Skyline share (off-network or VPN disconnected).", "⚠️")
         log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")
