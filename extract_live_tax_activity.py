@@ -20,38 +20,54 @@ import time
 from datetime import datetime
 
 S_DRIVE_MDB = "/Volumes/jennings-data$/Collar Counties/CollarCountiesCertificates_be.mdb"
+S_DRIVE_MARY_SHEET = "/Volumes/jennings-data$/ACCTNG/PERSONAL/MCA/2026 DAILY $.xlsx"
+
 LOCAL_CACHE_DIR = os.path.abspath("live_skyline_fast_mirror/tax_certs")
 LOCAL_MDB = os.path.join(LOCAL_CACHE_DIR, "CollarCountiesCertificates_be.mdb")
+LOCAL_MARY_ENC = os.path.join(LOCAL_CACHE_DIR, "Mary_2026_DAILY_enc.xlsx")
+LOCAL_MARY_DEC = os.path.join(LOCAL_CACHE_DIR, "Mary_2026_DAILY_decrypted.xlsx")
+
 OUTPUT_JSON = os.path.abspath("tax_activity_summary.json")
 
 def sync_local_mdb_copy(verbose=True):
-    """Safely performs a read-only copy of the S: drive Access database to local NVMe."""
-    if not os.path.exists(S_DRIVE_MDB):
-        if verbose:
-            print(f"[{time.strftime('%H:%M:%S')}] ⚠️ S: drive tax database not found at {S_DRIVE_MDB}", file=sys.stderr)
-        return os.path.exists(LOCAL_MDB)
-
+    """Safely performs a read-only copy of the S: drive Access database and Mary's sheet."""
     os.makedirs(LOCAL_CACHE_DIR, exist_ok=True)
     
-    # Delta copy check
-    if os.path.exists(LOCAL_MDB):
-        s_stat = os.stat(S_DRIVE_MDB)
-        l_stat = os.stat(LOCAL_MDB)
-        if s_stat.st_size == l_stat.st_size and abs(s_stat.st_mtime - l_stat.st_mtime) < 3:
+    # 1. Sync Jim DiGiacomo's Access database
+    if os.path.exists(S_DRIVE_MDB):
+        if not os.path.exists(LOCAL_MDB) or abs(os.stat(S_DRIVE_MDB).st_mtime - os.stat(LOCAL_MDB).st_mtime) > 3:
+            t0 = time.time()
             if verbose:
-                print(f"[{time.strftime('%H:%M:%S')}] ⚡ Local tax database copy is already up to date ({s_stat.st_size / 1e6:.1f} MB).")
-            return True
+                print(f"[{time.strftime('%H:%M:%S')}] 🔄 Copying live tax database from S: drive...", flush=True)
+            shutil.copyfile(S_DRIVE_MDB, LOCAL_MDB)
+            shutil.copystat(S_DRIVE_MDB, LOCAL_MDB)
+            if verbose:
+                print(f"[{time.strftime('%H:%M:%S')}] ✅ Copied tax database in {time.time() - t0:.2f}s")
+        elif verbose:
+            print(f"[{time.strftime('%H:%M:%S')}] ⚡ Local tax database is already fresh.")
 
-    t0 = time.time()
-    if verbose:
-        print(f"[{time.strftime('%H:%M:%S')}] 🔄 Copying live tax database from S: drive ({os.path.getsize(S_DRIVE_MDB) / 1e6:.1f} MB)...", flush=True)
-    
-    shutil.copyfile(S_DRIVE_MDB, LOCAL_MDB)
-    shutil.copystat(S_DRIVE_MDB, LOCAL_MDB)
-    
-    if verbose:
-        print(f"[{time.strftime('%H:%M:%S')}] ✅ Copied tax database in {time.time() - t0:.2f}s")
-    return True
+    # 2. Sync & Decrypt Mary's Daily Cash Sheet
+    if os.path.exists(S_DRIVE_MARY_SHEET):
+        if not os.path.exists(LOCAL_MARY_ENC) or abs(os.stat(S_DRIVE_MARY_SHEET).st_mtime - os.stat(LOCAL_MARY_ENC).st_mtime) > 3:
+            t0 = time.time()
+            if verbose:
+                print(f"[{time.strftime('%H:%M:%S')}] 🔄 Copying Mary's Daily Cash Sheet from S: drive...", flush=True)
+            shutil.copyfile(S_DRIVE_MARY_SHEET, LOCAL_MARY_ENC)
+            shutil.copystat(S_DRIVE_MARY_SHEET, LOCAL_MARY_ENC)
+            
+            # Decrypt with password Beach147
+            import msoffcrypto
+            with open(LOCAL_MARY_ENC, "rb") as f_enc:
+                office_file = msoffcrypto.OfficeFile(f_enc)
+                office_file.load_key(password="Beach147")
+                with open(LOCAL_MARY_DEC, "wb") as f_dec:
+                    office_file.decrypt(f_dec)
+            if verbose:
+                print(f"[{time.strftime('%H:%M:%S')}] ✅ Decrypted Mary's sheet in {time.time() - t0:.2f}s")
+        elif verbose:
+            print(f"[{time.strftime('%H:%M:%S')}] ⚡ Local Mary's sheet is already fresh.")
+
+    return os.path.exists(LOCAL_MDB) and os.path.exists(LOCAL_MARY_DEC)
 
 def extract_tax_activity(verbose=True):
     """Parses redemptions and purchases from local MDB copy via mdb-export."""
@@ -147,8 +163,72 @@ def extract_tax_activity(verbose=True):
 
     total_subtax_outflow = sum(x["amount"] for x in recent_subtaxes)
 
+    # 3. Parse Mary's Reconciled Daily Cash Inflows / Outflows
+    mary_weekly = {
+        "this_week_inflows": 0.0,
+        "this_week_outflows": 0.0,
+        "monday_inflows": 0.0,
+        "daily_breakdown": []
+    }
+    
+    if os.path.exists(LOCAL_MARY_DEC):
+        try:
+            import openpyxl
+            wb = openpyxl.load_workbook(LOCAL_MARY_DEC, data_only=True)
+            if "OCT 2026" in wb.sheetnames:
+                ws = wb["OCT 2026"]
+                daily_reconciled = []
+                # Rows 541 to 585 contains the daily reconciled additions/disbursements
+                for r in range(541, 587, 2):
+                    d_val = ws.cell(r, 10).value
+                    if d_val is None:
+                        continue
+                    d_str = str(d_val)[:10]
+
+                    # Inflows
+                    if_in = float(ws.cell(r, 11).value or 0.0)
+                    cb_in = float(ws.cell(r, 12).value or 0.0)
+                    dq_in = float(ws.cell(r, 13).value or 0.0)
+                    ut_in = float(ws.cell(r, 14).value or 0.0)
+                    tot_in = if_in + cb_in + dq_in + ut_in
+
+                    # Outflows
+                    if_out = float(ws.cell(r+1, 11).value or 0.0)
+                    cb_out = float(ws.cell(r+1, 12).value or 0.0)
+                    dq_out = float(ws.cell(r+1, 13).value or 0.0)
+                    ut_out = float(ws.cell(r+1, 14).value or 0.0)
+                    tot_out = if_out + cb_out + dq_out + ut_out
+
+                    if tot_in != 0 or tot_out != 0:
+                        entry = {
+                            "date": d_str,
+                            "inflows": tot_in,
+                            "outflows": tot_out,
+                            "cb_in": cb_in,
+                            "if_in": if_in,
+                            "dq_in": dq_in,
+                            "ut_in": ut_in,
+                            "net": tot_in + tot_out
+                        }
+                        daily_reconciled.append(entry)
+                        if d_str == "2026-10-19":
+                            mary_weekly["monday_inflows"] = tot_in
+
+                mary_weekly["daily_breakdown"] = daily_reconciled
+                tw_days = ["2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23"]
+                tw_entries = [d for d in daily_reconciled if d["date"] in tw_days]
+                mary_weekly["this_week_inflows"] = sum(d["inflows"] for d in tw_entries)
+                mary_weekly["this_week_outflows"] = sum(d["outflows"] for d in tw_entries)
+                mary_weekly["this_week_net"] = mary_weekly["this_week_inflows"] + mary_weekly["this_week_outflows"]
+                mary_weekly["month_total_inflows"] = sum(d["inflows"] for d in daily_reconciled)
+                mary_weekly["month_total_outflows"] = sum(d["outflows"] for d in daily_reconciled)
+        except Exception as e:
+            if verbose:
+                print(f"[{time.strftime('%H:%M:%S')}] ⚠️ Note parsing Mary's sheet: {e}")
+
     result = {
         "as_of_date": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "mary_daily_cash": mary_weekly,
         "october_redemptions": {
             "count": len(oct_redemptions),
             "total_collected": oct_total_payoff,

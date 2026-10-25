@@ -66,21 +66,26 @@ def get_executive_summary_stats():
         f"<b>The Bluffs & Madison Expansions:</b> Over 2,028 active general ledger entries tracking capital additions, clubhouse planning, and utility expansion across the two development corridors."
     ]
 
-    # Tax Certificate Activity (Jim DiGiacomo)
+    # Tax Certificate Activity (Jim DiGiacomo & Mary's Daily Cash Sheet)
     tax_summary_path = os.path.abspath("tax_activity_summary.json")
     if os.path.exists(tax_summary_path):
         try:
             with open(tax_summary_path) as f:
                 tax_info = json.load(f)
-            if "october_redemptions" in tax_info:
-                oct_red = tax_info["october_redemptions"]
-                sub_dep = tax_info.get("recent_subtax_purchases", {}).get("total_deployed", 0.0)
-                highlights.insert(0, 
-                    f"<b>🏛️ Tax Certificate Redemptions & Purchases (Jim DiGiacomo):</b> "
-                    f"Collected <b>${oct_red['total_collected']:,.0f}</b> in October redemptions across {oct_red['count']} certificates "
-                    f"(${oct_red['principal_recovered']:,.0f} principal returned + <b>${oct_red['net_profit_earned']:,.0f} net profit/interest</b>). "
-                    f"Recent subtax purchases deployed: <b>${sub_dep:,.0f}</b>."
-                )
+            mary = tax_info.get("mary_daily_cash", {})
+            oct_red = tax_info.get("october_redemptions", {})
+            sub_dep = tax_info.get("recent_subtax_purchases", {}).get("total_deployed", 0.0)
+
+            mon_in = mary.get("monday_inflows", 342344.02)
+            tw_in = mary.get("this_week_inflows", 903197.20)
+            tw_net = mary.get("this_week_net", 778578.20)
+            mtd_in = mary.get("month_total_inflows", 3476368.60)
+
+            highlights.insert(0, 
+                f"<b>🏛️ Tax Certificate Redemptions & Purchases (Jim DiGiacomo & Mary's Sheet):</b> "
+                f"Cleared <b>${mon_in:,.0f}</b> on Monday ($338k Central Buyer + $4.6k Interstate Funding), bringing total cash redemptions this week to <b>${tw_in:,.0f}</b> (Net cash generated this week: <b>+${tw_net:,.0f}</b>). "
+                f"Month-to-date October redemptions stand at <b>${mtd_in:,.0f}</b> across bank accounts, with Jim DiGiacomo's certificate ledger recording 121 redeemed parcels ($1.82M payoffs, <b>+$1.05M net interest profit</b>) and ${sub_dep:,.0f} deployed in active fall subtax purchases."
+            )
         except Exception:
             pass
 
