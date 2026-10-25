@@ -790,30 +790,6 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
     <div class="content-pane" id="forecastPane" style="display:none;"></div>
 </div>
 
-<!-- Floating Jim Brain Assistant Trigger -->
-<div id="jimChatTrigger" onclick="toggleJimChat()" style="position:fixed; bottom:24px; right:24px; background:linear-gradient(135deg, #2563EB, #1D4ED8); color:white; padding:12px 20px; border-radius:30px; font-weight:700; font-size:13px; cursor:pointer; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; gap:8px; border:1px solid rgba(255,255,255,0.2);">
-    <span>💬</span> Ask Jim Brain
-</div>
-
-<!-- Floating Jim Brain Chat Modal -->
-<div id="jimChatModal" style="position:fixed; bottom:80px; right:24px; width:360px; max-width:90vw; background:var(--bg-card); border:1px solid var(--border); border-radius:14px; box-shadow:0 20px 40px rgba(0,0,0,0.6); z-index:99999; display:none; flex-direction:column; overflow:hidden;">
-    <div style="background:var(--bg-secondary); padding:12px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-        <div style="font-size:13px; font-weight:800; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
-            <span>🧠</span> CFO Jim Assistant <span class="badge badge-green" style="font-size:9px;">Live GL</span>
-        </div>
-        <button onclick="toggleJimChat()" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:16px;">✕</button>
-    </div>
-    <div id="chatMessages" style="padding:14px; max-height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; font-size:12px; line-height:1.5;">
-        <div style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:10px 12px; border-radius:8px; color:var(--text-primary);">
-            Hello Jay, I'm your virtual CFO Jim assistant. Ask me anything about our cash balances, tax redemptions, or RV park operations.
-        </div>
-    </div>
-    <div style="padding:10px 12px; border-top:1px solid var(--border); background:var(--bg-secondary); display:flex; gap:8px;">
-        <input type="text" id="chatInput" placeholder="Ask Jim a question..." style="flex:1; background:var(--bg-primary); border:1px solid var(--border); border-radius:6px; padding:8px 10px; color:var(--text-primary); font-size:12px; outline:none;" onkeypress="if(event.key==='Enter') sendChatMessage()">
-        <button onclick="sendChatMessage()" class="btn btn-primary" style="padding:6px 12px; font-size:12px;">Send</button>
-    </div>
-</div>
-
 <div class="toast" id="toastMsg">Link copied to clipboard!</div>
 
 <script>
@@ -1653,61 +1629,6 @@ function renderForecastView() {
             </div>
         </div>
     `;
-}
-
-function toggleJimChat() {
-    const modal = document.getElementById('jimChatModal');
-    if (!modal) return;
-    modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-    if (modal.style.display === 'flex') {
-        document.getElementById('chatInput').focus();
-    }
-}
-
-function sendChatMessage() {
-    const input = document.getElementById('chatInput');
-    const msg = (input ? input.value : "").trim();
-    if (!msg) return;
-
-    const chatBox = document.getElementById('chatMessages');
-    chatBox.innerHTML += `
-        <div style="background:var(--bg-secondary); border:1px solid var(--border); padding:8px 12px; border-radius:8px; align-self:flex-end; color:var(--text-primary); max-width:80%;">
-            ${msg}
-        </div>
-    `;
-    input.value = "";
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Send to chat API on port 8090 with graceful offline fallback
-    fetch("http://localhost:8090", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: msg })
-    })
-    .then(res => res.json())
-    .then(data => {
-        chatBox.innerHTML += `
-            <div style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:10px 12px; border-radius:8px; color:var(--text-primary); max-width:85%;">
-                ${data.reply || data.message}
-            </div>
-        `;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    })
-    .catch(() => {
-        // Fallback simulated reply
-        let reply = "Jay, looking at our live numbers: Core operating cash is $28.42M, Tax Certificate redemptions have brought in $903k this week alone ($342k on Monday), and all bank covenants are in full compliance.";
-        if (msg.toLowerCase().includes("tax") || msg.toLowerCase().includes("redemption")) {
-            reply = "In Mary's daily cash sheet, Monday cleared $342,344 in redemptions ($338k Central Buyer + $4.6k Interstate Funding), bringing weekly redemptions to $903,197 (+$778k net cash). Jim DiGiacomo's certificate ledger records 121 redeemed parcels in October totaling $1.82M in county payoffs, yielding $1,055,292 in net penalty interest profit (57.8% margin).";
-        } else if (msg.toLowerCase().includes("cash") || msg.toLowerCase().includes("bank")) {
-            reply = "Mary's Daily Cash Sheet shows $7,532,296 active in primary operating accounts today. Audited Skyline General Ledger operating cash stands at $28,421,905 ($29.14M gross positive cash less $720k operating overdrafts). Month-to-date October has cleared $4.22M in receipts against $3.89M in disbursements.";
-        }
-        chatBox.innerHTML += `
-            <div style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:10px 12px; border-radius:8px; color:var(--text-primary); max-width:85%;">
-                ${reply}
-            </div>
-        `;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    });
 }
 
 function renderNorthStarView() {
