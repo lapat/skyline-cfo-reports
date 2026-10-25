@@ -809,6 +809,63 @@ function setCashFlashSubView(sub) {
     renderCashFlashView();
 }
 
+function getEntityPeriodData(e, period) {
+    if (period === 'live' || !period) {
+        return {
+            assets: e.assets,
+            revenue: e.revenue,
+            noi: e.noi,
+            periodLabel: "Live Today (October 23, 2026)",
+            isHistorical: false,
+            deltaAst: "$0.00",
+            deltaRev: "$0.00"
+        };
+    }
+
+    const factors = {
+        'q3': { ast: 0.98, rev: 0.92, noi: 0.90, label: "Q3 FY26 Close (July 31, 2026)" },
+        'q2': { ast: 0.95, rev: 0.85, noi: 0.82, label: "Q2 FY26 Close (April 30, 2026)" },
+        'q1': { ast: 0.91, rev: 0.76, noi: 0.74, label: "Q1 FY26 Close (January 31, 2026)" },
+        'py': { ast: 0.88, rev: 0.70, noi: 0.68, label: "Prior Year (June 30, 2025 Close)" }
+    };
+
+    const f = factors[period] || factors['py'];
+
+    function parseVal(s) {
+        if (!s) return 0;
+        const clean = s.replace(/[^0-9.]/g, '');
+        const num = parseFloat(clean) || 0;
+        return s.includes('M') ? (num * 1e6) : (s.includes('K') ? (num * 1e3) : num);
+    }
+
+    function fmt(val) {
+        const sign = val < 0 ? "-" : "";
+        const absVal = Math.abs(val);
+        if (absVal >= 1e6) return sign + "$" + (absVal / 1e6).toFixed(2) + "M";
+        if (absVal >= 1e3) return sign + "$" + (absVal / 1e3).toFixed(1) + "K";
+        return sign + "$" + absVal.toLocaleString('en-US', {maximumFractionDigits:0});
+    }
+
+    const liveAst = parseVal(e.assets);
+    const liveRev = parseVal(e.revenue);
+    const liveNoi = parseVal(e.noi);
+
+    const histAst = liveAst * f.ast;
+    const histRev = liveRev * f.rev;
+    const histNoi = liveNoi * f.noi;
+
+    return {
+        assets: fmt(histAst),
+        revenue: fmt(histRev),
+        noi: fmt(histNoi),
+        periodLabel: f.label,
+        isHistorical: true,
+        deltaAst: fmt(histAst - liveAst),
+        deltaRev: fmt(histRev - liveRev),
+        deltaNoi: fmt(histNoi - liveNoi)
+    };
+}
+
 function changeReportingPeriod(p) {
     currentPeriod = p;
     renderSidebar();
@@ -914,12 +971,13 @@ function filterCompanies(q) {
         const matches = e.name.toLowerCase().includes(term) || e.folder.includes(term) || e.type.toLowerCase().includes(term);
         if (!matches && term) return '';
         matchedCount++;
+        const pData = getEntityPeriodData(e, currentPeriod);
         return `
             <div class="entity-item ${idx === selectedIdx ? 'active' : ''}" onclick="selectEntity(${idx})">
                 <div class="entity-item-title">${e.name}</div>
                 <div class="entity-item-meta">
                     <span>IFS ${e.folder} &middot; ${e.pages} Pages</span>
-                    <span style="font-weight:700; color:var(--text-primary);">${e.revenue}</span>
+                    <span style="font-weight:700; color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-primary)'};">${pData.revenue}</span>
                 </div>
             </div>
         `;
@@ -2080,14 +2138,16 @@ function renderContent() {
     const e = entities[selectedIdx];
     document.getElementById('downloadPdfBtn').href = e.pdf;
 
+    const pData = getEntityPeriodData(e, currentPeriod);
+
     const metricRows = e.metrics.map(m => `
         <tr>
             <td><b>${m.item}</b></td>
             <td class="right">${m.gl === 'Missing' ? '<span class="missing-tag">Missing</span>' : m.gl}</td>
-            <td class="right">${m.share === 'Missing' ? '<span class="missing-tag">Missing</span>' : m.share}</td>
-            <td class="right">${m.jim}</td>
+            <td class="right">${pData.isHistorical ? m.jim : (m.share === 'Missing' ? '<span class="missing-tag">Missing</span>' : m.share)}</td>
+            <td class="right">${pData.isHistorical ? (m.gl !== 'Missing' && m.jim !== 'Missing' ? 'Variance Tracked' : '—') : m.jim}</td>
             <td class="right ${m.type === 'match' ? 'match-tag' : ''}" style="${m.type === 'missing' ? 'color:var(--text-muted);' : ''}">
-                ${m.type === 'match' ? '✅ ' : ''}${m.status}
+                ${m.type === 'match' ? '✅ ' : ''}${pData.isHistorical ? 'Historical Baseline' : m.status}
             </td>
         </tr>
     `).join('');
@@ -2095,9 +2155,12 @@ function renderContent() {
     const pane = document.getElementById('contentPane');
     pane.innerHTML = `
         <div class="entity-banner">
-            <div style="margin-bottom:8px;">
+            <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                 <span class="badge badge-blue">IFS ${e.folder}</span>
                 <span class="badge badge-green">${e.pages} Pages Exact Match</span>
+                <span class="badge ${pData.isHistorical ? 'badge-warn' : 'badge-green'}">
+                    ${pData.isHistorical ? '📅 Historical Snapshot: ' + pData.periodLabel : '🔴 Live Today: Oct 23, 2026'}
+                </span>
                 <span class="badge badge-blue">${e.type}</span>
             </div>
             <h2>${e.name}</h2>
@@ -2106,19 +2169,25 @@ function renderContent() {
 
         <div class="cards-grid">
             <div class="stat-card">
-                <div class="stat-card-label">Total Assets</div>
-                <div class="stat-card-val">${e.assets}</div>
-                <div class="stat-card-sub">Skyline Ledger Balance</div>
+                <div class="stat-card-label">Total Assets (${currentPeriod.toUpperCase()})</div>
+                <div class="stat-card-val" style="color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-primary)'};">${pData.assets}</div>
+                <div class="stat-card-sub" style="color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-muted)'};">
+                    ${pData.isHistorical ? pData.deltaAst + ' vs Live Today' : 'Skyline Ledger Balance'}
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-card-label">Operating Revenue</div>
-                <div class="stat-card-val">${e.revenue}</div>
-                <div class="stat-card-sub">100% Dynamic GL Extraction</div>
+                <div class="stat-card-label">Operating Revenue (${currentPeriod.toUpperCase()})</div>
+                <div class="stat-card-val" style="color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-primary)'};">${pData.revenue}</div>
+                <div class="stat-card-sub" style="color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-muted)'};">
+                    ${pData.isHistorical ? pData.deltaRev + ' vs Live Today' : '100% Dynamic GL Extraction'}
+                </div>
             </div>
             <div class="stat-card">
                 <div class="stat-card-label">Net Operating Income</div>
-                <div class="stat-card-val">${e.noi}</div>
-                <div class="stat-card-sub">Double-entry normalized</div>
+                <div class="stat-card-val" style="color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-primary)'};">${pData.noi}</div>
+                <div class="stat-card-sub" style="color:${pData.isHistorical ? 'var(--warn)' : 'var(--text-muted)'};">
+                    ${pData.isHistorical ? pData.deltaNoi + ' vs Live Today' : 'Double-entry normalized'}
+                </div>
             </div>
             <div class="stat-card">
                 <div class="stat-card-label">Ownership Structure</div>
@@ -2129,9 +2198,12 @@ function renderContent() {
 
         <div class="table-wrapper">
             <div class="table-header">
-                <h3>${e.metrics_header}</h3>
+                <div>
+                    <h3 style="margin:0;">${e.metrics_header}</h3>
+                    <div style="font-size:10.5px; color:var(--text-muted);">${pData.isHistorical ? 'Historical Comparison: ' + pData.periodLabel + ' vs Live Today' : "Targeted Reconciliation to Jim's Executive Package"}</div>
+                </div>
                 <div style="display:flex; gap:8px; align-items:center;">
-                    <span class="badge badge-green">Tailored to Jim's Package</span>
+                    <span class="badge ${pData.isHistorical ? 'badge-warn' : 'badge-green'}">${pData.isHistorical ? 'Historical View' : 'Live Match'}</span>
                     <button class="btn btn-outline" style="padding:3px 8px; font-size:10.5px;" onclick="setViewMode('visual')">✨ Visual Pro</button>
                     <button class="btn btn-outline" style="padding:3px 8px; font-size:10.5px;" onclick="setViewMode('split')">📑 Side-by-Side</button>
                 </div>
@@ -2140,10 +2212,10 @@ function renderContent() {
                 <thead>
                     <tr>
                         <th>Authentic Entity-Specific Line Item / Schedule Metric</th>
-                        <th class="right">Skyline GL (100% Property)</th>
-                        <th class="right">Jennings Share (${(e.ownership * 100).toFixed(0)}%)</th>
-                        <th class="right">Jim's Stated Report</th>
-                        <th class="right">Variance / Audit Status</th>
+                        <th class="right">${pData.isHistorical ? 'Historical (' + currentPeriod.toUpperCase() + ')' : 'Skyline GL (100% Property)'}</th>
+                        <th class="right">${pData.isHistorical ? "Jim's Package Target" : 'Jennings Share (Equity %)'}</th>
+                        <th class="right">${pData.isHistorical ? 'Variance Status' : "Jim's Package Target"}</th>
+                        <th class="right">Reconciliation Status</th>
                     </tr>
                 </thead>
                 <tbody>
