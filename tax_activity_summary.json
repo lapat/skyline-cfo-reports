@@ -1,0 +1,255 @@
+{
+  "as_of_date": "2026-10-24 22:43:41",
+  "october_redemptions": {
+    "count": 121,
+    "total_collected": 1824472.2499999998,
+    "principal_recovered": 769180.2399999993,
+    "net_profit_earned": 1055292.0100000005,
+    "top_redemptions": [
+      {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2022000763",
+        "pin": "04-14-201-010",
+        "date_redeemed": "10/09/26",
+        "date_payoff": "",
+        "date_updated": "10/22/26",
+        "principal": 106718.87,
+        "payoff": 522597.0,
+        "profit": 415878.13,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "8",
+        "county_name": "McHenry",
+        "cert_no": "2022-01117",
+        "pin": "19-34-106-004",
+        "date_redeemed": "10/08/26",
+        "date_payoff": "",
+        "date_updated": "10/15/26",
+        "principal": 17566.94,
+        "payoff": 73048.59,
+        "profit": 55481.649999999994,
+        "owner": "INTERSTATE FUNDING CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "2",
+        "county_name": "Lake",
+        "cert_no": "20231524108006",
+        "pin": "15-24-108-006",
+        "date_redeemed": "09/03/26",
+        "date_payoff": "",
+        "date_updated": "10/15/26",
+        "principal": 20328.82,
+        "payoff": 46495.04,
+        "profit": 26166.22,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "6",
+        "county_name": "Will",
+        "cert_no": "23-00250",
+        "pin": "12-02-15-403-007-1005",
+        "date_redeemed": "10/31/25",
+        "date_payoff": "02/10/26",
+        "date_updated": "01/29/26",
+        "principal": 19198.87,
+        "payoff": 40975.28,
+        "profit": 21776.41,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "19840"
+      },
+      {
+        "county_id": "6",
+        "county_name": "Will",
+        "cert_no": "23-02121",
+        "pin": "21-14-01-113-007-0000",
+        "date_redeemed": "09/15/26",
+        "date_payoff": "",
+        "date_updated": "10/09/26",
+        "principal": 17207.76,
+        "payoff": 38021.13,
+        "profit": 20813.37,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "6",
+        "county_name": "Will",
+        "cert_no": "22-01707",
+        "pin": "15-08-09-402-002-0000",
+        "date_redeemed": "10/21/25",
+        "date_payoff": "02/10/26",
+        "date_updated": "01/29/26",
+        "principal": 5543.4,
+        "payoff": 32941.55,
+        "profit": 27398.15,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "19840"
+      },
+      {
+        "county_id": "2",
+        "county_name": "Lake",
+        "cert_no": "20220707414014",
+        "pin": "07-07-414-014",
+        "date_redeemed": "09/28/26",
+        "date_payoff": "",
+        "date_updated": "10/22/26",
+        "principal": 5002.23,
+        "payoff": 31833.79,
+        "profit": 26831.56,
+        "owner": "INTERSTATE FUNDING CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "6",
+        "county_name": "Will",
+        "cert_no": "23-01722",
+        "pin": "30-07-25-100-040-0000",
+        "date_redeemed": "10/15/25",
+        "date_payoff": "02/10/26",
+        "date_updated": "01/29/26",
+        "principal": 15124.94,
+        "payoff": 31711.92,
+        "profit": 16586.979999999996,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "19840"
+      },
+      {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2023000603",
+        "pin": "03-35-316-011",
+        "date_redeemed": "10/06/26",
+        "date_payoff": "",
+        "date_updated": "10/15/26",
+        "principal": 8527.15,
+        "payoff": 30614.34,
+        "profit": 22087.190000000002,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "51",
+        "county_name": "Cook Scavenger",
+        "cert_no": "22-0007992",
+        "pin": "17-17-113-115-1095",
+        "date_redeemed": "10/28/25",
+        "date_payoff": "01/05/26",
+        "date_updated": "11/13/25",
+        "principal": 7063.97,
+        "payoff": 29425.62,
+        "profit": 22361.649999999998,
+        "owner": "INTERSTATE FUNDING CORP.",
+        "check_no": "97720"
+      },
+      {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2022001391",
+        "pin": "07-12-405-032",
+        "date_redeemed": "10/06/26",
+        "date_payoff": "",
+        "date_updated": "10/15/26",
+        "principal": 9952.15,
+        "payoff": 26763.45,
+        "profit": 16811.300000000003,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": ""
+      },
+      {
+        "county_id": "6",
+        "county_name": "Will",
+        "cert_no": "22-01945",
+        "pin": "04-10-06-305-014-0000",
+        "date_redeemed": "10/14/26",
+        "date_payoff": "02/10/26",
+        "date_updated": "03/25/26",
+        "principal": 4471.94,
+        "payoff": 26615.58,
+        "profit": 22143.640000000003,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "19840"
+      }
+    ]
+  },
+  "ytd_2026_redemptions": {
+    "count": 2513,
+    "total_collected": 28141316.65999995,
+    "principal_recovered": 15948597.250000054,
+    "net_profit_earned": 12192719.409999939
+  },
+  "recent_subtax_purchases": {
+    "count": 765,
+    "total_deployed": 5328924.710000006,
+    "sample_payments": [
+      {
+        "date": "09/24/26",
+        "county": "25",
+        "cert": "2024-00197",
+        "amount": 7548.43,
+        "status": "Nat-Paid",
+        "check": "10977"
+      },
+      {
+        "date": "09/24/26",
+        "county": "25",
+        "cert": "2024-00198",
+        "amount": 7994.45,
+        "status": "Nat-Paid",
+        "check": "10977"
+      },
+      {
+        "date": "09/24/26",
+        "county": "25",
+        "cert": "2024-00227",
+        "amount": 5248.13,
+        "status": "Nat-Paid",
+        "check": "10977"
+      },
+      {
+        "date": "09/09/26",
+        "county": "3",
+        "cert": "2022000763",
+        "amount": 101587.22,
+        "status": "Nat-Paid",
+        "check": "10751"
+      },
+      {
+        "date": "09/09/26",
+        "county": "3",
+        "cert": "2022001080",
+        "amount": 7761.2,
+        "status": "Nat-Paid",
+        "check": "10751"
+      },
+      {
+        "date": "09/09/26",
+        "county": "3",
+        "cert": "2022001334",
+        "amount": 7458.11,
+        "status": "Nat-Paid",
+        "check": "10751"
+      },
+      {
+        "date": "09/09/26",
+        "county": "3",
+        "cert": "2022001503",
+        "amount": 5779.95,
+        "status": "Nat-Paid",
+        "check": "10751"
+      },
+      {
+        "date": "09/09/26",
+        "county": "3",
+        "cert": "2022001648",
+        "amount": 9447.39,
+        "status": "Nat-Paid",
+        "check": "10751"
+      }
+    ]
+  }
+}

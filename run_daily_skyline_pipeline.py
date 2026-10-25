@@ -46,6 +46,16 @@ def run_pipeline(push_to_cloud=True):
             log(f"Live Skyline mapped drive sync & ETL complete in {time.time() - t0:.2f}s", "✅")
         else:
             log(f"Warning during sync: {res_sync.stderr[:200]}", "⚠️")
+
+        # Step 1b: Read-only Tax Certificate Ingestion from Jim DiGiacomo's S-Drive Database
+        t_tax = time.time()
+        try:
+            import extract_live_tax_activity
+            extract_live_tax_activity.sync_local_mdb_copy(verbose=False)
+            extract_live_tax_activity.extract_tax_activity(verbose=False)
+            log(f"Tax Certificate redemptions & purchases extracted in {time.time() - t_tax:.2f}s", "🏛️")
+        except Exception as e:
+            log(f"Tax certificate extraction note: {e}", "ℹ️")
     else:
         log("🟡 MAPPED DRIVE OFFLINE: Unable to automount Skyline share (off-network or VPN disconnected).", "⚠️")
         log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")

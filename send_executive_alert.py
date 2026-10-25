@@ -66,6 +66,24 @@ def get_executive_summary_stats():
         f"<b>The Bluffs & Madison Expansions:</b> Over 2,028 active general ledger entries tracking capital additions, clubhouse planning, and utility expansion across the two development corridors."
     ]
 
+    # Tax Certificate Activity (Jim DiGiacomo)
+    tax_summary_path = os.path.abspath("tax_activity_summary.json")
+    if os.path.exists(tax_summary_path):
+        try:
+            with open(tax_summary_path) as f:
+                tax_info = json.load(f)
+            if "october_redemptions" in tax_info:
+                oct_red = tax_info["october_redemptions"]
+                sub_dep = tax_info.get("recent_subtax_purchases", {}).get("total_deployed", 0.0)
+                highlights.insert(0, 
+                    f"<b>🏛️ Tax Certificate Redemptions & Purchases (Jim DiGiacomo):</b> "
+                    f"Collected <b>${oct_red['total_collected']:,.0f}</b> in October redemptions across {oct_red['count']} certificates "
+                    f"(${oct_red['principal_recovered']:,.0f} principal returned + <b>${oct_red['net_profit_earned']:,.0f} net profit/interest</b>). "
+                    f"Recent subtax purchases deployed: <b>${sub_dep:,.0f}</b>."
+                )
+        except Exception:
+            pass
+
     return {
         "pos_cash": pos_cash,
         "neg_cash": neg_cash,

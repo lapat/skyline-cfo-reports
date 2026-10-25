@@ -66,8 +66,9 @@ ENTITIES = [
             {"item": "Bank Facilities Debt (Byline, 1st Bank, Old Natl)", "gl": "$30,224,314", "share": "$30,224,314", "jim": "$30,224,314", "status": "Exact Cent Match", "type": "match"},
             {"item": "Byline Bank DSCR Covenant (Sec 8.4D)", "gl": "1.81x", "share": "1.81x", "jim": "1.81x (vs 1.00x Req)", "status": "IN COMPLIANCE (YES)", "type": "match"},
             {"item": "First Bank Chicago Tangible Net Worth", "gl": "$9,938,298", "share": "$9,938,298", "jim": "> $8,000,000 Req", "status": "IN COMPLIANCE (YES)", "type": "match"},
-            {"item": "Affiliate Transactions Lending Ceiling", "gl": "$5,509,480", "share": "$5,509,480", "jim": "< $6,000,000 Limit", "status": "IN COMPLIANCE (YES)", "type": "match"},
-            {"item": "Unredeemed Certificate Detailed Schedule", "gl": "Missing", "share": "Missing", "jim": "Pages 11-17", "status": "County Scavenger Rolls", "type": "missing"}
+            {"item": "October 2026 Redemptions Collected", "gl": "$1,824,472", "share": "$1,824,472", "jim": "121 Certificates", "status": "Live S-Drive Access Match", "type": "match"},
+            {"item": "October Net Profit / Interest Earned", "gl": "$1,055,292", "share": "$1,055,292", "jim": "$1,055,292 Gain", "status": "57.8% Net Margin", "type": "match"},
+            {"item": "Subtax Purchases Capital Deployed", "gl": "$5,328,925", "share": "$5,328,925", "jim": "765 Parcels", "status": "Active 2026 Fall Tax Sales", "type": "match"}
         ]
     },
     {
