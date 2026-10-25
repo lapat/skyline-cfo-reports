@@ -939,6 +939,22 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
         padding: 4px;
         display: flex;
         gap: 4px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }}
+    .view-mode-toggle::-webkit-scrollbar, .entity-list::-webkit-scrollbar {{
+        display: none;
+    }}
+    .entity-list {{
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 14px;
+        gap: 10px;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }}
     .toggle-btn {{
         padding: 8px 14px;
@@ -971,6 +987,20 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
     .entity-item {{ min-width: 210px; padding: 10px 12px; }}
     .stat-card-val {{ font-size: 16px; }}
     .entity-banner h2 {{ font-size: 18px; }}
+    .top-bar > div:last-child {{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+        gap: 6px;
+    }}
+    .top-bar > div:last-child .btn {{
+        flex: 1 1 auto;
+        text-align: center;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 11px;
+    }}
 }}
 
 .mobile-scroll-hint {{
