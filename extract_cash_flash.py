@@ -60,6 +60,54 @@ COL_ENTITY = {
     41: ("JETSITES_C", "Jet Sites Clubhouse")
 }
 
+def classify_label_to_executive(raw_label: str) -> dict:
+    """Translates Mary's cryptic accounting labels into Plain English Executive Real Estate categories."""
+    lbl = (raw_label or "").strip().upper()
+    if not lbl:
+        return {"kind": "other", "category": "Unclassified", "exec_category": "Other Cash Activity"}
+
+    # Determine kind
+    if lbl.startswith("C/R") or "W/T - IN" in lbl or "W/T-IN" in lbl:
+        kind = "receipt"
+        if "REDEMP" in lbl:
+            exec_cat = "🏛️ Tax Certificate Redemptions"
+        elif "RENT" in lbl or "LOT" in lbl:
+            exec_cat = "🏠 Tenant Rental Income"
+        elif "PARK" in lbl or "RV" in lbl or "BB" in lbl or "STORE" in lbl:
+            exec_cat = "🚐 Hospitality & Guest Receipts"
+        elif "GOLF" in lbl:
+            exec_cat = "⛳ Madison Golf Course Fees"
+        elif "1133" in lbl or "113" in lbl or "MGMT" in lbl:
+            exec_cat = "🏢 Intercompany Management Fees"
+        elif "NOTE" in lbl or "REPAY" in lbl:
+            exec_cat = "📄 Note Receivable Collections"
+        elif "LOAN" in lbl or "ADVANCE" in lbl or "LINE" in lbl:
+            exec_cat = "🏦 Credit Line Advances"
+        elif "INDEMNITY" in lbl or "JUDGEMENT" in lbl:
+            exec_cat = "⚖️ Legal & Indemnity Receipts"
+        else:
+            exec_cat = "💵 General Cash Receipts"
+    else:
+        kind = "disbursement"
+        if "SUBTAX" in lbl or "PRIOR YEAR TAX" in lbl:
+            exec_cat = "🏛️ Tax Certificate Subtaxes Deployed"
+        elif "LOAN" in lbl or "PAYDOWN" in lbl or "PAYOFF" in lbl or "BYLINE" in lbl:
+            exec_cat = "🏦 Credit Facility Debt Paydowns"
+        elif "DISTRIBUTION" in lbl or "SUB S" in lbl or "FAMILY" in lbl:
+            exec_cat = "💰 Owner & Trust Distributions"
+        elif "PAYROLL" in lbl or "SALARY" in lbl or "WAGE" in lbl or "ADP" in lbl:
+            exec_cat = "👥 Payroll & Employee Benefits"
+        elif "MORTGAGE" in lbl:
+            exec_cat = "🏡 Mortgage Principal & Interest"
+        elif "MGMT" in lbl or "OP COST" in lbl or "OPERATING" in lbl:
+            exec_cat = "💼 Management & Operating Overhead"
+        elif "TAX" in lbl:
+            exec_cat = "📑 Real Estate & Sales Taxes"
+        else:
+            exec_cat = "💸 General Operating Disbursements"
+
+    return {"kind": kind, "category": raw_label, "exec_category": exec_cat}
+
 def extract_cash_flash(verbose=True):
     if not os.path.exists(LOCAL_MARY_DEC):
         if verbose:
@@ -92,6 +140,8 @@ def extract_cash_flash(verbose=True):
     # 2. Extract Category Receipts and Disbursements using Horizontal Scanning (Nearest Preceding Label)
     receipts_by_cat = defaultdict(float)
     disbursements_by_cat = defaultdict(float)
+    exec_receipts = defaultdict(float)
+    exec_disbursements = defaultdict(float)
     data_cols_set = set(COL_ENTITY.keys())
 
     # Structural transaction prefixes
@@ -122,14 +172,24 @@ def extract_cash_flash(verbose=True):
 
             # If we encounter a data column and have an active category for this block
             if c_idx in data_cols_set and isinstance(val, (int, float)) and val != 0:
-                if current_kind == "receipt":
-                    receipts_by_cat[current_cat or "OTHER INCOME"] += float(val)
-                elif current_kind == "disbursement":
-                    disbursements_by_cat[current_cat or "OTHER EXPENSES"] += abs(float(val))
+                raw_cat = current_cat or "OTHER ACTIVITY"
+                trans = classify_label_to_executive(raw_cat)
+                exec_cat = trans["exec_category"]
 
-    # Top receipts and disbursements
-    top_receipts = sorted([{"category": k, "amount": v} for k, v in receipts_by_cat.items() if v > 5000], key=lambda x: x["amount"], reverse=True)
-    top_disbursements = sorted([{"category": k, "amount": abs(v)} for k, v in disbursements_by_cat.items() if abs(v) > 5000], key=lambda x: x["amount"], reverse=True)
+                if current_kind == "receipt":
+                    receipts_by_cat[raw_cat] += float(val)
+                    exec_receipts[exec_cat] += float(val)
+                elif current_kind == "disbursement":
+                    disbursements_by_cat[raw_cat] += float(val)
+                    exec_disbursements[exec_cat] += abs(float(val))
+
+    # Top receipts and disbursements (Raw)
+    top_receipts_raw = sorted([{"category": k, "amount": v} for k, v in receipts_by_cat.items() if v > 5000], key=lambda x: x["amount"], reverse=True)
+    top_disbursements_raw = sorted([{"category": k, "amount": abs(v)} for k, v in disbursements_by_cat.items() if abs(v) > 5000], key=lambda x: x["amount"], reverse=True)
+
+    # Executive Plain English Lists
+    exec_receipts_list = sorted([{"category": k, "amount": v} for k, v in exec_receipts.items() if v > 1000], key=lambda x: x["amount"], reverse=True)
+    exec_disbursements_list = sorted([{"category": k, "amount": v} for k, v in exec_disbursements.items() if v > 1000], key=lambda x: x["amount"], reverse=True)
 
     # 3. Compute In-Flight Cash Difference (Bank Cash vs Skyline GL Cash)
     import sqlite3
@@ -155,8 +215,10 @@ def extract_cash_flash(verbose=True):
         "skyline_gl_cash": skyline_gl_cash,
         "in_flight_unposted": in_flight_unposted,
         "entity_bank_balances": sorted([{"entity": k, "balance": v} for k, v in closing_balances.items()], key=lambda x: x["balance"], reverse=True),
-        "top_receipts": top_receipts[:10],
-        "top_disbursements": top_disbursements[:10],
+        "executive_receipts": exec_receipts_list,
+        "executive_disbursements": exec_disbursements_list,
+        "raw_receipts": top_receipts_raw[:12],
+        "raw_disbursements": top_disbursements_raw[:12],
         "total_receipts_mtd": sum(receipts_by_cat.values()),
         "total_disbursements_mtd": sum(disbursements_by_cat.values())
     }

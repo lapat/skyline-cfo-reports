@@ -1,5 +1,5 @@
 {
-  "as_of_date": "2026-10-25 11:56:34",
+  "as_of_date": "2026-10-25 13:00:23",
   "active_tab": "OCT 2026",
   "total_bank_cash": 7532295.593000003,
   "skyline_gl_cash": -846532416.5799981,
@@ -134,7 +134,67 @@
       "balance": 157.32000000000002
     }
   ],
-  "top_receipts": [
+  "executive_receipts": [
+    {
+      "category": "\ud83d\udcb5 General Cash Receipts",
+      "amount": 2668554.93
+    },
+    {
+      "category": "\ud83c\udfdb\ufe0f Tax Certificate Redemptions",
+      "amount": 1095293.42
+    },
+    {
+      "category": "\ud83c\udfe0 Tenant Rental Income",
+      "amount": 824102.3300000001
+    },
+    {
+      "category": "\ud83c\udfe2 Intercompany Management Fees",
+      "amount": 332775.0
+    },
+    {
+      "category": "\u2696\ufe0f Legal & Indemnity Receipts",
+      "amount": 323737.12
+    },
+    {
+      "category": "\ud83d\udcc4 Note Receivable Collections",
+      "amount": 1914.02
+    }
+  ],
+  "executive_disbursements": [
+    {
+      "category": "\ud83d\udcb8 General Operating Disbursements",
+      "amount": 3473733.54
+    },
+    {
+      "category": "\ud83c\udfdb\ufe0f Tax Certificate Subtaxes Deployed",
+      "amount": 2502320.5399999996
+    },
+    {
+      "category": "\ud83d\udcbc Management & Operating Overhead",
+      "amount": 728081.81
+    },
+    {
+      "category": "\ud83d\udc65 Payroll & Employee Benefits",
+      "amount": 486962.25
+    },
+    {
+      "category": "\ud83c\udfe1 Mortgage Principal & Interest",
+      "amount": 177423.51
+    },
+    {
+      "category": "\ud83c\udfe6 Credit Facility Debt Paydowns",
+      "amount": 111738.63
+    },
+    {
+      "category": "\ud83d\udcb0 Owner & Trust Distributions",
+      "amount": 31259.26
+    },
+    {
+      "category": "\ud83d\udcd1 Real Estate & Sales Taxes",
+      "amount": 24204.870000000003
+    }
+  ],
+  "raw_receipts": [
     {
       "category": "C/R TRANSFER",
       "amount": 2178192.61
@@ -172,7 +232,7 @@
       "amount": 6221.23
     }
   ],
-  "top_disbursements": [
+  "raw_disbursements": [
     {
       "category": "C/D SUBTAXES",
       "amount": 2481045.36
@@ -212,8 +272,16 @@
     {
       "category": "C/D E CHECK FEES",
       "amount": 34343.55
+    },
+    {
+      "category": "C/D LOAN INTEREST",
+      "amount": 32779.11
+    },
+    {
+      "category": "C/D TRUST/SUB S DISTRIBUTION",
+      "amount": 31259.26
     }
   ],
   "total_receipts_mtd": 5246376.82,
-  "total_disbursements_mtd": 7535724.409999999
+  "total_disbursements_mtd": -7535724.409999999
 }

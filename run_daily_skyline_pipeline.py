@@ -66,6 +66,14 @@ def run_pipeline(push_to_cloud=True):
         except Exception as e:
             log(f"Cash Flash extraction note: {e}", "ℹ️")
 
+        # Step 1c-2: Compile Daily Executive Cash Statement PDF
+        try:
+            import build_daily_cash_statement_pdf
+            build_daily_cash_statement_pdf.generate_daily_cash_pdf()
+            log("Daily Executive Cash Statement PDF compiled (00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf)", "📄")
+        except Exception as e:
+            log(f"Daily cash PDF note: {e}", "ℹ️")
+
         # Step 1d: Automated Daily Audit & Risk Detection Pass
         t_audit = time.time()
         try:

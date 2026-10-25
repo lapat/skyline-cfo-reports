@@ -1164,6 +1164,12 @@ let selectedIdx = 0;
 let currentViewMode = 'summary';
 let currentVisualPage = 1;
 let currentPeriod = 'live';
+let cashFlashSubView = 'exec';
+
+function setCashFlashSubView(sub) {{
+    cashFlashSubView = sub;
+    renderCashFlashView();
+}}
 
 function changeReportingPeriod(p) {{
     currentPeriod = p;
@@ -1363,8 +1369,8 @@ function setViewMode(mode) {{
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Tax Buyers PDF';
     }} else if (mode === 'cash_flash') {{
         renderCashFlashView();
-        document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_ALL_COMPANIES_COMPLETE_FINANCIAL_STATEMENTS.pdf';
-        document.getElementById('downloadPdfBtn').innerText = '📄 Open Master Book PDF';
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Daily Cash Statement PDF';
     }} else if (mode === 'forecast') {{
         renderForecastView();
         document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_ENTERPRISE_PORTFOLIO_CONSOLIDATED_REPORT.pdf';
@@ -1748,8 +1754,13 @@ function renderCashFlashView() {{
     }}
 
     let recRows = "";
-    if (cf.top_receipts && cf.top_receipts.length > 0) {{
-        cf.top_receipts.forEach(r => {{
+    let disbRows = "";
+
+    const activeRecs = (cashFlashSubView === 'exec') ? (cf.executive_receipts || cf.top_receipts) : (cf.raw_receipts || cf.top_receipts);
+    const activeDisbs = (cashFlashSubView === 'exec') ? (cf.executive_disbursements || cf.top_disbursements) : (cf.raw_disbursements || cf.top_disbursements);
+
+    if (activeRecs && activeRecs.length > 0) {{
+        activeRecs.forEach(r => {{
             recRows += `
                 <tr>
                     <td><b>${{r.category}}</b></td>
@@ -1760,9 +1771,8 @@ function renderCashFlashView() {{
         }});
     }}
 
-    let disbRows = "";
-    if (cf.top_disbursements && cf.top_disbursements.length > 0) {{
-        cf.top_disbursements.forEach(d => {{
+    if (activeDisbs && activeDisbs.length > 0) {{
+        activeDisbs.forEach(d => {{
             disbRows += `
                 <tr>
                     <td><b>${{d.category}}</b></td>
@@ -1779,6 +1789,7 @@ function renderCashFlashView() {{
                 <span class="badge badge-green">The Third Source of Truth</span>
                 <span class="badge badge-blue">Updated Daily M-F</span>
                 <span class="badge badge-blue">Mary's Daily Cash Sheet (${{tabName}})</span>
+                <a class="btn btn-outline" style="padding:2px 8px; font-size:10px;" href="pdf_reports/00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf" target="_blank">📄 Open Daily Statement PDF</a>
             </div>
             <h2>Enterprise Cash Flash & In-Flight Clearing Pipeline</h2>
             <p>Captures what has cleared the banks but has <b>NOT YET POSTED</b> into the Skyline General Ledger. Mary's daily sheet tracks real-time bank deposits, clearing wires, and daily disbursements across all 35+ primary operating accounts.</p>
@@ -1829,17 +1840,23 @@ function renderCashFlashView() {{
                 </table>
             </div>
 
-            <!-- Table 2: Top Receipts & Disbursements -->
+            <!-- Table 2: Dual View Cash Movements -->
             <div class="table-wrapper">
-                <div class="table-header">
-                    <h3>⚡ In-Flight Cash Movement Categories (This Month)</h3>
-                    <span class="badge badge-blue">Mary's Row Mappings</span>
+                <div class="table-header" style="flex-wrap:wrap; gap:8px;">
+                    <div>
+                        <h3 style="margin:0;">${{cashFlashSubView === 'exec' ? '👔 Executive Cash Velocity' : '🔍 Forensic Bank Ledger'}}</h3>
+                        <div style="font-size:10px; color:var(--text-muted);">${{cashFlashSubView === 'exec' ? 'Plain English Real Estate Categories' : "Mary's Raw Exact Sheet Cell Labels"}}</div>
+                    </div>
+                    <div style="display:flex; gap:4px; background:var(--bg-secondary); padding:2px; border-radius:6px; border:1px solid var(--border);">
+                        <button onclick="setCashFlashSubView('exec')" class="btn ${{cashFlashSubView === 'exec' ? 'btn-primary' : 'btn-outline'}}" style="padding:2px 8px; font-size:10px;">👔 Plain English</button>
+                        <button onclick="setCashFlashSubView('raw')" class="btn ${{cashFlashSubView === 'raw' ? 'btn-primary' : 'btn-outline'}}" style="padding:2px 8px; font-size:10px;">🔍 Raw Labels</button>
+                    </div>
                 </div>
                 <div class="mobile-scroll-hint">← Swipe horizontally to see categories →</div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Transaction Category</th>
+                            <th>${{cashFlashSubView === 'exec' ? 'Executive Category' : 'Raw Cell Label'}}</th>
                             <th class="right">Volume Cleared</th>
                             <th>Flow</th>
                         </tr>
