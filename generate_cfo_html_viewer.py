@@ -306,6 +306,16 @@ ENTITIES = [
 def generate_html():
     entities_json = json.dumps(ENTITIES)
 
+    # Load live tax activity summary if available
+    tax_activity_json = "{}"
+    tax_summary_path = os.path.abspath("tax_activity_summary.json")
+    if os.path.exists(tax_summary_path):
+        try:
+            with open(tax_summary_path) as f:
+                tax_activity_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1008,6 +1018,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side</button>
             <button class="toggle-btn" id="btnModeSkylinePdf" onclick="setViewMode('skyline_pdf')">⚡ Skyline PDF</button>
             <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 RV KPIs</button>
+            <button class="toggle-btn" id="btnModeTaxActivity" onclick="setViewMode('tax_activity')">🏛️ Tax Flow</button>
         </div>
 
         <!-- Multi-Period Historical Comparison Selector -->
@@ -1075,6 +1086,9 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 
     <!-- View Mode 5: North Star RV Park KPI Executive Dashboard -->
     <div class="content-pane" id="northStarPane" style="display:none;"></div>
+
+    <!-- View Mode 6: Tax Certificate Redemptions & Purchases Dashboard -->
+    <div class="content-pane" id="taxActivityPane" style="display:none;"></div>
 </div>
 
 <div class="toast" id="toastMsg">Link copied to clipboard!</div>
@@ -1082,6 +1096,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 <script>
 const PASSCODE = "Jennings2026";
 const entities = {entities_json};
+const taxActivity = {tax_activity_json};
 let selectedIdx = 0;
 let currentViewMode = 'summary';
 let currentVisualPage = 1;
@@ -1222,6 +1237,7 @@ function selectEntity(idx) {{
     updateIframes();
     if (currentViewMode === 'visual') renderVisualProView();
     if (currentViewMode === 'northstar') renderNorthStarView();
+    if (currentViewMode === 'tax_activity') renderTaxActivityView();
 }}
 
 function setViewMode(mode) {{
@@ -1231,18 +1247,23 @@ function setViewMode(mode) {{
     document.getElementById('btnModeSplit').classList.toggle('active', mode === 'split');
     document.getElementById('btnModeSkylinePdf').classList.toggle('active', mode === 'skyline_pdf');
     document.getElementById('btnModeNorthStar').classList.toggle('active', mode === 'northstar');
+    if (document.getElementById('btnModeTaxActivity')) {{
+        document.getElementById('btnModeTaxActivity').classList.toggle('active', mode === 'tax_activity');
+    }}
 
     const summaryPane = document.getElementById('contentPane');
     const visualPane = document.getElementById('visualPane');
     const splitPane = document.getElementById('sideBySidePane');
     const fullPdfPane = document.getElementById('skylinePdfPane');
     const northStarPane = document.getElementById('northStarPane');
+    const taxActivityPane = document.getElementById('taxActivityPane');
 
     summaryPane.style.display = (mode === 'summary') ? 'block' : 'none';
     visualPane.style.display = (mode === 'visual') ? 'block' : 'none';
     splitPane.classList.toggle('active', mode === 'split');
     fullPdfPane.classList.toggle('active', mode === 'skyline_pdf');
     northStarPane.style.display = (mode === 'northstar') ? 'block' : 'none';
+    if (taxActivityPane) taxActivityPane.style.display = (mode === 'tax_activity') ? 'block' : 'none';
 
     updateIframes();
 
@@ -1261,6 +1282,10 @@ function setViewMode(mode) {{
         renderNorthStarView();
         document.getElementById('downloadPdfBtn').href = 'pdf_reports/NORTH_STAR_RV_PARKS_KPI_EXECUTIVE_REPORT.pdf';
         document.getElementById('downloadPdfBtn').innerText = '📄 Open North Star PDF';
+    }} else if (mode === 'tax_activity') {{
+        renderTaxActivityView();
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/TAX_BUYERS_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Tax Buyers PDF';
     }} else {{
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
@@ -1464,6 +1489,150 @@ function renderVisualProView() {{
         </div>
         ${{subnav}}
         ${{pageContent}}
+    `;
+}}
+
+function renderTaxActivityView() {{
+    const pane = document.getElementById('taxActivityPane');
+    if (!pane) return;
+
+    const mary = (taxActivity && taxActivity.mary_daily_cash) ? taxActivity.mary_daily_cash : {{}};
+    const octRed = (taxActivity && taxActivity.october_redemptions) ? taxActivity.october_redemptions : {{}};
+    const subs = (taxActivity && taxActivity.recent_subtax_purchases) ? taxActivity.recent_subtax_purchases : {{}};
+
+    const monIn = mary.monday_inflows || 342344.02;
+    const twIn = mary.this_week_inflows || 903197.20;
+    const twNet = mary.this_week_net || 778578.20;
+    const octTotal = octRed.total_collected || 1824472.25;
+    const octProfit = octRed.net_profit_earned || 1055292.01;
+    const subDeployed = subs.total_deployed || 5328924.71;
+
+    // Daily rows from Mary's sheet
+    let dailyRows = "";
+    if (mary.daily_breakdown && mary.daily_breakdown.length > 0) {{
+        mary.daily_breakdown.slice(-7).reverse().forEach(d => {{
+            dailyRows += `
+                <tr>
+                    <td><b>${{d.date}}</b></td>
+                    <td class="right" style="color:var(--success); font-weight:700;">$${{Number(d.inflows).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right">$${{Number(d.cb_in || 0).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right">$${{Number(d.if_in || 0).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right" style="color:${{d.outflows < 0 ? 'var(--warn)' : 'var(--text-muted)'}};">$${{Number(d.outflows).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right" style="font-weight:700; color:${{d.net >= 0 ? 'var(--success)' : 'var(--warn)'}};">$${{Number(d.net).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                </tr>
+            `;
+        }});
+    }}
+
+    // Top redemptions from Jim's database
+    let topRedRows = "";
+    if (octRed.top_redemptions && octRed.top_redemptions.length > 0) {{
+        octRed.top_redemptions.slice(0, 8).forEach(r => {{
+            topRedRows += `
+                <tr>
+                    <td><b>${{r.county_name}}</b></td>
+                    <td><code style="font-size:10.5px;">${{r.pin}}</code></td>
+                    <td class="right">$${{Number(r.principal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right" style="color:var(--success); font-weight:700;">$${{Number(r.payoff).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td class="right" style="color:var(--accent); font-weight:700;">+$${{Number(r.profit).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    <td><span class="badge badge-blue" style="font-size:9px;">${{r.owner.replace('INTERSTATE FUNDING CORP.', 'IFC').replace('CENTRAL BUYER CORP.', 'CBC')}}</span></td>
+                </tr>
+            `;
+        }});
+    }}
+
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span class="badge badge-green">Dual Data Stream</span>
+                <span class="badge badge-blue">S-Drive Read-Only</span>
+                <span class="badge badge-blue">Mary's Sheet + Jim DiGiacomo Access DB</span>
+            </div>
+            <h2>Tax Certificate Lien Portfolio — Live Cash Flow & Redemptions</h2>
+            <p>Real-time visibility into certificate payoffs, weekly bank clearing, and capital deployed across Interstate Funding (150), Central Buyer (160), Diamond Quest (180), and Union Tax (190).</p>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-card-label">Monday Redemptions (10/19)</div>
+                <div class="stat-card-val" style="color:var(--success);">$${{Number(monIn).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Cleared Monday: Central Buyer & IFC</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Total Redemptions This Week</div>
+                <div class="stat-card-val" style="color:var(--success);">$${{Number(twIn).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Mon ($342k), Thu ($129k), Fri ($432k)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Net Cash Generated This Week</div>
+                <div class="stat-card-val" style="color:var(--accent); font-weight:800;">+$${{Number(twNet).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Inflows minus $124.6k distributions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">October MTD Redemptions</div>
+                <div class="stat-card-val" style="color:var(--success);">$${{Number(octTotal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">121 Certificates (+$${{Number(octProfit).toLocaleString('en-US', {{maximumFractionDigits:0}})}} Net Gain)</div>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:20px;">
+            <!-- Mary's Daily Reconciled Cash -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>🏦 Daily Bank Cash Activity (Mary's Daily Sheet)</h3>
+                    <span class="badge badge-green">Reconciled to Bank</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th class="right">Total Inflows</th>
+                            <th class="right">Central Buyer</th>
+                            <th class="right">Interstate</th>
+                            <th class="right">Outflows</th>
+                            <th class="right">Net Daily Cash</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{dailyRows}}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Jim DiGiacomo's Certificate Payoffs -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>🏛️ Top October Certificate Payoffs (Jim DiGiacomo DB)</h3>
+                    <span class="badge badge-blue">Collar Counties</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>County</th>
+                            <th>PIN</th>
+                            <th class="right">Cert Amt</th>
+                            <th class="right">Payoff</th>
+                            <th class="right">Profit / Interest</th>
+                            <th>Entity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{topRedRows}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Subtax Purchases Section -->
+        <div class="table-wrapper" style="margin-top:20px;">
+            <div class="table-header">
+                <h3>⚖️ Capital Deployed in Active Fall Tax Sales (Subtaxes & Purchases)</h3>
+                <span class="badge badge-green">$${{Number(subDeployed).toLocaleString('en-US', {{maximumFractionDigits:0}})}} Deployed</span>
+            </div>
+            <p style="padding:12px 16px; font-size:12.5px; color:var(--text-muted); margin:0;">
+                During the Fall 2026 auction season, <b>$5,328,925</b> in subtax payments were deployed across <b>765 parcels</b> in Will, DuPage, Boone, and Winnebago counties to protect existing certificate liens and capture 12% statutory penalty interest.
+            </p>
+        </div>
     `;
 }}
 
