@@ -1695,15 +1695,74 @@ function renderTaxActivityView() {{
                 <div class="stat-card-sub">Mon ($342k), Thu ($129k), Fri ($432k)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-card-label">Net Cash Generated This Week</div>
-                <div class="stat-card-val" style="color:var(--accent); font-weight:800;">+$${{Number(twNet).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
-                <div class="stat-card-sub">Inflows minus $124.6k distributions</div>
+                <div class="stat-card-label">Jennings "Own Cash" in Tax Biz</div>
+                <div class="stat-card-val" style="color:var(--success); font-weight:900;">+$7.38M</div>
+                <div class="stat-card-sub">Beyond the 10% bank minimum ($10.4M total equity)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-card-label">October MTD Redemptions</div>
-                <div class="stat-card-val" style="color:var(--success);">$${{Number(octTotal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
-                <div class="stat-card-sub">121 Certificates (+$${{Number(octProfit).toLocaleString('en-US', {{maximumFractionDigits:0}})}} Net Gain)</div>
+                <div class="stat-card-label">Excess Collateral Available</div>
+                <div class="stat-card-val" style="color:var(--accent); font-weight:800;">$11.51M</div>
+                <div class="stat-card-sub">Available loan borrowing headroom (Leslie's report)</div>
             </div>
+        </div>
+
+        <!-- Capital Stack & "Own Cash" in Tax Business -->
+        <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(59,130,246,0.3); background:rgba(30,58,138,0.08);">
+            <div class="table-header" style="background:rgba(59,130,246,0.15);">
+                <div>
+                    <h3 style="margin:0; color:var(--text-primary);">💎 Jennings Capital Stack & "Own Cash" in Tax Business</h3>
+                    <div style="font-size:11px; color:var(--text-muted);">Real-world equity deployed beyond the 10% bank covenant minimum requirement</div>
+                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">+$7,375,867 Own Cash Beyond Bank 10%</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Capital & Debt Component</th>
+                        <th class="right">Dollar Amount</th>
+                        <th class="right">% of Tax Business</th>
+                        <th>Executive Significance for Jay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Total Tax Business Assets & Active Liens</b></td>
+                        <td class="right" style="font-weight:700;">$40,622,612</td>
+                        <td class="right">100.0%</td>
+                        <td>Total portfolio book value across Interstate, Central Buyer, Diamond Quest, Union Tax</td>
+                    </tr>
+                    <tr>
+                        <td><b>Less: Bank Facility Borrowings (Old Natl, Byline, 1st Bank)</b></td>
+                        <td class="right" style="color:var(--warn); font-weight:700;">($30,224,314)</td>
+                        <td class="right">74.4%</td>
+                        <td>Total debt drawn across the three syndicated bank credit facilities ($45M total facility)</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.03);">
+                        <td><b>TOTAL JENNINGS EQUITY CAPITAL IN TAX BUSINESS</b></td>
+                        <td class="right" style="color:var(--accent); font-weight:800; font-size:13px;">$10,398,298</td>
+                        <td class="right" style="font-weight:700;">25.6%</td>
+                        <td><b>Total Jennings capital & retained earnings actively deployed in tax portfolios</b></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Less: Bank Required 10% Minimum Equity Margin</td>
+                        <td class="right" style="color:var(--text-muted);">($3,022,431)</td>
+                        <td class="right">7.4%</td>
+                        <td>Minimum 10% equity cushion mandated by lenders under Section 8.4D borrowing base</td>
+                    </tr>
+                    <tr style="background:rgba(16,185,129,0.12); border-top:1px solid var(--success); border-bottom:1px solid var(--success);">
+                        <td><b style="color:var(--success); font-size:13px;">💎 JENNINGS "OWN CASH" INVESTED BEYOND BANK 10%</b></td>
+                        <td class="right" style="color:var(--success); font-weight:900; font-size:15px;">+$7,375,867</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">18.2%</td>
+                        <td><b style="color:var(--success);">Extra unencumbered Jennings cash & capital working in the tax business!</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>📈 Total Excess Collateral Borrowing Headroom Available</b></td>
+                        <td class="right" style="color:var(--accent); font-weight:800;">$11,510,385</td>
+                        <td class="right">25.6%</td>
+                        <td>Unpledged tax certificate collateral available to draw fresh liquidity on demand (Leslie's report)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="tax-grid-two-col">

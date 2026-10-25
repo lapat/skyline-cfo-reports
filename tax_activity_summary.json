@@ -1,5 +1,5 @@
 {
-  "as_of_date": "2026-10-25 14:09:03",
+  "as_of_date": "2026-10-25 16:13:20",
   "mary_daily_cash": {
     "this_week_inflows": 903197.2,
     "this_week_outflows": -124619.0,
@@ -391,5 +391,15 @@
         "check": "10751"
       }
     ]
+  },
+  "capital_stack": {
+    "total_tax_assets": 40622612.0,
+    "bank_debt_outstanding": 30224314.0,
+    "jennings_total_equity": 10398298.0,
+    "bank_required_equity_10pct": 3022431.4,
+    "jennings_own_cash_beyond_10pct": 7375866.6,
+    "excess_collateral_headroom": 11510385.0,
+    "tangible_net_worth": 9938298.0,
+    "total_credit_facilities": 45000000.0
   }
 }

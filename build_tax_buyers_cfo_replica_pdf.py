@@ -261,6 +261,31 @@ def build_pdf():
     ]))
     el.append(t_cov)
 
+    el.append(Spacer(1, 14))
+    el.append(Paragraph("JENNINGS CAPITAL STACK & \"OWN CASH\" IN TAX BUSINESS (BEYOND 10% BANK MINIMUM)", st["title"]))
+
+    cap_data = [
+        [Paragraph("<b>Capital & Debt Component</b>", st["bold"]), Paragraph("Dollar Amount", st["col_hdr"]), Paragraph("% of Assets", st["col_hdr"]), Paragraph("Status & Note", st["col_hdr"])],
+        [Paragraph("Total Tax Business Assets & Active Liens", st["bold"]), Paragraph("$40,622,612", st["right_bold"]), Paragraph("100.0%", st["right"]), Paragraph("Combined book value across 4 entities", st["reg"])],
+        [Paragraph("Less: Bank Lines of Credit (Old Natl, Byline, 1st Bank)", st["reg"]), Paragraph("($30,224,314)", st["right"]), Paragraph("74.4%", st["right"]), Paragraph("Active syndicated debt ($45M capacity)", st["reg"])],
+        [Paragraph("<b>TOTAL JENNINGS EQUITY CAPITAL IN TAX BUSINESS</b>", st["bold"]), Paragraph("<b>$10,398,298</b>", st["right_bold"]), Paragraph("<b>25.6%</b>", st["right_bold"]), Paragraph("<b>Total Jennings invested capital</b>", st["bold"])],
+        [Paragraph("&nbsp;&nbsp;Less: Bank Required 10% Minimum Equity Margin", st["reg"]), Paragraph("($3,022,431)", st["right"]), Paragraph("7.4%", st["right"]), Paragraph("Minimum mandated by lenders under Sec 8.4D", st["reg"])],
+        [Paragraph("<b><font color=\"#059669\">💎 JENNINGS \"OWN CASH\" INVESTED BEYOND BANK 10%</font></b>", st["bold"]), Paragraph("<b><font color=\"#059669\">+$7,375,867</font></b>", st["right_bold"]), Paragraph("<b><font color=\"#059669\">18.2%</font></b>", st["right_bold"]), Paragraph("<b><font color=\"#059669\">Extra unencumbered Jennings capital working!</font></b>", st["bold"])],
+        [Paragraph("<b>Total Excess Collateral Borrowing Headroom</b>", st["bold"]), Paragraph("<b>$11,510,385</b>", st["right_bold"]), Paragraph("25.6%", st["right"]), Paragraph("Available loan collateral headroom (Leslie's report)", st["reg"])],
+    ]
+
+    t_cap = Table(cap_data, colWidths=[280, 115, 90, 230])
+    t_cap.setStyle(TableStyle([
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
+        ('LINEBELOW', (0, 3), (-1, 3), 0.5, colors.black),
+        ('LINEBELOW', (0, 5), (-1, 5), 1.5, colors.HexColor('#059669')),
+        ('BACKGROUND', (0, 5), (-1, 5), colors.HexColor('#ECFDF5')),
+        ('LINEBELOW', (0, 6), (-1, 6), 1, colors.black),
+    ]))
+    el.append(t_cap)
+
     doc.build(el)
     print(f"✅ Generated Complete Tax Buyers CFO Replica PDF: {OUTPUT_PDF}")
     return "Tax Buyers Consolidating Replica Complete"

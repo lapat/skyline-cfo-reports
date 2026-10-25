@@ -246,6 +246,16 @@ def extract_tax_activity(verbose=True):
             "count": len(recent_subtaxes),
             "total_deployed": total_subtax_outflow,
             "sample_payments": recent_subtaxes[:8]
+        },
+        "capital_stack": {
+            "total_tax_assets": 40622612.00,
+            "bank_debt_outstanding": 30224314.00,
+            "jennings_total_equity": 10398298.00,
+            "bank_required_equity_10pct": 3022431.40,
+            "jennings_own_cash_beyond_10pct": 7375866.60,
+            "excess_collateral_headroom": 11510385.00,
+            "tangible_net_worth": 9938298.00,
+            "total_credit_facilities": 45000000.00
         }
     }
 
