@@ -819,6 +819,14 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
     border: 1px solid var(--border);
 }}
 
+/* Tax Activity Two-Column Grid */
+.tax-grid-two-col {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}}
+
 /* Toast notification */
 .toast {{
     position: fixed;
@@ -840,6 +848,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
     body {{ flex-direction: column; height: auto; overflow-x: hidden; overflow-y: auto; }}
     .sidebar {{ width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }}
     .sidebar-header {{ padding: 12px 14px; }}
+    .tax-grid-two-col {{ grid-template-columns: 1fr; gap: 14px; }}
     .entity-list {{
         display: flex;
         flex-direction: row;
@@ -1552,7 +1561,7 @@ function renderTaxActivityView() {{
             <p>Real-time visibility into certificate payoffs, weekly bank clearing, and capital deployed across Interstate Funding (150), Central Buyer (160), Diamond Quest (180), and Union Tax (190).</p>
         </div>
 
-        <div class="stat-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Monday Redemptions (10/19)</div>
                 <div class="stat-card-val" style="color:var(--success);">$${{Number(monIn).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -1575,13 +1584,14 @@ function renderTaxActivityView() {{
             </div>
         </div>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:20px;">
+        <div class="tax-grid-two-col">
             <!-- Mary's Daily Reconciled Cash -->
             <div class="table-wrapper">
                 <div class="table-header">
                     <h3>🏦 Daily Bank Cash Activity (Mary's Daily Sheet)</h3>
                     <span class="badge badge-green">Reconciled to Bank</span>
                 </div>
+                <div class="mobile-scroll-hint">← Swipe horizontally to see all bank accounts →</div>
                 <table>
                     <thead>
                         <tr>
@@ -1605,6 +1615,7 @@ function renderTaxActivityView() {{
                     <h3>🏛️ Top October Certificate Payoffs (Jim DiGiacomo DB)</h3>
                     <span class="badge badge-blue">Collar Counties</span>
                 </div>
+                <div class="mobile-scroll-hint">← Swipe horizontally to see parcel details →</div>
                 <table>
                     <thead>
                         <tr>
