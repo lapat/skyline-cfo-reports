@@ -47,88 +47,99 @@ def run_pipeline(push_to_cloud=True):
         else:
             log(f"Warning during sync: {res_sync.stderr[:200]}", "⚠️")
 
-        # Step 1b: Read-only Tax Certificate Ingestion from Jim DiGiacomo's S-Drive Database
-        t_tax = time.time()
+        # Sync read-only local copies from network shares
         try:
             import extract_live_tax_activity
             extract_live_tax_activity.sync_local_mdb_copy(verbose=False)
-            extract_live_tax_activity.extract_tax_activity(verbose=False)
-            log(f"Tax Certificate redemptions & purchases extracted in {time.time() - t_tax:.2f}s", "🏛️")
-        except Exception as e:
-            log(f"Tax certificate extraction note: {e}", "ℹ️")
-
-        # Step 1c: Enterprise Cash Flash Extraction from Mary's Daily Cash Sheet
-        t_flash = time.time()
-        try:
-            import extract_cash_flash
-            extract_cash_flash.extract_cash_flash(verbose=False)
-            log(f"Enterprise Cash Flash extracted from Mary's sheet in {time.time() - t_flash:.2f}s", "💸")
-        except Exception as e:
-            log(f"Cash Flash extraction note: {e}", "ℹ️")
-
-        # Step 1c-2: Compile Daily Executive Cash Statement PDF
-        try:
-            import build_daily_cash_statement_pdf
-            build_daily_cash_statement_pdf.generate_daily_cash_pdf()
-            log("Daily Executive Cash Statement PDF compiled (00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf)", "📄")
-        except Exception as e:
-            log(f"Daily cash PDF note: {e}", "ℹ️")
-
-        # Step 1d: Automated Daily Audit & Risk Detection Pass
-        t_audit = time.time()
-        try:
-            import audit_engine
-            audit_engine.run_daily_audit(verbose=False)
-            log(f"Headless audit completed across 142k GL records in {time.time() - t_audit:.2f}s", "🛡️")
-        except Exception as e:
-            log(f"Audit engine note: {e}", "ℹ️")
-
-        # Step 1e: Algorithmic 90-Day Predictive Cash Flow & Seasonal Modeling
-        t_fc = time.time()
-        try:
-            import predictive_cash_flow
-            predictive_cash_flow.generate_cash_forecast()
-            log(f"90-Day Cash Forecast & Headroom modeled in {time.time() - t_fc:.2f}s", "📈")
-        except Exception as e:
-            log(f"Forecast engine note: {e}", "ℹ️")
-
-        # Step 1f: CPA Tax Schedule & Partnership K-1 Roll-Up Engine
-        t_cpa = time.time()
-        try:
-            import build_cpa_tax_export
-            build_cpa_tax_export.build_cpa_export()
-            log(f"CPA & IRS Tax K-1 schedules compiled in {time.time() - t_cpa:.2f}s", "⚖️")
-        except Exception as e:
-            log(f"CPA export note: {e}", "ℹ️")
-
-        # Step 1g: 3-Way Bank Float & Liquidity Bridge
-        try:
-            import extract_liquidity_float
-            extract_liquidity_float.generate_liquidity_reconciliation(verbose=False)
-            log("3-Way Bank Float & Liquidity Bridge modeled (liquidity_reconciliation.json)", "💧")
-        except Exception as e:
-            log(f"Liquidity bridge note: {e}", "ℹ️")
-
-        # Step 1h: RV Resort Capex & Expansion Project Tracker
-        try:
-            import extract_capex_projects
-            extract_capex_projects.generate_capex_summary(verbose=False)
-            log("RV Resort Capex & Expansion Tracker compiled (capex_summary.json)", "🏗️")
-        except Exception as e:
-            log(f"Capex tracker note: {e}", "ℹ️")
-
-        # Step 1i: Park City Modular Home Installment Notes Schedule
-        try:
-            import extract_park_city_notes
-            extract_park_city_notes.generate_park_city_notes_summary(verbose=False)
-            log("Park City Modular Home Installment Notes summarized (park_city_notes_summary.json)", "📄")
-        except Exception as e:
-            log(f"Notes schedule note: {e}", "ℹ️")
+        except Exception:
+            pass
     else:
         log("🟡 MAPPED DRIVE OFFLINE: Unable to automount Skyline share (off-network or VPN disconnected).", "⚠️")
         log("Proceeding with latest verified production database snapshot (skyline_live_production.sqlite)...", "💾")
 
-    # Step 2: Compile All 12 Master CFO Replica Packages in Parallel
+    # =========================================================================
+    # STEP 2: SYSTEMATIC EXTRACTION ACROSS THE THREE SOURCES OF TRUTH
+    # =========================================================================
+    # Step 2a: Tax Certificate Database Extraction (Jim DiGiacomo's Access DB)
+    t_tax = time.time()
+    try:
+        import extract_live_tax_activity
+        extract_live_tax_activity.extract_tax_activity(verbose=False)
+        log(f"Tax Certificate redemptions & purchases extracted in {time.time() - t_tax:.2f}s", "🏛️")
+    except Exception as e:
+        log(f"Tax certificate extraction note: {e}", "ℹ️")
+
+    # Step 2b: Enterprise Cash Flash Extraction from Mary's Daily Cash Sheet
+    t_flash = time.time()
+    try:
+        import extract_cash_flash
+        extract_cash_flash.extract_cash_flash(verbose=False)
+        log(f"Enterprise Cash Flash extracted from Mary's sheet in {time.time() - t_flash:.2f}s", "💸")
+    except Exception as e:
+        log(f"Cash Flash extraction note: {e}", "ℹ️")
+
+    # Step 2c: Compile Daily Executive Cash Statement PDF
+    try:
+        import build_daily_cash_statement_pdf
+        build_daily_cash_statement_pdf.generate_daily_cash_pdf()
+        log("Daily Executive Cash Statement PDF compiled (00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf)", "📄")
+    except Exception as e:
+        log(f"Daily cash PDF note: {e}", "ℹ️")
+
+    # Step 2d: Automated Daily Audit & Risk Detection Pass
+    t_audit = time.time()
+    try:
+        import audit_engine
+        audit_engine.run_daily_audit(verbose=False)
+        log(f"Headless audit completed across 142k GL records in {time.time() - t_audit:.2f}s", "🛡️")
+    except Exception as e:
+        log(f"Audit engine note: {e}", "ℹ️")
+
+    # Step 2e: Algorithmic 90-Day Predictive Cash Flow & Seasonal Modeling
+    t_fc = time.time()
+    try:
+        import predictive_cash_flow
+        predictive_cash_flow.generate_cash_forecast()
+        log(f"90-Day Cash Forecast & Headroom modeled in {time.time() - t_fc:.2f}s", "📈")
+    except Exception as e:
+        log(f"Forecast engine note: {e}", "ℹ️")
+
+    # Step 2f: CPA Tax Schedule & Partnership K-1 Roll-Up Engine
+    t_cpa = time.time()
+    try:
+        import build_cpa_tax_export
+        build_cpa_tax_export.build_cpa_export()
+        log(f"CPA & IRS Tax K-1 schedules compiled in {time.time() - t_cpa:.2f}s", "⚖️")
+    except Exception as e:
+        log(f"CPA export note: {e}", "ℹ️")
+
+    # Step 2g: 3-Way Bank Float & Liquidity Bridge
+    try:
+        import extract_liquidity_float
+        extract_liquidity_float.generate_liquidity_reconciliation(verbose=False)
+        log("3-Way Bank Float & Liquidity Bridge modeled (liquidity_reconciliation.json)", "💧")
+    except Exception as e:
+        log(f"Liquidity bridge note: {e}", "ℹ️")
+
+    # Step 2h: RV Resort Capex & Expansion Project Tracker
+    try:
+        import extract_capex_projects
+        extract_capex_projects.generate_capex_summary(verbose=False)
+        log("RV Resort Capex & Expansion Tracker compiled (capex_summary.json)", "🏗️")
+    except Exception as e:
+        log(f"Capex tracker note: {e}", "ℹ️")
+
+    # Step 2i: Park City Modular Home Installment Notes Schedule
+    try:
+        import extract_park_city_notes
+        extract_park_city_notes.generate_park_city_notes_summary(verbose=False)
+        log("Park City Modular Home Installment Notes summarized (park_city_notes_summary.json)", "📄")
+    except Exception as e:
+        log(f"Notes schedule note: {e}", "ℹ️")
+
+    # =========================================================================
+    # STEP 3: MASTER REPORT COMPILATION & PDF GENERATION
+    # =========================================================================
     log("Compiling all 12 Master CFO PDF Replica Packages across CPU cores...", "⚙️")
     t0 = time.time()
     res_cfo = subprocess.run([sys.executable, "build_all_cfo_replicas_parallel.py"], capture_output=True, text=True)
