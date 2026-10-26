@@ -68,19 +68,44 @@ The 3-Step Execution Workflow:
 
 ## 5. Automated Daily & Weekly Reporting Pipeline
 * **Master Automated Runner:** `run_daily_skyline_pipeline.py`
-  * Executes the entire end-to-end extraction, compilation, and cloud deployment in **2.56 seconds total**.
-  * Workflow:
-    1. Checks `/Volumes/skyline$/Skyline` and executes `fast_skyline_sync.py` (16 worker threads, incremental mtime delta check).
-    2. Ingests fresh GL transactions into `skyline_live_production.sqlite`.
-    3. Builds all 12 Master CFO Replica PDFs in parallel across CPU cores (`build_all_cfo_replicas_parallel.py`, 0.35s).
-    4. Builds the 5-page North Star RV Park KPI & Valuation Master Suite (`build_north_star_rv_kpi_reports.py`, 0.20s).
-    5. Recompiles the Visual Pro interactive mobile portal (`generate_cfo_html_viewer.py` -> `index.html`, 0.03s).
-    6. Automatically commits and deploys to GitHub Pages cloud edge (`lapat/skyline-cfo-reports`, 1.74s).
-    7. Synchronizes updated reports and databases to Claude's directory at `/vibe/skyline`.
+  * Executes the entire end-to-end extraction, compilation, and cloud deployment in **~76–105 seconds over VPN** (and ~40s in offline snapshot mode).
+  * Automated Stages:
+    1. Checks network connectivity and automounts S: drive (`smb://10.221.20.235/jennings-data$`) and Skyline (`smb://172.17.21.167/skyline$`).
+    2. Runs `fast_skyline_sync.py` across 16 parallel threads to sync modified GL files.
+    3. Ingests fresh GL transactions into `skyline_live_production.sqlite`.
+    4. Ingests Jim DiGiacomo's live tax certificate database (`CollarCountiesCertificates_be.mdb`) via `extract_live_tax_activity.py`.
+    5. Ingests Mary's Daily Cash Sheet (`2026 DAILY $.xlsx`) via horizontal-scan parser `extract_cash_flash.py`.
+    6. Generates `00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf` (multi-column consolidating bank cash matrix).
+    7. Runs 50ms headless audit pass across 142k records via `audit_engine.py`.
+    8. Models 90-day seasonal cash forecast and borrowing headroom via `predictive_cash_flow.py`.
+    9. Compiles CPA tax export via `build_cpa_tax_export.py`.
+    10. Reconciles 3-way bank float and unrestricted liquidity bridge via `extract_liquidity_float.py`.
+    11. Tracks RV resort capital expansions (The Bluffs, Madison, Bay Bayou) via `extract_capex_projects.py`.
+    12. Summarizes Park City modular home installment loan book via `extract_park_city_notes.py`.
+    13. Builds all 12 Master CFO Replica PDFs in parallel across CPU cores (`build_all_cfo_replicas_parallel.py`, 0.61s).
+    14. Builds the 5-page North Star RV Park KPI Master Suite (`build_north_star_rv_kpi_reports.py`, 0.20s).
+    15. Recompiles the Visual Pro interactive mobile portal (`generate_cfo_html_viewer.py` -> `index.html`, 0.04s).
+    16. Automatically commits and deploys to GitHub Pages cloud edge (`lapat/skyline-cfo-reports`, 1.58s).
+    17. Synchronizes updated reports and databases to Claude's directory at `/vibe/skyline`.
+    18. Delivers executive briefing email with attachments to `louislapat@gmail.com` via official Gmail API.
+* **Workday Automation Schedule (Monday–Friday at 6:00 AM via macOS `launchd`):**
+  * Daemon Plist: `~/Library/LaunchAgents/com.jennings.skyline.pipeline.plist` (Configured for Weekdays 1-5 at 06:00).
+  * VPN & 2FA Architecture: When Check Point VPN is connected, the pipeline mounts shares and pulls fresh server deltas in ~76s. If off-VPN, an 8s timeout safely falls back to the verified local NVMe snapshot, ensuring the website is 100% online 24/7/365 without hanging.
 * **Live Production Cloud Portal (24/7):**
   * URL: `https://lapat.github.io/skyline-cfo-reports/?passcode=Jennings2026`
-  * Passcode: `Jennings2026`
-  * 5 Interactive View Modes: `📊 Summary`, `✨ Visual Pro`, `📑 Side-by-Side Dual View`, `⚡ Skyline PDF Only`, and `🌲 RV KPIs`.
+  * Passcode: `Jennings2026` (Persistent 30-day mobile authentication).
+  * 10 Interactive View Modes:
+    1. `📊 Summary`: Main entity statements with authentic line items, plus Park City Modular Home Installment Notes Schedule (64 active loans, $1.84M book, $28.5k/mo).
+    2. `✨ Visual Pro`: 4-page interactive upgrade (Capital Stacks, Margin Waterfalls, 12-Month Florida Seasonality Waves, OPEX meters).
+    3. `📑 Side-by-Side Dual View`: Split-screen comparison with Jim's original PDF on left and live Skyline replica on right.
+    4. `⚡ Skyline PDF Only`: Full-viewport dedicated reader of the live Skyline generated replica.
+    5. `🌲 RV KPIs`: North Star Brokerage & Advisory 5-schedule benchmark and valuation matrix across all 4 Jennings RV resorts (933 developed sites).
+    6. `🏛️ Tax Flow`: Dual-source tax redemptions ($1.82M MTD), +$7.38M Jennings "Own Cash" schedule, $11.51M collateral headroom, and Next-Auction Bidding Capacity ($6.25M safe limit).
+    7. `💸 Cash Flash`: Live bank cash vs Skyline unposted pipeline, with 1-click `[ 👔 Plain English ]` vs `[ 🔍 Raw Labels ]` toggle.
+    8. `💧 Liquidity`: 3-way bank float waterfall bridge reconciling Skyline GL cash ($28.4M) and Mary's bank cash ($7.53M) to reveal $11.65M in True Unrestricted Free Cash and $23.16M in Strategic Liquidity.
+    9. `🏗️ Capex`: RV Resort Capital Projects & Expansion Tracker (The Bluffs 50-site expansion, Madison clubhouse modernization, and Bay Bayou Phase II 11.5% yield).
+    10. `📈 Forecast`: Algorithmic 90-day predictive seasonal cash flow and $12.8M tax credit facility headroom.
+  * Executive Actions: `🔗 Share` pre-authenticated URL, `🌓` Dark/Light Theme toggle, `📩 Email Book` 1-click Gmail dispatch of 78-page master PDF, and dynamic `📄 Open PDF` download button.
 * **Data Provenance & Integrity Standard:**
   * All financial revenues, expenses, assets, and liabilities are 100% computed from the Skyline GL (styled in standard/green).
   * Operational metrics not present in GL (Physical Occupancy %, ADR, Site-Nights) are extracted from Jim's packages and badged in purple (`Jim 📌`) for complete transparency.
