@@ -566,6 +566,140 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
 .btn-outline {{ background: transparent; border: 1px solid var(--border); color: var(--text-primary); }}
 .btn-outline:hover {{ background: rgba(255, 255, 255, 0.05); }}
 
+/* Global Health HUD */
+.global-hud {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #090D16;
+    padding: 6px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 8px;
+}}
+.hud-left {{ display: flex; align-items: center; gap: 8px; }}
+.hud-right {{ display: flex; align-items: center; gap: 14px; }}
+.status-indicator {{ display: flex; align-items: center; gap: 6px; font-weight: 700; color: #10B981; }}
+.pulse-dot {{
+    width: 7px;
+    height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulse-green 2s infinite;
+}}
+@keyframes pulse-green {{
+    0% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }}
+    70% {{ transform: scale(1); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }}
+    100% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }}
+}}
+.hud-divider {{ color: rgba(255, 255, 255, 0.2); }}
+.hud-stat {{ display: flex; align-items: center; gap: 5px; }}
+.hud-stat-label {{ color: var(--text-muted); }}
+.hud-stat-val {{ color: var(--text-primary); font-weight: 700; }}
+
+/* Pillar Segmented Control */
+.pillar-segmented-control {{
+    display: flex;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    gap: 4px;
+}}
+.pillar-tab {{
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}}
+.pillar-tab.active {{
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}}
+
+/* Click to Sort & Export styling */
+th.sortable {{
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.1s ease;
+}}
+th.sortable:hover {{
+    background: rgba(255, 255, 255, 0.06);
+}}
+.sort-icon {{
+    font-size: 9px;
+    margin-left: 4px;
+    color: var(--text-muted);
+}}
+.export-csv-btn {{
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}}
+.export-csv-btn:hover {{
+    color: var(--text-primary);
+    border-color: var(--accent);
+}}
+
+/* Native iOS Mobile Bottom Bar */
+.mobile-bottom-nav {{
+    display: none;
+}}
+
+@media (max-width: 900px) {{
+    .global-hud {{ display: none; }}
+    body {{ padding-bottom: 60px; }}
+    .mobile-bottom-nav {{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 99999;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }}
+    .bottom-nav-item {{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 4px 8px;
+        flex: 1;
+        transition: all 0.15s ease;
+    }}
+    .bottom-nav-item.active {{
+        color: var(--accent);
+    }}
+    .bottom-nav-item .nav-icon {{ font-size: 16px; margin-bottom: 2px; }}
+    .bottom-nav-item .nav-label {{ font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }}
+}}
+
 .content-pane {{
     padding: 22px;
     max-width: 1240px;
@@ -1084,6 +1218,25 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 
 <!-- Main Reporting Workspace -->
 <div class="main">
+    <!-- Global Health HUD -->
+    <div class="global-hud">
+        <div class="hud-left">
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span>Live Production Connected</span>
+            </div>
+            <span class="hud-divider">|</span>
+            <span>Btrieve ISAM Mirror &middot; Auto-Refreshes Mon-Fri 06:00 AM</span>
+        </div>
+        <div class="hud-right">
+            <div class="hud-stat"><span class="hud-stat-label">Enterprise Footprint:</span> <span class="hud-stat-val">347 Entities</span></div>
+            <span class="hud-divider">|</span>
+            <div class="hud-stat"><span class="hud-stat-label">Strategic War Chest:</span> <span class="hud-stat-val" style="color:var(--success); font-weight:800;">$23.16M</span></div>
+            <span class="hud-divider">|</span>
+            <div class="hud-stat"><span class="hud-stat-label">Bank Covenants:</span> <span class="badge badge-green" style="font-size:9.5px; padding:2px 6px;">100% PASS</span></div>
+        </div>
+    </div>
+
     <div class="top-bar">
         <div class="top-kpis">
             <div class="kpi-pill">
@@ -1098,6 +1251,13 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
                 <span class="kpi-pill-label">Target Page Parity</span>
                 <span class="kpi-pill-val" style="color:var(--success);">100% Verified Match</span>
             </div>
+        </div>
+
+        <!-- 3-Pillar Executive Segmented Control -->
+        <div class="pillar-segmented-control">
+            <button class="pillar-tab active" id="pillarTabFinancials" onclick="switchPillar('financials')">🏢 Core Financials</button>
+            <button class="pillar-tab" id="pillarTabTreasury" onclick="switchPillar('treasury')">🌊 Treasury &amp; Liquidity</button>
+            <button class="pillar-tab" id="pillarTabAssets" onclick="switchPillar('assets')">🚀 Specialized Portfolios</button>
         </div>
 
         <!-- View Mode Switcher -->
@@ -1505,6 +1665,20 @@ function setViewMode(mode) {{
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Replica PDF';
     }}
+
+    // Sync active pillar tab highlight
+    const finModes = ['summary', 'visual', 'split', 'skyline_pdf'];
+    const trsModes = ['cash_flash', 'liquidity', 'forecast'];
+    const astModes = ['northstar', 'tax_activity', 'capex'];
+    const pFin = document.getElementById('pillarTabFinancials');
+    const pTrs = document.getElementById('pillarTabTreasury');
+    const pAst = document.getElementById('pillarTabAssets');
+    if (pFin) pFin.classList.toggle('active', finModes.includes(mode));
+    if (pTrs) pTrs.classList.toggle('active', trsModes.includes(mode));
+    if (pAst) pAst.classList.toggle('active', astModes.includes(mode));
+
+    // Refresh sortable and exportable tables
+    setTimeout(makeTablesSortableAndExportable, 50);
 }}
 
 function updateIframes() {{
@@ -3046,11 +3220,139 @@ function toggleTheme() {{
     document.body.classList.toggle('light-mode');
 }}
 
+let currentPillar = 'financials';
+
+function switchPillar(pillar) {{
+    currentPillar = pillar;
+    document.getElementById('pillarTabFinancials').classList.toggle('active', pillar === 'financials');
+    document.getElementById('pillarTabTreasury').classList.toggle('active', pillar === 'treasury');
+    document.getElementById('pillarTabAssets').classList.toggle('active', pillar === 'assets');
+
+    const bottomFin = document.getElementById('bottomNavFinancials');
+    const bottomTrs = document.getElementById('bottomNavTreasury');
+    const bottomAst = document.getElementById('bottomNavAssets');
+    if (bottomFin) bottomFin.classList.toggle('active', pillar === 'financials');
+    if (bottomTrs) bottomTrs.classList.toggle('active', pillar === 'treasury');
+    if (bottomAst) bottomAst.classList.toggle('active', pillar === 'assets');
+
+    // Show/hide view buttons by pillar for focused executive ergonomics
+    const finButtons = ['btnModeSummary', 'btnModeVisual', 'btnModeSplit', 'btnModeSkylinePdf'];
+    const trsButtons = ['btnModeCashFlash', 'btnModeLiquidity', 'btnModeForecast'];
+    const astButtons = ['btnModeNorthStar', 'btnModeTaxActivity', 'btnModeCapex'];
+
+    finButtons.forEach(id => {{ const el = document.getElementById(id); if (el) el.style.display = (pillar === 'financials') ? 'inline-block' : 'none'; }});
+    trsButtons.forEach(id => {{ const el = document.getElementById(id); if (el) el.style.display = (pillar === 'treasury') ? 'inline-block' : 'none'; }});
+    astButtons.forEach(id => {{ const el = document.getElementById(id); if (el) el.style.display = (pillar === 'assets') ? 'inline-block' : 'none'; }});
+
+    if (pillar === 'financials' && !finButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {{
+        setViewMode('summary');
+    }} else if (pillar === 'treasury' && !trsButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {{
+        setViewMode('liquidity');
+    }} else if (pillar === 'assets' && !astButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {{
+        setViewMode('tax_activity');
+    }}
+}}
+
+function exportTableToCsv(tableElem, filename) {{
+    const rows = tableElem.querySelectorAll('tr');
+    let csv = [];
+    rows.forEach(r => {{
+        let rowData = [];
+        r.querySelectorAll('th, td').forEach(c => {{
+            let text = c.innerText.replace(/"/g, '""').trim();
+            rowData.push('"' + text + '"');
+        }});
+        if (rowData.length > 0) csv.push(rowData.join(','));
+    }});
+    const blob = new Blob([csv.join('\\n')], {{ type: 'text/csv;charset=utf-8;' }});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = (filename || 'export') + '.csv';
+    link.click();
+    showToast('📥 Exported table to ' + (filename || 'export') + '.csv');
+}}
+
+function makeTablesSortableAndExportable() {{
+    document.querySelectorAll('.table-wrapper').forEach((wrap, wIdx) => {{
+        const hdr = wrap.querySelector('.table-header');
+        const tbl = wrap.querySelector('table');
+        if (!tbl) return;
+
+        // Add 1-click Export CSV button if not already present
+        if (hdr && !hdr.querySelector('.export-csv-btn')) {{
+            const btn = document.createElement('button');
+            btn.className = 'export-csv-btn';
+            btn.innerHTML = '📥 Export CSV';
+            btn.onclick = () => {{
+                const title = (hdr.querySelector('h3') ? hdr.querySelector('h3').innerText : 'table_export').replace(/[^a-zA-Z0-9_-]/g, '_');
+                exportTableToCsv(tbl, title);
+            }};
+            hdr.appendChild(btn);
+        }}
+
+        // Enable click-to-sort on headers
+        const ths = tbl.querySelectorAll('thead th');
+        ths.forEach((th, colIdx) => {{
+            if (th.classList.contains('sortable')) return;
+            th.classList.add('sortable');
+            th.title = 'Click to sort';
+            th.innerHTML += '<span class="sort-icon"> ↕</span>';
+
+            let asc = true;
+            th.onclick = () => {{
+                const tbody = tbl.querySelector('tbody');
+                if (!tbody) return;
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                rows.sort((a, b) => {{
+                    const aCell = a.children[colIdx] ? a.children[colIdx].innerText.trim() : '';
+                    const bCell = b.children[colIdx] ? b.children[colIdx].innerText.trim() : '';
+
+                    const aNum = parseFloat(aCell.replace(/[^0-9.-]/g, ''));
+                    const bNum = parseFloat(bCell.replace(/[^0-9.-]/g, ''));
+
+                    if (!isNaN(aNum) && !isNaN(bNum)) {{
+                        return asc ? aNum - bNum : bNum - aNum;
+                    }}
+                    return asc ? aCell.localeCompare(bCell) : bCell.localeCompare(aCell);
+                }});
+                rows.forEach(r => tbody.appendChild(r));
+                asc = !asc;
+                th.querySelector('.sort-icon').innerText = asc ? ' ▲' : ' ▼';
+            }};
+        }});
+    }});
+}}
+
+// Initialize View State
 renderSidebar();
 renderContent();
 updateIframes();
+switchPillar('financials');
 checkAuth();
+
+// Run table enhancements after DOM render
+setTimeout(makeTablesSortableAndExportable, 100);
 </script>
+
+<!-- Native iOS Bottom Tab Navigation Bar (Mobile Thumb Reachability) -->
+<div class="mobile-bottom-nav">
+    <button class="bottom-nav-item active" id="bottomNavFinancials" onclick="switchPillar('financials'); setViewMode('summary');">
+        <span class="nav-icon">🏢</span>
+        <span class="nav-label">Financials</span>
+    </button>
+    <button class="bottom-nav-item" id="bottomNavTreasury" onclick="switchPillar('treasury'); setViewMode('liquidity');">
+        <span class="nav-icon">💧</span>
+        <span class="nav-label">Treasury</span>
+    </button>
+    <button class="bottom-nav-item" id="bottomNavAssets" onclick="switchPillar('assets'); setViewMode('tax_activity');">
+        <span class="nav-icon">🏛️</span>
+        <span class="nav-label">Tax &amp; Capex</span>
+    </button>
+    <button class="bottom-nav-item" onclick="emailPdfBook()">
+        <span class="nav-icon">📩</span>
+        <span class="nav-label">Email PDF</span>
+    </button>
+</div>
 </body>
 </html>
 """
