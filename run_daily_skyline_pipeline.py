@@ -137,6 +137,14 @@ def run_pipeline(push_to_cloud=True):
     except Exception as e:
         log(f"Notes schedule note: {e}", "ℹ️")
 
+    # Step 2j: Synchronize Latest Jim Reports & Emailed Executive Summaries
+    try:
+        import sync_latest_jim_reports
+        sync_latest_jim_reports.sync_jim_reports(verbose=False)
+        log("Jim Report Viewer bridge synchronized (jim_latest_summaries.json)", "✉️")
+    except Exception as e:
+        log(f"Jim Report sync note: {e}", "ℹ️")
+
     # =========================================================================
     # STEP 3: MASTER REPORT COMPILATION & PDF GENERATION
     # =========================================================================

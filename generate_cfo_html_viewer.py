@@ -369,6 +369,16 @@ def generate_html():
         except Exception:
             pass
 
+    # Load Jim Report Viewer latest emailed summaries and PDFs
+    jim_summaries_json = "{}"
+    jim_summary_path = os.path.abspath("jim_latest_summaries.json")
+    if os.path.exists(jim_summary_path):
+        try:
+            with open(jim_summary_path) as f:
+                jim_summaries_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1391,6 +1401,15 @@ const cashForecast = {cash_forecast_json};
 const liquidityData = {liquidity_json};
 const capexData = {capex_json};
 const parkCityNotes = {park_city_notes_json};
+const jimSummaries = {jim_summaries_json};
+
+// Dynamically update entity jim_pdf with Jim's latest emailed report
+entities.forEach(e => {{
+    if (jimSummaries[e.id] && jimSummaries[e.id].primary_pdf) {{
+        e.jim_pdf = jimSummaries[e.id].primary_pdf;
+    }}
+}});
+
 let selectedIdx = 0;
 let currentViewMode = 'summary';
 let currentVisualPage = 1;
@@ -1595,26 +1614,112 @@ function filterCompanies(q) {{
 }}
 
 function renderSidebar() {{
-    filterCompanies(document.getElementById('searchBox') ? document.getElementById('searchBox').value : '');
+    const list = document.getElementById('entityList');
+    if (!list) return;
+
+    if (currentPillar === 'treasury') {{
+        list.innerHTML = `
+            <div style="padding:10px 14px 4px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--accent);">
+                🌊 Treasury Navigation
+            </div>
+            <div class="entity-item ${{currentViewMode === 'cash_flash' ? 'active' : ''}}" onclick="setViewMode('cash_flash')">
+                <div class="entity-item-title">💸 Live Cash Flash</div>
+                <div class="entity-item-meta">
+                    <span>Mary's Bank Ledger</span>
+                    <span style="font-weight:700; color:var(--success);">$13.64M Bank</span>
+                </div>
+            </div>
+            <div class="entity-item ${{currentViewMode === 'liquidity' ? 'active' : ''}}" onclick="setViewMode('liquidity')">
+                <div class="entity-item-title">💧 3-Way Liquidity Bridge</div>
+                <div class="entity-item-meta">
+                    <span>Float Reconciler</span>
+                    <span style="font-weight:700; color:var(--accent);">$10.38M Free</span>
+                </div>
+            </div>
+            <div class="entity-item ${{currentViewMode === 'forecast' ? 'active' : ''}}" onclick="setViewMode('forecast')">
+                <div class="entity-item-title">📈 90-Day Cash Forecast</div>
+                <div class="entity-item-meta">
+                    <span>Seasonal Snowbird Model</span>
+                    <span style="font-weight:700; color:var(--success);">+$7.6M Ramp</span>
+                </div>
+            </div>
+            <div style="margin:14px 14px 6px; padding-top:10px; border-top:1px solid var(--border); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+                <span>🏢 Companies (Jump to GL)</span>
+                <span class="badge badge-blue" style="font-size:8px;">Auto-Switch</span>
+            </div>
+            ${{entities.map((e, idx) => `
+                <div class="entity-item" onclick="selectEntity(${{idx}})" style="opacity:0.85;">
+                    <div class="entity-item-title">${{e.name}}</div>
+                    <div class="entity-item-meta">
+                        <span>IFS ${{e.folder}}</span>
+                        <span style="font-weight:700; color:var(--text-muted);">${{e.revenue}}</span>
+                    </div>
+                </div>
+            `).join('')}}
+        `;
+    }} else if (currentPillar === 'assets') {{
+        list.innerHTML = `
+            <div style="padding:10px 14px 4px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--accent);">
+                🚀 Specialized Portfolios
+            </div>
+            <div class="entity-item ${{currentViewMode === 'tax_activity' ? 'active' : ''}}" onclick="setViewMode('tax_activity')">
+                <div class="entity-item-title">🏛️ Tax Certificate Flow</div>
+                <div class="entity-item-meta">
+                    <span>Dual Stream Ledger</span>
+                    <span style="font-weight:700; color:var(--success);">$2.29M MTD</span>
+                </div>
+            </div>
+            <div class="entity-item ${{currentViewMode === 'northstar' ? 'active' : ''}}" onclick="setViewMode('northstar')">
+                <div class="entity-item-title">🌲 North Star RV KPIs</div>
+                <div class="entity-item-meta">
+                    <span>4 Resorts &middot; 933 Sites</span>
+                    <span style="font-weight:700; color:var(--accent);">$82.50 ADR</span>
+                </div>
+            </div>
+            <div class="entity-item ${{currentViewMode === 'capex' ? 'active' : ''}}" onclick="setViewMode('capex')">
+                <div class="entity-item-title">🏗️ Capital Expansions</div>
+                <div class="entity-item-meta">
+                    <span>Bluffs &middot; Madison</span>
+                    <span style="font-weight:700; color:var(--success);">$842k Spent</span>
+                </div>
+            </div>
+            <div style="margin:14px 14px 6px; padding-top:10px; border-top:1px solid var(--border); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+                <span>🏢 Companies (Jump to GL)</span>
+                <span class="badge badge-blue" style="font-size:8px;">Auto-Switch</span>
+            </div>
+            ${{entities.map((e, idx) => `
+                <div class="entity-item" onclick="selectEntity(${{idx}})" style="opacity:0.85;">
+                    <div class="entity-item-title">${{e.name}}</div>
+                    <div class="entity-item-meta">
+                        <span>IFS ${{e.folder}}</span>
+                        <span style="font-weight:700; color:var(--text-muted);">${{e.revenue}}</span>
+                    </div>
+                </div>
+            `).join('')}}
+        `;
+    }} else {{
+        filterCompanies(document.getElementById('searchBox') ? document.getElementById('searchBox').value : '');
+    }}
 }}
 
 function selectEntity(idx) {{
     selectedIdx = idx;
     currentVisualPage = 1;
+    // Auto-switch to Core Financials whenever an entity is selected from any pillar
+    if (currentPillar !== 'financials') {{
+        switchPillar('financials');
+        setViewMode('summary');
+    }}
     renderSidebar();
     renderContent();
     updateIframes();
     if (currentViewMode === 'visual') renderVisualProView();
-    if (currentViewMode === 'northstar') renderNorthStarView();
-    if (currentViewMode === 'tax_activity') renderTaxActivityView();
-    if (currentViewMode === 'cash_flash') renderCashFlashView();
-    if (currentViewMode === 'forecast') renderForecastView();
-    if (currentViewMode === 'liquidity') renderLiquidityView();
-    if (currentViewMode === 'capex') renderCapexView();
+    if (currentViewMode === 'summary') renderContent();
 }}
 
 function setViewMode(mode) {{
     currentViewMode = mode;
+    renderSidebar();
     document.getElementById('btnModeSummary').classList.toggle('active', mode === 'summary');
     document.getElementById('btnModeVisual').classList.toggle('active', mode === 'visual');
     document.getElementById('btnModeSplit').classList.toggle('active', mode === 'split');
@@ -3245,6 +3350,32 @@ function renderContent() {{
                         `).join('')}}
                     </tbody>
                 </table>
+            </div>
+        ` : ''}}
+
+        ${{(jimSummaries[e.id] && jimSummaries[e.id].summary_text) ? `
+            <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(59,130,246,0.3); background:rgba(30,41,59,0.35);">
+                <div class="table-header" style="background:rgba(30,58,138,0.25); flex-wrap:wrap; gap:8px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:16px;">✉️</span>
+                        <div>
+                            <h3 style="margin:0; color:var(--text-primary); font-size:13px;">Jim DiGiacomo's Latest Emailed Executive Summary</h3>
+                            <div style="font-size:11px; color:var(--text-muted);">From: <b>${{jimSummaries[e.id].sender}}</b> &middot; Date: <b style="color:var(--accent);">${{jimSummaries[e.id].date_display}}</b></div>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:6px; align-items:center;">
+                        <span class="badge badge-blue">${{jimSummaries[e.id].date_display}}</span>
+                        <a href="${{jimSummaries[e.id].primary_pdf}}" target="_blank" class="btn btn-outline" style="padding:2px 8px; font-size:10px; color:var(--accent); border-color:var(--accent);">↗ Open Jim's PDF</a>
+                    </div>
+                </div>
+                <div style="padding:14px 18px; font-size:12.5px; line-height:1.65; color:var(--text-primary); max-height:280px; overflow-y:auto; border-bottom:1px solid var(--border);">
+                    <div style="color:var(--accent); font-weight:700; margin-bottom:8px;">Subject: ${{jimSummaries[e.id].subject}}</div>
+                    ${{jimSummaries[e.id].paragraphs.map(p => `<p style="margin:0 0 10px 0;">${{p.replace(/\\n/g, '<br/>')}}</p>`).join('')}}
+                </div>
+                <div style="padding:8px 18px; background:var(--bg-secondary); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted);">
+                    <span>Source: Direct Email from CFO Jim DiGiacomo (Jim Report Viewer Ingestion)</span>
+                    <span>Primary Statement PDF: <b>${{jimSummaries[e.id].primary_pdf.split('/').pop()}}</b></span>
+                </div>
             </div>
         ` : ''}}
     `;
