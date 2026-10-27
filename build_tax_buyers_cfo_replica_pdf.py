@@ -14,6 +14,7 @@ Output: pdf_reports/TAX_BUYERS_CFO_CONSOLIDATING_STATEMENTS_REPLICA.pdf
 
 import os
 import sys
+import time
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -81,7 +82,7 @@ def build_pdf():
     # ==========================================
     el.append(Paragraph("CONSOLIDATED TAX BUYERS", st["title"]))
     el.append(Paragraph("CONSOLIDATING BALANCE SHEET (100% SKYLINE GL)", st["title"]))
-    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
+    el.append(Paragraph(f"AS OF {time.strftime('%B %d, %Y').upper()} (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
     el.append(Paragraph("Prepared from: Skyline General Ledger &middot; 100% Dynamic Accounting Data", st["note"]))
 
     bs_data = [

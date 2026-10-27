@@ -14,6 +14,7 @@ Output: pdf_reports/SUNKISSED_VILLAGE_CFO_FINANCIAL_REPORT_REPLICA.pdf
 
 import os
 import sys
+import time
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -76,7 +77,7 @@ def build_pdf():
     # ==========================================
     el.append(Paragraph("SUNKISSED VILLAGE RV RESORT", st["title"]))
     el.append(Paragraph("BALANCE SHEET (100% SKYLINE GENERAL LEDGER)", st["title"]))
-    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
+    el.append(Paragraph(f"AS OF {time.strftime('%B %d, %Y').upper()} (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
 
     col_hdr = ParagraphStyle('ColHdr', fontName='Helvetica-Bold', fontSize=7, leading=9, alignment=2)
     bs_data = [

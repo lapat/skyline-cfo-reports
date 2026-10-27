@@ -3,6 +3,10 @@
 * **THAT IS LIVE PRODUCTION DATA.** All Skyline accounting files (`/Volumes/skyline$/Skyline/...`) and all S: drive files (`/Volumes/jennings-data$/...`) are live production company assets actively used by Mary, Jim, Leslie, and Jay.
 * **Strict Read-Only Guarantee:** NEVER modify, edit, overwrite, rename, move, or delete ANY file or folder on the network shares under any circumstance. All data ingestion must strictly follow the safe copy pattern: plain read-only `cp` to a local cache directory (`live_skyline_fast_mirror/`), with all parsing, decoding, and analysis executed exclusively on local copies.
 
+# MANDATORY SESSION STARTUP PROTOCOL: RE-RUN CORE FINANCIALS DATED AS OF TODAY
+* **Run Core Financials First Thing Every Session:** At the start of every single session, you MUST immediately execute the pipeline (`run_daily_skyline_pipeline.py` or `build_all_cfo_replicas_parallel.py` + `generate_cfo_html_viewer.py`) to refresh all 12 CFO replica PDFs, the North Star RV suite, Mary's Daily Cash Sheet, and Jim's tax database.
+* **100% Dynamic Live Execution Date:** All financial statements, replica PDFs, and dashboard view headers must ALWAYS be dynamically stamped as of today (`time.strftime('%B %d, %Y')` / e.g., "Tuesday, October 27, 2026"). Never hardcode or allow static past dates in report headers, dropdowns, or viewports.
+
 # THE THREE SOURCES OF TRUTH
 1. **Skyline DB:** The core General Ledger accounting engine (`skyline_live_production.sqlite` / Btrieve files). Vetted, fully balanced, but reflects monthly close timing.
 2. **Collar Counties Cert DB:** Exclusively for the Tax Certificate investment business (`CollarCountiesCertificates_be.mdb`). Managed by Jim DiGiacomo to track lien-level purchases, payoffs, and penalty interest.

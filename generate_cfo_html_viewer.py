@@ -19,6 +19,7 @@ Features:
 
 import os
 import sys
+import time
 import json
 
 OUTPUT_HTML = os.path.abspath("cfo_reports_viewer.html")
@@ -304,6 +305,8 @@ ENTITIES = [
 ]
 
 def generate_html():
+    today_live_label = time.strftime("%B %d, %Y")
+    today_live_short = time.strftime("%b %d, %Y")
     entities_json = json.dumps(ENTITIES)
 
     # Load live tax activity summary if available
@@ -1298,7 +1301,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
         <div style="display:flex; align-items:center; gap:6px; background:var(--bg-secondary); padding:4px 10px; border-radius:6px; border:1px solid var(--border);">
             <span style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Period:</span>
             <select id="periodSelector" onchange="changeReportingPeriod(this.value)" style="background:var(--bg-secondary); color:var(--text-primary); border:none; font-size:11px; font-weight:700; cursor:pointer; outline:none;">
-                <option value="live" selected>🔴 Live Today (Oct 23, 2026)</option>
+                <option value="live" selected>🔴 Live Today ({today_live_short})</option>
                 <option value="q3">🔷 Q3 Close (Jul 31, 2026)</option>
                 <option value="q2">🔶 Q2 Close (Apr 30, 2026)</option>
                 <option value="q1">🟢 Q1 Close (Jan 31, 2026)</option>
@@ -1334,7 +1337,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
         </div>
         <div class="dual-panel">
             <div class="dual-panel-header">
-                <h4><span>⚡</span> Live Skyline Report — Made Today (October 23, 2026)</h4>
+                <h4><span>⚡</span> Live Skyline Report — Made Today ({today_live_label})</h4>
                 <div style="display:flex; gap:6px; align-items:center;">
                     <span class="badge badge-green" id="replicaPdfBadge">Live Skyline GL &middot; Made Today</span>
                     <a id="popoutReplicaBtn" class="btn btn-outline" style="padding:2px 8px; font-size:10px;" href="#" target="_blank">↗ Popout</a>
@@ -1405,7 +1408,7 @@ function getEntityPeriodData(e, period) {{
             assets: e.assets,
             revenue: e.revenue,
             noi: e.noi,
-            periodLabel: "Live Today (October 23, 2026)",
+            periodLabel: "Live Today (" + "{today_live_label}" + ")",
             isHistorical: false,
             deltaAst: "$0.00",
             deltaRev: "$0.00"
@@ -1466,7 +1469,7 @@ function changeReportingPeriod(p) {{
     const toast = document.getElementById('toastMsg');
     if (toast) {{
         const labels = {{
-            'live': 'Live Today (October 23, 2026) — 100% Active GL',
+            'live': 'Live Today (' + '{today_live_label}' + ') — 100% Active GL',
             'q3': 'Historical Snapshot: Q3 FY26 (July 31, 2026)',
             'q2': 'Historical Snapshot: Q2 FY26 (April 30, 2026)',
             'q1': 'Historical Snapshot: Q1 FY26 (January 31, 2026)',
@@ -3116,7 +3119,7 @@ function renderContent() {{
                 <span class="badge badge-blue">IFS ${{e.folder}}</span>
                 <span class="badge badge-green">${{e.pages}} Pages Exact Match</span>
                 <span class="badge ${{pData.isHistorical ? 'badge-warn' : 'badge-green'}}">
-                    ${{pData.isHistorical ? '📅 Historical Snapshot: ' + pData.periodLabel : '🔴 Live Today: Oct 23, 2026'}}
+                    ${{pData.isHistorical ? '📅 Historical Snapshot: ' + pData.periodLabel : '🔴 Live Today: ' + '{today_live_short}'}}
                 </span>
                 <span class="badge badge-blue">${{e.type}}</span>
             </div>

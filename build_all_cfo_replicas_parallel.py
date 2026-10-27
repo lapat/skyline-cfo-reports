@@ -21,6 +21,8 @@ import time
 import concurrent.futures
 from typing import Dict, Any
 
+TODAY_DATE_STR = time.strftime("%B %d, %Y").upper()
+
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -106,7 +108,7 @@ def build_jennings_realty():
     el.append(PageBreak())
     el.append(Paragraph("JENNINGS REALTY, INC. AND AFFILIATES", st["title"]))
     el.append(Paragraph("BALANCE SHEET (100% SKYLINE GENERAL LEDGER)", st["title"]))
-    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
+    el.append(Paragraph(f"AS OF {TODAY_DATE_STR} (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
 
     bs_data = [
         ["", "", Paragraph("Skyline GL<br/>5/31/2026", st["right_bold"]), Paragraph("Prior Year<br/>5/31/2025", st["right_bold"])],
@@ -408,7 +410,7 @@ def build_the_bluffs():
     # Page 1: Balance Sheet
     el.append(Paragraph("THE BLUFFS, L SITES AND M SITES", st["title"]))
     el.append(Paragraph("BALANCE SHEET (100% SKYLINE GL)", st["title"]))
-    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
+    el.append(Paragraph(f"AS OF {TODAY_DATE_STR} (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
 
     bs_data = [
         [Paragraph("Category", st["bold"]), "", Paragraph("Skyline GL<br/>6/30/2026", st["right_bold"]), Paragraph("Prior Year<br/>6/30/2025", st["right_bold"])],
@@ -532,7 +534,7 @@ def build_lakeview():
     # Page 1: Balance Sheet
     el.append(Paragraph("LAKE VIEW MOBILE HOME PARK PARTNERSHIP", st["title"]))
     el.append(Paragraph("BALANCE SHEET (100% SKYLINE GL)", st["title"]))
-    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
+    el.append(Paragraph(f"AS OF {TODAY_DATE_STR} (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
 
     bs_data = [
         [Paragraph("Category", st["bold"]), "", Paragraph("Skyline GL<br/>3/31/2026", st["right_bold"]), Paragraph("Prior Year<br/>3/31/2025", st["right_bold"])],

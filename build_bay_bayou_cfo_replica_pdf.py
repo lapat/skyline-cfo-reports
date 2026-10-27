@@ -19,6 +19,7 @@ Output: pdf_reports/BAY_BAYOU_CFO_FINANCIAL_REPORT_REPLICA.pdf
 
 import os
 import sys
+import time
 import sqlite3
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
@@ -135,7 +136,7 @@ def build_pdf():
     # ==========================================
     el.append(Paragraph("BAY BAYOU FLORIDA RV RESORT", st["title"]))
     el.append(Paragraph("BALANCE SHEET (100% SKYLINE GENERAL LEDGER)", st["title"]))
-    el.append(Paragraph("AS OF OCTOBER 23, 2026 (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
+    el.append(Paragraph(f"AS OF {time.strftime('%B %d, %Y').upper()} (TODAY'S LIVE LEDGER POSITION)", st["sub"]))
 
     bs_data = [
         ["", Paragraph("Skyline GL<br/>(100% Property)", st["col_hdr"]), Paragraph("Jennings Share<br/>(50% JV Interest)", st["col_hdr"]), Paragraph("Prior-Year<br/>(6/30/2025)", st["col_hdr"])],
