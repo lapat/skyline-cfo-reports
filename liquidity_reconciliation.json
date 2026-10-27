@@ -1,8 +1,8 @@
 {
-  "as_of_date": "2026-10-27 11:15:00",
-  "headline_unrestricted_cash": 10408816.323000003,
-  "headline_strategic_liquidity": 21919201.323000003,
-  "physical_bank_cash": 13669036.323000003,
+  "as_of_date": "2026-10-27 12:44:03",
+  "headline_unrestricted_cash": 10383219.003,
+  "headline_strategic_liquidity": 21893604.003,
+  "physical_bank_cash": 13643439.003,
   "skyline_gl_cash": -832909689.6199986,
   "ap_float_uncleared": -2415220.0,
   "tax_line_headroom": 11510385.0,
@@ -45,7 +45,7 @@
     {
       "step": 6,
       "item": "TRUE UNRESTRICTED FREE CASH TODAY",
-      "amount": 10408816.323000003,
+      "amount": 10383219.003,
       "type": "total",
       "note": "Immediate deployable cash across all operating checking accounts"
     },
@@ -59,7 +59,7 @@
     {
       "step": 8,
       "item": "TOTAL STRATEGIC LIQUIDITY WAR CHEST",
-      "amount": 21919201.323000003,
+      "amount": 21893604.003,
       "type": "grand_total",
       "note": "Total capital capacity available for acquisitions and auctions"
     }

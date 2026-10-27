@@ -1,9 +1,9 @@
 {
-  "as_of_date": "2026-10-27 11:15:00",
+  "as_of_date": "2026-10-27 12:44:00",
   "active_tab": "OCT 2026",
-  "total_bank_cash": 6293169.723000002,
+  "total_bank_cash": 6267572.403000001,
   "skyline_gl_cash": -832909689.6199986,
-  "in_flight_unposted": 839202859.3429986,
+  "in_flight_unposted": 839177262.0229986,
   "entity_bank_balances": [
     {
       "entity": "JRI Byline Bank",
@@ -11,15 +11,15 @@
     },
     {
       "entity": "Sunkissed Village Operating",
-      "balance": 765449.7099999993
+      "balance": 778655.4699999993
     },
     {
       "entity": "Park City Payroll",
-      "balance": 702866.9500000004
+      "balance": 722914.1100000003
     },
     {
       "entity": "Bay Bayou Money Market",
-      "balance": 630211.9400000011
+      "balance": 632905.6800000011
     },
     {
       "entity": "JRI First Bank Money Market",
@@ -27,7 +27,7 @@
     },
     {
       "entity": "Sunkissed Money Market",
-      "balance": 416472.7500000006
+      "balance": 413779.01000000053
     },
     {
       "entity": "Chalet Rent Account",
@@ -35,11 +35,11 @@
     },
     {
       "entity": "J R Inc.",
-      "balance": 237274.97999999794
+      "balance": 236912.51999999798
     },
     {
       "entity": "Lakeview MHP",
-      "balance": 202195.80999999982
+      "balance": 204044.1299999998
     },
     {
       "entity": "Madison Resort",
@@ -70,24 +70,20 @@
       "balance": 99297.43000000001
     },
     {
+      "entity": "Diamond Quest Realty",
+      "balance": 95767.12000000023
+    },
+    {
       "entity": "Interstate Funding Corp",
       "balance": 93187.22300000193
     },
     {
-      "entity": "Central Buyer Corp",
-      "balance": 91537.2500000014
-    },
-    {
-      "entity": "Diamond Quest Realty",
-      "balance": 70767.12000000023
+      "entity": "Union Tax Investors",
+      "balance": 41820.74999999959
     },
     {
       "entity": "Interstate Funding Byline",
       "balance": 37116.23999999961
-    },
-    {
-      "entity": "Union Tax Investors",
-      "balance": 35813.01999999958
     },
     {
       "entity": "Sunkissed Sales",
@@ -115,7 +111,7 @@
     },
     {
       "entity": "J R Management",
-      "balance": 6221.230000000913
+      "balance": 6414.650000000838
     },
     {
       "entity": "Bay Bayou RV Operating",
@@ -132,20 +128,24 @@
     {
       "entity": "National Indemnity Corp",
       "balance": 5.820766091346741e-11
+    },
+    {
+      "entity": "Central Buyer Corp",
+      "balance": -2.0372681319713593e-10
     }
   ],
   "executive_receipts": [
     {
       "category": "\ud83d\udcb5 General Cash Receipts",
-      "amount": 4018554.93
+      "amount": 3993748.35
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Redemptions",
-      "amount": 1095293.42
+      "amount": 1112106.93
     },
     {
       "category": "\ud83c\udfe0 Tenant Rental Income",
-      "amount": 824102.3300000001
+      "amount": 859319.57
     },
     {
       "category": "\ud83c\udfe2 Intercompany Management Fees",
@@ -163,7 +163,7 @@
   "executive_disbursements": [
     {
       "category": "\ud83d\udcb8 General Operating Disbursements",
-      "amount": 4839471.88
+      "amount": 4814471.88
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Subtaxes Deployed",
@@ -175,7 +175,7 @@
     },
     {
       "category": "\ud83d\udc65 Payroll & Employee Benefits",
-      "amount": 486962.25
+      "amount": 487324.71
     },
     {
       "category": "\ud83c\udfe1 Mortgage Principal & Interest",
@@ -197,15 +197,15 @@
   "raw_receipts": [
     {
       "category": "C/R TRANSFER",
-      "amount": 3528192.61
+      "amount": 3503192.61
     },
     {
       "category": "C/R REDEMPTIONS",
-      "amount": 1095293.42
+      "amount": 1112106.93
     },
     {
       "category": "C/R RENTS",
-      "amount": 824102.3300000001
+      "amount": 859319.57
     },
     {
       "category": "C/R MANAGEMENT FEES",
@@ -235,7 +235,7 @@
   "raw_disbursements": [
     {
       "category": "C/D TRANSFER",
-      "amount": 3528192.61
+      "amount": 3503192.61
     },
     {
       "category": "C/D SUBTAXES",
@@ -251,7 +251,7 @@
     },
     {
       "category": "C/D PAYROLL",
-      "amount": 393937.55
+      "amount": 394300.01
     },
     {
       "category": "C/D MORTGAGE PYMT",
@@ -282,6 +282,6 @@
       "amount": 31259.26
     }
   ],
-  "total_receipts_mtd": 6596376.82,
-  "total_disbursements_mtd": -8901462.75
+  "total_receipts_mtd": 6623600.99,
+  "total_disbursements_mtd": -8876825.209999999
 }
