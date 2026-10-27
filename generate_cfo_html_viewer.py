@@ -1306,6 +1306,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side</button>
             <button class="toggle-btn" id="btnModeSkylinePdf" onclick="setViewMode('skyline_pdf')">⚡ Skyline PDF</button>
             <button class="toggle-btn" id="btnModeJimPdf" onclick="setViewMode('jim_pdf')">📌 Jim's Report</button>
+            <button class="toggle-btn" id="btnModeJimSummary" onclick="setViewMode('jim_summary')">✉️ Jim's Summary</button>
         </div>
 
         <!-- Multi-Period Historical Comparison Selector -->
@@ -1391,6 +1392,9 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <iframe id="jimFullIframe" src="" style="width:100%; height:calc(100% - 50px); border:none;"></iframe>
         </div>
     </div>
+
+    <!-- View Mode 4c: Dedicated Full-Screen Jim's Executive Email Summary Viewport -->
+    <div class="content-pane" id="jimSummaryPane" style="display:none; padding:20px; max-width:960px; margin:0 auto;"></div>
 
     <!-- View Mode 5: North Star RV Park KPI Executive Dashboard -->
     <div class="content-pane" id="northStarPane" style="display:none;"></div>
@@ -1634,6 +1638,82 @@ function filterCompanies(q) {{
     }}
 }}
 
+function renderJimSummaryView() {{
+    const pane = document.getElementById('jimSummaryPane');
+    if (!pane) return;
+    const e = entities[selectedIdx];
+    const js = jimSummaries[e.id];
+
+    if (!js || !js.summary_text) {{
+        pane.innerHTML = `
+            <div class="entity-banner" style="margin-bottom:18px;">
+                <div style="margin-bottom:8px;">
+                    <span class="badge badge-blue">${{e.name}}</span>
+                </div>
+                <h2>✉️ Jim DiGiacomo's Executive Summary</h2>
+                <p>No direct email narrative recorded for this entity. Click below to view the latest financial report package.</p>
+                <div style="margin-top:14px;">
+                    <a href="${{e.jim_pdf}}" target="_blank" class="btn btn-primary">📄 Open Jim's Report PDF</a>
+                    <button onclick="setViewMode('summary')" class="btn btn-outline" style="margin-left:8px;">⚡ View Skyline GL Summary</button>
+                </div>
+            </div>
+        `;
+        return;
+    }}
+
+    const attachmentsList = (js.all_attached_pdfs && js.all_attached_pdfs.length > 0)
+        ? js.all_attached_pdfs.map(f => `
+            <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#cbd5e1;">📄 ${{f}}</span>
+                <a href="source_documents/${{f}}" target="_blank" class="btn btn-outline" style="padding:2px 8px; font-size:10px;">↗ Open</a>
+            </li>
+        `).join('')
+        : `<li style="padding:4px 0; color:#cbd5e1;">📄 ${{js.primary_pdf.split('/').pop()}}</li>`;
+
+    pane.innerHTML = `
+        <div class="entity-banner" style="margin-bottom:18px;">
+            <div style="margin-bottom:8px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                <span class="badge badge-green">✉️ Jim Report Viewer Ingestion</span>
+                <span class="badge badge-blue">Emailed: ${{js.date_display}}</span>
+                <span class="badge badge-purple">${{e.name}}</span>
+            </div>
+            <h2 style="margin:0 0 6px 0; font-size:20px; color:#ffffff;">${{js.subject}}</h2>
+            <div style="font-size:12px; color:var(--text-muted);">
+                Sender: <b style="color:var(--text-primary);">${{js.sender}}</b> (Controller, Jennings Realty, Inc.) &middot; Received: <b>${{js.date_display}}</b>
+            </div>
+        </div>
+
+        <!-- Executive Narrative Card -->
+        <div class="table-wrapper" style="border:1px solid rgba(59,130,246,0.3); background:rgba(30,41,59,0.5); border-radius:10px; overflow:hidden;">
+            <div class="table-header" style="background:rgba(30,58,138,0.35); padding:12px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:18px;">📝</span>
+                    <h3 style="margin:0; font-size:13.5px; color:#ffffff;">Full Executive Email Narrative</h3>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button onclick="setViewMode('jim_pdf')" class="btn btn-outline" style="padding:4px 10px; font-size:11px; color:var(--accent); border-color:var(--accent);">📌 View Jim's PDF</button>
+                    <button onclick="setViewMode('summary')" class="btn btn-outline" style="padding:4px 10px; font-size:11px;">⚡ Skyline GL Data</button>
+                </div>
+            </div>
+            <div style="padding:22px 26px; font-size:13px; line-height:1.75; color:#f1f5f9; background:rgba(15,23,42,0.4);">
+                ${{js.paragraphs.map(p => `<p style="margin:0 0 14px 0;">${{p.replace(/\\n/g, '<br/>')}}</p>`).join('')}}
+            </div>
+        </div>
+
+        <!-- Attachments & File Manifest Card -->
+        <div class="table-wrapper" style="margin-top:18px; border:1px solid var(--border);">
+            <div class="table-header">
+                <h3 style="margin:0; font-size:13px;">📎 Attached Financial Statements &amp; Exhibits (${{js.all_attached_pdfs ? js.all_attached_pdfs.length : 1}} Files on File)</h3>
+            </div>
+            <div style="padding:14px 20px; font-size:12px;">
+                <ul style="margin:0; padding:0; list-style-type:none;">
+                    ${{attachmentsList}}
+                </ul>
+            </div>
+        </div>
+    `;
+}}
+
 function renderSidebar() {{
     const list = document.getElementById('entityList');
     if (!list) return;
@@ -1736,6 +1816,7 @@ function selectEntity(idx) {{
     updateIframes();
     if (currentViewMode === 'visual') renderVisualProView();
     if (currentViewMode === 'summary') renderContent();
+    if (currentViewMode === 'jim_summary') renderJimSummaryView();
 }}
 
 function setViewMode(mode) {{
@@ -1747,6 +1828,9 @@ function setViewMode(mode) {{
     document.getElementById('btnModeSkylinePdf').classList.toggle('active', mode === 'skyline_pdf');
     if (document.getElementById('btnModeJimPdf')) {{
         document.getElementById('btnModeJimPdf').classList.toggle('active', mode === 'jim_pdf');
+    }}
+    if (document.getElementById('btnModeJimSummary')) {{
+        document.getElementById('btnModeJimSummary').classList.toggle('active', mode === 'jim_summary');
     }}
     document.getElementById('btnModeNorthStar').classList.toggle('active', mode === 'northstar');
     if (document.getElementById('btnModeTaxActivity')) {{
@@ -1770,6 +1854,7 @@ function setViewMode(mode) {{
     const splitPane = document.getElementById('sideBySidePane');
     const fullPdfPane = document.getElementById('skylinePdfPane');
     const jimPdfPane = document.getElementById('jimPdfPane');
+    const jimSummaryPane = document.getElementById('jimSummaryPane');
     const northStarPane = document.getElementById('northStarPane');
     const taxActivityPane = document.getElementById('taxActivityPane');
     const cashFlashPane = document.getElementById('cashFlashPane');
@@ -1782,6 +1867,7 @@ function setViewMode(mode) {{
     splitPane.classList.toggle('active', mode === 'split');
     fullPdfPane.classList.toggle('active', mode === 'skyline_pdf');
     if (jimPdfPane) jimPdfPane.style.display = (mode === 'jim_pdf') ? 'block' : 'none';
+    if (jimSummaryPane) jimSummaryPane.style.display = (mode === 'jim_summary') ? 'block' : 'none';
     northStarPane.style.display = (mode === 'northstar') ? 'block' : 'none';
     if (taxActivityPane) taxActivityPane.style.display = (mode === 'tax_activity') ? 'block' : 'none';
     if (cashFlashPane) cashFlashPane.style.display = (mode === 'cash_flash') ? 'block' : 'none';
@@ -1799,6 +1885,10 @@ function setViewMode(mode) {{
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Fullscreen';
     }} else if (mode === 'jim_pdf') {{
+        document.getElementById('downloadPdfBtn').href = e.jim_pdf;
+        document.getElementById('downloadPdfBtn').innerText = "📄 Open Jim's Original PDF";
+    }} else if (mode === 'jim_summary') {{
+        renderJimSummaryView();
         document.getElementById('downloadPdfBtn').href = e.jim_pdf;
         document.getElementById('downloadPdfBtn').innerText = "📄 Open Jim's Original PDF";
     }} else if (mode === 'visual') {{
@@ -3453,7 +3543,7 @@ function switchPillar(pillar) {{
     if (bottomAst) bottomAst.classList.toggle('active', pillar === 'assets');
 
     // Show/hide view buttons by pillar for focused executive ergonomics
-    const finButtons = ['btnModeSummary', 'btnModeVisual', 'btnModeSplit', 'btnModeSkylinePdf', 'btnModeJimPdf'];
+    const finButtons = ['btnModeSummary', 'btnModeVisual', 'btnModeSplit', 'btnModeSkylinePdf', 'btnModeJimPdf', 'btnModeJimSummary'];
     const trsButtons = ['btnModeCashFlash', 'btnModeLiquidity', 'btnModeForecast'];
     const astButtons = ['btnModeNorthStar', 'btnModeTaxActivity', 'btnModeCapex'];
 

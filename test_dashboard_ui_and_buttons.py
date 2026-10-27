@@ -52,13 +52,13 @@ def run_tests():
         "pillarTabTreasury", "pillarTabAssets", "pillarTabFinancials",
         "btnModeCashFlash", "btnModeLiquidity", "btnModeForecast",
         "btnModeTaxActivity", "btnModeNorthStar", "btnModeCapex",
-        "btnModeSummary", "btnModeVisual", "btnModeSplit", "btnModeSkylinePdf", "btnModeJimPdf"
+        "btnModeSummary", "btnModeVisual", "btnModeSplit", "btnModeSkylinePdf", "btnModeJimPdf", "btnModeJimSummary"
     ]
     for b_id in required_buttons:
         assert_test(f"Button ID exists in HTML: {b_id}", f'id="{b_id}"' in html, f'Missing button id="{b_id}"')
 
     required_panes = [
-        "contentPane", "visualPane", "sideBySidePane", "skylinePdfPane", "jimPdfPane",
+        "contentPane", "visualPane", "sideBySidePane", "skylinePdfPane", "jimPdfPane", "jimSummaryPane",
         "northStarPane", "taxActivityPane", "cashFlashPane", "forecastPane",
         "liquidityPane", "capexPane"
     ]
@@ -185,15 +185,15 @@ def run_tests():
         passed: currentPillar === 'financials' && selectedIdx === 0
     }});
 
-    // Test 6: Verify All 11 View Modes
-    const allModes = ['cash_flash', 'liquidity', 'forecast', 'tax_activity', 'northstar', 'capex', 'summary', 'visual', 'split', 'skyline_pdf', 'jim_pdf'];
+    // Test 6: Verify All 12 View Modes
+    const allModes = ['cash_flash', 'liquidity', 'forecast', 'tax_activity', 'northstar', 'capex', 'summary', 'visual', 'split', 'skyline_pdf', 'jim_pdf', 'jim_summary'];
     let allModesPassed = true;
     allModes.forEach(m => {{
         setViewMode(m);
         if (currentViewMode !== m) allModesPassed = false;
     }});
     testResults.push({{
-        name: "All 11 View Modes can be activated sequentially",
+        name: "All 12 View Modes can be activated sequentially",
         passed: allModesPassed
     }});
 
