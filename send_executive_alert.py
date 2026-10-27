@@ -541,7 +541,7 @@ Attached: 00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf
 def dispatch_alert(dry_run=False, recipient=None, attach_pdf=True):
     stats = get_executive_summary_stats()
     target_email = recipient or DEFAULT_RECIPIENT
-    recipient_name = "Jay" if "jay" in target_email.lower() else "Louis"
+    recipient_name = "Jay" if any(k in target_email.lower() for k in ["jay", "jlapat"]) else "Louis"
 
     subject, text, html = generate_email_content(stats, recipient_name=recipient_name)
 

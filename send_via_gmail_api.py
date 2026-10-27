@@ -58,7 +58,7 @@ def send_executive_email_via_api(recipient=None, attach_pdf=True):
     """Builds and sends the executive briefing email via the official Gmail API."""
     import send_executive_alert
     target_email = recipient or DEFAULT_RECIPIENT
-    recipient_name = "Jay" if "jay" in target_email.lower() else "Louis"
+    recipient_name = "Jay" if any(k in target_email.lower() for k in ["jay", "jlapat"]) else "Louis"
 
     stats = send_executive_alert.get_executive_summary_stats()
     subject, text, html = send_executive_alert.generate_email_content(stats, recipient_name=recipient_name)
