@@ -1,9 +1,9 @@
 {
-  "as_of_date": "2026-10-25 22:48:28",
+  "as_of_date": "2026-10-26 19:42:40",
   "active_tab": "OCT 2026",
-  "total_bank_cash": 7532295.593000003,
-  "skyline_gl_cash": -846532416.5799981,
-  "in_flight_unposted": 854064712.1729982,
+  "total_bank_cash": 6332295.593000003,
+  "skyline_gl_cash": -832909689.6199986,
+  "in_flight_unposted": 839241985.2129986,
   "entity_bank_balances": [
     {
       "entity": "JRI Byline Bank",
@@ -12,10 +12,6 @@
     {
       "entity": "Sunkissed Village Operating",
       "balance": 765449.7099999993
-    },
-    {
-      "entity": "Central Buyer Corp",
-      "balance": 741537.2500000014
     },
     {
       "entity": "Park City Payroll",
@@ -34,20 +30,12 @@
       "balance": 416472.7500000006
     },
     {
-      "entity": "Interstate Funding Corp",
-      "balance": 293187.223000002
-    },
-    {
       "entity": "Chalet Rent Account",
       "balance": 271579.0699999999
     },
     {
-      "entity": "Diamond Quest Realty",
-      "balance": 270767.1200000002
-    },
-    {
       "entity": "J R Inc.",
-      "balance": 237313.22999999797
+      "balance": 237313.22999999794
     },
     {
       "entity": "Lakeview MHP",
@@ -56,10 +44,6 @@
     {
       "entity": "Madison Resort",
       "balance": 190174.83999999988
-    },
-    {
-      "entity": "National Indemnity Corp",
-      "balance": 186393.88000000047
     },
     {
       "entity": "Security Deposits",
@@ -86,8 +70,24 @@
       "balance": 99297.43000000001
     },
     {
+      "entity": "Interstate Funding Corp",
+      "balance": 93187.22300000193
+    },
+    {
+      "entity": "Central Buyer Corp",
+      "balance": 91537.2500000014
+    },
+    {
+      "entity": "Diamond Quest Realty",
+      "balance": 70767.12000000023
+    },
+    {
       "entity": "Interstate Funding Byline",
       "balance": 37116.23999999961
+    },
+    {
+      "entity": "National Indemnity Corp",
+      "balance": 36393.880000000485
     },
     {
       "entity": "Union Tax Investors",
@@ -137,7 +137,7 @@
   "executive_receipts": [
     {
       "category": "\ud83d\udcb5 General Cash Receipts",
-      "amount": 2668554.93
+      "amount": 4018554.93
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Redemptions",
@@ -163,7 +163,7 @@
   "executive_disbursements": [
     {
       "category": "\ud83d\udcb8 General Operating Disbursements",
-      "amount": 3473733.54
+      "amount": 4673733.54
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Subtaxes Deployed",
@@ -175,7 +175,7 @@
     },
     {
       "category": "\ud83d\udc65 Payroll & Employee Benefits",
-      "amount": 486962.25
+      "amount": 636962.25
     },
     {
       "category": "\ud83c\udfe1 Mortgage Principal & Interest",
@@ -197,7 +197,7 @@
   "raw_receipts": [
     {
       "category": "C/R TRANSFER",
-      "amount": 2178192.61
+      "amount": 3528192.61
     },
     {
       "category": "C/R REDEMPTIONS",
@@ -234,12 +234,12 @@
   ],
   "raw_disbursements": [
     {
-      "category": "C/D SUBTAXES",
-      "amount": 2481045.36
+      "category": "C/D TRANSFER",
+      "amount": 3378192.61
     },
     {
-      "category": "C/D TRANSFER",
-      "amount": 2178192.61
+      "category": "C/D SUBTAXES",
+      "amount": 2481045.36
     },
     {
       "category": "C/D OPER EXP",
@@ -251,7 +251,7 @@
     },
     {
       "category": "C/D PAYROLL",
-      "amount": 393937.55
+      "amount": 543937.55
     },
     {
       "category": "C/D MORTGAGE PYMT",
@@ -282,6 +282,6 @@
       "amount": 31259.26
     }
   ],
-  "total_receipts_mtd": 5246376.82,
-  "total_disbursements_mtd": -7535724.409999999
+  "total_receipts_mtd": 6596376.82,
+  "total_disbursements_mtd": -8885724.41
 }

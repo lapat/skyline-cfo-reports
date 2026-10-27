@@ -1,38 +1,8 @@
 {
-  "audit_timestamp": "2026-10-25 22:48:28",
+  "audit_timestamp": "2026-10-26 19:42:40",
   "status": "WARNING",
   "total_exceptions": 16,
   "duplicate_payments": [
-    {
-      "entity": "1",
-      "description": "FICA",
-      "amount": 13687.42,
-      "first_date": "260821",
-      "first_ref": "JDD",
-      "second_date": "260904",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "FICA",
-      "amount": 13687.42,
-      "first_date": "260904",
-      "first_ref": "JDD",
-      "second_date": "260918",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "NJ SUTA",
-      "amount": 619.04,
-      "first_date": "260724",
-      "first_ref": "JDD",
-      "second_date": "260807",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
     {
       "entity": "1",
       "description": "OFFICERS",
@@ -45,6 +15,26 @@
     },
     {
       "entity": "1",
+      "description": "OFFICERS",
+      "amount": 103846.16,
+      "first_date": "260724",
+      "first_ref": "JDD",
+      "second_date": "260807",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "OFFICERS",
+      "amount": 103846.16,
+      "first_date": "260807",
+      "first_ref": "JDD",
+      "second_date": "260821",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
       "description": "SAFE HARBOR",
       "amount": 7838.92,
       "first_date": "260710",
@@ -60,6 +50,16 @@
       "first_date": "260724",
       "first_ref": "JDD",
       "second_date": "260807",
+      "second_ref": "JDD",
+      "days_apart": 14
+    },
+    {
+      "entity": "1",
+      "description": "SAFE HARBOR",
+      "amount": 7838.92,
+      "first_date": "260807",
+      "first_ref": "JDD",
+      "second_date": "260821",
       "second_ref": "JDD",
       "days_apart": 14
     },

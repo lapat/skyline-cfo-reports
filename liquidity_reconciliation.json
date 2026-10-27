@@ -1,16 +1,16 @@
 {
-  "as_of_date": "2026-10-25 22:48:28",
-  "headline_unrestricted_cash": 11647942.193000004,
-  "headline_strategic_liquidity": 23158327.193000004,
-  "physical_bank_cash": 14908162.193000004,
-  "skyline_gl_cash": -846532416.5799981,
+  "as_of_date": "2026-10-26 19:42:40",
+  "headline_unrestricted_cash": 10447942.193000004,
+  "headline_strategic_liquidity": 21958327.193000004,
+  "physical_bank_cash": 13708162.193000004,
+  "skyline_gl_cash": -832909689.6199986,
   "ap_float_uncleared": -2415220.0,
   "tax_line_headroom": 11510385.0,
   "bridge_steps": [
     {
       "step": 1,
       "item": "Skyline General Ledger Posted Cash",
-      "amount": -846532416.5799981,
+      "amount": -832909689.6199986,
       "type": "base",
       "note": "Audited double-entry operating cash (10xxxxxx accounts)"
     },
@@ -45,7 +45,7 @@
     {
       "step": 6,
       "item": "TRUE UNRESTRICTED FREE CASH TODAY",
-      "amount": 11647942.193000004,
+      "amount": 10447942.193000004,
       "type": "total",
       "note": "Immediate deployable cash across all operating checking accounts"
     },
@@ -59,7 +59,7 @@
     {
       "step": 8,
       "item": "TOTAL STRATEGIC LIQUIDITY WAR CHEST",
-      "amount": 23158327.193000004,
+      "amount": 21958327.193000004,
       "type": "grand_total",
       "note": "Total capital capacity available for acquisitions and auctions"
     }
