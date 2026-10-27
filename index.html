@@ -2368,6 +2368,16 @@ function renderCapexView() {
                         <div style="width:${p.pct_complete}%; height:100%; background:linear-gradient(90deg, #3B82F6, #10B981); border-radius:5px;"></div>
                     </div>
                 </div>
+                ${p.phasing_strategy ? `
+                    <div style="background:rgba(15,23,42,0.6); padding:8px 14px; border-bottom:1px solid var(--border); font-size:11.5px; color:var(--text-primary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                        <div>
+                            <span style="color:var(--accent); font-weight:700;">📐 Operating Strategy:</span>
+                            <span style="color:#cbd5e1;">${p.phasing_strategy}</span>
+                            ${p.product_mix ? `<span style="color:var(--text-muted);">&middot; Mix: <b style="color:var(--success);">${p.product_mix}</b></span>` : ''}
+                        </div>
+                        ${p.plan_review_pdf ? `<a href="${p.plan_review_pdf}" target="_blank" class="btn btn-outline" style="padding:2px 8px; font-size:10px; color:var(--accent); border-color:var(--accent);">📄 Open GC Plan Review PDF</a>` : ''}
+                    </div>
+                ` : ''}
                 <table>
                     <thead>
                         <tr>
