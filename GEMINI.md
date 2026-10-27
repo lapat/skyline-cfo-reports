@@ -24,6 +24,12 @@ The 3-Step Execution Workflow:
 2. **Conceptual & Line-by-Line Reverse Engineering:** Store the deep accounting logic, entity business models, and why Jay prefers each format inside `cfo_reports_conceptual_db.sqlite`.
 3. **High-Fidelity Programmatic Replication:** Use live Skyline GL data to generate pixel-perfect replica PDFs matching Jim's exact multi-column, consolidating, and hospitality-metric schedules.
 
+# JAY LAPAT OPERATIONAL DIRECTIVES (OCTOBER 2026 GROUND TRUTH)
+* **The Bluffs MH & RV Resort:** Currently has ~95 developed sites (~50 MH on California Dr + ~45 seasonal RV). Planned expansion is ~160 sites (90% Mobile Home / 10% RV). Executed in 2 to 3 phases, strictly gated by first-year home sales velocity to avoid sinking capital prematurely into concrete pads.
+* **Madison Community Resort:** Currently has ~95 operational RV sites. Planned expansion is ~220 more RV sites across 2 phases.
+* **Madison Golf Course Separation Mandate:** The Madison Golf Course (Jet Sites B, F&B, clubhouse, pro shop, grounds) has its own distinct financial statements and must be presented separately from Madison RV Resort operations.
+* **Primary Source Documentation:** Stored in `primary_records/JAY_OPERATING_DIRECTIVES_EXPANSIONS_AND_ENTITIES_OCT_2026.md`.
+
 # Skyline Auto Project Instructions
 
 ## 1. System Architecture & Live Data Paths

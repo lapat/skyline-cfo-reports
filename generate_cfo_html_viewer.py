@@ -1672,7 +1672,7 @@ function renderSidebar() {{
             <div class="entity-item ${{currentViewMode === 'northstar' ? 'active' : ''}}" onclick="setViewMode('northstar')">
                 <div class="entity-item-title">🌲 North Star RV KPIs</div>
                 <div class="entity-item-meta">
-                    <span>4 Resorts &middot; 933 Sites</span>
+                    <span>4 Resorts &middot; 773 Sites</span>
                     <span style="font-weight:700; color:var(--accent);">$82.50 ADR</span>
                 </div>
             </div>
@@ -2784,7 +2784,7 @@ function renderNorthStarView() {{
         <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Developed Sites</div>
-                <div class="stat-card-val">933 Sites</div>
+                <div class="stat-card-val">773 Sites</div>
                 <div class="stat-card-sub">Bay Bayou, Sunkissed, Bluffs, Madison</div>
             </div>
             <div class="stat-card">
@@ -2815,8 +2815,8 @@ function renderNorthStarView() {{
                         <th>North Star Metric / Benchmark</th>
                         <th class="right">Bay Bayou (308 Sites)</th>
                         <th class="right">Sunkissed (275 Sites)</th>
-                        <th class="right">The Bluffs (200 Sites)</th>
-                        <th class="right">Madison (150 Sites)</th>
+                        <th class="right">The Bluffs (95 Sites)</th>
+                        <th class="right">Madison (95 Sites)</th>
                         <th class="right">Portfolio Total / Avg</th>
                     </tr>
                 </thead>
@@ -2825,9 +2825,9 @@ function renderNorthStarView() {{
                         <td><b>Total Developed Sites</b></td>
                         <td class="right">308 Sites</td>
                         <td class="right">275 Sites</td>
-                        <td class="right">200 Sites</td>
-                        <td class="right">150 Sites</td>
-                        <td class="right"><b>933 Sites</b></td>
+                        <td class="right">95 Sites</td>
+                        <td class="right">95 Sites</td>
+                        <td class="right"><b>773 Sites</b></td>
                     </tr>
                     <tr>
                         <td><b>Gross Operating Revenue (Skyline GL)</b></td>

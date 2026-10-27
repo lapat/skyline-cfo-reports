@@ -1,30 +1,35 @@
 {
-  "as_of_date": "2026-10-27 11:15:00",
-  "total_capex_budget": 6750000.0,
-  "total_capex_spent": 4433069.0,
-  "active_capex_remaining": 2342300.0,
+  "as_of_date": "2026-10-27 14:26:23",
+  "total_capex_budget": 11350000.0,
+  "total_capex_spent": 4558069.0,
+  "active_capex_remaining": 6817300.0,
   "projects": [
     {
       "id": "the_bluffs_expansion",
-      "name": "The Bluffs MH & RV Resort \u2014 50-Site Expansion",
+      "name": "The Bluffs MH & RV Resort \u2014 160-Site Expansion (90% MH / 10% RV)",
       "folder": "147",
       "status": "Active Civil Work (Phase 1 Complete)",
-      "budget": 2400000.0,
+      "current_operating_sites": 95,
+      "planned_expansion_sites": 160,
+      "post_expansion_sites": 255,
+      "product_mix": "90% Mobile Home (~144 lots) / 10% RV (~16 pads)",
+      "phasing_strategy": "2 to 3 Phases (Phases 2-3 gated by 1st-year home sales velocity to avoid sinking capital into concrete pads)",
+      "budget": 3800000.0,
       "spent_to_date": 842500.0,
-      "pct_complete": 35.1,
-      "remaining_budget": 1557500.0,
-      "target_completion": "Q1 2027 (Prior to Peak)",
-      "projected_annual_noi": 385000.0,
-      "projected_yield": "16.0% Cash-on-Cash",
+      "pct_complete": 22.2,
+      "remaining_budget": 2957500.0,
+      "target_completion": "Phase 1: Q1 2027 | Phases 2-3: Sales Velocity Paced",
+      "projected_annual_noi": 585000.0,
+      "projected_yield": "15.4% Cash-on-Cash",
       "trades": [
         {
-          "trade": "Civil Site Grading & Pad Compaction",
+          "trade": "Civil Site Grading & Pad Compaction (Phase 1)",
           "budget": 250000.0,
           "spent": 245000.0,
           "status": "Completed \u2705"
         },
         {
-          "trade": "TECO Primary Underground Electrical Loop",
+          "trade": "Primary Underground Electrical Loop",
           "budget": 320000.0,
           "spent": 310000.0,
           "status": "Completed \u2705"
@@ -36,24 +41,64 @@
           "status": "Under Inspection"
         },
         {
-          "trade": "Concrete Pads & 50-Amp Pedestals",
-          "budget": 680000.0,
+          "trade": "Concrete Pads & Infrastructure (Gated by Sales Velocity)",
+          "budget": 1450000.0,
           "spent": 0.0,
-          "status": "Contracted / Pending"
+          "status": "Pending Home Sales"
         },
         {
           "trade": "Asphalt Paving & Site Landscaping",
-          "budget": 850000.0,
+          "budget": 1480000.0,
           "spent": 0.0,
-          "status": "Pending"
+          "status": "Phased"
+        }
+      ]
+    },
+    {
+      "id": "madison_rv_expansion",
+      "name": "Madison RV Resort \u2014 220-Site RV Expansion (2 Phases)",
+      "folder": "143 (RV Resort)",
+      "status": "Engineering & Permitting (Mobilization 2027)",
+      "current_operating_sites": 95,
+      "planned_expansion_sites": 220,
+      "post_expansion_sites": 315,
+      "product_mix": "100% RV Expansion Pads",
+      "phasing_strategy": "2 Distinct Construction Phases",
+      "budget": 3200000.0,
+      "spent_to_date": 125000.0,
+      "pct_complete": 3.9,
+      "remaining_budget": 3075000.0,
+      "target_completion": "Phase 1: Late 2027 | Phase 2: 2028",
+      "projected_annual_noi": 490000.0,
+      "projected_yield": "15.3% Return on Capex",
+      "trades": [
+        {
+          "trade": "Civil Site Engineering & Environmental Surveying",
+          "budget": 150000.0,
+          "spent": 125000.0,
+          "status": "In Progress"
+        },
+        {
+          "trade": "Phase 1 Water/Sewer Utility Extensions (110 Sites)",
+          "budget": 1200000.0,
+          "spent": 0.0,
+          "status": "Pending Mobilization"
+        },
+        {
+          "trade": "Phase 2 Electric Loops, Roads & 50-Amp Pedestals (110 Sites)",
+          "budget": 1850000.0,
+          "spent": 0.0,
+          "status": "Phase 2"
         }
       ]
     },
     {
       "id": "madison_clubhouse_golf",
-      "name": "Madison Resort Clubhouse & Golf Modernization",
-      "folder": "143, JETB",
-      "status": "Active Interior Framing & Irrigation",
+      "name": "Madison Golf Course & Clubhouse Modernization (Jet Sites B)",
+      "folder": "143 (Golf / Jet B)",
+      "status": "Separate Financial Statement Entity (Active Interior Framing)",
+      "current_operating_sites": "18 Championship Holes",
+      "product_mix": "Golf, Pro Shop & Food/Beverage (Separate Profit Centers)",
       "budget": 1250000.0,
       "spent_to_date": 465200.0,
       "pct_complete": 37.2,
@@ -93,6 +138,7 @@
       "name": "Bay Bayou Flagship Expansion Phase II (Operational)",
       "folder": "135",
       "status": "100% Operational (Proven Cash Generator)",
+      "current_operating_sites": 308,
       "budget": 3100000.0,
       "spent_to_date": 3125369.0,
       "pct_complete": 100.0,
