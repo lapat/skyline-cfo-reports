@@ -461,9 +461,13 @@ def generate_email_content(stats, recipient_name="Louis"):
             <span style="font-weight:700; color:#34d399; margin-right:8px;">🛡️ Daily Audit Watchdog:</span>
             <span>{stats['audit_note']}</span>
           </div>
-          <div style="display:flex; align-items:center; color:#94a3b8;">
+          <div style="display:flex; align-items:center; margin-bottom:6px; color:#94a3b8;">
             <span style="font-weight:700; color:#38bdf8; margin-right:8px;">📈 90-Day Outlook:</span>
             <span>Florida snowbird surge models cash climbing from $28.4M base to $36.0M peak by January.</span>
+          </div>
+          <div style="display:flex; align-items:center; color:#94a3b8;">
+            <span style="font-weight:700; color:#fbbf24; margin-right:8px;">✉️ Jim's Reports Synced:</span>
+            <span>Latest executive email narratives & PDFs from Jim DiGiacomo integrated directly into Core Financials.</span>
           </div>
         </div>
       </td>
@@ -476,14 +480,14 @@ def generate_email_content(stats, recipient_name="Louis"):
           📎 <b>Attached to this email:</b> <code>00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf</code> (Consolidating Bank Matrix)
         </div>
         <div style="margin-bottom:10px;">
-          <a href="{PORTAL_URL}" style="display:inline-block; background-color:#2563eb; color:#ffffff !important; padding:12px 24px; font-size:13px; font-weight:800; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(37,99,235,0.4); margin:4px;">
-            🚀 Open Full Portal
+          <a href="{PORTAL_URL}" style="display:inline-block; background-color:#2563eb; color:#ffffff !important; padding:12px 22px; font-size:13px; font-weight:800; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(37,99,235,0.4); margin:4px;">
+            💸 Mary's Cash Flash
           </a>
           <a href="{PORTAL_URL}&mode=tax_activity" style="display:inline-block; background-color:#059669; color:#ffffff !important; padding:12px 20px; font-size:13px; font-weight:800; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(5,150,105,0.4); margin:4px;">
             🏛️ Live Tax Flow
           </a>
-          <a href="{PORTAL_URL}&mode=cash_flash" style="display:inline-block; background-color:#4f46e5; color:#ffffff !important; padding:12px 20px; font-size:13px; font-weight:800; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(79,70,229,0.4); margin:4px;">
-            💸 Mary's Cash Flash
+          <a href="{PORTAL_URL}&mode=summary" style="display:inline-block; background-color:#4f46e5; color:#ffffff !important; padding:12px 20px; font-size:13px; font-weight:800; border-radius:8px; text-decoration:none; box-shadow:0 4px 14px rgba(79,70,229,0.4); margin:4px;">
+            🏢 Jim's Reports & GL
           </a>
         </div>
       </td>
