@@ -1486,6 +1486,12 @@ function checkAuth() {{
         const found = entities.findIndex(e => e.id === queryComp);
         if (found !== -1) selectedIdx = found;
     }}
+
+    // Check deep linking by view mode (e.g. &mode=tax_activity or &mode=cash_flash)
+    const queryMode = urlParams.get('mode');
+    if (queryMode) {{
+        setViewMode(queryMode);
+    }}
     return authed;
 }}
 
@@ -1499,6 +1505,11 @@ function submitPasscode(e) {{
         renderSidebar();
         renderContent();
         updateIframes();
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryMode = urlParams.get('mode');
+        if (queryMode) {{
+            setViewMode(queryMode);
+        }}
     }} else {{
         document.getElementById('authError').style.display = 'block';
     }}
