@@ -2225,7 +2225,7 @@ function renderTaxActivityView() {{
             <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                 <span class="badge badge-green">Dual Data Stream</span>
                 <span class="badge badge-blue">S-Drive Read-Only</span>
-                <span class="badge badge-blue">Mary's Sheet + Jim DiGiacomo Access DB</span>
+                <span class="badge badge-blue">Mary's Sheet + County Access DB</span>
             </div>
             <h2>Tax Certificate Lien Portfolio — Live Cash Flow & Redemptions</h2>
             <p>Real-time visibility into certificate payoffs, weekly bank clearing, and capital deployed across Interstate Funding (150), Central Buyer (160), Diamond Quest (180), and Union Tax (190).</p>
@@ -2338,10 +2338,10 @@ function renderTaxActivityView() {{
                 </table>
             </div>
 
-            <!-- Jim DiGiacomo's Certificate Payoffs -->
+            <!-- County Certificate Payoffs -->
             <div class="table-wrapper">
                 <div class="table-header">
-                    <h3>🏛️ Top October Certificate Payoffs (Jim DiGiacomo DB)</h3>
+                    <h3>🏛️ Top October Certificate Payoffs (Certificates Access DB)</h3>
                     <span class="badge badge-blue">Collar Counties</span>
                 </div>
                 <div class="mobile-scroll-hint">← Swipe horizontally to see parcel details →</div>
@@ -2452,6 +2452,16 @@ function renderTaxActivityView() {{
             <!-- Pre-Sale KPI Summary Grid -->
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; padding:14px 18px; background:var(--bg-card); border-bottom:1px solid var(--border);">
                 <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
+                    <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">⭐ 2nd Installment Only</div>
+                    <div style="font-size:16px; font-weight:800; color:var(--purple); margin-top:2px;">268 Parcels &middot; $5.12M</div>
+                    <div style="font-size:10px; color:var(--success);">&gt;95% redemption safety</div>
+                </div>
+                <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
+                    <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Curated $2.0M Plan</div>
+                    <div style="font-size:16px; font-weight:800; color:var(--success); margin-top:2px;">54 Prime Parcels</div>
+                    <div style="font-size:10px; color:var(--success);">+$240.1k/yr 12% subtaxes</div>
+                </div>
+                <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
                     <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Mega Liens (&gt;=$50k)</div>
                     <div style="font-size:16px; font-weight:800; color:var(--accent); margin-top:2px;">52 Parcels &middot; $5.17M</div>
                     <div style="font-size:10px; color:var(--text-muted);">Avg $99,371 / parcel</div>
@@ -2466,19 +2476,15 @@ function renderTaxActivityView() {{
                     <div style="font-size:16px; font-weight:800; color:#fbbf24; margin-top:2px;">793 Parcels &middot; $11.63M</div>
                     <div style="font-size:10px; color:var(--text-muted);">Avg $14,670 / parcel</div>
                 </div>
-                <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                    <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Curated $2.0M Portfolio</div>
-                    <div style="font-size:16px; font-weight:800; color:var(--success); margin-top:2px;">11 Prime Parcels</div>
-                    <div style="font-size:10px; color:var(--success);">+$245.9k/yr 12% subtaxes</div>
-                </div>
             </div>
 
             <!-- Interactive Filter Controls -->
             <div style="padding:12px 18px; background:rgba(15,23,42,0.4); border-bottom:1px solid var(--border); display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                 <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filter:</span>
                 <select id="lakeTierFilter" onchange="renderLakeTargetTable()" style="background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border); padding:4px 8px; border-radius:4px; font-size:11px;">
+                    <option value="half" selected>⭐ 2nd Installment Only (268 Parcels &middot; $5.12M)</option>
+                    <option value="curated">Curated $2.0M Plan (54 Parcels)</option>
                     <option value="all">All High-Yield ($10k+)</option>
-                    <option value="curated">Curated $2.0M Plan</option>
                     <option value="50k">Mega Liens (&gt;=$50k)</option>
                     <option value="25k">Core ($25k - $50k)</option>
                     <option value="10k">Selective ($10k - $25k)</option>
@@ -2501,6 +2507,7 @@ function renderTaxActivityView() {{
                         <th>PIN</th>
                         <th>Taxpayer / Business Name</th>
                         <th>City / Township</th>
+                        <th>Installment Status</th>
                         <th>Type / Class</th>
                         <th class="right">Tax Due</th>
                         <th class="right">Assessed Bldg</th>
@@ -2532,6 +2539,7 @@ function renderLakeTargetTable() {{
         : lakePresaleData.top_targets;
 
     let filtered = dataset.filter(item => {{
+        if (tierVal === 'half' && !item.is_half_installment) return false;
         if (tierVal === '50k' && item.tax_due < 50000) return false;
         if (tierVal === '25k' && (item.tax_due < 25000 || item.tax_due >= 50000)) return false;
         if (tierVal === '10k' && (item.tax_due < 10000 || item.tax_due >= 25000)) return false;
@@ -2557,6 +2565,10 @@ function renderLakeTargetTable() {{
             <td><code style="font-size:11px; cursor:pointer; color:var(--accent);" onclick="copyPin('${{t.pin}}')" title="Click to copy PIN">${{t.pin}}</code></td>
             <td><b>${{t.taxpayer}}</b></td>
             <td>${{t.city}} <span style="font-size:10px; color:var(--text-muted);">(${{t.township}})</span></td>
+            <td>
+                <span class="badge ${{t.is_half_installment ? 'badge-purple' : 'badge-blue'}}" style="font-size:9px;">${{t.installment_tag}}</span>
+                ${{t.prior_redemptions_count >= 2 ? `<span class="badge badge-green" style="font-size:8.5px; margin-left:3px;" title="Chronic Redeemer: ${{t.prior_redemptions_count}} prior redemptions">${{t.prior_redemptions_count}}x Redeemed</span>` : ''}}
+            </td>
             <td><span class="badge ${{t.is_commercial ? 'badge-blue' : 'badge-green'}}" style="font-size:9.5px;">${{t.property_type}}</span></td>
             <td class="right" style="font-weight:700; color:var(--text-primary);">$${{Number(t.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
             <td class="right">$${{Number(t.asmt_bldg).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
