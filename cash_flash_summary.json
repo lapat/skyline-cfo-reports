@@ -1,9 +1,9 @@
 {
-  "as_of_date": "2026-10-26 19:42:40",
+  "as_of_date": "2026-10-27 11:15:00",
   "active_tab": "OCT 2026",
-  "total_bank_cash": 6332295.593000003,
+  "total_bank_cash": 6293169.723000002,
   "skyline_gl_cash": -832909689.6199986,
-  "in_flight_unposted": 839241985.2129986,
+  "in_flight_unposted": 839202859.3429986,
   "entity_bank_balances": [
     {
       "entity": "JRI Byline Bank",
@@ -19,7 +19,7 @@
     },
     {
       "entity": "Bay Bayou Money Market",
-      "balance": 632905.6800000011
+      "balance": 630211.9400000011
     },
     {
       "entity": "JRI First Bank Money Market",
@@ -35,7 +35,7 @@
     },
     {
       "entity": "J R Inc.",
-      "balance": 237313.22999999794
+      "balance": 237274.97999999794
     },
     {
       "entity": "Lakeview MHP",
@@ -86,10 +86,6 @@
       "balance": 37116.23999999961
     },
     {
-      "entity": "National Indemnity Corp",
-      "balance": 36393.880000000485
-    },
-    {
       "entity": "Union Tax Investors",
       "balance": 35813.01999999958
     },
@@ -119,7 +115,7 @@
     },
     {
       "entity": "J R Management",
-      "balance": 6221.230000001378
+      "balance": 6221.230000000913
     },
     {
       "entity": "Bay Bayou RV Operating",
@@ -132,6 +128,10 @@
     {
       "entity": "The Bluffs West Shore",
       "balance": 157.32000000000002
+    },
+    {
+      "entity": "National Indemnity Corp",
+      "balance": 5.820766091346741e-11
     }
   ],
   "executive_receipts": [
@@ -163,7 +163,7 @@
   "executive_disbursements": [
     {
       "category": "\ud83d\udcb8 General Operating Disbursements",
-      "amount": 4673733.54
+      "amount": 4839471.88
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Subtaxes Deployed",
@@ -175,7 +175,7 @@
     },
     {
       "category": "\ud83d\udc65 Payroll & Employee Benefits",
-      "amount": 636962.25
+      "amount": 486962.25
     },
     {
       "category": "\ud83c\udfe1 Mortgage Principal & Interest",
@@ -235,7 +235,7 @@
   "raw_disbursements": [
     {
       "category": "C/D TRANSFER",
-      "amount": 3378192.61
+      "amount": 3528192.61
     },
     {
       "category": "C/D SUBTAXES",
@@ -243,7 +243,7 @@
     },
     {
       "category": "C/D OPER EXP",
-      "amount": 1243313.34
+      "amount": 1259051.6800000002
     },
     {
       "category": "C/D MGMT FEES-OP COSTS",
@@ -251,7 +251,7 @@
     },
     {
       "category": "C/D PAYROLL",
-      "amount": 543937.55
+      "amount": 393937.55
     },
     {
       "category": "C/D MORTGAGE PYMT",
@@ -283,5 +283,5 @@
     }
   ],
   "total_receipts_mtd": 6596376.82,
-  "total_disbursements_mtd": -8885724.41
+  "total_disbursements_mtd": -8901462.75
 }

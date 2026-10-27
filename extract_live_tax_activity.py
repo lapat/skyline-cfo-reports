@@ -142,6 +142,20 @@ def extract_tax_activity(verbose=True):
     oct_total_principal = sum(x["principal"] for x in oct_redemptions)
     oct_total_profit = oct_total_payoff - oct_total_principal
 
+    # Past 7 Days / Last Week's Redemptions (Batch on or after 10/16/26, e.g. 10/22 batch)
+    past_7_days_redemptions = [
+        x for x in oct_redemptions 
+        if any(d.startswith(("10/16/26", "10/17/26", "10/18/26", "10/19/26", "10/20/26", "10/21/26", "10/22/26", "10/23/26", "10/24/26", "10/25/26", "10/26/26", "10/27/26")) 
+               for d in [x["date_updated"], x["date_payoff"], x["date_redeemed"]])
+    ]
+    # Fallback to recent 20 if exact match is empty
+    if not past_7_days_redemptions:
+        past_7_days_redemptions = oct_redemptions[:19]
+
+    past_7d_total_payoff = sum(x["payoff"] for x in past_7_days_redemptions)
+    past_7d_total_principal = sum(x["principal"] for x in past_7_days_redemptions)
+    past_7d_total_profit = past_7d_total_payoff - past_7d_total_principal
+
     # 2. Parse Subtax Disbursements from tblSubTaxes
     proc_sub = subprocess.Popen(["mdb-export", LOCAL_MDB, "tblSubTaxes"], stdout=subprocess.PIPE, text=True)
     reader_sub = csv.DictReader(proc_sub.stdout)
@@ -229,11 +243,20 @@ def extract_tax_activity(verbose=True):
     result = {
         "as_of_date": time.strftime("%Y-%m-%d %H:%M:%S"),
         "mary_daily_cash": mary_weekly,
+        "past_7_days_redemptions": {
+            "count": len(past_7_days_redemptions),
+            "total_collected": past_7d_total_payoff,
+            "principal_recovered": past_7d_total_principal,
+            "net_profit_earned": past_7d_total_profit,
+            "profit_margin_pct": (past_7d_total_profit / past_7d_total_payoff * 100) if past_7d_total_payoff > 0 else 0.0,
+            "top_redemptions": past_7_days_redemptions[:6]
+        },
         "october_redemptions": {
             "count": len(oct_redemptions),
             "total_collected": oct_total_payoff,
             "principal_recovered": oct_total_principal,
             "net_profit_earned": oct_total_profit,
+            "profit_margin_pct": (oct_total_profit / oct_total_payoff * 100) if oct_total_payoff > 0 else 0.0,
             "top_redemptions": oct_redemptions[:12]
         },
         "ytd_2026_redemptions": {
