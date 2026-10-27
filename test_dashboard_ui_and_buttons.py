@@ -66,12 +66,14 @@ def run_tests():
         assert_test(f"Viewport Pane exists in HTML: {p_id}", f'id="{p_id}"' in html, f'Missing pane id="{p_id}"')
 
     # =========================================================================
-    # TEST 2: Fall Tax Season Banner Presence
+    # TEST 2: Fall Tax Season Banner Presence & Lake War Room
     # =========================================================================
-    print("\n--- Phase 2: Fall 2026 Tax Auction Season Alert Banner ---")
+    print("\n--- Phase 2: Fall 2026 Tax Auction Season & Lake War Room ---")
     assert_test("Tax Season Banner exists in DOM", "tax-season-banner" in html)
     assert_test("Tax Season Headroom ($6,250,000) displayed", "$6,250,000" in html)
     assert_test("Tax Season 1-tap jump button exists", "View Tax Flow" in html)
+    assert_test("Lake County Pre-Sale Target Table exists in DOM", 'id="lakeTargetTable"' in html)
+    assert_test("Lake Bidding CSV Export button exists in DOM", 'exportLakeBiddingCsv' in html)
 
     # =========================================================================
     # TEST 3: Headless Execution via Node.js
@@ -221,6 +223,17 @@ def run_tests():
     testResults.push({{
         name: "All 12 entities dynamically updated e.jim_pdf from Jim's latest reports",
         passed: allEntityJimPdfsUpdated
+    }});
+
+    // Test 9: Lake County Pre-Sale Target Data Integrity
+    testResults.push({{
+        name: "Lake Pre-Sale target data parsed and top_targets present",
+        passed: typeof lakePresaleData === 'object' && lakePresaleData.top_targets && lakePresaleData.top_targets.length >= 200
+    }});
+
+    testResults.push({{
+        name: "Lake Curated $2.0M portfolio reaches target spend",
+        passed: lakePresaleData.curated_2m_portfolio && lakePresaleData.curated_2m_portfolio.total_spend >= 2000000
     }});
 
     console.log(JSON.stringify(testResults));

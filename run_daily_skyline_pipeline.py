@@ -145,6 +145,14 @@ def run_pipeline(push_to_cloud=True):
     except Exception as e:
         log(f"Jim Report sync note: {e}", "ℹ️")
 
+    # Step 2k: Lake County Pre-Sale Bidding Screener & Target Optimizer
+    try:
+        import extract_lake_presale_targets
+        extract_lake_presale_targets.process_lake_presale(verbose=False)
+        log("Lake County Pre-Sale Bidding Screener compiled (lake_presale_targets.json)", "🎯")
+    except Exception as e:
+        log(f"Lake presale note: {e}", "ℹ️")
+
     # =========================================================================
     # STEP 3: MASTER REPORT COMPILATION & PDF GENERATION
     # =========================================================================
