@@ -68,12 +68,19 @@ def run_tests():
     # =========================================================================
     # TEST 2: Fall Tax Season Banner Presence & Lake War Room
     # =========================================================================
-    print("\n--- Phase 2: Fall 2026 Tax Auction Season & Lake War Room ---")
+    print("\n--- Phase 2: Fall 2026 Tax Auction Season & Collar Counties Commander ---")
     assert_test("Tax Season Banner exists in DOM", "tax-season-banner" in html)
     assert_test("Tax Season Headroom ($6,250,000) displayed", "$6,250,000" in html)
     assert_test("Tax Season 1-tap jump button exists", "View Tax Flow" in html)
+    assert_test("Subtax Defense Tab button exists in DOM", 'id="tabBtnSubtax"' in html)
+    assert_test("Lake County Pre-Sale Tab button exists in DOM", 'id="tabBtnLake"' in html)
+    assert_test("DuPage County Tab button exists in DOM", 'id="tabBtnDupage"' in html)
+    assert_test("McHenry County Tab button exists in DOM", 'id="tabBtnMchenry"' in html)
+    assert_test("Will County Tab button exists in DOM", 'id="tabBtnWill"' in html)
+    assert_test("Subtax Opportunity Table exists in DOM", 'id="subtaxTableBody"' in html)
     assert_test("Lake County Pre-Sale Target Table exists in DOM", 'id="lakeTargetTable"' in html)
     assert_test("Lake Bidding CSV Export button exists in DOM", 'exportLakeBiddingCsv' in html)
+    assert_test("Mary Subtax CSV Export button exists in DOM", 'exportMarySubtaxCsv' in html)
 
     # =========================================================================
     # TEST 3: Headless Execution via Node.js
@@ -234,6 +241,12 @@ def run_tests():
     testResults.push({{
         name: "Lake Curated $2.0M portfolio reaches target spend",
         passed: lakePresaleData.curated_2m_portfolio && lakePresaleData.curated_2m_portfolio.total_spend >= 2000000
+    }});
+
+    // Test 10: Subtax Hunter Priority Matches Integrity
+    testResults.push({{
+        name: "Subtax Hunter parsed and 18 priority opportunities present",
+        passed: typeof subtaxHunterData === 'object' && subtaxHunterData.total_subtax_parcels === 18 && subtaxHunterData.total_subtax_capital_required > 120000
     }});
 
     console.log(JSON.stringify(testResults));

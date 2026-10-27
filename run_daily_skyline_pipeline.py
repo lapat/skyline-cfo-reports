@@ -153,6 +153,14 @@ def run_pipeline(push_to_cloud=True):
     except Exception as e:
         log(f"Lake presale note: {e}", "ℹ️")
 
+    # Step 2l: Automated Multi-County Subtax Priority Hunter & Check Generator
+    try:
+        import hunt_subtax_opportunities
+        hunt_subtax_opportunities.run_subtax_hunter(verbose=False)
+        log("Subtax Priority Hunter compiled (subtax_opportunities_summary.json)", "🔥")
+    except Exception as e:
+        log(f"Subtax Hunter note: {e}", "ℹ️")
+
     # =========================================================================
     # STEP 3: MASTER REPORT COMPILATION & PDF GENERATION
     # =========================================================================
