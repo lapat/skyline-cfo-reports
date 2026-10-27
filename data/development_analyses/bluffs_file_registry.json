@@ -1,0 +1,1171 @@
+{
+  "generated_at": "2026-10-12T20:33:48.389385Z",
+  "source_dir": "Bluffs_North_Expansion_Files",
+  "file_count": 38,
+  "exact_duplicate_groups": {},
+  "families": {
+    "Bluffs_North_Amenity_ROI_Model": {
+      "members": [
+        "Bluffs_North_Amenity_ROI_Model.xlsx",
+        "Bluffs_North_Amenity_ROI_Model_1.xlsx"
+      ],
+      "current": "Bluffs_North_Amenity_ROI_Model_1.xlsx",
+      "order_by_date": [
+        [
+          "Bluffs_North_Amenity_ROI_Model.xlsx",
+          "2026-09-28"
+        ],
+        [
+          "Bluffs_North_Amenity_ROI_Model_1.xlsx",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "Bluffs_North_Expansion_Class4_Estimate": {
+      "members": [
+        "Bluffs_North_Expansion_Class4_Estimate.xlsx",
+        "Bluffs_North_Expansion_Class4_Estimate_LongTermHold.xlsx",
+        "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold.xlsx"
+      ],
+      "current": "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold.xlsx",
+      "order_by_date": [
+        [
+          "Bluffs_North_Expansion_Class4_Estimate.xlsx",
+          "2026-09-28"
+        ],
+        [
+          "Bluffs_North_Expansion_Class4_Estimate_LongTermHold.xlsx",
+          "2026-10-02"
+        ],
+        [
+          "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold.xlsx",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "Bluffs_North_Expansion_Cost_Model": {
+      "members": [
+        "Bluffs_North_Expansion_Cost_Model.xlsx",
+        "Bluffs_North_Expansion_Cost_Model_Rev2_LongTermHold.xlsx"
+      ],
+      "current": "Bluffs_North_Expansion_Cost_Model_Rev2_LongTermHold.xlsx",
+      "order_by_date": [
+        [
+          "Bluffs_North_Expansion_Cost_Model.xlsx",
+          "2026-09-28"
+        ],
+        [
+          "Bluffs_North_Expansion_Cost_Model_Rev2_LongTermHold.xlsx",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "07_SESC_Permit_No__26-030_and_approved_SESC_Plan": {
+      "members": [
+        "07_SESC_Permit_No__26-030_and_approved_SESC_Plan.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "07_SESC_Permit_No__26-030_and_approved_SESC_Plan.pdf"
+      ]
+    },
+    "08_EGLE_NPDES_Notice_of_Coverage_MIR119192": {
+      "members": [
+        "08_EGLE_NPDES_Notice_of_Coverage_MIR119192.pdf"
+      ],
+      "current": "08_EGLE_NPDES_Notice_of_Coverage_MIR119192.pdf",
+      "order_by_date": [
+        [
+          "08_EGLE_NPDES_Notice_of_Coverage_MIR119192.pdf",
+          "2026-07-20"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "09_Special_Use_Permit": {
+      "members": [
+        "09_Special_Use_Permit_1.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "09_Special_Use_Permit_1.pdf"
+      ]
+    },
+    "09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13": {
+      "members": [
+        "09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13_2026.pdf"
+      ],
+      "current": "09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13_2026.pdf",
+      "order_by_date": [
+        [
+          "09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13_2026.pdf",
+          "2026-05-13"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "10_Threatened_and_Endangered_Species_Assessment": {
+      "members": [
+        "10_Threatened_and_Endangered_Species_Assessment.pdf"
+      ],
+      "current": "10_Threatened_and_Endangered_Species_Assessment.pdf",
+      "order_by_date": [
+        [
+          "10_Threatened_and_Endangered_Species_Assessment.pdf",
+          "2026-06-01"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "11_Drain_Commission_Approval": {
+      "members": [
+        "11_Drain_Commission_Approval.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "11_Drain_Commission_Approval.pdf"
+      ]
+    },
+    "The_Bluffs_Variance_FD": {
+      "members": [
+        "The_Bluffs_Variance_FD_1201486.pdf"
+      ],
+      "current": "The_Bluffs_Variance_FD_1201486.pdf",
+      "order_by_date": [
+        [
+          "The_Bluffs_Variance_FD_1201486.pdf",
+          "2026-09-10"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "01_GC_Request_for_Proposal": {
+      "members": [
+        "01_GC_Request_for_Proposal.pdf"
+      ],
+      "current": "01_GC_Request_for_Proposal.pdf",
+      "order_by_date": [
+        [
+          "01_GC_Request_for_Proposal.pdf",
+          "2026-08-24"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED": {
+      "members": [
+        "03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED.pdf"
+      ]
+    },
+    "04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6": {
+      "members": [
+        "04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6_1.pdf"
+      ],
+      "current": "04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6_1.pdf",
+      "order_by_date": [
+        [
+          "04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6_1.pdf",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6": {
+      "members": [
+        "04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6_1.pdf"
+      ],
+      "current": "04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6_1.pdf",
+      "order_by_date": [
+        [
+          "04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6_1.pdf",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "06_Geotechnical_Memorandum": {
+      "members": [
+        "06_Geotechnical_Memorandum.pdf"
+      ],
+      "current": "06_Geotechnical_Memorandum.pdf",
+      "order_by_date": [
+        [
+          "06_Geotechnical_Memorandum.pdf",
+          "2026-05-27"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion": {
+      "members": [
+        "10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion.pdf"
+      ],
+      "current": "10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion.pdf",
+      "order_by_date": [
+        [
+          "10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion.pdf",
+          "2026-10-06"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "Addendum_No6_Two_Bid_Packages_with_Sheet06": {
+      "members": [
+        "Addendum_No6_Two_Bid_Packages_with_Sheet06_1.pdf"
+      ],
+      "current": "Addendum_No6_Two_Bid_Packages_with_Sheet06_1.pdf",
+      "order_by_date": [
+        [
+          "Addendum_No6_Two_Bid_Packages_with_Sheet06_1.pdf",
+          "2026-10-01"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6": {
+      "members": [
+        "Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6.pdf"
+      ],
+      "current": "Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6.pdf",
+      "order_by_date": [
+        [
+          "Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6.pdf",
+          "2026-08-24"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "RFP_Grading_Surfaces": {
+      "members": [
+        "RFP_Grading_Surfaces_20260824.pdf"
+      ],
+      "current": "RFP_Grading_Surfaces_20260824.pdf",
+      "order_by_date": [
+        [
+          "RFP_Grading_Surfaces_20260824.pdf",
+          "2026-08-24"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "claude_Bluffs_Cost_VE_Summary": {
+      "members": [
+        "claude_Bluffs_Cost_VE_Summary.md"
+      ],
+      "current": "claude_Bluffs_Cost_VE_Summary.md",
+      "order_by_date": [
+        [
+          "claude_Bluffs_Cost_VE_Summary.md",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02": {
+      "members": [
+        "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md"
+      ],
+      "current": "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md",
+      "order_by_date": [
+        [
+          "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28": {
+      "members": [
+        "claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28.md"
+      ],
+      "current": "claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28.md",
+      "order_by_date": [
+        [
+          "claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28.md",
+          "2026-09-28"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "claude_Bluffs_Revised_Review_2026-10-08": {
+      "members": [
+        "claude_Bluffs_Revised_Review_2026-10-08.md"
+      ],
+      "current": "claude_Bluffs_Revised_Review_2026-10-08.md",
+      "order_by_date": [
+        [
+          "claude_Bluffs_Revised_Review_2026-10-08.md",
+          "2026-10-08"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "claude_Class4_Estimate_Summary_2026-09-28": {
+      "members": [
+        "claude_Class4_Estimate_Summary_2026-09-28.md"
+      ],
+      "current": "claude_Class4_Estimate_Summary_2026-09-28.md",
+      "order_by_date": [
+        [
+          "claude_Class4_Estimate_Summary_2026-09-28.md",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV": {
+      "members": [
+        "claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV_3.md"
+      ],
+      "current": "claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV_3.md",
+      "order_by_date": [
+        [
+          "claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV_3.md",
+          "2026-09-28"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "Bluffs_North_Expansion_Class4_Estimate_Report": {
+      "members": [
+        "Bluffs_North_Expansion_Class4_Estimate_Report.docx",
+        "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx"
+      ],
+      "current": "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx",
+      "order_by_date": [
+        [
+          "Bluffs_North_Expansion_Class4_Estimate_Report.docx",
+          "2026-09-28"
+        ],
+        [
+          "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "Bluffs_North_Expansion_Cost_VE_Memo": {
+      "members": [
+        "Bluffs_North_Expansion_Cost_VE_Memo.docx",
+        "Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx"
+      ],
+      "current": "Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx",
+      "order_by_date": [
+        [
+          "Bluffs_North_Expansion_Cost_VE_Memo.docx",
+          "2026-09-28"
+        ],
+        [
+          "Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx",
+          "2026-10-02"
+        ]
+      ],
+      "undated_members_not_ordered": []
+    },
+    "12_Exhibit_C_-_Pavilion_prints_and_pad_requirements": {
+      "members": [
+        "12_Exhibit_C_-_Pavilion_prints_and_pad_requirements.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "12_Exhibit_C_-_Pavilion_prints_and_pad_requirements.pdf"
+      ]
+    },
+    "13_Exhibit_D_-_Maintenance_building___layout_and_specification": {
+      "members": [
+        "13_Exhibit_D_-_Maintenance_building___layout_and_specification.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "13_Exhibit_D_-_Maintenance_building___layout_and_specification.pdf"
+      ]
+    },
+    "14_Exhibit_E_-_Solar_Site_Lamp_Specification": {
+      "members": [
+        "14_Exhibit_E_-_Solar_Site_Lamp_Specification.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "14_Exhibit_E_-_Solar_Site_Lamp_Specification.pdf"
+      ]
+    },
+    "15_Exhibit_F_-_Fire_hydrant_cut_sheet": {
+      "members": [
+        "15_Exhibit_F_-_Fire_hydrant_cut_sheet.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "15_Exhibit_F_-_Fire_hydrant_cut_sheet.pdf"
+      ]
+    },
+    "16_Exhibit_G_-_Insurance_Requirements": {
+      "members": [
+        "16_Exhibit_G_-_Insurance_Requirements.pdf"
+      ],
+      "current": null,
+      "order_by_date": [],
+      "undated_members_not_ordered": [
+        "16_Exhibit_G_-_Insurance_Requirements.pdf"
+      ]
+    }
+  },
+  "needs_manual_review": [
+    "03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED.pdf",
+    "07_SESC_Permit_No__26-030_and_approved_SESC_Plan.pdf",
+    "09_Special_Use_Permit_1.pdf",
+    "11_Drain_Commission_Approval.pdf",
+    "12_Exhibit_C_-_Pavilion_prints_and_pad_requirements.pdf",
+    "13_Exhibit_D_-_Maintenance_building___layout_and_specification.pdf",
+    "14_Exhibit_E_-_Solar_Site_Lamp_Specification.pdf",
+    "15_Exhibit_F_-_Fire_hydrant_cut_sheet.pdf",
+    "16_Exhibit_G_-_Insurance_Requirements.pdf"
+  ],
+  "records": [
+    {
+      "filename": "Bluffs_North_Amenity_ROI_Model.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Amenity_ROI_Model.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Amenity_ROI_Model",
+      "hash": "47303af737b2ceec7872fbfa40ae3f6af0e612e5b46f3a75e1decfa027f502be",
+      "size_bytes": 19485,
+      "ext": ".xlsx",
+      "stated_date": "2026-09-28",
+      "date_confidence": "manual override -- confirmed by opening the file: Assumptions/Ranked/VE sheets, no long-term-hold language present, matches the original 9/28/26 scope.",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "sheets": [
+        "Assumptions",
+        "Ranked",
+        "VE"
+      ],
+      "is_current": false
+    },
+    {
+      "filename": "Bluffs_North_Amenity_ROI_Model_1.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Amenity_ROI_Model_1.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Amenity_ROI_Model",
+      "hash": "778a242c8b0a3bf79769bef19a1d0bdc45c743e0ec97ffcd28c1a1f84a278e20",
+      "size_bytes": 22039,
+      "ext": ".xlsx",
+      "stated_date": "2026-10-02",
+      "date_confidence": "manual override -- confirmed by opening the file: Assumptions/Ranked/Lifecycle sheets, Discount_rate row explicitly says \"LONG-TERM HOLD: owner's unlevered long-run required return\" -- matches the 10/2/26 Long-Term Hold decision despite the filename carrying no LongTermHold token.",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "sheets": [
+        "Assumptions",
+        "Ranked",
+        "Lifecycle"
+      ],
+      "is_current": true
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Class4_Estimate.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Expansion_Class4_Estimate.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Expansion_Class4_Estimate",
+      "hash": "6f772ec9ade6b2e116d77c0a48313133f2cae2b9c0b2e92648a57fba80e7c2b6",
+      "size_bytes": 45339,
+      "ext": ".xlsx",
+      "stated_date": "2026-09-28",
+      "date_confidence": "inherited from companion report 'Bluffs_North_Expansion_Class4_Estimate_Report.docx' (Companion: field)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Expansion_Class4_Estimate_Report.docx",
+      "scenario_tag": null,
+      "revision_token": null,
+      "sheets": [
+        "Summary",
+        "Inputs",
+        "QTO",
+        "CBS Hard Costs",
+        "Soft Costs",
+        "Contingency & Risk",
+        "Phase 1",
+        "Assumptions & Flags"
+      ],
+      "is_current": false
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Class4_Estimate_LongTermHold.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Expansion_Class4_Estimate_LongTermHold.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Expansion_Class4_Estimate",
+      "hash": "deb175aacfb3f3c7963e3640d5d90b4be7904ef27660787073dba62f2a63b46f",
+      "size_bytes": 54978,
+      "ext": ".xlsx",
+      "stated_date": "2026-10-02",
+      "date_confidence": "inherited from companion report 'claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md' (Companion: field)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md",
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "sheets": [
+        "Summary",
+        "Long-Term Hold",
+        "Inputs",
+        "QTO",
+        "CBS Hard Costs",
+        "Soft Costs",
+        "Contingency & Risk",
+        "Phase 1",
+        "Assumptions & Flags"
+      ],
+      "is_current": false
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Expansion_Class4_Estimate",
+      "hash": "41db36f82cb590ede417eadb784121c610f0c132a9a80ab5532e8fd2efc26035",
+      "size_bytes": 65486,
+      "ext": ".xlsx",
+      "stated_date": "2026-10-02",
+      "date_confidence": "inherited from companion report 'Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx' (Companion: field)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx",
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "sheets": [
+        "Summary",
+        "Inputs",
+        "QTO",
+        "CBS Hard Costs",
+        "Soft Costs",
+        "Rev1 Spec Changes",
+        "Lifecycle 40-yr",
+        "Capital Reserve",
+        "Prior VE \u2013 LT Review",
+        "Contingency & Risk",
+        "Phase 1",
+        "Assumptions & Flags"
+      ],
+      "is_current": true
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Cost_Model.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Expansion_Cost_Model.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Expansion_Cost_Model",
+      "hash": "67e2605e916330302f5d37b45babb210059dcd218051c78faa7007979cbfb948",
+      "size_bytes": 70928,
+      "ext": ".xlsx",
+      "stated_date": "2026-09-28",
+      "date_confidence": "inherited from companion report 'Bluffs_North_Expansion_Cost_VE_Memo.docx' (Companion: field)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Expansion_Cost_VE_Memo.docx",
+      "scenario_tag": null,
+      "revision_token": null,
+      "sheets": [
+        "README",
+        "Inputs",
+        "Parcels",
+        "Program",
+        "QTO",
+        "CBS",
+        "Findings",
+        "Risk",
+        "VE",
+        "Rec Plan",
+        "Flags"
+      ],
+      "is_current": false
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Cost_Model_Rev2_LongTermHold.xlsx",
+      "path": "Bluffs_North_Expansion_Files/04_Cost_Models_and_Estimates_xlsx/Bluffs_North_Expansion_Cost_Model_Rev2_LongTermHold.xlsx",
+      "category": "04_Cost_Models_and_Estimates_xlsx",
+      "family": "Bluffs_North_Expansion_Cost_Model",
+      "hash": "df9dbaf3df53cc5d9082a7a447602c4ceba93ab11fcd7317f3c779f4d2db0738",
+      "size_bytes": 82496,
+      "ext": ".xlsx",
+      "stated_date": "2026-10-02",
+      "date_confidence": "inherited from companion report 'Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx' (Companion: field)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx",
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "sheets": [
+        "README",
+        "Inputs",
+        "Parcels",
+        "Program",
+        "QTO",
+        "CBS",
+        "Findings",
+        "Risk",
+        "Lifecycle",
+        "VE",
+        "Rec Plan",
+        "Flags"
+      ],
+      "is_current": true
+    },
+    {
+      "filename": "07_SESC_Permit_No__26-030_and_approved_SESC_Plan.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/07_SESC_Permit_No__26-030_and_approved_SESC_Plan.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "07_SESC_Permit_No__26-030_and_approved_SESC_Plan",
+      "hash": "60eab5671c9f2903d76b40231595eaf745b95597c5d9514403b729fb4a165345",
+      "size_bytes": 1609477,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": null
+    },
+    {
+      "filename": "08_EGLE_NPDES_Notice_of_Coverage_MIR119192.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/08_EGLE_NPDES_Notice_of_Coverage_MIR119192.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "08_EGLE_NPDES_Notice_of_Coverage_MIR119192",
+      "hash": "49a1a2226bc9c9dcb152eba563ab7db3a87ce22316924652df8a343d685654d9",
+      "size_bytes": 107307,
+      "ext": ".pdf",
+      "stated_date": "2026-07-20",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "09_Special_Use_Permit_1.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/09_Special_Use_Permit_1.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "09_Special_Use_Permit",
+      "hash": "29e320bd24cee31e7311cb89c48420328c89e40dc30ee3ec61cccf75a39fdab8",
+      "size_bytes": 2012578,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": null
+    },
+    {
+      "filename": "09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13_2026.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13_2026.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "09__Ordinance_Z26-01_Village_of_Eastlake_adopted_May_13",
+      "hash": "187f1ed18d131b98f528d5ca4dc4f9a2d429ff0c854fa715ff85a1cb0300d955",
+      "size_bytes": 201290,
+      "ext": ".pdf",
+      "stated_date": "2026-05-13",
+      "date_confidence": "low (extracted from filename only, not document content)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "10_Threatened_and_Endangered_Species_Assessment.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/10_Threatened_and_Endangered_Species_Assessment.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "10_Threatened_and_Endangered_Species_Assessment",
+      "hash": "f9f9c0db75e9966c53ed107f86547e544c1da19f5fab2d6f35bf5401954e8398",
+      "size_bytes": 10151714,
+      "ext": ".pdf",
+      "stated_date": "2026-06-01",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "11_Drain_Commission_Approval.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/11_Drain_Commission_Approval.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "11_Drain_Commission_Approval",
+      "hash": "8dc964c970fddbb43baee73f153780918b669dff1962f278acfc902d17fe2163",
+      "size_bytes": 237700,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "note": "Scanned/image-only PDF -- no extractable text layer, could not date from content.",
+      "is_current": null
+    },
+    {
+      "filename": "The_Bluffs_Variance_FD_1201486.pdf",
+      "path": "Bluffs_North_Expansion_Files/02_Permits_and_Approvals/The_Bluffs_Variance_FD_1201486.pdf",
+      "category": "02_Permits_and_Approvals",
+      "family": "The_Bluffs_Variance_FD",
+      "hash": "037761412759d8a07bd2459cb106f0b4337cb60b5deb7d9c87f49aaf1aea620a",
+      "size_bytes": 199353,
+      "ext": ".pdf",
+      "stated_date": "2026-09-10",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "01_GC_Request_for_Proposal.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/01_GC_Request_for_Proposal.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "01_GC_Request_for_Proposal",
+      "hash": "f43ac7cf4d19ac1a6a47e577bc65e54885eeeba9534f0fecdb5ad28ad9e07b7c",
+      "size_bytes": 1633040,
+      "ext": ".pdf",
+      "stated_date": "2026-08-24",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "03A_Plan_Set___16ft_BOC_Alternate___REV_3___SEALED",
+      "hash": "4f054821e60072fb3cf008bd2135ea24f3bfb5f1760103fd341e3fcb474d66ec",
+      "size_bytes": 17846604,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": "REV 3",
+      "is_current": null
+    },
+    {
+      "filename": "04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6_1.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6_1.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "04A_Construction_Quantities_by_Bid_Package_-_16_FT_BOC_Alternate_No__1_-_Addendum_No__6",
+      "hash": "b7fb3d7c225c8473fa3b5a717e613eab81eff231f86c731804a336f789d0d81b",
+      "size_bytes": 165058,
+      "ext": ".pdf",
+      "stated_date": "2026-10-02",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6_1.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6_1.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "04_Construction_Quantities_by_Bid_Package_-_23_FT_BOC_Base_Bid_-_Addendum_No__6",
+      "hash": "4377c2240e5149a42112b3c8c2d5dcee33cf1ecdb67d5f70e0c956cbdb1bf9f3",
+      "size_bytes": 165061,
+      "ext": ".pdf",
+      "stated_date": "2026-10-02",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "06_Geotechnical_Memorandum.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/06_Geotechnical_Memorandum.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "06_Geotechnical_Memorandum",
+      "hash": "13237c33ae02e748e4e7c2d8070ae942e32bef1dbd86ef611a458b7b40e43679",
+      "size_bytes": 2146924,
+      "ext": ".pdf",
+      "stated_date": "2026-05-27",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "10_06_26_Bid_for_The_Bluffs_on_Manistee_Lake_-_North_Expansion",
+      "hash": "8b371168cd3bf59fcc944e5387f680f9429373a30f79e9a917224d6a31953151",
+      "size_bytes": 3014878,
+      "ext": ".pdf",
+      "stated_date": "2026-10-06",
+      "date_confidence": "low (extracted from filename only, not document content)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "Addendum_No6_Two_Bid_Packages_with_Sheet06_1.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/Addendum_No6_Two_Bid_Packages_with_Sheet06_1.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "Addendum_No6_Two_Bid_Packages_with_Sheet06",
+      "hash": "e7e28c914c96ce76fa7622106a2b1a8b4650ab9f02b5f3d49422a254ef70cc43",
+      "size_bytes": 3009825,
+      "ext": ".pdf",
+      "stated_date": "2026-10-01",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": " Addendum 6",
+      "is_current": true
+    },
+    {
+      "filename": "Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "Exhibit_A_Bid_Form_Phase1_and_Phase2_Addendum6",
+      "hash": "28a6a0da2d28575bf3d03e0e6e956fc37ae3bf2701f1ac2ce9e56c285d6a0492",
+      "size_bytes": 273135,
+      "ext": ".pdf",
+      "stated_date": "2026-08-24",
+      "date_confidence": "low (first date-like string found in the PDF text, unlabeled)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "RFP_Grading_Surfaces_20260824.pdf",
+      "path": "Bluffs_North_Expansion_Files/01_Bid_Documents_and_RFP/RFP_Grading_Surfaces_20260824.pdf",
+      "category": "01_Bid_Documents_and_RFP",
+      "family": "RFP_Grading_Surfaces",
+      "hash": "b7dd2f8857c6cf2f1272b2c5e3d897e4aa6b81c070b99ebfbc8708e3f3677914",
+      "size_bytes": 423887,
+      "ext": ".pdf",
+      "stated_date": "2026-08-24",
+      "date_confidence": "low (extracted from filename only, not document content)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": true
+    },
+    {
+      "filename": "claude_Bluffs_Cost_VE_Summary.md",
+      "path": "Bluffs_North_Expansion_Files/06_Claude_Analysis_Notes_md/claude_Bluffs_Cost_VE_Summary.md",
+      "category": "06_Claude_Analysis_Notes_md",
+      "family": "claude_Bluffs_Cost_VE_Summary",
+      "hash": "2a4c8f222f2ecdfeec7da487e265733fe487d51208fc2ac251f22fd18a34145d",
+      "size_bytes": 1797,
+      "ext": ".md",
+      "stated_date": "2026-10-02",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": ".xlsx + Bluffs_North_Expansion_Cost_VE_Memo.docx.",
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "> **\u26a0 Superseded in part (10/2/26).** The owner is a permanent holder. See claude/Class4_Estimate_Summary_2026-09-28.md (Rev 1 \u2013 Long-Term Hold).",
+      "is_current": true
+    },
+    {
+      "filename": "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md",
+      "path": "Bluffs_North_Expansion_Files/06_Claude_Analysis_Notes_md/claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02.md",
+      "category": "06_Claude_Analysis_Notes_md",
+      "family": "claude_Bluffs_Long_Term_Hold_Addendum_2026-10-02",
+      "hash": "648c2d9fe8dee85a76d2f09a61448126deb9dc600831d628cce92ee84c232482",
+      "size_bytes": 6668,
+      "ext": ".md",
+      "stated_date": "2026-10-02",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Expansion_Class4_Estimate_LongTermHold.xlsx. It is the Class 4 workbook with a new \"Long-Term Hold\" tab and",
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "title": "Bluffs North Expansion \u2013 Long-Term Hold Addendum (10/2/26)",
+      "is_current": true
+    },
+    {
+      "filename": "claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28.md",
+      "path": "Bluffs_North_Expansion_Files/06_Claude_Analysis_Notes_md/claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28.md",
+      "category": "06_Claude_Analysis_Notes_md",
+      "family": "claude_Bluffs_Revenue_Within_Approved_Plans_2026-09-28",
+      "hash": "b09ee618961ca44586ad697863f5eff5f062ede20ae71f562dbf248b9cc2387a",
+      "size_bytes": 1891,
+      "ext": ".md",
+      "stated_date": "2026-09-28",
+      "date_confidence": "medium (YYYY-MM-DD found in filename)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Amenity_ROI_Model.xlsx",
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "Bluffs North \u2013 Revenue & VE Within Approved Plans (rev. 10/2/26, permanent-hold basis)",
+      "is_current": true
+    },
+    {
+      "filename": "claude_Bluffs_Revised_Review_2026-10-08.md",
+      "path": "Bluffs_North_Expansion_Files/06_Claude_Analysis_Notes_md/claude_Bluffs_Revised_Review_2026-10-08.md",
+      "category": "06_Claude_Analysis_Notes_md",
+      "family": "claude_Bluffs_Revised_Review_2026-10-08",
+      "hash": "7e6ff41f3c87b412a3ec125f404947df5ad8c32a8d83da42284b048e985fc841",
+      "size_bytes": 1845,
+      "ext": ".md",
+      "stated_date": "2026-10-08",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": "the active conclusions in: Plan Review Error Register (9/28), Class 4 Estimate Rev 0/Rev 1 and summaries, Cost & VE Memo (9/28) and Rev 2 (10/2), Long-Term Hold Addendum (10/2), Revenue doc (10/2). Those remain as history only.",
+      "is_partial_supersession": true,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "Bluffs North Expansion \u2013 Revised Review (10/8/26) \u2014 CURRENT",
+      "is_current": true
+    },
+    {
+      "filename": "claude_Class4_Estimate_Summary_2026-09-28.md",
+      "path": "Bluffs_North_Expansion_Files/06_Claude_Analysis_Notes_md/claude_Class4_Estimate_Summary_2026-09-28.md",
+      "category": "06_Claude_Analysis_Notes_md",
+      "family": "claude_Class4_Estimate_Summary_2026-09-28",
+      "hash": "40456b07c011223c3636ccead7acf8edeb187fa1d4fb4337901a54c7ffd2ce94",
+      "size_bytes": 3364,
+      "ext": ".md",
+      "stated_date": "2026-10-02",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "Bluffs North Expansion \u2013 Class 4 Estimate Summary",
+      "is_current": true
+    },
+    {
+      "filename": "claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV_3.md",
+      "path": "Bluffs_North_Expansion_Files/06_Claude_Analysis_Notes_md/claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV_3.md",
+      "category": "06_Claude_Analysis_Notes_md",
+      "family": "claude_Plan_Review_-_Error_Register_-_03A_16ft_BOC_Alt_REV",
+      "hash": "771ec4d891421f91a4056fbf3a4e7eae45716d2dff01923e3131717480ef46a9",
+      "size_bytes": 24189,
+      "ext": ".md",
+      "stated_date": "2026-09-28",
+      "date_confidence": "high (extracted from \"Reviewed:\" field in document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "Plan Review \u2014 Error Register",
+      "is_current": true
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Class4_Estimate_Report.docx",
+      "path": "Bluffs_North_Expansion_Files/05_Reports_and_Memos_docx/Bluffs_North_Expansion_Class4_Estimate_Report.docx",
+      "category": "05_Reports_and_Memos_docx",
+      "family": "Bluffs_North_Expansion_Class4_Estimate_Report",
+      "hash": "052940eb370d697ee0bf230dbce4254dfa52a550eb0ad17f296f21e541a0a5c5",
+      "size_bytes": 17601,
+      "ext": ".docx",
+      "stated_date": "2026-09-28",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "workbook: Bluffs_North_Expansion_Class4_Estimate.xlsx (live formulas; the workbook governs if figures differ). This is a",
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "Preliminary Cost Estimate \u2014 AACE Class 4 (Non-Binding)",
+      "is_current": false
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx",
+      "path": "Bluffs_North_Expansion_Files/05_Reports_and_Memos_docx/Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold_Report.docx",
+      "category": "05_Reports_and_Memos_docx",
+      "family": "Bluffs_North_Expansion_Class4_Estimate_Report",
+      "hash": "5b341f88bb6e920dc021d8c84318f001186cb36f13bbe3a83755df5b01d0b450",
+      "size_bytes": 16787,
+      "ext": ".docx",
+      "stated_date": "2026-10-02",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "workbook: Bluffs_North_Expansion_Class4_Estimate_Rev1_LongTermHold.xlsx (live formulas; it governs). Preliminary and non-",
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "title": "Preliminary Cost Estimate \u2014 AACE Class 4 \u2014 Rev 1: Long-Term Hold Specification",
+      "is_current": true
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Cost_VE_Memo.docx",
+      "path": "Bluffs_North_Expansion_Files/05_Reports_and_Memos_docx/Bluffs_North_Expansion_Cost_VE_Memo.docx",
+      "category": "05_Reports_and_Memos_docx",
+      "family": "Bluffs_North_Expansion_Cost_VE_Memo",
+      "hash": "e1d5442e2a289b9cb6cd978a7f641c494d120680aa5eba045b175d2716e8fb73",
+      "size_bytes": 21684,
+      "ext": ".docx",
+      "stated_date": "2026-09-28",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": "Bluffs_North_Expansion_Cost_Model.xlsx \u2013 live QTO, CBS, risk and VE model. Every number below comes from it; change the b",
+      "scenario_tag": null,
+      "revision_token": null,
+      "title": "MEMORANDUM",
+      "is_current": "partial (see is_partial_supersession on the newer file)"
+    },
+    {
+      "filename": "Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx",
+      "path": "Bluffs_North_Expansion_Files/05_Reports_and_Memos_docx/Bluffs_North_Expansion_Cost_VE_Memo_Rev2_LongTermHold.docx",
+      "category": "05_Reports_and_Memos_docx",
+      "family": "Bluffs_North_Expansion_Cost_VE_Memo",
+      "hash": "841dfe9ee4f2b7aa42aa99ba2d2133d9eebff951b8852b2154395519bc3b1bcc",
+      "size_bytes": 13140,
+      "ext": ".docx",
+      "stated_date": "2026-10-02",
+      "date_confidence": "high (extracted from document text)",
+      "supersedes_text": "Section 5 and the recommended plan of the 9/28/26 Cost & VE Memo. The base estimate (Sections 1\u20134) is unchanged.",
+      "is_partial_supersession": true,
+      "companion": "Bluffs_North_Expansion_Cost_Model_Rev2_LongTermHold.xlsx \u2013 new Lifecycle tab; VE and Rec Plan tabs rebuilt. Every number",
+      "scenario_tag": "LongTermHold",
+      "revision_token": null,
+      "title": "MEMORANDUM \u2013 REVISION 2",
+      "is_current": true
+    },
+    {
+      "filename": "12_Exhibit_C_-_Pavilion_prints_and_pad_requirements.pdf",
+      "path": "Bluffs_North_Expansion_Files/03_Exhibits_and_Specs/12_Exhibit_C_-_Pavilion_prints_and_pad_requirements.pdf",
+      "category": "03_Exhibits_and_Specs",
+      "family": "12_Exhibit_C_-_Pavilion_prints_and_pad_requirements",
+      "hash": "56e41cc489a7925e99aab5fc1784a920be7ab0ff073633a069adfbaac8680fe6",
+      "size_bytes": 2014288,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "note": "Scanned/image-only PDF -- no extractable text layer, could not date from content.",
+      "is_current": null
+    },
+    {
+      "filename": "13_Exhibit_D_-_Maintenance_building___layout_and_specification.pdf",
+      "path": "Bluffs_North_Expansion_Files/03_Exhibits_and_Specs/13_Exhibit_D_-_Maintenance_building___layout_and_specification.pdf",
+      "category": "03_Exhibits_and_Specs",
+      "family": "13_Exhibit_D_-_Maintenance_building___layout_and_specification",
+      "hash": "a696daeb048d9ca64429197b6a02d036204895d00b8b1b84880717df8700a1cc",
+      "size_bytes": 49913,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": null
+    },
+    {
+      "filename": "14_Exhibit_E_-_Solar_Site_Lamp_Specification.pdf",
+      "path": "Bluffs_North_Expansion_Files/03_Exhibits_and_Specs/14_Exhibit_E_-_Solar_Site_Lamp_Specification.pdf",
+      "category": "03_Exhibits_and_Specs",
+      "family": "14_Exhibit_E_-_Solar_Site_Lamp_Specification",
+      "hash": "ce59fde76daab6150f903cd976d7a1206a4e316cea2b6f97d8425e0616fc6643",
+      "size_bytes": 2104100,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": null
+    },
+    {
+      "filename": "15_Exhibit_F_-_Fire_hydrant_cut_sheet.pdf",
+      "path": "Bluffs_North_Expansion_Files/03_Exhibits_and_Specs/15_Exhibit_F_-_Fire_hydrant_cut_sheet.pdf",
+      "category": "03_Exhibits_and_Specs",
+      "family": "15_Exhibit_F_-_Fire_hydrant_cut_sheet",
+      "hash": "89dd01fc58cf882e93c18a5f1fe85c42b20c0ef90e7170cc560d83c6c327598b",
+      "size_bytes": 362394,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "note": "Scanned/image-only PDF -- no extractable text layer, could not date from content.",
+      "is_current": null
+    },
+    {
+      "filename": "16_Exhibit_G_-_Insurance_Requirements.pdf",
+      "path": "Bluffs_North_Expansion_Files/03_Exhibits_and_Specs/16_Exhibit_G_-_Insurance_Requirements.pdf",
+      "category": "03_Exhibits_and_Specs",
+      "family": "16_Exhibit_G_-_Insurance_Requirements",
+      "hash": "5cacd552c9a129505b61acdc9c9a1782914d5954c395fe6a139bf78b0baf3c06",
+      "size_bytes": 92459,
+      "ext": ".pdf",
+      "stated_date": null,
+      "date_confidence": "none",
+      "supersedes_text": null,
+      "is_partial_supersession": false,
+      "companion": null,
+      "scenario_tag": null,
+      "revision_token": null,
+      "is_current": null
+    }
+  ]
+}

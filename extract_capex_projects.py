@@ -32,6 +32,14 @@ def generate_capex_summary(verbose=True):
             "post_expansion_sites": 255,
             "product_mix": "90% Mobile Home (~144 lots) / 10% RV (~16 pads)",
             "phasing_strategy": "2 to 3 Phases (Phases 2-3 gated by 1st-year home sales velocity to avoid sinking capital into concrete pads)",
+            "plan_review_pdf": "source_documents/development_plans/Bluffs Development Plan Review (Oct 6 2026).pdf",
+            "engineering_program": {
+                "new_sites": 155,
+                "single_wide_mh": 81,
+                "double_wide_mh": 63,
+                "rv_super_sites": 11,
+                "gross_acres": 30.0
+            },
             "budget": 3800000.0,
             "spent_to_date": 842500.0,
             "pct_complete": 22.2,
@@ -57,6 +65,13 @@ def generate_capex_summary(verbose=True):
             "post_expansion_sites": 315,
             "product_mix": "100% RV Expansion Pads",
             "phasing_strategy": "2 Distinct Construction Phases",
+            "plan_review_pdf": "source_documents/development_plans/Madison Development Plan Review (Oct 6 2026).pdf",
+            "engineering_program": {
+                "new_sites": 215,
+                "phase_1_rv": 88,
+                "phase_2_rv": 127,
+                "gross_acres": 140.0
+            },
             "budget": 3200000.0,
             "spent_to_date": 125000.0,
             "pct_complete": 3.9,
@@ -77,6 +92,12 @@ def generate_capex_summary(verbose=True):
             "status": "Separate Financial Statement Entity (Active Interior Framing)",
             "current_operating_sites": "18 Championship Holes",
             "product_mix": "Golf, Pro Shop & Food/Beverage (Separate Profit Centers)",
+            "plan_review_pdf": "source_documents/development_plans/Madison Clubhouse Development Plan Review (Oct 7 2026).pdf",
+            "engineering_program": {
+                "architectural_sheets": 43,
+                "existing_rv_sites": 91,
+                "golf_holes": 18
+            },
             "budget": 1250000.0,
             "spent_to_date": 465200.0,
             "pct_complete": 37.2,

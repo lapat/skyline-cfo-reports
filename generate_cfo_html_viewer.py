@@ -1305,6 +1305,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <button class="toggle-btn" id="btnModeVisual" onclick="setViewMode('visual')">✨ Visual Pro</button>
             <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side</button>
             <button class="toggle-btn" id="btnModeSkylinePdf" onclick="setViewMode('skyline_pdf')">⚡ Skyline PDF</button>
+            <button class="toggle-btn" id="btnModeJimPdf" onclick="setViewMode('jim_pdf')">📌 Jim's Report</button>
         </div>
 
         <!-- Multi-Period Historical Comparison Selector -->
@@ -1368,6 +1369,26 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
                 </div>
             </div>
             <iframe id="skylineFullIframe" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- View Mode 4b: Full-Screen Dedicated Jim's Emailed Report PDF Viewport -->
+    <div class="content-pane" id="jimPdfPane" style="display:none; padding:0; height:calc(100vh - 150px);">
+        <div style="height:100%; display:flex; flex-direction:column;">
+            <div style="padding:10px 18px; background:var(--bg-card); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:16px;">📌</span>
+                    <div>
+                        <h4 style="margin:0; font-size:13px; color:var(--text-primary);" id="jimFullTitle">Jim's Latest Emailed Report</h4>
+                        <div style="font-size:11px; color:var(--text-muted);" id="jimFullMeta">From: jadamo@jenningsrealtyinc.com &middot; Emailed to Louis</div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <span class="badge badge-blue" id="jimFullBadge">Jim's Original Report</span>
+                    <a id="popoutJimFullBtn" class="btn btn-primary" style="padding:4px 10px; font-size:11px;" href="#" target="_blank">↗ Open in Tab</a>
+                </div>
+            </div>
+            <iframe id="jimFullIframe" src="" style="width:100%; height:calc(100% - 50px); border:none;"></iframe>
         </div>
     </div>
 
@@ -1724,6 +1745,9 @@ function setViewMode(mode) {{
     document.getElementById('btnModeVisual').classList.toggle('active', mode === 'visual');
     document.getElementById('btnModeSplit').classList.toggle('active', mode === 'split');
     document.getElementById('btnModeSkylinePdf').classList.toggle('active', mode === 'skyline_pdf');
+    if (document.getElementById('btnModeJimPdf')) {{
+        document.getElementById('btnModeJimPdf').classList.toggle('active', mode === 'jim_pdf');
+    }}
     document.getElementById('btnModeNorthStar').classList.toggle('active', mode === 'northstar');
     if (document.getElementById('btnModeTaxActivity')) {{
         document.getElementById('btnModeTaxActivity').classList.toggle('active', mode === 'tax_activity');
@@ -1745,6 +1769,7 @@ function setViewMode(mode) {{
     const visualPane = document.getElementById('visualPane');
     const splitPane = document.getElementById('sideBySidePane');
     const fullPdfPane = document.getElementById('skylinePdfPane');
+    const jimPdfPane = document.getElementById('jimPdfPane');
     const northStarPane = document.getElementById('northStarPane');
     const taxActivityPane = document.getElementById('taxActivityPane');
     const cashFlashPane = document.getElementById('cashFlashPane');
@@ -1756,6 +1781,7 @@ function setViewMode(mode) {{
     visualPane.style.display = (mode === 'visual') ? 'block' : 'none';
     splitPane.classList.toggle('active', mode === 'split');
     fullPdfPane.classList.toggle('active', mode === 'skyline_pdf');
+    if (jimPdfPane) jimPdfPane.style.display = (mode === 'jim_pdf') ? 'block' : 'none';
     northStarPane.style.display = (mode === 'northstar') ? 'block' : 'none';
     if (taxActivityPane) taxActivityPane.style.display = (mode === 'tax_activity') ? 'block' : 'none';
     if (cashFlashPane) cashFlashPane.style.display = (mode === 'cash_flash') ? 'block' : 'none';
@@ -1772,6 +1798,9 @@ function setViewMode(mode) {{
     }} else if (mode === 'skyline_pdf') {{
         document.getElementById('downloadPdfBtn').href = e.pdf;
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Fullscreen';
+    }} else if (mode === 'jim_pdf') {{
+        document.getElementById('downloadPdfBtn').href = e.jim_pdf;
+        document.getElementById('downloadPdfBtn').innerText = "📄 Open Jim's Original PDF";
     }} else if (mode === 'visual') {{
         renderVisualProView();
         document.getElementById('downloadPdfBtn').href = e.pdf;
@@ -1806,7 +1835,7 @@ function setViewMode(mode) {{
     }}
 
     // Sync active pillar tab highlight
-    const finModes = ['summary', 'visual', 'split', 'skyline_pdf'];
+    const finModes = ['summary', 'visual', 'split', 'skyline_pdf', 'jim_pdf'];
     const trsModes = ['cash_flash', 'liquidity', 'forecast'];
     const astModes = ['northstar', 'tax_activity', 'capex'];
     const pFin = document.getElementById('pillarTabFinancials');
@@ -1832,13 +1861,26 @@ function updateIframes() {{
     if (replicaIframe) replicaIframe.src = e.pdf + cacheBuster + "#view=FitH";
     if (skylineFullIframe) skylineFullIframe.src = e.pdf + cacheBuster + "#view=FitH";
 
+    const jimFullIframe = document.getElementById('jimFullIframe');
+    if (jimFullIframe) jimFullIframe.src = e.jim_pdf + "#view=FitH";
+
     const popoutJimBtn = document.getElementById('popoutJimBtn');
     const popoutReplicaBtn = document.getElementById('popoutReplicaBtn');
     const popoutFullReplicaBtn = document.getElementById('popoutFullReplicaBtn');
+    const popoutJimFullBtn = document.getElementById('popoutJimFullBtn');
 
     if (popoutJimBtn) popoutJimBtn.href = e.jim_pdf;
     if (popoutReplicaBtn) popoutReplicaBtn.href = e.pdf + cacheBuster;
     if (popoutFullReplicaBtn) popoutFullReplicaBtn.href = e.pdf + cacheBuster;
+    if (popoutJimFullBtn) popoutJimFullBtn.href = e.jim_pdf;
+
+    const js = jimSummaries[e.id];
+    const jimFullTitle = document.getElementById('jimFullTitle');
+    const jimFullMeta = document.getElementById('jimFullMeta');
+    const jimFullBadge = document.getElementById('jimFullBadge');
+    if (jimFullTitle) jimFullTitle.innerText = js ? ("Jim's Emailed Report — " + (js.subject || e.name)) : ("Jim's Report — " + e.name);
+    if (jimFullMeta) jimFullMeta.innerText = js ? ("From: " + js.sender + " · Emailed: " + js.date_display + " · File: " + e.jim_pdf.split('/').pop()) : ("File: " + e.jim_pdf.split('/').pop());
+    if (jimFullBadge) jimFullBadge.innerText = js ? ("Emailed " + js.date_display) : "Jim's Package";
 
     const jimPdfBadge = document.getElementById('jimPdfBadge');
     const replicaPdfBadge = document.getElementById('replicaPdfBadge');
@@ -3401,7 +3443,7 @@ function switchPillar(pillar) {{
     if (bottomAst) bottomAst.classList.toggle('active', pillar === 'assets');
 
     // Show/hide view buttons by pillar for focused executive ergonomics
-    const finButtons = ['btnModeSummary', 'btnModeVisual', 'btnModeSplit', 'btnModeSkylinePdf'];
+    const finButtons = ['btnModeSummary', 'btnModeVisual', 'btnModeSplit', 'btnModeSkylinePdf', 'btnModeJimPdf'];
     const trsButtons = ['btnModeCashFlash', 'btnModeLiquidity', 'btnModeForecast'];
     const astButtons = ['btnModeNorthStar', 'btnModeTaxActivity', 'btnModeCapex'];
 
