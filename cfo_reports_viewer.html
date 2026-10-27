@@ -868,10 +868,25 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
         <div class="hud-right">
             <div class="hud-stat"><span class="hud-stat-label">Enterprise Footprint:</span> <span class="hud-stat-val">347 Entities</span></div>
             <span class="hud-divider">|</span>
-            <div class="hud-stat"><span class="hud-stat-label">Strategic War Chest:</span> <span class="hud-stat-val" style="color:var(--success); font-weight:800;">$23.16M</span></div>
+            <div class="hud-stat"><span class="hud-stat-label">Strategic War Chest:</span> <span class="hud-stat-val" style="color:var(--success); font-weight:800;">$21.96M</span></div>
             <span class="hud-divider">|</span>
             <div class="hud-stat"><span class="hud-stat-label">Bank Covenants:</span> <span class="badge badge-green" style="font-size:9.5px; padding:2px 6px;">100% PASS</span></div>
         </div>
+    </div>
+
+    <!-- Fall 2026 Tax Auction Season Active Alert Banner -->
+    <div class="tax-season-banner" style="background:linear-gradient(90deg, rgba(6,78,59,0.92) 0%, rgba(17,24,39,0.95) 100%); border-bottom:1px solid rgba(16,185,129,0.4); padding:7px 20px; display:flex; justify-content:space-between; align-items:center; font-size:11.5px; gap:12px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981; box-shadow:0 0 8px #10b981;"></span>
+            <span style="font-weight:800; color:#34d399; letter-spacing:0.5px; text-transform:uppercase;">🔥 Fall 2026 Tax Auction Season Active</span>
+            <span style="color:#64748b;">|</span>
+            <span style="color:#e2e8f0;">Safe Bidding Headroom: <b style="color:#38bdf8;">$6,250,000</b> (Cook, DuPage, Will Sales)</span>
+            <span style="color:#64748b;">|</span>
+            <span style="color:#cbd5e1;">October Redemptions: <b style="color:#34d399;">$2.29M</b> (<span style="color:#a7f3d0;">+$1.26M profit</span>)</span>
+        </div>
+        <button onclick="switchPillar('assets'); setViewMode('tax_activity');" style="background:#059669; color:#ffffff; border:none; padding:4px 14px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.4); transition:all 0.15s ease;">
+            🏛️ View Tax Flow &rarr;
+        </button>
     </div>
 
     <div class="top-bar">
@@ -890,25 +905,25 @@ tr:hover td { background: rgba(255, 255, 255, 0.02); }
             </div>
         </div>
 
-        <!-- 3-Pillar Executive Segmented Control -->
+        <!-- 3-Pillar Executive Segmented Control (Reordered: Treasury 1st, Tax 2nd, Financials 3rd) -->
         <div class="pillar-segmented-control">
-            <button class="pillar-tab active" id="pillarTabFinancials" onclick="switchPillar('financials')">🏢 Core Financials</button>
-            <button class="pillar-tab" id="pillarTabTreasury" onclick="switchPillar('treasury')">🌊 Treasury &amp; Liquidity</button>
-            <button class="pillar-tab" id="pillarTabAssets" onclick="switchPillar('assets')">🚀 Specialized Portfolios</button>
+            <button class="pillar-tab active" id="pillarTabTreasury" onclick="switchPillar('treasury')">🌊 Treasury &amp; Liquidity</button>
+            <button class="pillar-tab" id="pillarTabAssets" onclick="switchPillar('assets')">🏛️ Tax &amp; Specialty <span class="badge badge-green" style="font-size:8.5px; margin-left:4px; padding:1px 5px;">Season Active</span></button>
+            <button class="pillar-tab" id="pillarTabFinancials" onclick="switchPillar('financials')">🏢 Core Financials</button>
         </div>
 
         <!-- View Mode Switcher -->
         <div class="view-mode-toggle">
-            <button class="toggle-btn active" id="btnModeSummary" onclick="setViewMode('summary')">📊 Summary</button>
+            <button class="toggle-btn active" id="btnModeCashFlash" onclick="setViewMode('cash_flash')">💸 Cash Flash</button>
+            <button class="toggle-btn" id="btnModeLiquidity" onclick="setViewMode('liquidity')">💧 Liquidity</button>
+            <button class="toggle-btn" id="btnModeForecast" onclick="setViewMode('forecast')">📈 Forecast</button>
+            <button class="toggle-btn" id="btnModeTaxActivity" onclick="setViewMode('tax_activity')">🏛️ Tax Flow</button>
+            <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 RV KPIs</button>
+            <button class="toggle-btn" id="btnModeCapex" onclick="setViewMode('capex')">🏗️ Capex</button>
+            <button class="toggle-btn" id="btnModeSummary" onclick="setViewMode('summary')">📊 Summary</button>
             <button class="toggle-btn" id="btnModeVisual" onclick="setViewMode('visual')">✨ Visual Pro</button>
             <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side</button>
             <button class="toggle-btn" id="btnModeSkylinePdf" onclick="setViewMode('skyline_pdf')">⚡ Skyline PDF</button>
-            <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 RV KPIs</button>
-            <button class="toggle-btn" id="btnModeTaxActivity" onclick="setViewMode('tax_activity')">🏛️ Tax Flow</button>
-            <button class="toggle-btn" id="btnModeCashFlash" onclick="setViewMode('cash_flash')">💸 Cash Flash</button>
-            <button class="toggle-btn" id="btnModeLiquidity" onclick="setViewMode('liquidity')">💧 Liquidity</button>
-            <button class="toggle-btn" id="btnModeCapex" onclick="setViewMode('capex')">🏗️ Capex</button>
-            <button class="toggle-btn" id="btnModeForecast" onclick="setViewMode('forecast')">📈 Forecast</button>
         </div>
 
         <!-- Multi-Period Historical Comparison Selector -->
@@ -2868,7 +2883,7 @@ function toggleTheme() {
     document.body.classList.toggle('light-mode');
 }
 
-let currentPillar = 'financials';
+let currentPillar = 'treasury';
 
 function switchPillar(pillar) {
     currentPillar = pillar;
@@ -2895,7 +2910,7 @@ function switchPillar(pillar) {
     if (pillar === 'financials' && !finButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {
         setViewMode('summary');
     } else if (pillar === 'treasury' && !trsButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {
-        setViewMode('liquidity');
+        setViewMode('cash_flash');
     } else if (pillar === 'assets' && !astButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {
         setViewMode('tax_activity');
     }
@@ -2971,11 +2986,12 @@ function makeTablesSortableAndExportable() {
     });
 }
 
-// Initialize View State
+// Initialize View State (Option A: Default to Treasury & Cash Flash for daily bank clarity)
 renderSidebar();
 renderContent();
 updateIframes();
-switchPillar('financials');
+switchPillar('treasury');
+setViewMode('cash_flash');
 checkAuth();
 
 // Run table enhancements after DOM render
@@ -2984,17 +3000,17 @@ setTimeout(makeTablesSortableAndExportable, 100);
 
 <!-- Native iOS Bottom Tab Navigation Bar (Mobile Thumb Reachability) -->
 <div class="mobile-bottom-nav">
-    <button class="bottom-nav-item active" id="bottomNavFinancials" onclick="switchPillar('financials'); setViewMode('summary');">
-        <span class="nav-icon">🏢</span>
-        <span class="nav-label">Financials</span>
-    </button>
-    <button class="bottom-nav-item" id="bottomNavTreasury" onclick="switchPillar('treasury'); setViewMode('liquidity');">
+    <button class="bottom-nav-item active" id="bottomNavTreasury" onclick="switchPillar('treasury'); setViewMode('cash_flash');">
         <span class="nav-icon">💧</span>
-        <span class="nav-label">Treasury</span>
+        <span class="nav-label">Cash Flash</span>
     </button>
     <button class="bottom-nav-item" id="bottomNavAssets" onclick="switchPillar('assets'); setViewMode('tax_activity');">
         <span class="nav-icon">🏛️</span>
-        <span class="nav-label">Tax &amp; Capex</span>
+        <span class="nav-label">Tax Flow</span>
+    </button>
+    <button class="bottom-nav-item" id="bottomNavFinancials" onclick="switchPillar('financials'); setViewMode('summary');">
+        <span class="nav-icon">🏢</span>
+        <span class="nav-label">Financials</span>
     </button>
     <button class="bottom-nav-item" onclick="emailPdfBook()">
         <span class="nav-icon">📩</span>
