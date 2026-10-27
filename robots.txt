@@ -1,0 +1,4 @@
+# Jennings Realty Private Executive Portal
+# Disallow all web crawlers and search engine indexing
+User-agent: *
+Disallow: /
