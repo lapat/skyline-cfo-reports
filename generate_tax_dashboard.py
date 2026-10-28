@@ -839,6 +839,13 @@ function renderLakeTargetTable() {{
             <td class="right"><span class="badge ${{activeBid <= 0.04 ? 'badge-green' : 'badge-blue'}}" style="font-size:10.5px; font-weight:800;">${{activeLabel}}</span></td>
             <td class="right" style="color:var(--success); font-weight:700;">+$${{Number(t.subtax_annual_return).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
             <td><span class="badge ${{t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}}" style="font-size:9.5px;">${{t.risk_rating}}</span></td>
+            <td>
+                <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                    <a href="${{googleUrl}}" target="_blank" class="btn btn-primary" style="background:#ea4335; font-size:9px; padding:3px 6px; text-decoration:none;" title="Google Maps Street View">📸 Maps</a>
+                    <a href="${{gisUrl}}" target="_blank" class="btn btn-primary" style="background:#10b981; font-size:9px; padding:3px 6px; text-decoration:none;" title="Lake County 3D GIS Pictometry">🗺️ GIS</a>
+                    ${{zillowBtn}}
+                </div>
+            </td>
         </tr>
         `;
     }}).join('');

@@ -2242,21 +2242,7 @@ function renderTaxActivityView() {{
             <p>Real-time visibility into certificate payoffs, weekly bank clearing, and capital deployed across Interstate Funding (150), Central Buyer (160), Diamond Quest (180), and Union Tax (190).</p>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Monday Redemptions (10/19)</div>
                 <div class="stat-card-val" style="color:var(--success);">$${{Number(monIn).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -2388,17 +2374,6 @@ function renderTaxActivityView() {{
             </div>
         </div>
 
-        <!-- Subtax Purchases Section -->
-        <div class="table-wrapper" style="margin-top:20px;">
-            <div class="table-header">
-                <h3>⚖️ Capital Deployed in Active Fall Tax Sales (Subtaxes & Purchases)</h3>
-                <span class="badge badge-green">$${{Number(subDeployed).toLocaleString('en-US', {{maximumFractionDigits:0}})}} Deployed</span>
-            </div>
-            <p style="padding:12px 16px; font-size:12.5px; color:var(--text-muted); margin:0;">
-                During the Fall 2026 auction season, <b>$5,328,925</b> in subtax payments were deployed across <b>765 parcels</b> in Will, DuPage, Boone, and Winnebago counties to protect existing certificate liens and capture 12% statutory penalty interest.
-            </p>
-        </div>
-
         <!-- Pillar 2: Auction Bidding Optimizer -->
         <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(16,185,129,0.3); background:rgba(6,78,59,0.12);">
             <div class="table-header" style="background:rgba(16,185,129,0.2);">
@@ -2458,819 +2433,108 @@ function renderTaxActivityView() {{
             </table>
         </div>
 
-
-            <!-- Stan's War Room Hand-off Banner -->
-            <div style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.35); border-radius: 8px; padding: 18px 20px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <!-- Stan's Master 4-County Production Bidding Models Table (Summary View) -->
+        <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(139,92,246,0.4); background:rgba(30,27,75,0.15);">
+            <div class="table-header" style="background:rgba(139,92,246,0.2);">
                 <div>
-                    <div style="font-size: 14px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-                        <span>🎯 Stan's Tactical Bidding &amp; Planning War Room</span>
-                        <span class="badge badge-purple">Separate Operator Workbench</span>
-                    </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px; max-width: 680px; line-height: 1.5;">
-                        To keep Jay's executive screen clean and uncluttered, the 268-parcel lien screener, 1-click Google Street View drive-bys, and state auction upload CSVs are housed in Stan's dedicated portal.
-                    </div>
+                    <h3 style="margin:0; color:var(--text-primary);">🎯 Stan's Master 2025 Bidding Models &amp; 4-County Rollup</h3>
+                    <div style="font-size:11px; color:var(--text-muted);">Jennings production baseline: Removed certs &lt; $3,000 where both installments are delinquent. Commercial isolated.</div>
                 </div>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--accent); font-weight: 700; text-decoration: none; padding: 8px 16px; font-size: 12px;">⚡ Open Stan's War Room ↗</a>
-                    <button onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 12px; padding: 8px 14px;">📂 Expand Inside CFO Report</button>
-                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">Revised Total: 5,656 Certs &middot; $42.13M</span>
             </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>County</th>
+                        <th class="right">Non-Comm Certs</th>
+                        <th class="right">Non-Comm $</th>
+                        <th class="right">Comm Certs</th>
+                        <th class="right">Comm $ (Avg ~$38k)</th>
+                        <th class="right" style="color:var(--success);">Revised Bid Certs</th>
+                        <th class="right" style="color:var(--success);">Revised Bid $</th>
+                        <th class="right" style="color:var(--text-muted);">Removed (&lt;$3k)</th>
+                        <th class="right">Orig Total $</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Lake</b></td>
+                        <td class="right">1,611</td>
+                        <td class="right">$11,740,875</td>
+                        <td class="right">29</td>
+                        <td class="right" style="color:var(--accent); font-weight:700;">$2,110,110</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">1,640</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">$13,850,986</td>
+                        <td class="right" style="color:var(--text-muted);">93 ($184k)</td>
+                        <td class="right">$14,034,923</td>
+                    </tr>
+                    <tr>
+                        <td><b>Will</b></td>
+                        <td class="right">1,442</td>
+                        <td class="right">$9,284,074</td>
+                        <td class="right">50</td>
+                        <td class="right" style="color:var(--accent); font-weight:700;">$1,203,089</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">1,492</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">$10,487,163</td>
+                        <td class="right" style="color:var(--text-muted);">82 ($152k)</td>
+                        <td class="right">$10,639,372</td>
+                    </tr>
+                    <tr>
+                        <td><b>McHenry</b></td>
+                        <td class="right">1,328</td>
+                        <td class="right">$7,788,659</td>
+                        <td class="right">31</td>
+                        <td class="right" style="color:var(--accent); font-weight:700;">$679,386</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">1,359</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">$8,468,045</td>
+                        <td class="right" style="color:var(--text-muted);">88 ($166k)</td>
+                        <td class="right">$8,633,629</td>
+                    </tr>
+                    <tr>
+                        <td><b>DuPage</b></td>
+                        <td class="right">1,142</td>
+                        <td class="right">$8,273,859</td>
+                        <td class="right">23</td>
+                        <td class="right" style="color:var(--accent); font-weight:700;">$1,053,094</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">1,165</td>
+                        <td class="right" style="color:var(--success); font-weight:800;">$9,326,953</td>
+                        <td class="right" style="color:var(--text-muted);">73 ($157k)</td>
+                        <td class="right">$9,483,829</td>
+                    </tr>
+                    <tr style="font-weight:800; background:rgba(255,255,255,0.06);">
+                        <td><span class="badge badge-purple">4-County Rollup</span></td>
+                        <td class="right">5,523</td>
+                        <td class="right">$37,087,468</td>
+                        <td class="right">133</td>
+                        <td class="right" style="color:var(--accent); font-weight:800;">$5,045,679</td>
+                        <td class="right" style="color:var(--success); font-weight:900; font-size:14px;">5,656</td>
+                        <td class="right" style="color:var(--success); font-weight:900; font-size:14px;">$42,133,147</td>
+                        <td class="right" style="color:var(--text-muted);">336 ($659k)</td>
+                        <td class="right">$42,791,753</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!-- SUB-VIEW 2: STAN'S TACTICAL AUCTION WAR ROOM (COLLAPSIBLE / SECONDARY) -->
-        <div id="taxSubViewTactical" style="display: none;">
-        <!-- Master Collar Counties Auction Commander -->
-        <div style="margin-top:28px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-                <div>
-                    <h3 style="margin:0; font-size:16px; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
-                        <span>🏛️</span> Collar Counties 2026 Auction Commander &amp; Subtax Defense
-                    </h3>
-                    <div style="font-size:11.5px; color:var(--text-muted);">Unified execution suite across Lake, DuPage, McHenry, and Will county auctions ($5.0M deployment target)</div>
+        <!-- 1-Click Launch Card to Stan's Dedicated Tactical War Room -->
+        <div style="background: linear-gradient(135deg, rgba(30,27,75,0.8), rgba(15,23,42,0.95)); border: 1px solid rgba(139,92,246,0.45); border-radius: 10px; padding: 22px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px;">
+                    <span>🎯 Stan's Tactical Bidding &amp; Planning War Room</span>
+                    <span class="badge badge-purple" style="font-size:10.5px;">Operator Workbench</span>
+                </div>
+                <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 6px; max-width: 680px; line-height: 1.6;">
+                    To keep Jay's executive screen clean and institutional, the full lien-by-lien screener (268 parcels), 1-click Google Street View / County GIS drive-bys, and state auction upload CSVs are housed in Stan's dedicated tactical portal.
                 </div>
             </div>
-
-            <!-- Sub-Navigation Tabs -->
-            <div style="display:flex; gap:6px; flex-wrap:wrap; background:rgba(15,23,42,0.6); padding:6px; border-radius:8px; border:1px solid var(--border); margin-bottom:14px;">
-                <button id="tabBtnIntel" onclick="switchAuctionTab('intel')" class="btn" style="background:var(--accent); color:#fff; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">📊 2025 Historical Intel (Lead)</button>
-                <button id="tabBtnLake" onclick="switchAuctionTab('lake')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🎯 Lake County (Nov 13)</button>
-                <button id="tabBtnDupage" onclick="switchAuctionTab('dupage')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🏛️ DuPage (Nov 19)</button>
-                <button id="tabBtnMchenry" onclick="switchAuctionTab('mchenry')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🌲 McHenry (Nov 23)</button>
-                <button id="tabBtnWill" onclick="switchAuctionTab('will')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">⚖️ Will (Dec 01)</button>
-                <button id="tabBtnSubtax" onclick="switchAuctionTab('subtax')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🔥 Subtax Operations ($127k)</button>
+            <div>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--accent); font-weight: 800; text-decoration: none; padding: 12px 24px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; border-radius: 6px; box-shadow: 0 4px 14px rgba(59,130,246,0.4);">
+                    <span>⚡ Launch Stan's War Room</span>
+                    <span style="font-size: 13px;">↗</span>
+                </a>
             </div>
-
-            <!-- TAB 1: 2025 Historical Intelligence View (LEADS BY DEFAULT) -->
-            <div id="auctionTabIntel" style="display:block;">
-                <!-- Table 2A: Jennings 2025 Winning Bid Rates by County -->
-                <div class="table-wrapper" style="border:1px solid rgba(59,130,246,0.3); background:rgba(30,41,59,0.25);">
-                    <div class="table-header" style="background:rgba(30,58,138,0.25); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">📊 Jennings Realty — Last Year (2025 Auctions) Winning Bid Rates by County</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Overall: $13,540,684 deployed across 2,159 certificates at 2.01% weighted average bid rate</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see county bid rates →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>County</th>
-                                <th class="right">Certs Won</th>
-                                <th class="right">Capital Won</th>
-                                <th class="right">Weighted Avg Bid</th>
-                                <th>Dominant Winning Rate</th>
-                                <th>Rate Range</th>
-                                <th>Market Dynamics &amp; Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
-                                <td><b>Lake (Central Buyer)</b></td>
-                                <td class="right">853</td>
-                                <td class="right" style="color:var(--success);">$6,131,471</td>
-                                <td class="right" style="color:var(--accent);">1.84%</td>
-                                <td><span class="badge badge-green">2.0% (67% of certs)</span></td>
-                                <td>1.0% - 3.0%</td>
-                                <td>Jennings #1 in county (30.1% of entire $20.4M auction)</td>
-                            </tr>
-                            <tr>
-                                <td><b>Will</b></td>
-                                <td class="right">240</td>
-                                <td class="right">$1,457,091</td>
-                                <td class="right" style="color:var(--accent);">1.52%</td>
-                                <td><span class="badge badge-green">1.0% (71% of certs)</span></td>
-                                <td>1.0% - 3.0%</td>
-                                <td>Aggressive 1% bids swept logistics &amp; commercial hubs</td>
-                            </tr>
-                            <tr>
-                                <td><b>McHenry</b></td>
-                                <td class="right">180</td>
-                                <td class="right">$1,452,829</td>
-                                <td class="right" style="color:var(--accent);">1.99%</td>
-                                <td><span class="badge badge-green">2.0% (89% of certs)</span></td>
-                                <td>1.0% - 3.0%</td>
-                                <td>Clean 2% bids dominated Route 14 commercial corridors</td>
-                            </tr>
-                            <tr>
-                                <td><b>Kane</b></td>
-                                <td class="right">112</td>
-                                <td class="right">$852,779</td>
-                                <td class="right" style="color:var(--accent);">3.05%</td>
-                                <td><span class="badge badge-blue">3.0% (77% of certs)</span></td>
-                                <td>2.0% - 7.0%</td>
-                                <td>Won $853k at 3% (before Bridge 5% sweep in 2026)</td>
-                            </tr>
-                            <tr>
-                                <td><b>DuPage</b></td>
-                                <td class="right">32</td>
-                                <td class="right">$254,027</td>
-                                <td class="right" style="color:var(--accent);">2.00%</td>
-                                <td><span class="badge badge-green">2.0% (100% of certs)</span></td>
-                                <td>2.0% - 2.0%</td>
-                                <td>Ultra-selective high-equity items; 100% won at 2.0% flat</td>
-                            </tr>
-                            <tr>
-                                <td><b>Kendall</b></td>
-                                <td class="right">78</td>
-                                <td class="right">$220,883</td>
-                                <td class="right" style="color:var(--accent);">3.28%</td>
-                                <td><span class="badge badge-blue">3.0% (96% of certs)</span></td>
-                                <td>3.0% - 4.0%</td>
-                                <td>Won 78 items at 3% (vs $0 won in 2026)</td>
-                            </tr>
-                            <tr>
-                                <td><b>Peoria</b></td>
-                                <td class="right">193</td>
-                                <td class="right">$932,975</td>
-                                <td class="right">3.43%</td>
-                                <td>2.0% (82% of certs)</td>
-                                <td>1.0% - 5.0%</td>
-                                <td>Downstate secondary volume allocation</td>
-                            </tr>
-                            <tr>
-                                <td><b>Grundy</b></td>
-                                <td class="right">133</td>
-                                <td class="right">$491,605</td>
-                                <td class="right">0.99%</td>
-                                <td>1.0% (83% of certs)</td>
-                                <td>0.0% - 3.0%</td>
-                                <td>83% won at 1% or lower</td>
-                            </tr>
-                            <tr style="background:rgba(255,255,255,0.05); font-weight:800;">
-                                <td><b>TOTAL ALL COUNTIES (2025):</b></td>
-                                <td class="right"><b>2,159</b></td>
-                                <td class="right" style="color:var(--success); font-size:13.5px;"><b>$13,540,684</b></td>
-                                <td class="right" style="color:var(--accent); font-size:13.5px;"><b>2.01%</b></td>
-                                <td colspan="3"><span class="badge badge-green">OVERALL WEIGHTED AVERAGE BID RATE</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Table 2B: 15-Year Township Wealth & Redemption Safety Matrix -->
-                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(16,185,129,0.3); background:rgba(6,78,59,0.12);">
-                    <div class="table-header" style="background:rgba(16,185,129,0.2); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">🏛️ 15-Year Historical Redemption Safety by Township (PIN Prefix) — Lake County</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Empirical proof from 7,855 certificates in Jennings Access DB: Highland Park &amp; Lake Forest redeem at 97%+</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see township redemption data →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Township / Region</th>
-                                <th>Prefix</th>
-                                <th class="right">Total Invested (Jennings)</th>
-                                <th class="right">Redeemed %</th>
-                                <th class="right">Certs Won</th>
-                                <th>Underwriting Safety Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(16,185,129,0.08);">
-                                <td><b>Moraine / Highland Park</b></td>
-                                <td><code>16</code></td>
-                                <td class="right">$8,100,570</td>
-                                <td class="right" style="color:var(--success); font-weight:700;">97.3%</td>
-                                <td class="right">708</td>
-                                <td><span class="badge badge-green">Tier 1: Ultra-Safe Luxury Equity</span></td>
-                            </tr>
-                            <tr style="background:rgba(16,185,129,0.08);">
-                                <td><b>Shields / Lake Forest / Lake Bluff</b></td>
-                                <td><code>12</code></td>
-                                <td class="right">$2,481,198</td>
-                                <td class="right" style="color:var(--success); font-weight:700;">97.1%</td>
-                                <td class="right">222</td>
-                                <td><span class="badge badge-green">Tier 1: Ultra-Safe Wealth Corridor</span></td>
-                            </tr>
-                            <tr style="background:rgba(16,185,129,0.08);">
-                                <td><b>Libertyville</b></td>
-                                <td><code>11</code></td>
-                                <td class="right">$2,972,851</td>
-                                <td class="right" style="color:var(--success); font-weight:700;">96.5%</td>
-                                <td class="right">496</td>
-                                <td><span class="badge badge-green">Tier 1: High Corporate Equity</span></td>
-                            </tr>
-                            <tr>
-                                <td><b>Fremont / Mundelein</b></td>
-                                <td><code>10</code></td>
-                                <td class="right">$2,389,636</td>
-                                <td class="right" style="color:var(--success);">96.2%</td>
-                                <td class="right">356</td>
-                                <td><span class="badge badge-blue">Tier 2: Strong Prime Residential</span></td>
-                            </tr>
-                            <tr>
-                                <td><b>Vernon / Buffalo Grove / Lincolnshire</b></td>
-                                <td><code>15</code></td>
-                                <td class="right">$5,241,439</td>
-                                <td class="right" style="color:var(--success);">96.1%</td>
-                                <td class="right">629</td>
-                                <td><span class="badge badge-blue">Tier 2: Prime Commercial &amp; Residential</span></td>
-                            </tr>
-                            <tr>
-                                <td><b>Ela / Lake Zurich</b></td>
-                                <td><code>14</code></td>
-                                <td class="right">$3,786,573</td>
-                                <td class="right" style="color:var(--success);">95.9%</td>
-                                <td class="right">429</td>
-                                <td><span class="badge badge-blue">Tier 2: Stable Suburban</span></td>
-                            </tr>
-                            <tr>
-                                <td><b>Avon / Round Lake</b></td>
-                                <td><code>06</code></td>
-                                <td class="right">$5,666,900</td>
-                                <td class="right" style="#fbbf24;">92.4%</td>
-                                <td class="right">1,191</td>
-                                <td><span class="badge badge-yellow">Tier 2: Selective (Bldg &gt; 2x Land Only)</span></td>
-                            </tr>
-                            <tr style="background:rgba(239,68,68,0.08);">
-                                <td><b>Waukegan</b></td>
-                                <td><code>08</code></td>
-                                <td class="right">$2,909,520</td>
-                                <td class="right" style="color:var(--danger); font-weight:700;">90.0%</td>
-                                <td class="right">818</td>
-                                <td><span class="badge badge-red">Tier 3: Watch Water Liens (Sections 08-20/21/28/29)</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Table 2C: Lake County 2025 Competitor Breakdown -->
-                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(139,92,246,0.3); background:rgba(46,16,101,0.15);">
-                    <div class="table-header" style="background:rgba(139,92,246,0.2); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">🏢 Lake County 2025 Auction — Who Won What ("The Big Guys")</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Total County Delinquency Sold: $20,389,171 across 3,033 certificates</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see competitor data →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Competitor / Tax Buyer</th>
-                                <th>Buyer Code</th>
-                                <th class="right">Certs Won</th>
-                                <th class="right">Total Capital Won</th>
-                                <th class="right">% of Sale $</th>
-                                <th class="right">Weighted Avg Bid</th>
-                                <th>Strategic Market Footprint</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
-                                <td><b>Central Buyer Corp (Jennings)</b></td>
-                                <td>148</td>
-                                <td class="right">853</td>
-                                <td class="right" style="color:var(--success);">$6,131,471</td>
-                                <td class="right">30.1%</td>
-                                <td class="right" style="color:var(--accent);">1.68%</td>
-                                <td><span class="badge badge-green">#1 BUYER IN COUNTY (Swept 30.1% of entire auction)</span></td>
-                            </tr>
-                            <tr>
-                                <td><b>Private Equity Group LLC ("Bridge")</b></td>
-                                <td>25014</td>
-                                <td class="right">424</td>
-                                <td class="right">$2,994,605</td>
-                                <td class="right">14.7%</td>
-                                <td class="right" style="color:var(--accent);">2.04%</td>
-                                <td>#2 Buyer: Bridge bought $3.0M at 2.04% avg (not 5%!)</td>
-                            </tr>
-                            <tr>
-                                <td><b>American Tax Lien LLC</b></td>
-                                <td>25003</td>
-                                <td class="right">284</td>
-                                <td class="right">$2,837,986</td>
-                                <td class="right">13.9%</td>
-                                <td class="right" style="color:var(--accent);">2.26%</td>
-                                <td>#3 Buyer: Aggressive commercial bidder averaging 2.26%</td>
-                            </tr>
-                            <tr>
-                                <td><b>Ari Bass (Personal / Raven)</b></td>
-                                <td>25015</td>
-                                <td class="right">88</td>
-                                <td class="right">$1,295,767</td>
-                                <td class="right">6.4%</td>
-                                <td class="right" style="color:var(--accent);">2.85%</td>
-                                <td>Cherry-picked high-dollar tickets averaging 2.85%</td>
-                            </tr>
-                            <tr>
-                                <td><b>Central Region Tax Auction, LLC</b></td>
-                                <td>25011</td>
-                                <td class="right">227</td>
-                                <td class="right">$1,314,073</td>
-                                <td class="right">6.4%</td>
-                                <td class="right" style="color:var(--accent);">1.45%</td>
-                                <td>Ultra-low rate volume buyer averaging 1.45%</td>
-                            </tr>
-                            <tr>
-                                <td><b>Custom Corp (Brian)</b></td>
-                                <td>25007</td>
-                                <td class="right">72</td>
-                                <td class="right">$1,271,892</td>
-                                <td class="right">6.2%</td>
-                                <td class="right" style="color:var(--accent);">3.41%</td>
-                                <td>Selective high-dollar buyer averaging 3.41%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Table 2D: Kane County 2026 Reality Check -->
-                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(245,158,11,0.3); background:rgba(69,26,3,0.15);">
-                    <div class="table-header" style="background:rgba(245,158,11,0.2); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">⚡ Kane County 2026 Yesterday — The New 5% Landscape</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Total Sale: $9,788,704 across 1,676 certs · Shows how Bridge and Bass shifted their bidding</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see Kane 2026 results →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tax Buyer</th>
-                                <th>Buyer Code</th>
-                                <th class="right">Certs Won</th>
-                                <th class="right">Total Amount</th>
-                                <th class="right">% of Sale $</th>
-                                <th class="right">Weighted Avg Bid</th>
-                                <th>Competitive Takeaway</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(245,158,11,0.08); font-weight:700;">
-                                <td><b>Private Equity Group, LLC (Bridge)</b></td>
-                                <td>25014</td>
-                                <td class="right">686</td>
-                                <td class="right" style="color:#fbbf24;">$4,299,400</td>
-                                <td class="right">43.9%</td>
-                                <td class="right">4.89%</td>
-                                <td>Jumped from 2.0% last year to blanket 5% bids in 2026</td>
-                            </tr>
-                            <tr>
-                                <td><b>Heartland Tax Auction, LLC</b></td>
-                                <td>25011</td>
-                                <td class="right">335</td>
-                                <td class="right">$3,050,631</td>
-                                <td class="right">31.2%</td>
-                                <td class="right" style="color:var(--success);">2.95%</td>
-                                <td>Swept the low end at 2.95% on high-ticket items</td>
-                            </tr>
-                            <tr>
-                                <td><b>Raven Securities, Inc (Ari Bass)</b></td>
-                                <td>25015</td>
-                                <td class="right">108</td>
-                                <td class="right">$697,838</td>
-                                <td class="right">7.1%</td>
-                                <td class="right" style="color:var(--accent);">4.20%</td>
-                                <td>Averaged 4.20% — beat Jennings' 5% bids by bidding lower</td>
-                            </tr>
-                            <tr>
-                                <td><b>Diamond Quest Realty Inc (Jennings)</b></td>
-                                <td>25009</td>
-                                <td class="right">8</td>
-                                <td class="right">$86,467</td>
-                                <td class="right">0.9%</td>
-                                <td class="right">5.08%</td>
-                                <td>Squeezed out by Bass (4.2%) and Bridge (5% lottery)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- TAB 6: Subtax Operations View (Hidden by Default) -->
-            <div id="auctionTabSubtax" style="display:none;">
-                <div class="table-wrapper" style="border:1px solid rgba(239,68,68,0.4); background:rgba(69,10,10,0.15);">
-                    <div class="table-header" style="background:rgba(239,68,68,0.2); padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <span style="font-size:22px;">🔥</span>
-                            <div>
-                                <h3 style="margin:0; color:var(--text-primary); font-size:14px;">Automated Subtax Priority Hunter &amp; Check Request Generator</h3>
-                                <div style="font-size:11px; color:var(--text-muted);">Properties where Jennings already holds prior certificates · Statutory 12% Annual Penalty (No Bidding Required)</div>
-                            </div>
-                        </div>
-                        <div style="display:flex; gap:8px; align-items:center;">
-                            <span class="badge badge-green" style="font-size:11px; font-weight:800;">18 Parcels &middot; $127,303 Total</span>
-                            <button onclick="exportMarySubtaxCsv()" class="btn btn-primary" style="padding:5px 14px; font-size:11px; font-weight:700;">📥 Export Check Request for Mary</button>
-                        </div>
-                    </div>
-
-                    <!-- Summary Callout -->
-                    <div style="background:rgba(15,23,42,0.6); padding:12px 18px; border-bottom:1px solid var(--border); font-size:12px; line-height:1.6; color:#cbd5e1;">
-                        <div style="color:var(--warn); font-weight:700; margin-bottom:4px;">⚠️ URGENT SUBTAX ACTION REQUIRED (Submit to County Collector Prior to Sale):</div>
-                        Under Illinois 35 ILCS 200/21-355, holding a prior certificate gives Jennings the <b>exclusive right to pay subsequent taxes directly</b>.
-                        Paying these 18 items locks in a guaranteed statutory <b>12% annual interest (+500 to +600 bps spread over Byline Bank cost of funds)</b> and protects our existing liens from subordination.
-                    </div>
-
-                    <!-- Metric Strip -->
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; padding:14px 18px; background:var(--bg-card); border-bottom:1px solid var(--border);">
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Total Subtax Capital</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--accent); margin-top:2px;">$127,303</div>
-                            <div style="font-size:10px; color:var(--text-muted);">18 Priority Parcels</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Guaranteed 12% Annual Yield</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--success); margin-top:2px;">+$15,276 / yr</div>
-                            <div style="font-size:10px; color:var(--success);">Mandatory 1%/mo interest</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Top Subtax Target</div>
-                            <div style="font-size:16px; font-weight:800; color:#fbbf24; margin-top:2px;">$51,765</div>
-                            <div style="font-size:10px; color:var(--text-muted);">DMLG Builders (PIN 06-16-201-013)</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Primary Lienholder</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--purple); margin-top:2px;">Central Buyer Corp</div>
-                            <div style="font-size:10px; color:var(--text-muted);">Holds $87,205 prior lien</div>
-                        </div>
-                    </div>
-
-                    <!-- Subtax Opportunity Table -->
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see parcel and prior cert details →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>County</th>
-                                <th>PIN</th>
-                                <th>Taxpayer / Property Name</th>
-                                <th>Certificate Owner</th>
-                                <th>Prior Cert #</th>
-                                <th>Tax Year</th>
-                                <th class="right">Prior Cert Amt</th>
-                                <th class="right">Subtax Amount Due</th>
-                                <th class="right">12% Annual Yield</th>
-                                <th>Status / Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="subtaxTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- SECTION 2: LAKE COUNTY PRE-SALE WAR ROOM & SCREENER (COLLAPSIBLE) -->
-  <div class="section-card">
-    <div class="section-header" style="background:rgba(30,58,138,0.3); cursor:pointer;" onclick="toggleSection('secBody2', 'secIcon2')">
-      <div>
-        <div class="section-title">🎯 2. Lake County 2026 Pre-Sale War Room &amp; Bidding Screener</div>
-        <div class="section-desc">Sale Date: <b>Friday, November 13, 2026</b> &middot; Allocation Target: <b>$2,000,000</b> &middot; Revised Pool: <b>5,011 parcels ($37.4M)</b></div>
-      </div>
-      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <button onclick="event.stopPropagation(); exportCleanAuctionCsv()" class="btn btn-primary" style="background:#16a34a;" title="Strict 2-column CSV (PIN, BidRate) formatted strictly for auction upload engines">⚡ Clean Auction Upload CSV</button>
-        <button onclick="event.stopPropagation(); exportLakeBiddingCsv()" class="btn" style="background:var(--bg-card); color:#fff; border:1px solid var(--border);" title="Full 12-column underwriting spreadsheet with building metrics & ratios">📄 Full Analysis CSV</button>
-        <span id="secIcon2" style="font-size:14px; color:var(--text-muted); font-weight:700; margin-left:6px;">▲</span>
-      </div>
-    </div>
-
-    <div id="secBody2">
-      <!-- Filter Bar -->
-      <div class="filter-bar">
-        <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filters:</span>
-        <select id="lakeTierFilter" class="filter-select" onchange="renderLakeTargetTable()">
-          <option value="repeat">⭐ Repeat Redeemers Only (70 Parcels · $1.54M)</option>
-          <option value="half" selected>⭐ 2nd Installment Only (268 Parcels · $5.12M)</option>
-          <option value="curated">Curated $2.0M Plan (55 Parcels)</option>
-          <option value="all">All High-Yield ($10k+)</option>
-          <option value="50k">Mega Liens (>=$50k)</option>
-          <option value="25k">Core ($25k - $50k)</option>
-          <option value="10k">Selective ($10k - $25k)</option>
-        </select>
-        <select id="lakeClassFilter" class="filter-select" onchange="renderLakeTargetTable()">
-          <option value="all">All Property Classes</option>
-          <option value="commercial">Commercial &amp; Industrial Only (487)</option>
-          <option value="residential">Residential Only</option>
-        </select>
-        <select id="lakeTwpFilter" class="filter-select" onchange="renderLakeTargetTable()">
-          <option value="all">All Townships</option>
-          <option value="waukegan">Waukegan</option>
-          <option value="zion">Zion / Benton</option>
-          <option value="highland park">Highland Park / Moraine</option>
-          <option value="gurnee">Gurnee / Warren</option>
-          <option value="vernon">Vernon Hills / Buffalo Grove</option>
-          <option value="libertyville">Libertyville</option>
-          <option value="antioch">Antioch</option>
-        </select>
-        <select id="lakeRatePreset" class="filter-select" onchange="renderLakeTargetTable()" style="border-color:rgba(16,185,129,0.5);">
-          <option value="standard" selected>Strategy: 4% on &gt;=$25k (Beat Bridge) / 5% on $10k-$25k</option>
-          <option value="aggressive">Aggressive: 3% on &gt;=$25k / 4% on $10k-$25k</option>
-          <option value="flat4">Universal: 4% Flat on All Items</option>
-          <option value="flat5">Match Market: 5% Flat on All Items</option>
-        </select>
-        <input type="text" id="lakeSearchInput" class="filter-input" onkeyup="renderLakeTargetTable()" placeholder="Search PIN, Taxpayer, Street Address, City, Township..." />
-        <span id="lakeTargetCount" style="font-size:11px; color:var(--text-muted); margin-left:auto; font-weight:600;">Showing 0 parcels</span>
-      </div>
-
-      <!-- Screener Table -->
-      <div class="table-responsive">
-        <table id="lakeTargetTable">
-          <thead>
-            <tr>
-              <th>PIN (Click to View Assessor)</th>
-              <th>Taxpayer / Business Name</th>
-              <th>City / Township</th>
-              <th>Installment Status</th>
-              <th>Type / Class</th>
-              <th class="right">Tax Due</th>
-              <th class="right">Assessed Bldg</th>
-              <th class="right">Bldg/Land Ratio</th>
-              <th class="right">Recommended Bid</th>
-              <th class="right">12% Subtax Return</th>
-              <th>Risk Rating</th>
-              <th>Visuals &amp; Maps (Drive-By)</th>
-            </tr>
-          </thead>
-          <tbody id="lakeTargetBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB 3: DuPage County Placeholder -->
-            <div id="auctionTabDupage" style="display:none;">
-                <div class="table-wrapper" style="border:1px solid rgba(139,92,246,0.4); background:rgba(46,16,101,0.15); padding:24px; text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px;">🏛️</div>
-                    <h3 style="margin:0 0 6px 0; color:var(--text-primary); font-size:16px;">DuPage County 2026 Tax Sale Bidding Screener</h3>
-                    <div style="color:var(--accent); font-weight:700; margin-bottom:12px;">Sale Date: Thursday, November 19, 2026 &middot; Target Allocation: $1,500,000</div>
-                    <p style="max-width:650px; margin:0 auto 16px auto; font-size:12.5px; color:var(--text-muted); line-height:1.6;">
-                        DuPage is Jennings' highest historical profit county (site of the $522k senior living winner PIN 04-14-201-010).
-                        Historical bidding matrix: Residential 2%, Tax Amount &gt;$20k at 3%, and No Mortgage + 1 Installment at 1%.
-                    </p>
-                    <span class="badge badge-blue" style="padding:6px 14px; font-size:11.5px;">Auto-Screener Armed · Awaiting Official Final Publication List</span>
-                </div>
-            </div>
-
-            <!-- TAB 4: McHenry County Placeholder -->
-            <div id="auctionTabMchenry" style="display:none;">
-                <div class="table-wrapper" style="border:1px solid rgba(245,158,11,0.4); background:rgba(69,26,3,0.15); padding:24px; text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px;">🌲</div>
-                    <h3 style="margin:0 0 6px 0; color:var(--text-primary); font-size:16px;">McHenry County 2026 Tax Sale Bidding Screener</h3>
-                    <div style="color:#fbbf24; font-weight:700; margin-bottom:12px;">Sale Date: Monday, November 23, 2026 &middot; Target Allocation: $1,000,000</div>
-                    <p style="max-width:650px; margin:0 auto 16px auto; font-size:12.5px; color:var(--text-muted); line-height:1.6;">
-                        Targeting commercial corridors along Route 14 and Crystal Lake. Pre-sale database configured to screen for Bldg &gt; 2x Land and chronic tax sale redeemers.
-                    </p>
-                    <span class="badge badge-yellow" style="padding:6px 14px; font-size:11.5px;">Awaiting Publication List Ingestion</span>
-                </div>
-            </div>
-
-            <!-- TAB 5: Will County Placeholder -->
-            <div id="auctionTabWill" style="display:none;">
-                <div class="table-wrapper" style="border:1px solid rgba(16,185,129,0.4); background:rgba(6,78,59,0.15); padding:24px; text-align:center;">
-                    <div style="font-size:32px; margin-bottom:8px;">⚖️</div>
-                    <h3 style="margin:0 0 6px 0; color:var(--text-primary); font-size:16px;">Will County 2026 Tax Sale Bidding Screener</h3>
-                    <div style="color:var(--success); font-weight:700; margin-bottom:12px;">Sale Date: Tuesday, December 01, 2026 &middot; Target Allocation: $2,000,000</div>
-                    <p style="max-width:650px; margin:0 auto 16px auto; font-size:12.5px; color:var(--text-muted); line-height:1.6;">
-                        Will County Pre-sale DB (454 MB) indexed. Historical high-performer with 101 major winners. Focus on industrial logistics hubs and 2nd-installment commercial parcels.
-                    </p>
-                    <span class="badge badge-green" style="padding:6px 14px; font-size:11.5px;">Awaiting County Collector Final Tax Roll</span>
-                </div>
-            </div>
-        </div>
-
         </div>
     `;
-
-    setTimeout(() => {{
-        switchAuctionTab("intel");
-
-        renderSubtaxOpportunityTable();
-        renderLakeTargetTable();
-    }}, 50);
-}}
-
-
-function switchTaxPillarSubView(view) {{
-    const cap = document.getElementById('taxSubViewCapital');
-    const tac = document.getElementById('taxSubViewTactical');
-    const btnCap = document.getElementById('btnTaxViewCapital');
-    const btnTac = document.getElementById('btnTaxViewTactical');
-
-    if (view === 'capital') {{
-        if (cap) cap.style.display = 'block';
-        if (tac) tac.style.display = 'none';
-        if (btnCap) {{ btnCap.className = 'btn btn-primary'; }}
-        if (btnTac) {{ btnTac.className = 'btn btn-outline'; }}
-    }} else {{
-        if (cap) cap.style.display = 'none';
-        if (tac) tac.style.display = 'block';
-        if (btnCap) {{ btnCap.className = 'btn btn-outline'; }}
-        if (btnTac) {{ btnTac.className = 'btn btn-primary'; }}
-        // Ensure child tabs are initialized
-        if (typeof switchAuctionTab === 'function') {{
-            switchAuctionTab('intel');
-        }}
-    }}
-}}
-
-function switchAuctionTab(tabName) {{
-    const tabs = ['subtax', 'lake', 'dupage', 'mchenry', 'will', 'intel'];
-    tabs.forEach(t => {{
-        const pane = document.getElementById('auctionTab' + t.charAt(0).toUpperCase() + t.slice(1));
-        const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
-        if (pane) pane.style.display = (t === tabName) ? 'block' : 'none';
-        if (btn) {{
-            if (t === tabName) {{
-                btn.style.background = 'var(--accent)';
-                btn.style.color = '#fff';
-            }} else {{
-                btn.style.background = 'transparent';
-                btn.style.color = 'var(--text-secondary)';
-            }}
-        }}
-    }});
-}}
-
-function renderSubtaxOpportunityTable() {{
-    const tbody = document.getElementById('subtaxTableBody');
-    if (!tbody || !subtaxHunterData || !subtaxHunterData.opportunities) return;
-
-    tbody.innerHTML = subtaxHunterData.opportunities.map(o => `
-        <tr>
-            <td><b>${{o.county}}</b></td>
-            <td><code style="font-size:11px; color:var(--accent); cursor:pointer;" onclick="copyPin('${{o.pin}}')" title="Click to copy PIN">${{o.pin}}</code></td>
-            <td><b>${{o.taxpayer_name}}</b> <span style="font-size:10px; color:var(--text-muted);">(${{o.city}})</span></td>
-            <td><span class="badge badge-purple" style="font-size:9.5px;">${{o.certificate_owner.replace('INTERSTATE FUNDING CORP.', 'IFC').replace('CENTRAL BUYER CORP.', 'Central Buyer')}}</span></td>
-            <td><code style="font-size:10.5px;">${{o.certificate_no}}</code></td>
-            <td>${{o.cert_tax_year}}</td>
-            <td class="right">$${{Number(o.original_cert_amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-            <td class="right" style="color:var(--warn); font-weight:700;">$${{Number(o.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-            <td class="right" style="color:var(--success); font-weight:800;">+$${{Number(o.annual_12pct_interest).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
-            <td><span class="badge badge-green" style="font-size:9.5px;">12% Statutory Sub</span></td>
-        </tr>
-    `).join('');
-}}
-
-
-function renderLakeTargetTable() {{
-    const tbody = document.getElementById('lakeTargetBody');
-    const countEl = document.getElementById('lakeTargetCount');
-    if (!tbody || !lakePresaleData || !lakePresaleData.top_targets) return;
-
-    const tierVal = document.getElementById('lakeTierFilter') ? document.getElementById('lakeTierFilter').value : 'all';
-    const classVal = document.getElementById('lakeClassFilter') ? document.getElementById('lakeClassFilter').value : 'all';
-    const twpVal = document.getElementById('lakeTwpFilter') ? document.getElementById('lakeTwpFilter').value : 'all';
-    const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
-    const searchVal = document.getElementById('lakeSearchInput') ? document.getElementById('lakeSearchInput').value.toLowerCase().trim() : '';
-
-    let dataset = (tierVal === 'curated' && lakePresaleData.curated_2m_portfolio)
-        ? lakePresaleData.curated_2m_portfolio.parcels
-        : lakePresaleData.top_targets;
-
-    let filtered = dataset.filter(item => {{
-        if (tierVal === 'repeat' && (!item.prior_redemptions_count || item.prior_redemptions_count < 1)) return false;
-        if (tierVal === 'half' && !item.is_half_installment) return false;
-        if (tierVal === '50k' && item.tax_due < 50000) return false;
-        if (tierVal === '25k' && (item.tax_due < 25000 || item.tax_due >= 50000)) return false;
-        if (tierVal === '10k' && (item.tax_due < 10000 || item.tax_due >= 25000)) return false;
-
-        if (classVal === 'commercial' && !item.is_commercial) return false;
-        if (classVal === 'residential' && item.is_commercial) return false;
-
-        if (twpVal !== 'all' && !item.township.toLowerCase().includes(twpVal) && !item.city.toLowerCase().includes(twpVal)) return false;
-
-        if (searchVal) {{
-            const matches = item.pin.toLowerCase().includes(searchVal) ||
-                            item.taxpayer.toLowerCase().includes(searchVal) ||
-                            (item.address && item.address.toLowerCase().includes(searchVal)) ||
-                            item.city.toLowerCase().includes(searchVal) ||
-                            item.township.toLowerCase().includes(searchVal);
-            if (!matches) return false;
-        }}
-        return true;
-    }});
-
-    const totDue = filtered.reduce((s, x) => s + x.tax_due, 0);
-    const totSubtax = filtered.reduce((s, x) => s + (x.tax_due * 0.12), 0);
-    const avgTicket = filtered.length > 0 ? (totDue / filtered.length) : 0;
-    if (countEl) countEl.innerHTML = `Showing <b>${{filtered.length}}</b> parcels ($${{totDue.toLocaleString('en-US', {{maximumFractionDigits:0}})}}) &middot; 12% Subtaxes: <span style="color:var(--success); font-weight:700;">+$${{totSubtax.toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</span> &middot; Avg: $${{avgTicket.toLocaleString('en-US', {{maximumFractionDigits:0}})}}`;
-
-    tbody.innerHTML = filtered.slice(0, 100).map(t => {{
-        const assessorUrl = `https://tax.lakecountyil.gov/search/commonsearch.aspx?mode=realprop`;
-        const redlineBadge = t.waukegan_redline ? `<span class="badge badge-red" style="font-size:9px; margin-left:4px;" title="Stan Redline: Section ${{t.pin.slice(0,5)}} had 8 water lien failures">⚠️ Water Lien Risk</span>` : '';
-        
-        // Dynamic Bid Rate calculation based on selected Preset
-        let activeBid = (t.tax_due >= 25000) ? 0.04 : 0.05;
-        let activeLabel = (t.tax_due >= 25000) ? "4.0%" : "5.0%";
-        if (ratePreset === 'aggressive') {{
-            activeBid = (t.tax_due >= 25000) ? 0.03 : 0.04;
-            activeLabel = (t.tax_due >= 25000) ? "3.0%" : "4.0%";
-        }} else if (ratePreset === 'flat4') {{
-            activeBid = 0.04;
-            activeLabel = "4.0%";
-        }} else if (ratePreset === 'flat5') {{
-            activeBid = 0.05;
-            activeLabel = "5.0%";
-        }}
-        // Maps & Visuals
-        const addrSearch = encodeURIComponent((t.address + ' ' + t.city + ' IL').trim());
-        const googleUrl = `https://www.google.com/maps/search/?api=1&query=${{addrSearch}}`;
-        const zillowUrl = `https://www.zillow.com/homes/${{addrSearch}}_rb/`;
-        const gisUrl = `https://maps.lakecountyil.gov/mapsonline/?pin=${{t.pin.replace(/-/g, '')}}`;
-        
-        let zillowBtn = !t.is_commercial ? `<a href=\"${{zillowUrl}}\" target=\"_blank\" class=\"btn btn-primary\" style=\"background:#006aff; font-size:9px; padding:3px 6px; text-decoration:none;\" title=\"Zillow Est & Photos\">🏡 Zillow</a>` : '';
-
-
-
-        return `
-        <tr>
-            <td>
-                <a href="${{assessorUrl}}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:700; font-family:monospace;" title="Open Lake County Assessor / Tax Portal">${{t.pin}} ↗</a>
-                <span style="cursor:pointer; margin-left:4px; font-size:11px;" onclick="copyPin('${{t.pin}}')" title="Click to copy PIN">📋</span>
-            </td>
-            <td>
-                <b>${{t.taxpayer}}</b> ${{redlineBadge}}
-                <div style="font-size:10.5px; color:var(--text-muted);">${{t.address || ''}}</div>
-            </td>
-            <td>${{t.city}} <span style="font-size:10px; color:var(--text-muted);">(${{t.township}})</span></td>
-            <td>
-                <span class="badge ${{t.is_half_installment ? 'badge-purple' : 'badge-blue'}}" style="font-size:9px;">${{t.installment_tag}}</span>
-                ${{t.prior_redemptions_count >= 1 ? `<span class="badge badge-purple" style="font-size:8.5px; margin-left:3px; font-weight:800;" title="Verified by County: ${{t.prior_redemptions_count}} prior redemptions">⭐ ${{t.prior_redemptions_count}}x Redeemed</span>` : ''}}
-            </td>
-            <td><span class="badge ${{t.is_commercial ? 'badge-blue' : 'badge-green'}}" style="font-size:9.5px;">${{t.property_type}}</span></td>
-            <td class="right" style="font-weight:700; color:var(--text-primary);">$${{Number(t.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-            <td class="right">$${{Number(t.asmt_bldg).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-            <td class="right" style="color:${{t.bldg_land_ratio >= 2.0 ? 'var(--success)' : 'var(--warn)'}}; font-weight:700;">${{t.bldg_land_ratio}}x</td>
-            <td class="right"><span class="badge ${{activeBid <= 0.04 ? 'badge-green' : 'badge-blue'}}" style="font-size:10.5px; font-weight:800;">${{activeLabel}}</span></td>
-            <td class="right" style="color:var(--success); font-weight:700;">+$${{Number(t.subtax_annual_return).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
-            <td><span class="badge ${{t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}}" style="font-size:9.5px;">${{t.risk_rating}}</span></td>
-        </tr>
-        `;
-    }}).join('');
-}}
-
-function copyPin(pin) {{
-    if (navigator.clipboard && navigator.clipboard.writeText) {{
-        navigator.clipboard.writeText(pin);
-        const toast = document.getElementById('toastMsg');
-        if (toast) {{
-            toast.innerText = `📋 Copied PIN: ${{pin}}`;
-            toast.style.display = 'block';
-            setTimeout(() => {{ toast.style.display = 'none'; }}, 2000);
-        }}
-    }}
-}}
-
-// 1. Strict 2-Column Auction Upload CSV (Formatted strictly for RAMS / Realauction)
-function exportCleanAuctionCsv() {{
-    if (!lakePresaleData || !lakePresaleData.top_targets) return;
-    const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
-    let csv = ["Parcel Number,Bid %"];
-    lakePresaleData.top_targets.forEach(t => {{
-        let rate = (t.tax_due >= 25000) ? 4.0 : 5.0;
-        if (ratePreset === 'aggressive') rate = (t.tax_due >= 25000) ? 3.0 : 4.0;
-        else if (ratePreset === 'flat4') rate = 4.0;
-        else if (ratePreset === 'flat5') rate = 5.0;
-        csv.push(`"${{t.pin}}",${{rate}}`);
-    }});
-    const blob = new Blob([csv.join('\\n')], {{ type: 'text/csv;charset=utf-8;' }});
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'Lake_County_2026_Auction_Upload_Clean.csv';
-    link.click();
-    const toast = document.getElementById('toastMsg');
-    if (toast) {{
-        toast.innerText = '⚡ Exported Clean 2-Column Auction Upload CSV!';
-        toast.style.display = 'block';
-        setTimeout(() => {{ toast.style.display = 'none'; }}, 2500);
-    }}
-}}
-
-// 2. Full 12-Column Analytical Underwriting Spreadsheet
-// 1. Strict 2-Column Auction Upload CSV (Formatted strictly for RAMS / Realauction)
-function exportCleanAuctionCsv() {{
-    if (!lakePresaleData || !lakePresaleData.top_targets) return;
-    const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
-    let csv = ["Parcel Number,Bid %"];
-    lakePresaleData.top_targets.forEach(t => {{
-        let rate = (t.tax_due >= 25000) ? 4.0 : 5.0;
-        if (ratePreset === 'aggressive') rate = (t.tax_due >= 25000) ? 3.0 : 4.0;
-        else if (ratePreset === 'flat4') rate = 4.0;
-        else if (ratePreset === 'flat5') rate = 5.0;
-        csv.push(`"${{t.pin}}",${{rate}}`);
-    }});
-    const blob = new Blob([csv.join('\\n')], {{ type: 'text/csv;charset=utf-8;' }});
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'Lake_County_2026_Auction_Upload_Clean.csv';
-    link.click();
-    const toast = document.getElementById('toastMsg');
-    if (toast) {{
-        toast.innerText = '⚡ Exported Clean 2-Column Auction Upload CSV!';
-        toast.style.display = 'block';
-        setTimeout(() => {{ toast.style.display = 'none'; }}, 2500);
-    }}
-}}
-
-// 2. Full 12-Column Analytical Underwriting Spreadsheet
-function exportLakeBiddingCsv() {{
-    if (!lakePresaleData || !lakePresaleData.top_targets) return;
-    let csv = ["PIN,Taxpayer,Address,City,Township,TaxDue,AssessedBldg,AssessedLand,BldgLandRatio,PropertyType,RecommendedBidPercent,SubtaxAnnualReturn12pct,RiskRating"];
-    lakePresaleData.top_targets.forEach(t => {{
-        csv.push(`"${{t.pin}}","${{t.taxpayer.replace(/"/g, '""')}}","${{(t.address || '').replace(/"/g, '""')}}","${{t.city}}","${{t.township}}",${{t.tax_due}},${{t.asmt_bldg}},${{t.asmt_land}},${{t.bldg_land_ratio}},"${{t.property_type}}",${{t.rec_bid}},${{t.subtax_annual_return}},"${{t.risk_rating}}"`);
-    }});
-    const blob = new Blob([csv.join('\\n')], {{ type: 'text/csv;charset=utf-8;' }});
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'Lake_County_2026_Full_Underwriting_Analysis.csv';
-    link.click();
-    const toast = document.getElementById('toastMsg');
-    if (toast) {{
-        toast.innerText = '📄 Exported Full Underwriting Analysis CSV!';
-        toast.style.display = 'block';
-        setTimeout(() => {{ toast.style.display = 'none'; }}, 2500);
-    }}
 }}
 
 
@@ -3342,21 +2606,7 @@ function renderCashFlashView() {{
             <p>Captures what has cleared the banks but has <b>NOT YET POSTED</b> into the Skyline General Ledger. Mary's daily sheet tracks real-time bank deposits, clearing wires, and daily disbursements across all 35+ primary operating accounts.</p>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Live Bank Cash (Mary's Sheet)</div>
                 <div class="stat-card-val" style="color:var(--success);">$${{Number(totalBank).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3455,21 +2705,7 @@ function renderForecastView() {{
             <p>Algorithmic working capital projection mapping the 3.5x Florida winter transient surge (Nov-Apr) against baseline portfolio burn and debt facilities.</p>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Current Operating Cash</div>
                 <div class="stat-card-val" style="color:var(--text-primary);">$${{Number(curCash).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3634,21 +2870,7 @@ function renderLiquidityView() {{
             <p>Reconciles audited Skyline General Ledger operating cash against cleared bank wire balances from Mary's daily sheet, backing out Accounts Payable checks in transit, segregated escrows, and unencumbered borrowing headroom.</p>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">True Unrestricted Free Cash</div>
                 <div class="stat-card-val" style="color:var(--success); font-weight:900;">$${{Number(unresCash).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3776,21 +2998,7 @@ function renderCapexView() {{
             <p>Monitors multi-million dollar capital improvement and expansion projects across The Bluffs (50 new sites), Madison (Clubhouse & Golf), and Bay Bayou (Waterfront Phase II).</p>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Expansion Program</div>
                 <div class="stat-card-val" style="color:var(--text-primary);">$${{Number(totBudget).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3836,21 +3044,7 @@ function renderNorthStarView() {{
             <span>🟣 <span class="jim-badge">Jim 📌</span> = Jim's CFO Ground-Truth Schedules (PMS Reservation System)</span>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Developed Sites</div>
                 <div class="stat-card-val">773 Sites</div>
@@ -4301,21 +3495,7 @@ function renderContent() {{
             <p>${{e.note}}</p>
         </div>
 
-        <!-- Jay vs Stan Executive Sub-Navigation -->
-        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; gap: 6px;">
-                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
-                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
-                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
-            </div>
-        </div>
-
-        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
-        <div id="taxSubViewCapital" style="display: block;">
-            <div class="cards-grid">
+        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Assets (${{currentPeriod.toUpperCase()}})</div>
                 <div class="stat-card-val" style="color:${{pData.isHistorical ? 'var(--warn)' : 'var(--text-primary)'}};">${{pData.assets}}</div>

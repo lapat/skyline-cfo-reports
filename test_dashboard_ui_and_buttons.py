@@ -66,23 +66,17 @@ def run_tests():
         assert_test(f"Viewport Pane exists in HTML: {p_id}", f'id="{p_id}"' in html, f'Missing pane id="{p_id}"')
 
     # =========================================================================
-    # TEST 2: Fall Tax Season Banner Presence & Lake War Room
+    # TEST 2: Jay's Executive Tax Capital & Liquidity Dashboard (index.html)
     # =========================================================================
-    print("\n--- Phase 2: Fall 2026 Tax Auction Season & Collar Counties Commander ---")
+    print("\n--- Phase 2: Jay's Executive Tax Capital & Liquidity Dashboard ---")
     assert_test("Tax Season Banner exists in DOM", "tax-season-banner" in html)
     assert_test("Tax Season Headroom ($6,250,000) displayed", "$6,250,000" in html)
     assert_test("Tax Season 1-tap jump button exists", "View Tax Flow" in html)
-    assert_test("Subtax Defense Tab button exists in DOM", 'id="tabBtnSubtax"' in html)
-    assert_test("Lake County Pre-Sale Tab button exists in DOM", 'id="tabBtnLake"' in html)
-    assert_test("DuPage County Tab button exists in DOM", 'id="tabBtnDupage"' in html)
-    assert_test("McHenry County Tab button exists in DOM", 'id="tabBtnMchenry"' in html)
-    assert_test("Will County Tab button exists in DOM", 'id="tabBtnWill"' in html)
-    assert_test("2025 Historical Intel Tab button exists in DOM", 'id="tabBtnIntel"' in html)
-    assert_test("2025 Historical Intel Tab Pane exists in DOM", 'id="auctionTabIntel"' in html)
-    assert_test("Subtax Opportunity Table exists in DOM", 'id="subtaxTableBody"' in html)
-    assert_test("Lake County Pre-Sale Target Table exists in DOM", 'id="lakeTargetTable"' in html)
-    assert_test("Lake Bidding CSV Export button exists in DOM", 'exportLakeBiddingCsv' in html)
-    assert_test("Mary Subtax CSV Export button exists in DOM", 'exportMarySubtaxCsv' in html)
+    assert_test("Stan's War Room Launch Link exists in DOM", "tax.html?passcode=Jennings2026" in html)
+    assert_test("Jennings Own Cash ($7.38M) displayed in Capital Stack", "+$7.38M" in html)
+    assert_test("Next-Auction Safe Bidding Limit displayed", "Safe Bidding Limit" in html)
+    assert_test("Stan's 4-County Rollup Table ($42.13M) displayed", "$42,133,147" in html)
+    assert_test("Credit Facility Borrowing Base Headroom ($11.51M) displayed", "$11.51M" in html)
 
     # =========================================================================
     # TEST 3: Headless Execution via Node.js
@@ -278,6 +272,10 @@ def run_tests():
         assert_test("tax.html contains Lake County War Room table", 'id="lakeTargetBody"' in tax_html_content)
         assert_test("tax.html contains Waukegan water lien redline tags", "Water Lien Risk" in tax_html_content)
         assert_test("tax.html contains Lake County Assessor search links", "https://tax.lakecountyil.gov/search/commonsearch.aspx" in tax_html_content)
+        assert_test("tax.html contains Lake Clean Auction CSV Export", "exportCleanAuctionCsv" in tax_html_content)
+        assert_test("tax.html contains Mary Subtax CSV Export", "exportMarySubtaxCsv" in tax_html_content)
+        assert_test("tax.html contains Visuals & Maps (Drive-By) buttons", "📸 Maps" in tax_html_content)
+        assert_test("tax.html contains Stan's 4-County Rollup ($42.13M)", "$42,133,147" in tax_html_content)
 
     print("\n" + "=" * 80)
     if passed == total:
