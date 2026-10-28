@@ -2465,104 +2465,84 @@ function renderTaxActivityView() {
                 </div>
             </div>
 
-            <!-- TAB 2: Lake County War Room (Existing) -->
-            <div id="auctionTabLake" style="display:none;">
-                <div class="table-wrapper" style="border:1px solid rgba(59,130,246,0.4); background:rgba(30,41,59,0.35);">
-                    <div class="table-header" style="background:rgba(30,58,138,0.3); padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <span style="font-size:20px;">🎯</span>
-                            <div>
-                                <h3 style="margin:0; color:var(--text-primary); font-size:14px;">Lake County 2026 Pre-Sale War Room &amp; Bidding Screener</h3>
-                                <div style="font-size:11px; color:var(--text-muted);">Sale Date: <b>Friday, November 13, 2026</b> &middot; Total Delinquency: <b>$38.56M (6,078 Parcels)</b></div>
-                            </div>
-                        </div>
-                        <div style="display:flex; gap:8px; align-items:center;">
-                            <span class="badge badge-green">Target: $2.0M Allocation</span>
-                            <button onclick="exportLakeBiddingCsv()" class="btn btn-primary" style="padding:4px 12px; font-size:11px; font-weight:700;">📥 Export Stan's Bidding CSV</button>
-                        </div>
-                    </div>
+            <!-- SECTION 2: LAKE COUNTY PRE-SALE WAR ROOM & SCREENER (COLLAPSIBLE) -->
+  <div class="section-card">
+    <div class="section-header" style="background:rgba(30,58,138,0.3); cursor:pointer;" onclick="toggleSection('secBody2', 'secIcon2')">
+      <div>
+        <div class="section-title">🎯 2. Lake County 2026 Pre-Sale War Room &amp; Bidding Screener</div>
+        <div class="section-desc">Sale Date: <b>Friday, November 13, 2026</b> &middot; Allocation Target: <b>$2,000,000</b> &middot; Revised Pool: <b>5,011 parcels ($37.4M)</b></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <button onclick="event.stopPropagation(); exportCleanAuctionCsv()" class="btn btn-primary" style="background:#16a34a;" title="Strict 2-column CSV (PIN, BidRate) formatted strictly for auction upload engines">⚡ Clean Auction Upload CSV</button>
+        <button onclick="event.stopPropagation(); exportLakeBiddingCsv()" class="btn" style="background:var(--bg-card); color:#fff; border:1px solid var(--border);" title="Full 12-column underwriting spreadsheet with building metrics & ratios">📄 Full Analysis CSV</button>
+        <span id="secIcon2" style="font-size:14px; color:var(--text-muted); font-weight:700; margin-left:6px;">▲</span>
+      </div>
+    </div>
 
-                    <!-- Strategy & Competitor Intelligence Callout -->
-                    <div style="background:rgba(15,23,42,0.6); padding:12px 18px; border-bottom:1px solid var(--border); font-size:12px; line-height:1.6; color:#cbd5e1;">
-                        <div style="color:var(--accent); font-weight:700; margin-bottom:4px;">💡 Jay &amp; Stan Bidding Strategy (Outmaneuvering Bridge at 5%):</div>
-                        At Kane County, Bridge bought 44% at 5% and Heartland bid 2-3%. To capture our <b>$2.0M Lake County goal</b> profitably against 6-7% bank money, we ignore sub-$5k residential junk and focus 100% on the <b>988 parcels over $10,000 ($21.4M pool)</b>.
-                        Bidding <b>4% on $25k+</b> wins the ticket over Bridge, locks in high principal, and generates <b>+$245,000/year in 12% statutory annual subtax carrying interest</b>.
-                    </div>
+    <div id="secBody2">
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filters:</span>
+        <select id="lakeTierFilter" class="filter-select" onchange="renderLakeTargetTable()">
+          <option value="repeat">⭐ Repeat Redeemers Only (70 Parcels · $1.54M)</option>
+          <option value="half" selected>⭐ 2nd Installment Only (268 Parcels · $5.12M)</option>
+          <option value="curated">Curated $2.0M Plan (55 Parcels)</option>
+          <option value="all">All High-Yield ($10k+)</option>
+          <option value="50k">Mega Liens (>=$50k)</option>
+          <option value="25k">Core ($25k - $50k)</option>
+          <option value="10k">Selective ($10k - $25k)</option>
+        </select>
+        <select id="lakeClassFilter" class="filter-select" onchange="renderLakeTargetTable()">
+          <option value="all">All Property Classes</option>
+          <option value="commercial">Commercial &amp; Industrial Only (487)</option>
+          <option value="residential">Residential Only</option>
+        </select>
+        <select id="lakeTwpFilter" class="filter-select" onchange="renderLakeTargetTable()">
+          <option value="all">All Townships</option>
+          <option value="waukegan">Waukegan</option>
+          <option value="zion">Zion / Benton</option>
+          <option value="highland park">Highland Park / Moraine</option>
+          <option value="gurnee">Gurnee / Warren</option>
+          <option value="vernon">Vernon Hills / Buffalo Grove</option>
+          <option value="libertyville">Libertyville</option>
+          <option value="antioch">Antioch</option>
+        </select>
+        <select id="lakeRatePreset" class="filter-select" onchange="renderLakeTargetTable()" style="border-color:rgba(16,185,129,0.5);">
+          <option value="standard" selected>Strategy: 4% on &gt;=$25k (Beat Bridge) / 5% on $10k-$25k</option>
+          <option value="aggressive">Aggressive: 3% on &gt;=$25k / 4% on $10k-$25k</option>
+          <option value="flat4">Universal: 4% Flat on All Items</option>
+          <option value="flat5">Match Market: 5% Flat on All Items</option>
+        </select>
+        <input type="text" id="lakeSearchInput" class="filter-input" onkeyup="renderLakeTargetTable()" placeholder="Search PIN, Taxpayer, Street Address, City, Township..." />
+        <span id="lakeTargetCount" style="font-size:11px; color:var(--text-muted); margin-left:auto; font-weight:600;">Showing 0 parcels</span>
+      </div>
 
-                    <!-- Pre-Sale KPI Summary Grid -->
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; padding:14px 18px; background:var(--bg-card); border-bottom:1px solid var(--border);">
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">⭐ 2nd Installment Only</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--purple); margin-top:2px;">268 Parcels &middot; $5.12M</div>
-                            <div style="font-size:10px; color:var(--success);">&gt;95% redemption safety</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Curated $2.0M Plan</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--success); margin-top:2px;">54 Prime Parcels</div>
-                            <div style="font-size:10px; color:var(--success);">+$240.1k/yr 12% subtaxes</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Mega Liens (&gt;=$50k)</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--accent); margin-top:2px;">52 Parcels &middot; $5.17M</div>
-                            <div style="font-size:10px; color:var(--text-muted);">Avg $99,371 / parcel</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Core Institutional ($25k-$50k)</div>
-                            <div style="font-size:16px; font-weight:800; color:var(--success); margin-top:2px;">143 Parcels &middot; $4.63M</div>
-                            <div style="font-size:10px; color:var(--text-muted);">Avg $32,349 / parcel</div>
-                        </div>
-                        <div style="background:var(--bg-secondary); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
-                            <div style="font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Selective ($10k-$25k)</div>
-                            <div style="font-size:16px; font-weight:800; color:#fbbf24; margin-top:2px;">793 Parcels &middot; $11.63M</div>
-                            <div style="font-size:10px; color:var(--text-muted);">Avg $14,670 / parcel</div>
-                        </div>
-                    </div>
+      <!-- Screener Table -->
+      <div class="table-responsive">
+        <table id="lakeTargetTable">
+          <thead>
+            <tr>
+              <th>PIN (Click to View Assessor)</th>
+              <th>Taxpayer / Business Name</th>
+              <th>City / Township</th>
+              <th>Installment Status</th>
+              <th>Type / Class</th>
+              <th class="right">Tax Due</th>
+              <th class="right">Assessed Bldg</th>
+              <th class="right">Bldg/Land Ratio</th>
+              <th class="right">Recommended Bid</th>
+              <th class="right">12% Subtax Return</th>
+              <th>Risk Rating</th>
+              <th>Visuals &amp; Maps (Drive-By)</th>
+            </tr>
+          </thead>
+          <tbody id="lakeTargetBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-                    <!-- Interactive Filter Controls -->
-                    <div style="padding:12px 18px; background:rgba(15,23,42,0.4); border-bottom:1px solid var(--border); display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                        <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filter:</span>
-                        <select id="lakeTierFilter" onchange="renderLakeTargetTable()" style="background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border); padding:4px 8px; border-radius:4px; font-size:11px;">
-                            <option value="half" selected>⭐ 2nd Installment Only (268 Parcels &middot; $5.12M)</option>
-                            <option value="curated">Curated $2.0M Plan (54 Parcels)</option>
-                            <option value="all">All High-Yield ($10k+)</option>
-                            <option value="50k">Mega Liens (&gt;=$50k)</option>
-                            <option value="25k">Core ($25k - $50k)</option>
-                            <option value="10k">Selective ($10k - $25k)</option>
-                        </select>
-                        <select id="lakeClassFilter" onchange="renderLakeTargetTable()" style="background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border); padding:4px 8px; border-radius:4px; font-size:11px;">
-                            <option value="all">All Property Classes</option>
-                            <option value="commercial">Commercial Improvements</option>
-                            <option value="industrial">Industrial Improvements</option>
-                            <option value="residential">Residential Improvements</option>
-                        </select>
-                        <input type="text" id="lakeSearchInput" onkeyup="renderLakeTargetTable()" placeholder="Search PIN, Taxpayer, City, Township..." style="background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border); padding:4px 10px; border-radius:4px; font-size:11px; min-width:220px; outline:none;" />
-                        <span id="lakeTargetCount" style="font-size:11px; color:var(--text-muted); margin-left:auto;">Showing 0 parcels</span>
-                    </div>
-
-                    <!-- Target Screener Table -->
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see all parcel columns →</div>
-                    <table id="lakeTargetTable">
-                        <thead>
-                            <tr>
-                                <th>PIN</th>
-                                <th>Taxpayer / Business Name</th>
-                                <th>City / Township</th>
-                                <th>Installment Status</th>
-                                <th>Type / Class</th>
-                                <th class="right">Tax Due</th>
-                                <th class="right">Assessed Bldg</th>
-                                <th class="right">Bldg/Land Ratio</th>
-                                <th class="right">Rec. Bid %</th>
-                                <th class="right">12% Subtax Return</th>
-                                <th>Quality Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lakeTargetBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- TAB 3: DuPage County Placeholder -->
+  <!-- TAB 3: DuPage County Placeholder -->
             <div id="auctionTabDupage" style="display:none;">
                 <div class="table-wrapper" style="border:1px solid rgba(139,92,246,0.4); background:rgba(46,16,101,0.15); padding:24px; text-align:center;">
                     <div style="font-size:32px; margin-bottom:8px;">🏛️</div>
@@ -2613,92 +2593,6 @@ function renderTaxActivityView() {
     }, 50);
 }
 
-function renderLakeTargetTable() {
-    const tbody = document.getElementById('lakeTargetBody');
-    const countEl = document.getElementById('lakeTargetCount');
-    if (!tbody || !lakePresaleData || !lakePresaleData.top_targets) return;
-
-    const tierVal = document.getElementById('lakeTierFilter') ? document.getElementById('lakeTierFilter').value : 'all';
-    const classVal = document.getElementById('lakeClassFilter') ? document.getElementById('lakeClassFilter').value : 'all';
-    const searchVal = document.getElementById('lakeSearchInput') ? document.getElementById('lakeSearchInput').value.toLowerCase().trim() : '';
-
-    let dataset = (tierVal === 'curated' && lakePresaleData.curated_2m_portfolio)
-        ? lakePresaleData.curated_2m_portfolio.parcels
-        : lakePresaleData.top_targets;
-
-    let filtered = dataset.filter(item => {
-        if (tierVal === 'half' && !item.is_half_installment) return false;
-        if (tierVal === '50k' && item.tax_due < 50000) return false;
-        if (tierVal === '25k' && (item.tax_due < 25000 || item.tax_due >= 50000)) return false;
-        if (tierVal === '10k' && (item.tax_due < 10000 || item.tax_due >= 25000)) return false;
-
-        if (classVal === 'commercial' && !item.property_type.toLowerCase().includes('commercial')) return false;
-        if (classVal === 'industrial' && !item.property_type.toLowerCase().includes('industrial')) return false;
-        if (classVal === 'residential' && !item.property_type.toLowerCase().includes('residential')) return false;
-
-        if (searchVal) {
-            const matches = item.pin.toLowerCase().includes(searchVal) ||
-                            item.taxpayer.toLowerCase().includes(searchVal) ||
-                            item.city.toLowerCase().includes(searchVal) ||
-                            item.township.toLowerCase().includes(searchVal);
-            if (!matches) return false;
-        }
-        return true;
-    });
-
-    if (countEl) countEl.innerText = `Showing ${filtered.length} parcels ($${filtered.reduce((s, x) => s + x.tax_due, 0).toLocaleString('en-US', {maximumFractionDigits:0})})`;
-
-    tbody.innerHTML = filtered.slice(0, 100).map(t => `
-        <tr>
-            <td><code style="font-size:11px; cursor:pointer; color:var(--accent);" onclick="copyPin('${t.pin}')" title="Click to copy PIN">${t.pin}</code></td>
-            <td><b>${t.taxpayer}</b></td>
-            <td>${t.city} <span style="font-size:10px; color:var(--text-muted);">(${t.township})</span></td>
-            <td>
-                <span class="badge ${t.is_half_installment ? 'badge-purple' : 'badge-blue'}" style="font-size:9px;">${t.installment_tag}</span>
-                ${t.prior_redemptions_count >= 2 ? `<span class="badge badge-green" style="font-size:8.5px; margin-left:3px;" title="Chronic Redeemer: ${t.prior_redemptions_count} prior redemptions">${t.prior_redemptions_count}x Redeemed</span>` : ''}
-            </td>
-            <td><span class="badge ${t.is_commercial ? 'badge-blue' : 'badge-green'}" style="font-size:9.5px;">${t.property_type}</span></td>
-            <td class="right" style="font-weight:700; color:var(--text-primary);">$${Number(t.tax_due).toLocaleString('en-US', {maximumFractionDigits:0})}</td>
-            <td class="right">$${Number(t.asmt_bldg).toLocaleString('en-US', {maximumFractionDigits:0})}</td>
-            <td class="right" style="color:${t.bldg_land_ratio >= 2.0 ? 'var(--success)' : 'var(--warn)'}; font-weight:700;">${t.bldg_land_ratio}x</td>
-            <td class="right"><span class="badge ${t.rec_bid <= 0.04 ? 'badge-green' : 'badge-blue'}" style="font-size:10px; font-weight:800;">${t.rec_bid_label}</span></td>
-            <td class="right" style="color:var(--success); font-weight:700;">+$${Number(t.subtax_annual_return).toLocaleString('en-US', {maximumFractionDigits:0})}/yr</td>
-            <td><span class="badge ${t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}" style="font-size:9.5px;">${t.risk_rating}</span></td>
-        </tr>
-    `).join('');
-}
-
-function copyPin(pin) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(pin);
-        const toast = document.getElementById('toastMsg');
-        if (toast) {
-            toast.innerText = `📋 Copied PIN: ${pin}`;
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2000);
-        }
-    }
-}
-
-function exportLakeBiddingCsv() {
-    if (!lakePresaleData || !lakePresaleData.top_targets) return;
-    let csv = ["PIN,Taxpayer,City,Township,TaxDue,AssessedBldg,AssessedLand,BldgLandRatio,PropertyType,RecommendedBidPercent,SubtaxAnnualReturn12pct,RiskRating"];
-    lakePresaleData.top_targets.forEach(t => {
-        csv.push(`"${t.pin}","${t.taxpayer.replace(/"/g, '""')}","${t.city}","${t.township}",${t.tax_due},${t.asmt_bldg},${t.asmt_land},${t.bldg_land_ratio},"${t.property_type}",${t.rec_bid},${t.subtax_annual_return},"${t.risk_rating}"`);
-    });
-    const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'Lake_County_2026_Stan_Bidding_Targets.csv';
-    link.click();
-    const toast = document.getElementById('toastMsg');
-    if (toast) {
-        toast.innerText = '📥 Exported Lake_County_2026_Stan_Bidding_Targets.csv';
-        toast.style.display = 'block';
-        setTimeout(() => { toast.style.display = 'none'; }, 2500);
-    }
-}
-
 function switchAuctionTab(tabName) {
     const tabs = ['subtax', 'lake', 'dupage', 'mchenry', 'will', 'intel'];
     tabs.forEach(t => {
@@ -2737,24 +2631,187 @@ function renderSubtaxOpportunityTable() {
     `).join('');
 }
 
-function exportMarySubtaxCsv() {
-    if (!subtaxHunterData || !subtaxHunterData.opportunities) return;
-    let csv = ["County,PIN,Taxpayer,CertificateOwner,CertNo,TaxYear,PriorCertAmount,SubtaxAmountDue,Annual12pctYield,Action"];
-    subtaxHunterData.opportunities.forEach(o => {
-        csv.push(`"${o.county}","${o.pin}","${o.taxpayer_name.replace(/"/g, '""')} (${o.city})","${o.certificate_owner}","${o.certificate_no}",${o.cert_tax_year},${o.original_cert_amount},${o.tax_due},${o.annual_12pct_interest},"SUBTAX CHECK REQUEST - Pay to County Collector"`);
+
+function renderLakeTargetTable() {
+    const tbody = document.getElementById('lakeTargetBody');
+    const countEl = document.getElementById('lakeTargetCount');
+    if (!tbody || !lakePresaleData || !lakePresaleData.top_targets) return;
+
+    const tierVal = document.getElementById('lakeTierFilter') ? document.getElementById('lakeTierFilter').value : 'all';
+    const classVal = document.getElementById('lakeClassFilter') ? document.getElementById('lakeClassFilter').value : 'all';
+    const twpVal = document.getElementById('lakeTwpFilter') ? document.getElementById('lakeTwpFilter').value : 'all';
+    const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
+    const searchVal = document.getElementById('lakeSearchInput') ? document.getElementById('lakeSearchInput').value.toLowerCase().trim() : '';
+
+    let dataset = (tierVal === 'curated' && lakePresaleData.curated_2m_portfolio)
+        ? lakePresaleData.curated_2m_portfolio.parcels
+        : lakePresaleData.top_targets;
+
+    let filtered = dataset.filter(item => {
+        if (tierVal === 'repeat' && (!item.prior_redemptions_count || item.prior_redemptions_count < 1)) return false;
+        if (tierVal === 'half' && !item.is_half_installment) return false;
+        if (tierVal === '50k' && item.tax_due < 50000) return false;
+        if (tierVal === '25k' && (item.tax_due < 25000 || item.tax_due >= 50000)) return false;
+        if (tierVal === '10k' && (item.tax_due < 10000 || item.tax_due >= 25000)) return false;
+
+        if (classVal === 'commercial' && !item.is_commercial) return false;
+        if (classVal === 'residential' && item.is_commercial) return false;
+
+        if (twpVal !== 'all' && !item.township.toLowerCase().includes(twpVal) && !item.city.toLowerCase().includes(twpVal)) return false;
+
+        if (searchVal) {
+            const matches = item.pin.toLowerCase().includes(searchVal) ||
+                            item.taxpayer.toLowerCase().includes(searchVal) ||
+                            (item.address && item.address.toLowerCase().includes(searchVal)) ||
+                            item.city.toLowerCase().includes(searchVal) ||
+                            item.township.toLowerCase().includes(searchVal);
+            if (!matches) return false;
+        }
+        return true;
+    });
+
+    const totDue = filtered.reduce((s, x) => s + x.tax_due, 0);
+    const totSubtax = filtered.reduce((s, x) => s + (x.tax_due * 0.12), 0);
+    const avgTicket = filtered.length > 0 ? (totDue / filtered.length) : 0;
+    if (countEl) countEl.innerHTML = `Showing <b>${filtered.length}</b> parcels ($${totDue.toLocaleString('en-US', {maximumFractionDigits:0})}) &middot; 12% Subtaxes: <span style="color:var(--success); font-weight:700;">+$${totSubtax.toLocaleString('en-US', {maximumFractionDigits:0})}/yr</span> &middot; Avg: $${avgTicket.toLocaleString('en-US', {maximumFractionDigits:0})}`;
+
+    tbody.innerHTML = filtered.slice(0, 100).map(t => {
+        const assessorUrl = `https://tax.lakecountyil.gov/search/commonsearch.aspx?mode=realprop`;
+        const redlineBadge = t.waukegan_redline ? `<span class="badge badge-red" style="font-size:9px; margin-left:4px;" title="Stan Redline: Section ${t.pin.slice(0,5)} had 8 water lien failures">⚠️ Water Lien Risk</span>` : '';
+        
+        // Dynamic Bid Rate calculation based on selected Preset
+        let activeBid = (t.tax_due >= 25000) ? 0.04 : 0.05;
+        let activeLabel = (t.tax_due >= 25000) ? "4.0%" : "5.0%";
+        if (ratePreset === 'aggressive') {
+            activeBid = (t.tax_due >= 25000) ? 0.03 : 0.04;
+            activeLabel = (t.tax_due >= 25000) ? "3.0%" : "4.0%";
+        } else if (ratePreset === 'flat4') {
+            activeBid = 0.04;
+            activeLabel = "4.0%";
+        } else if (ratePreset === 'flat5') {
+            activeBid = 0.05;
+            activeLabel = "5.0%";
+        }
+        // Maps & Visuals
+        const addrSearch = encodeURIComponent((t.address + ' ' + t.city + ' IL').trim());
+        const googleUrl = `https://www.google.com/maps/search/?api=1&query=${addrSearch}`;
+        const zillowUrl = `https://www.zillow.com/homes/${addrSearch}_rb/`;
+        const gisUrl = `https://maps.lakecountyil.gov/mapsonline/?pin=${t.pin.replace(/-/g, '')}`;
+        
+        let zillowBtn = !t.is_commercial ? `<a href="${zillowUrl}" target="_blank" class="btn btn-primary" style="background:#006aff; font-size:9px; padding:3px 6px; text-decoration:none;" title="Zillow Est & Photos">🏡 Zillow</a>` : '';
+
+
+
+        return `
+        <tr>
+            <td>
+                <a href="${assessorUrl}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:700; font-family:monospace;" title="Open Lake County Assessor / Tax Portal">${t.pin} ↗</a>
+                <span style="cursor:pointer; margin-left:4px; font-size:11px;" onclick="copyPin('${t.pin}')" title="Click to copy PIN">📋</span>
+            </td>
+            <td>
+                <b>${t.taxpayer}</b> ${redlineBadge}
+                <div style="font-size:10.5px; color:var(--text-muted);">${t.address || ''}</div>
+            </td>
+            <td>${t.city} <span style="font-size:10px; color:var(--text-muted);">(${t.township})</span></td>
+            <td>
+                <span class="badge ${t.is_half_installment ? 'badge-purple' : 'badge-blue'}" style="font-size:9px;">${t.installment_tag}</span>
+                ${t.prior_redemptions_count >= 1 ? `<span class="badge badge-purple" style="font-size:8.5px; margin-left:3px; font-weight:800;" title="Verified by County: ${t.prior_redemptions_count} prior redemptions">⭐ ${t.prior_redemptions_count}x Redeemed</span>` : ''}
+            </td>
+            <td><span class="badge ${t.is_commercial ? 'badge-blue' : 'badge-green'}" style="font-size:9.5px;">${t.property_type}</span></td>
+            <td class="right" style="font-weight:700; color:var(--text-primary);">$${Number(t.tax_due).toLocaleString('en-US', {maximumFractionDigits:0})}</td>
+            <td class="right">$${Number(t.asmt_bldg).toLocaleString('en-US', {maximumFractionDigits:0})}</td>
+            <td class="right" style="color:${t.bldg_land_ratio >= 2.0 ? 'var(--success)' : 'var(--warn)'}; font-weight:700;">${t.bldg_land_ratio}x</td>
+            <td class="right"><span class="badge ${activeBid <= 0.04 ? 'badge-green' : 'badge-blue'}" style="font-size:10.5px; font-weight:800;">${activeLabel}</span></td>
+            <td class="right" style="color:var(--success); font-weight:700;">+$${Number(t.subtax_annual_return).toLocaleString('en-US', {maximumFractionDigits:0})}/yr</td>
+            <td><span class="badge ${t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}" style="font-size:9.5px;">${t.risk_rating}</span></td>
+        </tr>
+        `;
+    }).join('');
+}
+
+function copyPin(pin) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pin);
+        const toast = document.getElementById('toastMsg');
+        if (toast) {
+            toast.innerText = `📋 Copied PIN: ${pin}`;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        }
+    }
+}
+
+// 1. Strict 2-Column Auction Upload CSV (Formatted strictly for RAMS / Realauction)
+function exportCleanAuctionCsv() {
+    if (!lakePresaleData || !lakePresaleData.top_targets) return;
+    const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
+    let csv = ["Parcel Number,Bid %"];
+    lakePresaleData.top_targets.forEach(t => {
+        let rate = (t.tax_due >= 25000) ? 4.0 : 5.0;
+        if (ratePreset === 'aggressive') rate = (t.tax_due >= 25000) ? 3.0 : 4.0;
+        else if (ratePreset === 'flat4') rate = 4.0;
+        else if (ratePreset === 'flat5') rate = 5.0;
+        csv.push(`"${t.pin}",${rate}`);
     });
     const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'Subtax_Check_Requests_Mary.csv';
+    link.download = 'Lake_County_2026_Auction_Upload_Clean.csv';
     link.click();
     const toast = document.getElementById('toastMsg');
     if (toast) {
-        toast.innerText = '📥 Exported Subtax_Check_Requests_Mary.csv';
+        toast.innerText = '⚡ Exported Clean 2-Column Auction Upload CSV!';
         toast.style.display = 'block';
         setTimeout(() => { toast.style.display = 'none'; }, 2500);
     }
 }
+
+// 2. Full 12-Column Analytical Underwriting Spreadsheet
+// 1. Strict 2-Column Auction Upload CSV (Formatted strictly for RAMS / Realauction)
+function exportCleanAuctionCsv() {
+    if (!lakePresaleData || !lakePresaleData.top_targets) return;
+    const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
+    let csv = ["Parcel Number,Bid %"];
+    lakePresaleData.top_targets.forEach(t => {
+        let rate = (t.tax_due >= 25000) ? 4.0 : 5.0;
+        if (ratePreset === 'aggressive') rate = (t.tax_due >= 25000) ? 3.0 : 4.0;
+        else if (ratePreset === 'flat4') rate = 4.0;
+        else if (ratePreset === 'flat5') rate = 5.0;
+        csv.push(`"${t.pin}",${rate}`);
+    });
+    const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Lake_County_2026_Auction_Upload_Clean.csv';
+    link.click();
+    const toast = document.getElementById('toastMsg');
+    if (toast) {
+        toast.innerText = '⚡ Exported Clean 2-Column Auction Upload CSV!';
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    }
+}
+
+// 2. Full 12-Column Analytical Underwriting Spreadsheet
+function exportLakeBiddingCsv() {
+    if (!lakePresaleData || !lakePresaleData.top_targets) return;
+    let csv = ["PIN,Taxpayer,Address,City,Township,TaxDue,AssessedBldg,AssessedLand,BldgLandRatio,PropertyType,RecommendedBidPercent,SubtaxAnnualReturn12pct,RiskRating"];
+    lakePresaleData.top_targets.forEach(t => {
+        csv.push(`"${t.pin}","${t.taxpayer.replace(/"/g, '""')}","${(t.address || '').replace(/"/g, '""')}","${t.city}","${t.township}",${t.tax_due},${t.asmt_bldg},${t.asmt_land},${t.bldg_land_ratio},"${t.property_type}",${t.rec_bid},${t.subtax_annual_return},"${t.risk_rating}"`);
+    });
+    const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Lake_County_2026_Full_Underwriting_Analysis.csv';
+    link.click();
+    const toast = document.getElementById('toastMsg');
+    if (toast) {
+        toast.innerText = '📄 Exported Full Underwriting Analysis CSV!';
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    }
+}
+
 
 function renderCashFlashView() {
     const pane = document.getElementById('cashFlashPane');
