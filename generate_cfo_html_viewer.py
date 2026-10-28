@@ -2457,16 +2457,347 @@ function renderTaxActivityView() {{
 
             <!-- Sub-Navigation Tabs -->
             <div style="display:flex; gap:6px; flex-wrap:wrap; background:rgba(15,23,42,0.6); padding:6px; border-radius:8px; border:1px solid var(--border); margin-bottom:14px;">
-                <button id="tabBtnSubtax" onclick="switchAuctionTab('subtax')" class="btn" style="background:var(--accent); color:#fff; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🔥 Subtax Defense ($127k)</button>
+                <button id="tabBtnIntel" onclick="switchAuctionTab('intel')" class="btn" style="background:var(--accent); color:#fff; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">📊 2025 Historical Intel (Lead)</button>
                 <button id="tabBtnLake" onclick="switchAuctionTab('lake')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🎯 Lake County (Nov 13)</button>
                 <button id="tabBtnDupage" onclick="switchAuctionTab('dupage')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🏛️ DuPage (Nov 19)</button>
                 <button id="tabBtnMchenry" onclick="switchAuctionTab('mchenry')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🌲 McHenry (Nov 23)</button>
                 <button id="tabBtnWill" onclick="switchAuctionTab('will')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">⚖️ Will (Dec 01)</button>
-                <button id="tabBtnIntel" onclick="switchAuctionTab('intel')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">📊 2025 Historical Intel</button>
+                <button id="tabBtnSubtax" onclick="switchAuctionTab('subtax')" class="btn" style="background:transparent; color:var(--text-secondary); font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:6px; border:none; cursor:pointer;">🔥 Subtax Operations ($127k)</button>
             </div>
 
-            <!-- TAB 1: Subtax Defense View -->
-            <div id="auctionTabSubtax" style="display:block;">
+            <!-- TAB 1: 2025 Historical Intelligence View (LEADS BY DEFAULT) -->
+            <div id="auctionTabIntel" style="display:block;">
+                <!-- Table 2A: Jennings 2025 Winning Bid Rates by County -->
+                <div class="table-wrapper" style="border:1px solid rgba(59,130,246,0.3); background:rgba(30,41,59,0.25);">
+                    <div class="table-header" style="background:rgba(30,58,138,0.25); padding:12px 18px;">
+                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">📊 Jennings Realty — Last Year (2025 Auctions) Winning Bid Rates by County</h3>
+                        <div style="font-size:11px; color:var(--text-muted);">Overall: $13,540,684 deployed across 2,159 certificates at 2.01% weighted average bid rate</div>
+                    </div>
+                    <div class="mobile-scroll-hint">← Swipe horizontally to see county bid rates →</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>County</th>
+                                <th class="right">Certs Won</th>
+                                <th class="right">Capital Won</th>
+                                <th class="right">Weighted Avg Bid</th>
+                                <th>Dominant Winning Rate</th>
+                                <th>Rate Range</th>
+                                <th>Market Dynamics &amp; Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
+                                <td><b>Lake (Central Buyer)</b></td>
+                                <td class="right">853</td>
+                                <td class="right" style="color:var(--success);">$6,131,471</td>
+                                <td class="right" style="color:var(--accent);">1.84%</td>
+                                <td><span class="badge badge-green">2.0% (67% of certs)</span></td>
+                                <td>1.0% - 3.0%</td>
+                                <td>Jennings #1 in county (30.1% of entire $20.4M auction)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Will</b></td>
+                                <td class="right">240</td>
+                                <td class="right">$1,457,091</td>
+                                <td class="right" style="color:var(--accent);">1.52%</td>
+                                <td><span class="badge badge-green">1.0% (71% of certs)</span></td>
+                                <td>1.0% - 3.0%</td>
+                                <td>Aggressive 1% bids swept logistics &amp; commercial hubs</td>
+                            </tr>
+                            <tr>
+                                <td><b>McHenry</b></td>
+                                <td class="right">180</td>
+                                <td class="right">$1,452,829</td>
+                                <td class="right" style="color:var(--accent);">1.99%</td>
+                                <td><span class="badge badge-green">2.0% (89% of certs)</span></td>
+                                <td>1.0% - 3.0%</td>
+                                <td>Clean 2% bids dominated Route 14 commercial corridors</td>
+                            </tr>
+                            <tr>
+                                <td><b>Kane</b></td>
+                                <td class="right">112</td>
+                                <td class="right">$852,779</td>
+                                <td class="right" style="color:var(--accent);">3.05%</td>
+                                <td><span class="badge badge-blue">3.0% (77% of certs)</span></td>
+                                <td>2.0% - 7.0%</td>
+                                <td>Won $853k at 3% (before Bridge 5% sweep in 2026)</td>
+                            </tr>
+                            <tr>
+                                <td><b>DuPage</b></td>
+                                <td class="right">32</td>
+                                <td class="right">$254,027</td>
+                                <td class="right" style="color:var(--accent);">2.00%</td>
+                                <td><span class="badge badge-green">2.0% (100% of certs)</span></td>
+                                <td>2.0% - 2.0%</td>
+                                <td>Ultra-selective high-equity items; 100% won at 2.0% flat</td>
+                            </tr>
+                            <tr>
+                                <td><b>Kendall</b></td>
+                                <td class="right">78</td>
+                                <td class="right">$220,883</td>
+                                <td class="right" style="color:var(--accent);">3.28%</td>
+                                <td><span class="badge badge-blue">3.0% (96% of certs)</span></td>
+                                <td>3.0% - 4.0%</td>
+                                <td>Won 78 items at 3% (vs $0 won in 2026)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Peoria</b></td>
+                                <td class="right">193</td>
+                                <td class="right">$932,975</td>
+                                <td class="right">3.43%</td>
+                                <td>2.0% (82% of certs)</td>
+                                <td>1.0% - 5.0%</td>
+                                <td>Downstate secondary volume allocation</td>
+                            </tr>
+                            <tr>
+                                <td><b>Grundy</b></td>
+                                <td class="right">133</td>
+                                <td class="right">$491,605</td>
+                                <td class="right">0.99%</td>
+                                <td>1.0% (83% of certs)</td>
+                                <td>0.0% - 3.0%</td>
+                                <td>83% won at 1% or lower</td>
+                            </tr>
+                            <tr style="background:rgba(255,255,255,0.05); font-weight:800;">
+                                <td><b>TOTAL ALL COUNTIES (2025):</b></td>
+                                <td class="right"><b>2,159</b></td>
+                                <td class="right" style="color:var(--success); font-size:13.5px;"><b>$13,540,684</b></td>
+                                <td class="right" style="color:var(--accent); font-size:13.5px;"><b>2.01%</b></td>
+                                <td colspan="3"><span class="badge badge-green">OVERALL WEIGHTED AVERAGE BID RATE</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table 2B: 15-Year Township Wealth & Redemption Safety Matrix -->
+                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(16,185,129,0.3); background:rgba(6,78,59,0.12);">
+                    <div class="table-header" style="background:rgba(16,185,129,0.2); padding:12px 18px;">
+                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">🏛️ 15-Year Historical Redemption Safety by Township (PIN Prefix) — Lake County</h3>
+                        <div style="font-size:11px; color:var(--text-muted);">Empirical proof from 7,855 certificates in Jennings Access DB: Highland Park &amp; Lake Forest redeem at 97%+</div>
+                    </div>
+                    <div class="mobile-scroll-hint">← Swipe horizontally to see township redemption data →</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Township / Region</th>
+                                <th>Prefix</th>
+                                <th class="right">Total Invested (Jennings)</th>
+                                <th class="right">Redeemed %</th>
+                                <th class="right">Certs Won</th>
+                                <th>Underwriting Safety Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:rgba(16,185,129,0.08);">
+                                <td><b>Moraine / Highland Park</b></td>
+                                <td><code>16</code></td>
+                                <td class="right">$8,100,570</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">97.3%</td>
+                                <td class="right">708</td>
+                                <td><span class="badge badge-green">Tier 1: Ultra-Safe Luxury Equity</span></td>
+                            </tr>
+                            <tr style="background:rgba(16,185,129,0.08);">
+                                <td><b>Shields / Lake Forest / Lake Bluff</b></td>
+                                <td><code>12</code></td>
+                                <td class="right">$2,481,198</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">97.1%</td>
+                                <td class="right">222</td>
+                                <td><span class="badge badge-green">Tier 1: Ultra-Safe Wealth Corridor</span></td>
+                            </tr>
+                            <tr style="background:rgba(16,185,129,0.08);">
+                                <td><b>Libertyville</b></td>
+                                <td><code>11</code></td>
+                                <td class="right">$2,972,851</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">96.5%</td>
+                                <td class="right">496</td>
+                                <td><span class="badge badge-green">Tier 1: High Corporate Equity</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Fremont / Mundelein</b></td>
+                                <td><code>10</code></td>
+                                <td class="right">$2,389,636</td>
+                                <td class="right" style="color:var(--success);">96.2%</td>
+                                <td class="right">356</td>
+                                <td><span class="badge badge-blue">Tier 2: Strong Prime Residential</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Vernon / Buffalo Grove / Lincolnshire</b></td>
+                                <td><code>15</code></td>
+                                <td class="right">$5,241,439</td>
+                                <td class="right" style="color:var(--success);">96.1%</td>
+                                <td class="right">629</td>
+                                <td><span class="badge badge-blue">Tier 2: Prime Commercial &amp; Residential</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Ela / Lake Zurich</b></td>
+                                <td><code>14</code></td>
+                                <td class="right">$3,786,573</td>
+                                <td class="right" style="color:var(--success);">95.9%</td>
+                                <td class="right">429</td>
+                                <td><span class="badge badge-blue">Tier 2: Stable Suburban</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Avon / Round Lake</b></td>
+                                <td><code>06</code></td>
+                                <td class="right">$5,666,900</td>
+                                <td class="right" style="#fbbf24;">92.4%</td>
+                                <td class="right">1,191</td>
+                                <td><span class="badge badge-yellow">Tier 2: Selective (Bldg &gt; 2x Land Only)</span></td>
+                            </tr>
+                            <tr style="background:rgba(239,68,68,0.08);">
+                                <td><b>Waukegan</b></td>
+                                <td><code>08</code></td>
+                                <td class="right">$2,909,520</td>
+                                <td class="right" style="color:var(--danger); font-weight:700;">90.0%</td>
+                                <td class="right">818</td>
+                                <td><span class="badge badge-red">Tier 3: Watch Water Liens (Sections 08-20/21/28/29)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table 2C: Lake County 2025 Competitor Breakdown -->
+                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(139,92,246,0.3); background:rgba(46,16,101,0.15);">
+                    <div class="table-header" style="background:rgba(139,92,246,0.2); padding:12px 18px;">
+                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">🏢 Lake County 2025 Auction — Who Won What ("The Big Guys")</h3>
+                        <div style="font-size:11px; color:var(--text-muted);">Total County Delinquency Sold: $20,389,171 across 3,033 certificates</div>
+                    </div>
+                    <div class="mobile-scroll-hint">← Swipe horizontally to see competitor data →</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Competitor / Tax Buyer</th>
+                                <th>Buyer Code</th>
+                                <th class="right">Certs Won</th>
+                                <th class="right">Total Capital Won</th>
+                                <th class="right">% of Sale $</th>
+                                <th class="right">Weighted Avg Bid</th>
+                                <th>Strategic Market Footprint</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
+                                <td><b>Central Buyer Corp (Jennings)</b></td>
+                                <td>148</td>
+                                <td class="right">853</td>
+                                <td class="right" style="color:var(--success);">$6,131,471</td>
+                                <td class="right">30.1%</td>
+                                <td class="right" style="color:var(--accent);">1.68%</td>
+                                <td><span class="badge badge-green">#1 BUYER IN COUNTY (Swept 30.1% of entire auction)</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Private Equity Group LLC ("Bridge")</b></td>
+                                <td>25014</td>
+                                <td class="right">424</td>
+                                <td class="right">$2,994,605</td>
+                                <td class="right">14.7%</td>
+                                <td class="right" style="color:var(--accent);">2.04%</td>
+                                <td>#2 Buyer: Bridge bought $3.0M at 2.04% avg (not 5%!)</td>
+                            </tr>
+                            <tr>
+                                <td><b>American Tax Lien LLC</b></td>
+                                <td>25003</td>
+                                <td class="right">284</td>
+                                <td class="right">$2,837,986</td>
+                                <td class="right">13.9%</td>
+                                <td class="right" style="color:var(--accent);">2.26%</td>
+                                <td>#3 Buyer: Aggressive commercial bidder averaging 2.26%</td>
+                            </tr>
+                            <tr>
+                                <td><b>Ari Bass (Personal / Raven)</b></td>
+                                <td>25015</td>
+                                <td class="right">88</td>
+                                <td class="right">$1,295,767</td>
+                                <td class="right">6.4%</td>
+                                <td class="right" style="color:var(--accent);">2.85%</td>
+                                <td>Cherry-picked high-dollar tickets averaging 2.85%</td>
+                            </tr>
+                            <tr>
+                                <td><b>Central Region Tax Auction, LLC</b></td>
+                                <td>25011</td>
+                                <td class="right">227</td>
+                                <td class="right">$1,314,073</td>
+                                <td class="right">6.4%</td>
+                                <td class="right" style="color:var(--accent);">1.45%</td>
+                                <td>Ultra-low rate volume buyer averaging 1.45%</td>
+                            </tr>
+                            <tr>
+                                <td><b>Custom Corp (Brian)</b></td>
+                                <td>25007</td>
+                                <td class="right">72</td>
+                                <td class="right">$1,271,892</td>
+                                <td class="right">6.2%</td>
+                                <td class="right" style="color:var(--accent);">3.41%</td>
+                                <td>Selective high-dollar buyer averaging 3.41%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table 2D: Kane County 2026 Reality Check -->
+                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(245,158,11,0.3); background:rgba(69,26,3,0.15);">
+                    <div class="table-header" style="background:rgba(245,158,11,0.2); padding:12px 18px;">
+                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">⚡ Kane County 2026 Yesterday — The New 5% Landscape</h3>
+                        <div style="font-size:11px; color:var(--text-muted);">Total Sale: $9,788,704 across 1,676 certs · Shows how Bridge and Bass shifted their bidding</div>
+                    </div>
+                    <div class="mobile-scroll-hint">← Swipe horizontally to see Kane 2026 results →</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tax Buyer</th>
+                                <th>Buyer Code</th>
+                                <th class="right">Certs Won</th>
+                                <th class="right">Total Amount</th>
+                                <th class="right">% of Sale $</th>
+                                <th class="right">Weighted Avg Bid</th>
+                                <th>Competitive Takeaway</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:rgba(245,158,11,0.08); font-weight:700;">
+                                <td><b>Private Equity Group, LLC (Bridge)</b></td>
+                                <td>25014</td>
+                                <td class="right">686</td>
+                                <td class="right" style="color:#fbbf24;">$4,299,400</td>
+                                <td class="right">43.9%</td>
+                                <td class="right">4.89%</td>
+                                <td>Jumped from 2.0% last year to blanket 5% bids in 2026</td>
+                            </tr>
+                            <tr>
+                                <td><b>Heartland Tax Auction, LLC</b></td>
+                                <td>25011</td>
+                                <td class="right">335</td>
+                                <td class="right">$3,050,631</td>
+                                <td class="right">31.2%</td>
+                                <td class="right" style="color:var(--success);">2.95%</td>
+                                <td>Swept the low end at 2.95% on high-ticket items</td>
+                            </tr>
+                            <tr>
+                                <td><b>Raven Securities, Inc (Ari Bass)</b></td>
+                                <td>25015</td>
+                                <td class="right">108</td>
+                                <td class="right">$697,838</td>
+                                <td class="right">7.1%</td>
+                                <td class="right" style="color:var(--accent);">4.20%</td>
+                                <td>Averaged 4.20% — beat Jennings' 5% bids by bidding lower</td>
+                            </tr>
+                            <tr>
+                                <td><b>Diamond Quest Realty Inc (Jennings)</b></td>
+                                <td>25009</td>
+                                <td class="right">8</td>
+                                <td class="right">$86,467</td>
+                                <td class="right">0.9%</td>
+                                <td class="right">5.08%</td>
+                                <td>Squeezed out by Bass (4.2%) and Bridge (5% lottery)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 6: Subtax Operations View (Hidden by Default) -->
+            <div id="auctionTabSubtax" style="display:none;">
                 <div class="table-wrapper" style="border:1px solid rgba(239,68,68,0.4); background:rgba(69,10,10,0.15);">
                     <div class="table-header" style="background:rgba(239,68,68,0.2); padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                         <div style="display:flex; align-items:center; gap:10px;">
@@ -2672,253 +3003,12 @@ function renderTaxActivityView() {{
                 </div>
             </div>
 
-            <!-- TAB 6: 2025 Historical Intelligence View -->
-            <div id="auctionTabIntel" style="display:none;">
-                <!-- Table 2A: Jennings 2025 Winning Bid Rates by County -->
-                <div class="table-wrapper" style="border:1px solid rgba(59,130,246,0.3); background:rgba(30,41,59,0.25);">
-                    <div class="table-header" style="background:rgba(30,58,138,0.25); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">📊 Jennings Realty — Last Year (2025 Auctions) Winning Bid Rates by County</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Overall: $13,540,684 deployed across 2,159 certificates at 2.01% weighted average bid rate</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see county bid rates →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>County</th>
-                                <th class="right">Certs Won</th>
-                                <th class="right">Capital Won</th>
-                                <th class="right">Weighted Avg Bid</th>
-                                <th>Dominant Winning Rate</th>
-                                <th>Rate Range</th>
-                                <th>Market Dynamics &amp; Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
-                                <td><b>Lake (Central Buyer)</b></td>
-                                <td class="right">853</td>
-                                <td class="right" style="color:var(--success);">$6,131,471</td>
-                                <td class="right" style="color:var(--accent);">1.84%</td>
-                                <td><span class="badge badge-green">2.0% (67% of certs)</span></td>
-                                <td>1.0% - 3.0%</td>
-                                <td>Jennings #1 in county (30.1% of entire $20.4M auction)</td>
-                            </tr>
-                            <tr>
-                                <td><b>Will</b></td>
-                                <td class="right">240</td>
-                                <td class="right">$1,457,091</td>
-                                <td class="right" style="color:var(--accent);">1.52%</td>
-                                <td><span class="badge badge-green">1.0% (71% of certs)</span></td>
-                                <td>1.0% - 3.0%</td>
-                                <td>Aggressive 1% bids swept logistics &amp; commercial hubs</td>
-                            </tr>
-                            <tr>
-                                <td><b>McHenry</b></td>
-                                <td class="right">180</td>
-                                <td class="right">$1,452,829</td>
-                                <td class="right" style="color:var(--accent);">1.99%</td>
-                                <td><span class="badge badge-green">2.0% (89% of certs)</span></td>
-                                <td>1.0% - 3.0%</td>
-                                <td>Clean 2% bids dominated Route 14 commercial corridors</td>
-                            </tr>
-                            <tr>
-                                <td><b>Kane</b></td>
-                                <td class="right">112</td>
-                                <td class="right">$852,779</td>
-                                <td class="right" style="color:var(--accent);">3.05%</td>
-                                <td><span class="badge badge-blue">3.0% (77% of certs)</span></td>
-                                <td>2.0% - 7.0%</td>
-                                <td>Won $853k at 3% (before Bridge 5% sweep in 2026)</td>
-                            </tr>
-                            <tr>
-                                <td><b>DuPage</b></td>
-                                <td class="right">32</td>
-                                <td class="right">$254,027</td>
-                                <td class="right" style="color:var(--accent);">2.00%</td>
-                                <td><span class="badge badge-green">2.0% (100% of certs)</span></td>
-                                <td>2.0% - 2.0%</td>
-                                <td>Ultra-selective high-equity items; 100% won at 2.0% flat</td>
-                            </tr>
-                            <tr>
-                                <td><b>Kendall</b></td>
-                                <td class="right">78</td>
-                                <td class="right">$220,883</td>
-                                <td class="right" style="color:var(--accent);">3.28%</td>
-                                <td><span class="badge badge-blue">3.0% (96% of certs)</span></td>
-                                <td>3.0% - 4.0%</td>
-                                <td>Won 78 items at 3% (vs $0 won in 2026)</td>
-                            </tr>
-                            <tr>
-                                <td><b>Peoria</b></td>
-                                <td class="right">193</td>
-                                <td class="right">$932,975</td>
-                                <td class="right">3.43%</td>
-                                <td>2.0% (82% of certs)</td>
-                                <td>1.0% - 5.0%</td>
-                                <td>Downstate secondary volume allocation</td>
-                            </tr>
-                            <tr>
-                                <td><b>Grundy</b></td>
-                                <td class="right">133</td>
-                                <td class="right">$491,605</td>
-                                <td class="right">0.99%</td>
-                                <td>1.0% (83% of certs)</td>
-                                <td>0.0% - 3.0%</td>
-                                <td>83% won at 1% or lower</td>
-                            </tr>
-                            <tr style="background:rgba(255,255,255,0.05); font-weight:800;">
-                                <td><b>TOTAL ALL COUNTIES (2025):</b></td>
-                                <td class="right"><b>2,159</b></td>
-                                <td class="right" style="color:var(--success); font-size:13.5px;"><b>$13,540,684</b></td>
-                                <td class="right" style="color:var(--accent); font-size:13.5px;"><b>2.01%</b></td>
-                                <td colspan="3"><span class="badge badge-green">OVERALL WEIGHTED AVERAGE BID RATE</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Table 2B: Lake County 2025 Competitor Breakdown -->
-                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(139,92,246,0.3); background:rgba(46,16,101,0.15);">
-                    <div class="table-header" style="background:rgba(139,92,246,0.2); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">🏢 Lake County 2025 Auction — Who Won What ("The Big Guys")</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Total County Delinquency Sold: $20,389,171 across 3,033 certificates</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see competitor data →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Competitor / Tax Buyer</th>
-                                <th>Buyer Code</th>
-                                <th class="right">Certs Won</th>
-                                <th class="right">Total Capital Won</th>
-                                <th class="right">% of Sale $</th>
-                                <th class="right">Weighted Avg Bid</th>
-                                <th>Strategic Market Footprint</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
-                                <td><b>Central Buyer Corp (Jennings)</b></td>
-                                <td>148</td>
-                                <td class="right">853</td>
-                                <td class="right" style="color:var(--success);">$6,131,471</td>
-                                <td class="right">30.1%</td>
-                                <td class="right" style="color:var(--accent);">1.68%</td>
-                                <td><span class="badge badge-green">#1 BUYER IN COUNTY (Swept 30.1% of entire auction)</span></td>
-                            </tr>
-                            <tr>
-                                <td><b>Private Equity Group LLC ("Bridge")</b></td>
-                                <td>25014</td>
-                                <td class="right">424</td>
-                                <td class="right">$2,994,605</td>
-                                <td class="right">14.7%</td>
-                                <td class="right" style="color:var(--accent);">2.04%</td>
-                                <td>#2 Buyer: Bridge bought $3.0M at 2.04% avg (not 5%!)</td>
-                            </tr>
-                            <tr>
-                                <td><b>American Tax Lien LLC</b></td>
-                                <td>25003</td>
-                                <td class="right">284</td>
-                                <td class="right">$2,837,986</td>
-                                <td class="right">13.9%</td>
-                                <td class="right" style="color:var(--accent);">2.26%</td>
-                                <td>#3 Buyer: Aggressive commercial bidder averaging 2.26%</td>
-                            </tr>
-                            <tr>
-                                <td><b>Ari Bass (Personal / Raven)</b></td>
-                                <td>25015</td>
-                                <td class="right">88</td>
-                                <td class="right">$1,295,767</td>
-                                <td class="right">6.4%</td>
-                                <td class="right" style="color:var(--accent);">2.85%</td>
-                                <td>Cherry-picked high-dollar tickets averaging 2.85%</td>
-                            </tr>
-                            <tr>
-                                <td><b>Central Region Tax Auction, LLC</b></td>
-                                <td>25011</td>
-                                <td class="right">227</td>
-                                <td class="right">$1,314,073</td>
-                                <td class="right">6.4%</td>
-                                <td class="right" style="color:var(--accent);">1.45%</td>
-                                <td>Ultra-low rate volume buyer averaging 1.45%</td>
-                            </tr>
-                            <tr>
-                                <td><b>Custom Corp (Brian)</b></td>
-                                <td>25007</td>
-                                <td class="right">72</td>
-                                <td class="right">$1,271,892</td>
-                                <td class="right">6.2%</td>
-                                <td class="right" style="color:var(--accent);">3.41%</td>
-                                <td>Selective high-dollar buyer averaging 3.41%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Table 2C: Kane County 2026 Reality Check -->
-                <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(245,158,11,0.3); background:rgba(69,26,3,0.15);">
-                    <div class="table-header" style="background:rgba(245,158,11,0.2); padding:12px 18px;">
-                        <h3 style="margin:0; font-size:14px; color:var(--text-primary);">⚡ Kane County 2026 Yesterday — The New 5% Landscape</h3>
-                        <div style="font-size:11px; color:var(--text-muted);">Total Sale: $9,788,704 across 1,676 certs · Shows how Bridge and Bass shifted their bidding</div>
-                    </div>
-                    <div class="mobile-scroll-hint">← Swipe horizontally to see Kane 2026 results →</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tax Buyer</th>
-                                <th>Buyer Code</th>
-                                <th class="right">Certs Won</th>
-                                <th class="right">Total Amount</th>
-                                <th class="right">% of Sale $</th>
-                                <th class="right">Weighted Avg Bid</th>
-                                <th>Competitive Takeaway</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background:rgba(245,158,11,0.08); font-weight:700;">
-                                <td><b>Private Equity Group, LLC (Bridge)</b></td>
-                                <td>25014</td>
-                                <td class="right">686</td>
-                                <td class="right" style="color:#fbbf24;">$4,299,400</td>
-                                <td class="right">43.9%</td>
-                                <td class="right">4.89%</td>
-                                <td>Jumped from 2.0% last year to blanket 5% bids in 2026</td>
-                            </tr>
-                            <tr>
-                                <td><b>Heartland Tax Auction, LLC</b></td>
-                                <td>25011</td>
-                                <td class="right">335</td>
-                                <td class="right">$3,050,631</td>
-                                <td class="right">31.2%</td>
-                                <td class="right" style="color:var(--success);">2.95%</td>
-                                <td>Swept the low end at 2.95% on high-ticket items</td>
-                            </tr>
-                            <tr>
-                                <td><b>Raven Securities, Inc (Ari Bass)</b></td>
-                                <td>25015</td>
-                                <td class="right">108</td>
-                                <td class="right">$697,838</td>
-                                <td class="right">7.1%</td>
-                                <td class="right" style="color:var(--accent);">4.20%</td>
-                                <td>Averaged 4.20% — beat Jennings' 5% bids by bidding lower</td>
-                            </tr>
-                            <tr>
-                                <td><b>Diamond Quest Realty Inc (Jennings)</b></td>
-                                <td>25009</td>
-                                <td class="right">8</td>
-                                <td class="right">$86,467</td>
-                                <td class="right">0.9%</td>
-                                <td class="right">5.08%</td>
-                                <td>Squeezed out by Bass (4.2%) and Bridge (5% lottery)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     `;
 
     setTimeout(() => {{
+        switchAuctionTab("intel");
+
         renderSubtaxOpportunityTable();
         renderLakeTargetTable();
     }}, 50);
