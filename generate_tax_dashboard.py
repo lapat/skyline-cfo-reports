@@ -442,6 +442,7 @@ def generate_tax_html():
               <th class="right">Recommended Bid</th>
               <th class="right">12% Subtax Return</th>
               <th>Risk Rating</th>
+              <th>Visuals &amp; Maps (Drive-By)</th>
             </tr>
           </thead>
           <tbody id="lakeTargetBody"></tbody>
@@ -690,6 +691,15 @@ function renderLakeTargetTable() {{
             activeBid = 0.05;
             activeLabel = "5.0%";
         }}
+        // Maps & Visuals
+        const addrSearch = encodeURIComponent((t.address + ' ' + t.city + ' IL').trim());
+        const googleUrl = `https://www.google.com/maps/search/?api=1&query=${{addrSearch}}`;
+        const zillowUrl = `https://www.zillow.com/homes/${{addrSearch}}_rb/`;
+        const gisUrl = `https://maps.lakecountyil.gov/mapsonline/?pin=${{t.pin.replace(/-/g, '')}}`;
+        
+        let zillowBtn = !t.is_commercial ? `<a href=\"${{zillowUrl}}\" target=\"_blank\" class=\"btn btn-primary\" style=\"background:#006aff; font-size:9px; padding:3px 6px; text-decoration:none;\" title=\"Zillow Est & Photos\">🏡 Zillow</a>` : '';
+
+
 
         return `
         <tr>
