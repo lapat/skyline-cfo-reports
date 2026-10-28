@@ -1234,6 +1234,7 @@ def generate_tax_html():
         <table>
           <thead>
             <tr>
+              <th style="width:110px;">House / Building Photo</th>
               <th>PIN (Click to View Assessor)</th>
               <th>Taxpayer / Business Name</th>
               <th>City / Township</th>
@@ -1598,8 +1599,20 @@ function renderLakeTargetTable() {{
 
 
 
+        const photoHtml = t.photo_url ? `
+            <div style="position:relative; width:100px; height:68px; border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.15); box-shadow:0 2px 6px rgba(0,0,0,0.4); background:#1e293b;">
+                <a href="${{googleUrl}}" target="_blank" title="Click to open Google Maps Street View for this house">
+                    <img src="${{t.photo_url}}" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1.0)'" alt="House Photo" />
+                </a>
+                <span style="position:absolute; bottom:2px; right:2px; background:rgba(0,0,0,0.7); color:#fff; font-size:8px; padding:1px 4px; border-radius:3px; font-weight:700;">🛰️ Aerial</span>
+            </div>
+        ` : `<div style="width:100px; height:68px; background:rgba(255,255,255,0.05); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-muted);">No Photo</div>`;
+
         return `
         <tr>
+            <td style="width:110px; padding:6px; vertical-align:middle;">
+                ${{photoHtml}}
+            </td>
             <td>
                 <a href="${{assessorUrl}}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:700; font-family:monospace;" title="Open Lake County Assessor / Tax Portal">${{t.pin}} ↗</a>
                 <span style="cursor:pointer; margin-left:4px; font-size:11px;" onclick="copyPin('${{t.pin}}')" title="Click to copy PIN">📋</span>
