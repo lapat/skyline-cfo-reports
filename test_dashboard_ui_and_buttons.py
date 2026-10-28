@@ -274,7 +274,7 @@ def run_tests():
             tax_html_content = f.read()
         assert_test("tax.html requires passcode authentication", 'id="authOverlay"' in tax_html_content)
         assert_test("tax.html leads with 2025 Historical Intelligence", "1. Full Historical Analysis" in tax_html_content)
-        assert_test("tax.html contains Subtax Defense section", "Priority Subtax Defense" in tax_html_content)
+        assert_test("tax.html contains Subtax Operations section", "Subtax Operations" in tax_html_content)
         assert_test("tax.html contains Lake County War Room table", 'id="lakeTargetBody"' in tax_html_content)
         assert_test("tax.html contains Waukegan water lien redline tags", "Water Lien Risk" in tax_html_content)
         assert_test("tax.html contains Lake County Assessor search links", "https://tax.lakecountyil.gov/search/commonsearch.aspx" in tax_html_content)
