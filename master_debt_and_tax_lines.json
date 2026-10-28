@@ -1,0 +1,201 @@
+{
+  "as_of_date": "2025-12-05",
+  "document_reference": "Mortgage and Tax Line Summary 11 14 2025.pdf",
+  "total_enterprise_debt_facilities": 120200000.0,
+  "tax_lines": {
+    "total_facility_amount": 52000000.0,
+    "total_outstanding": 28500000.0,
+    "total_available_headroom": 23500000.0,
+    "weighted_average_borrowing_rate": 6.48,
+    "advance_rate": 0.95,
+    "facilities": [
+      {
+        "lender": "Old National Bank (former FMW)",
+        "facility_amount": 20000000.0,
+        "outstanding": 17200000.0,
+        "available_headroom": 2800000.0,
+        "rate_terms": "Prime - .5% (7.00%) or SOFR + ADJ + 1.9% (6.32%)",
+        "current_rate": 6.32,
+        "floor": 3.10,
+        "advance_rate": "95% of all Certs and Posts",
+        "maturity_date": "2026-02-28",
+        "dated": "2023-02-28",
+        "borrowers": "Interstate Funding Corp., Central Buyer Corp., Diamond Quest, Union Tax Investors, Jennings Realty, Inc., National Indemnity Corp.",
+        "guarantor": "Barbara Descendant's Trust",
+        "letter_of_credit": "Yes. Priced @ 190bps",
+        "covenants": {
+          "dscr": "Tax Buyers 1.25x Pre-Distribution, 1.00x Post-Distribution, Jennings 1.00x",
+          "tangible_net_worth": "Jennings $5.0M",
+          "minimum_depository": "All Operating Accounts (Represented historic ave. $3.0 mil)",
+          "other": "All Affiliate Debt Subordinated to FMW; Park City & Poinsettia < $6.0M Affiliate Notes"
+        }
+      },
+      {
+        "lender": "Byline Bank",
+        "facility_amount": 17000000.0,
+        "outstanding": 5000000.0,
+        "available_headroom": 12000000.0,
+        "rate_terms": "Prime - .5% (7.00%) or SOFR + 250bps (6.82%)",
+        "current_rate": 6.82,
+        "floor": 3.10,
+        "advance_rate": "95% of all Certs and Posts",
+        "maturity_date": "2028-05-19",
+        "dated": "2025-05-19",
+        "borrowers": "Interstate Funding Corp., Central Buyer Corp., Diamond Quest, Union Tax Investors",
+        "guarantor": "Barbara Descendant's Trust, Jennings Realty Inc.",
+        "letter_of_credit": "None",
+        "covenants": {
+          "dscr": "Tax Buyers 1.00 to 1.00",
+          "minimum_depository": "$500,000.00",
+          "bdt_valuation": "Annual Valuation of Assets in BDT $45 mil",
+          "other": "< 25% Trust Receipts on Base; Optional Annual Field Audit; .125% - $12,500 Annual Facility Fee"
+        }
+      },
+      {
+        "lender": "First Chicago Bank (former FBHP)",
+        "facility_amount": 15000000.0,
+        "outstanding": 6300000.0,
+        "available_headroom": 8700000.0,
+        "rate_terms": "Prime - .5% (7.00%) or SOFR + ADJ + 1.9% (6.32%)",
+        "current_rate": 6.32,
+        "floor": 3.10,
+        "advance_rate": "95% of all Certs and Posts",
+        "maturity_date": "2027-07-01",
+        "dated": "2025-06-04",
+        "borrowers": "Interstate Funding Corp., Central Buyer Corp., Diamond Quest, Union Tax Investors, Jennings Realty, Inc., National Indemnity Corp.",
+        "guarantor": "Barbara Descendant's Trust",
+        "letter_of_credit": "Yes. Priced @ 225bps",
+        "covenants": {
+          "tangible_net_worth": "Combined Tax Buyers $7.8M, Jennings $15.0M",
+          "minimum_depository": "Minimum $200,000, Agreed to Increase in Deposit $500,000 Bearing Interest",
+          "non_use_fee": ".25% on ave. unused over $3,500,000"
+        }
+      }
+    ]
+  },
+  "real_estate_mortgages": {
+    "total_facility_amount": 68200000.0,
+    "loans": [
+      {
+        "property": "Park City Manufactured Home Community",
+        "borrower": "Park City Manufactured Home Community, Inc.",
+        "lender": "Old National Bank (former First Midwest Bank)",
+        "loan_type": "Fixed Rate Swap",
+        "amount": 19125000.0,
+        "rate": 4.33,
+        "rate_type": "Fixed 4.33% (1 Month LIBOR + 190bps swapped)",
+        "monthly_pi": 119246.25,
+        "amortization": "20 years",
+        "maturity_date": "2029-12-20",
+        "balloon_payment": 11520564.84,
+        "dscr": "1.30 to 1.00 Oper income / Debt Service",
+        "depository": "All operating accounts Min $1.0 mil",
+        "tangible_net_worth": "Jennings $1.8 mil; JRI Current Ratio 1.0 to 1.0",
+        "escrow": "Real Estate Tax Escrow equal to one year taxes"
+      },
+      {
+        "property": "Park City Manufactured Home Community (Revolver)",
+        "borrower": "Park City Manufactured Home Community, Inc.",
+        "lender": "Old National Bank (former First Midwest Bank)",
+        "loan_type": "Revolving Loan (increased 01/02/2025)",
+        "amount": 20000000.0,
+        "rate": 6.224,
+        "rate_type": "1 Month SOFR + 190bps (Reset Quarterly)",
+        "monthly_pi": 0.0,
+        "amortization": "Interest Only",
+        "maturity_date": "2029-12-19",
+        "balloon_payment": 0.0,
+        "dscr": "1.30 to 1.00 on TTM",
+        "depository": "All operating accounts Min $1.0 mil"
+      },
+      {
+        "property": "Lakeview Mobile Home Park",
+        "borrower": "Lakeview Mobile Home Park Partnership",
+        "lender": "Fannie Mae / SunTrust Bank",
+        "loan_type": "Term Loan",
+        "amount": 8000000.0,
+        "rate": 4.40,
+        "rate_type": "Fixed 4.40% (10 Yr Treasury 2.87% + 153bps)",
+        "monthly_pi": 40060.87,
+        "amortization": "Yrs 1-5 IO, Yrs 6-10 30-Yr Amort",
+        "maturity_date": "2028-03-01",
+        "balloon_payment": 7281522.66,
+        "dscr": "1.55 to 1.00 Oper income / Debt Service",
+        "guarantors": "Non-Recourse (Jay M. Lapat, Barbara Descendants Trust, Jennings Realty)"
+      },
+      {
+        "property": "Bay Bayou Florida RV Resort",
+        "borrower": "Bay Bayou Florida RV Resort LLC",
+        "lender": "Byline Bank",
+        "loan_type": "Term Loan",
+        "amount": 8500000.0,
+        "rate": 6.50,
+        "rate_type": "Fixed 6.50% (7-Yr Treasury + 250bps)",
+        "monthly_pi": 57392.61,
+        "amortization": "7 years",
+        "maturity_date": "2030-07-28",
+        "balloon_payment": 7296648.04,
+        "dscr": "1.25 to 1.00 tested semi-annually"
+      },
+      {
+        "property": "Sunkissed Village RV Resort",
+        "borrower": "Sunkissed Village RV Resort LLC",
+        "lender": "Byline Bank",
+        "loan_type": "Term Loan",
+        "amount": 5000000.0,
+        "rate": 6.47,
+        "rate_type": "Fixed 6.47% (7-Yr Treasury + 250bps)",
+        "monthly_pi": 37200.0,
+        "amortization": "20 years",
+        "maturity_date": "2031-08-29",
+        "balloon_payment": 0.0,
+        "dscr": "1.25 to 1.00 tested semi-annually",
+        "guarantors": "Barbara Descendants Trust (elim if DSC 1.50 or 2024/2025 DSC 1.25)"
+      },
+      {
+        "property": "Upriver Partners",
+        "borrower": "Upriver Partners LLC",
+        "lender": "Lake Michigan Credit Union of Florida",
+        "loan_type": "Term Loan",
+        "amount": 2500000.0,
+        "outstanding": 2357105.54,
+        "rate": 4.60,
+        "rate_type": "Fixed 4.60% (5-Yr T-Bill + 275bps)",
+        "monthly_pi": 15951.50,
+        "amortization": "20 years",
+        "maturity_date": "2028-07-31",
+        "balloon_payment": 0.0,
+        "dscr": "1.25 to 1.00"
+      },
+      {
+        "property": "Home Sites Series C (Ellis Apartments)",
+        "borrower": "Home Sites LLC Series C",
+        "lender": "Byline Bank",
+        "loan_type": "Permanent Loan",
+        "amount": 2100000.0,
+        "rate": 6.01,
+        "rate_type": "Fixed 6.01% over 25 years P&I",
+        "monthly_pi": 13540.0,
+        "amortization": "25 years",
+        "maturity_date": "2029-09-08",
+        "balloon_payment": 0.0,
+        "dscr": "1.20 to 1.00 at stabilization",
+        "covenants": "BDT Real Estate Min $45M, BDT Liquidity $700k"
+      },
+      {
+        "property": "The Bluffs MH & RV Resort",
+        "borrower": "The Bluffs MH and RV Resort LLC",
+        "lender": "Byline Bank",
+        "loan_type": "Loan A ($2.225M Amort) & Loan B ($750k IO)",
+        "amount": 2975000.0,
+        "rate": 6.75,
+        "rate_type": "1 Mo. 7-Yr Treasury + 250bps",
+        "monthly_pi": 16500.0,
+        "amortization": "Loan A 25 yrs / Loan B None",
+        "maturity_date": "2032-11-14",
+        "balloon_payment": 0.0,
+        "dscr": "1.20 to 1.00 tested semi-annually; Max LTV 50%; $45k Keepwell"
+      }
+    ]
+  }
+}

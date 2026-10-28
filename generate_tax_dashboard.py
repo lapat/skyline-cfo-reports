@@ -1286,6 +1286,107 @@ def generate_tax_html():
 
   </div>
 
+
+        <!-- 🏛️ THE THREE SYNDICATED BANK TAX CREDIT FACILITIES ($52.0M COMMITMENTS) -->
+        <div class="table-wrapper" style="margin-top:20px; border:2px solid rgba(59,130,246,0.4); background:rgba(30,58,138,0.1);">
+            <div class="table-header" style="background:rgba(59,130,246,0.2); padding:14px 20px;">
+                <div>
+                    <h3 style="margin:0; font-size:15px; font-weight:800; color:#93c5fd; display:flex; align-items:center; gap:8px;">
+                        <span>🏦 Syndicated Bank Tax Credit Facilities &amp; Available Headroom</span>
+                        <span class="badge badge-blue" style="font-size:10px; font-weight:800;">Official Bank Credit Agreement</span>
+                    </h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:3px;">
+                        Verified from Jay's <i>Mortgage and Tax Line Summary</i>. Lenders advance <b>95% of all Certs and Posts</b> against tax lien collateral.
+                    </div>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <span class="badge badge-purple" style="font-size:11px; font-weight:800;">Total Lines: $52,000,000</span>
+                    <span class="badge badge-green" style="font-size:11px; font-weight:800;">Available Headroom: $23,500,000</span>
+                </div>
+            </div>
+
+            <!-- 4 Quick Debt Metrics -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; padding:12px 18px; background:rgba(0,0,0,0.15); border-bottom:1px solid var(--border);">
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Total Tax Facilities</div>
+                    <div style="font-size:18px; font-weight:800; color:#fff;">$52,000,000</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">Old Natl, Byline, 1st Chicago</div>
+                </div>
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Current Drawn</div>
+                    <div style="font-size:18px; font-weight:800; color:var(--warn);">$28,500,000</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">54.8% Utilization</div>
+                </div>
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Dry Powder Headroom</div>
+                    <div style="font-size:18px; font-weight:800; color:var(--success);">$23,500,000</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">Immediate borrowing capacity</div>
+                </div>
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Advance Rate &amp; Spread</div>
+                    <div style="font-size:18px; font-weight:800; color:var(--accent);">95% / +552 bps</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">6.48% debt vs 12.0% statutory carry</div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bank Lender</th>
+                        <th class="right">Total Facility</th>
+                        <th class="right">Current Drawn</th>
+                        <th class="right" style="color:var(--success);">Available Headroom</th>
+                        <th class="right">Borrowing Rate</th>
+                        <th>Advance Rate</th>
+                        <th>Maturity Date</th>
+                        <th>Key Bank Covenants &amp; Terms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Byline Bank</b></td>
+                        <td class="right" style="font-weight:700;">$17,000,000</td>
+                        <td class="right">$5,000,000</td>
+                        <td class="right" style="color:var(--success); font-weight:800; font-size:13px;">$12,000,000</td>
+                        <td class="right"><span class="badge badge-green">6.82%</span></td>
+                        <td>95% of certs &amp; posts (3.10% floor)</td>
+                        <td><b>5/19/2028</b></td>
+                        <td style="font-size:11px; color:var(--text-muted);">DSCR 1.00x &middot; $500k deposit &middot; BDT Assets $45M &middot; Guaranteed: BDT &amp; JRI</td>
+                    </tr>
+                    <tr>
+                        <td><b>First Chicago Bank (FBHP)</b></td>
+                        <td class="right" style="font-weight:700;">$15,000,000</td>
+                        <td class="right">$6,300,000</td>
+                        <td class="right" style="color:var(--success); font-weight:800; font-size:13px;">$8,700,000</td>
+                        <td class="right"><span class="badge badge-green">6.32%</span></td>
+                        <td>95% of certs &amp; posts (3.10% floor)</td>
+                        <td><b>7/01/2027</b></td>
+                        <td style="font-size:11px; color:var(--text-muted);">TNW: Tax Buyers $7.8M, JRI $15.0M &middot; $200k-$500k dep &middot; Guaranteed: BDT</td>
+                    </tr>
+                    <tr>
+                        <td><b>Old National Bank (FMW)</b></td>
+                        <td class="right" style="font-weight:700;">$20,000,000</td>
+                        <td class="right" style="color:var(--warn); font-weight:700;">$17,200,000</td>
+                        <td class="right" style="color:var(--success); font-weight:800; font-size:13px;">$2,800,000</td>
+                        <td class="right"><span class="badge badge-green">6.32%</span></td>
+                        <td>95% of certs &amp; posts</td>
+                        <td><b style="color:#fbbf24;">2/28/2026</b></td>
+                        <td style="font-size:11px; color:var(--text-muted);">DSCR 1.25x pre / 1.00x post &middot; All operating accts ($3.0M ave) &middot; TNW: JRI $5.0M</td>
+                    </tr>
+                    <tr style="font-weight:800; background:rgba(255,255,255,0.06);">
+                        <td><span class="badge badge-purple" style="font-size:11px;">Total Tax Facilities</span></td>
+                        <td class="right" style="font-size:14px;">$52,000,000</td>
+                        <td class="right" style="color:var(--warn); font-size:14px;">$28,500,000</td>
+                        <td class="right" style="color:var(--success); font-weight:900; font-size:15px;">$23,500,000</td>
+                        <td class="right"><span class="badge badge-green" style="font-size:11px;">6.48% Wtd Avg</span></td>
+                        <td><b style="color:var(--accent);">95% Advanced</b></td>
+                        <td>2026 - 2028</td>
+                        <td style="font-size:11px; color:var(--success); font-weight:700;">100% Covenant Compliant &middot; Full $6.5M Auction Spend Pre-Approved</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
   <!-- SECTION 3: UPCOMING COLLAR COUNTIES SCHEDULE (COLLAPSED BY DEFAULT) -->
   <div class="section-card">
     <div class="section-header" style="cursor:pointer;" onclick="toggleSection('secBody3', 'secIcon3')">
