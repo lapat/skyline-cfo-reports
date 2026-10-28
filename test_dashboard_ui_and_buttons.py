@@ -77,6 +77,8 @@ def run_tests():
     assert_test("DuPage County Tab button exists in DOM", 'id="tabBtnDupage"' in html)
     assert_test("McHenry County Tab button exists in DOM", 'id="tabBtnMchenry"' in html)
     assert_test("Will County Tab button exists in DOM", 'id="tabBtnWill"' in html)
+    assert_test("2025 Historical Intel Tab button exists in DOM", 'id="tabBtnIntel"' in html)
+    assert_test("2025 Historical Intel Tab Pane exists in DOM", 'id="auctionTabIntel"' in html)
     assert_test("Subtax Opportunity Table exists in DOM", 'id="subtaxTableBody"' in html)
     assert_test("Lake County Pre-Sale Target Table exists in DOM", 'id="lakeTargetTable"' in html)
     assert_test("Lake Bidding CSV Export button exists in DOM", 'exportLakeBiddingCsv' in html)
