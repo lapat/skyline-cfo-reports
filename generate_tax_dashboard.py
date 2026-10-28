@@ -144,33 +144,6 @@ def generate_tax_html():
     </div>
   </div>
 
-  <!-- METRIC SUMMARY STRIP -->
-  <div class="metric-strip">
-    <div class="metric-box featured">
-      <div class="metric-label">Lake Co. 1/2 Inst Pool</div>
-      <div class="metric-val">$5,119,825</div>
-      <div class="metric-note" style="color:#60a5fa;">268 Parcels (&gt;95% Redemption Safety)</div>
-    </div>
-    <div class="metric-box" style="border-color:rgba(139,92,246,0.5); background:rgba(76,29,149,0.18); cursor:pointer;" onclick="filterByRepeatRedeemers()" title="Click to filter by the 70 Repeat Redeemers">
-      <div class="metric-label">⭐ Proven Repeat Redeemers</div>
-      <div class="metric-val" style="color:#c4b5fd;">70 Parcels &middot; $1.54M</div>
-      <div class="metric-note" style="color:#a78bfa;">1x to 4x County Redemptions &middot; Tap to Filter ↗</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-label">Lake Commercial Sub-Pool</div>
-      <div class="metric-val">487 Certs &middot; $8.15M</div>
-      <div class="metric-note" style="color:#34d399;">Avg $16,740 / cert (Jay Priority)</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-label">Next Sale (Lake County)</div>
-      <div class="metric-val">Fri, Nov 13</div>
-      <div class="metric-note" style="color:#fbbf24;">Target Spend: $2,000,000</div>
-    </div>
-  </div>
-
-
-
-
   <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->
   <div class="section-card" style="border: 2px solid rgba(139, 92, 246, 0.55); background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(15, 23, 42, 0.55)); margin-bottom: 24px; box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);">
     <div class="section-header" style="background: rgba(139, 92, 246, 0.22); padding: 14px 20px; cursor: pointer;" onclick="toggleSection('stanPortalBody', 'stanPortalIcon')">
@@ -1224,10 +1197,9 @@ def generate_tax_html():
       <div class="filter-bar">
         <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filters:</span>
         <select id="lakeTierFilter" class="filter-select" onchange="renderLakeTargetTable()">
-          <option value="repeat">⭐ Repeat Redeemers Only (70 Parcels · $1.54M)</option>
           <option value="half" selected>⭐ 2nd Installment Only (268 Parcels · $5.12M)</option>
-          <option value="curated">Curated $2.0M Plan (55 Parcels)</option>
           <option value="all">All High-Yield ($10k+)</option>
+          <option value="curated">Curated $2.0M Plan (55 Parcels)</option>
           <option value="50k">Mega Liens (>=$50k)</option>
           <option value="25k">Core ($25k - $50k)</option>
           <option value="10k">Selective ($10k - $25k)</option>
@@ -1639,7 +1611,6 @@ function renderLakeTargetTable() {{
             <td>${{t.city}} <span style="font-size:10px; color:var(--text-muted);">(${{t.township}})</span></td>
             <td>
                 <span class="badge ${{t.is_half_installment ? 'badge-purple' : 'badge-blue'}}" style="font-size:9px;">${{t.installment_tag}}</span>
-                ${{t.prior_redemptions_count >= 1 ? `<span class="badge badge-purple" style="font-size:8.5px; margin-left:3px; font-weight:800;" title="Verified by County: ${{t.prior_redemptions_count}} prior redemptions">⭐ ${{t.prior_redemptions_count}}x Redeemed</span>` : ''}}
             </td>
             <td><span class="badge ${{t.is_commercial ? 'badge-blue' : 'badge-green'}}" style="font-size:9.5px;">${{t.property_type}}</span></td>
             <td class="right" style="font-weight:700; color:var(--text-primary);">$${{Number(t.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
