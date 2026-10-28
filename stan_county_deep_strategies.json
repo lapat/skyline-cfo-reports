@@ -1,0 +1,325 @@
+{
+  "Lake": {
+    "county": "Lake",
+    "rule": "Removed: certs under $3,000 where both installments are delinquent (1Inst = FALSE). Commercial = MSG \"Commercial Improvements\".",
+    "breakdowns": [
+      {
+        "label": "Category",
+        "count": "Cert Count",
+        "amount": "Dollar Amount"
+      },
+      {
+        "label": "Revised Non-Commercial",
+        "count": 1611,
+        "amount": 11740875.39
+      },
+      {
+        "label": "Commercial",
+        "count": 29,
+        "amount": 2110110.44
+      },
+      {
+        "label": "Revised Total (keep)",
+        "count": 1640,
+        "amount": 13850985.83
+      },
+      {
+        "label": "Removed \u2013 Full Inst Under $3,000",
+        "count": 93,
+        "amount": 183937.01
+      },
+      {
+        "label": "Original Bid List Total",
+        "count": 1733,
+        "amount": 14034922.84
+      },
+      {
+        "label": "Non-Commercial breakdown by type",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "Residential Improvements",
+        "count": 1592,
+        "amount": 11574028.459999999
+      },
+      {
+        "label": "Farm A Improvements",
+        "count": 16,
+        "amount": 163733.71
+      },
+      {
+        "label": "Farmland",
+        "count": 3,
+        "amount": 3113.2200000000003
+      },
+      {
+        "label": "Incl. \"Do Not Buy- Redlined North Chgo\" comment",
+        "count": 37,
+        "amount": 185772.96
+      }
+    ],
+    "bid_distribution": {
+      "2": 1176,
+      "1": 355,
+      "3": 80
+    },
+    "top_comments": {
+      "Do Not Buy- Redlined North Chgo": 37
+    },
+    "non_comm_count": 1613,
+    "comm_count": 31,
+    "removed_count": 95
+  },
+  "DuPage": {
+    "county": "DuPage",
+    "rule": "Removed: certs under $3,000 where both installments are delinquent (HalfInstallment = FALSE). Commercial = ClassCode \"60 - Commercial Improvements\".",
+    "breakdowns": [
+      {
+        "label": "Category",
+        "count": "Cert Count",
+        "amount": "Dollar Amount"
+      },
+      {
+        "label": "Revised Non-Commercial (Residential)",
+        "count": 1142,
+        "amount": 8273859.2
+      },
+      {
+        "label": "Commercial",
+        "count": 23,
+        "amount": 1053093.8
+      },
+      {
+        "label": "Revised Total (keep)",
+        "count": 1165,
+        "amount": 9326953.0
+      },
+      {
+        "label": "Removed \u2013 Full Inst Under $3,000",
+        "count": 73,
+        "amount": 156875.76
+      },
+      {
+        "label": "Original Bid List Total",
+        "count": 1238,
+        "amount": 9483828.76
+      },
+      {
+        "label": "Flags in revised list",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "2024 comment \"DNB-Open Sold Taxes\" (Revised Non-Commercial)",
+        "count": 8,
+        "amount": 57415.35
+      },
+      {
+        "label": "2024 comment \"DNB-Open Sold Taxes\" (Commercial)",
+        "count": 0,
+        "amount": 0.0
+      }
+    ],
+    "bid_distribution": {
+      "2": 776,
+      "3": 366
+    },
+    "top_comments": {},
+    "non_comm_count": 1144,
+    "comm_count": 25,
+    "removed_count": 75
+  },
+  "McHenry": {
+    "county": "McHenry",
+    "rule": "Removed: certs under $3,000 where both installments are delinquent (1Inst = FALSE). Commercial = USE CODE 60 and 70. Cert amount = SaleAmount.",
+    "breakdowns": [
+      {
+        "label": "Category",
+        "count": "Cert Count",
+        "amount": "Dollar Amount"
+      },
+      {
+        "label": "Revised Non-Commercial",
+        "count": 1328,
+        "amount": 7788659.33
+      },
+      {
+        "label": "Commercial",
+        "count": 31,
+        "amount": 679385.82
+      },
+      {
+        "label": "Revised Total (keep)",
+        "count": 1359,
+        "amount": 8468045.15
+      },
+      {
+        "label": "Removed \u2013 Full Inst Under $3,000",
+        "count": 88,
+        "amount": 165583.93
+      },
+      {
+        "label": "Original Bid List Total",
+        "count": 1447,
+        "amount": 8633629.08
+      },
+      {
+        "label": "Non-Commercial breakdown by USE CODE",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "40 \u2013 Residential",
+        "count": 1244,
+        "amount": 7286128.79
+      },
+      {
+        "label": "50",
+        "count": 3,
+        "amount": 27087.39
+      },
+      {
+        "label": "11 \u2013 Farm",
+        "count": 59,
+        "amount": 455086.8
+      },
+      {
+        "label": "21 \u2013 Farmland",
+        "count": 22,
+        "amount": 20356.35
+      },
+      {
+        "label": "Commercial breakdown by USE CODE",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "60 \u2013 Commercial",
+        "count": 18,
+        "amount": 524643.82
+      },
+      {
+        "label": "70",
+        "count": 13,
+        "amount": 154742.0
+      },
+      {
+        "label": "Flags in revised list",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "2024 comment \"Do Not Buy\" (Non-Commercial)",
+        "count": 3,
+        "amount": 20093.38
+      },
+      {
+        "label": "2024 comment \"Do Not Buy\" (Commercial)",
+        "count": 0,
+        "amount": 0.0
+      }
+    ],
+    "bid_distribution": {},
+    "top_comments": {
+      "Ok to Buy": 934,
+      "Ok To Buy-noMort/1inst": 372,
+      "Farm": 22
+    },
+    "non_comm_count": 1330,
+    "comm_count": 33,
+    "removed_count": 90
+  },
+  "Will": {
+    "county": "Will",
+    "rule": "Removed: certs under $3,000 where both installments are delinquent (OneInstllmt = FALSE). Commercial = ClassCode \"0060 Commercial\" and \"0080 Industrial\". Cert amount = Total-amount-owed.",
+    "breakdowns": [
+      {
+        "label": "Category",
+        "count": "Cert Count",
+        "amount": "Dollar Amount"
+      },
+      {
+        "label": "Revised Non-Commercial",
+        "count": 1442,
+        "amount": 9284073.74
+      },
+      {
+        "label": "Commercial",
+        "count": 50,
+        "amount": 1203089.34
+      },
+      {
+        "label": "Revised Total (keep)",
+        "count": 1492,
+        "amount": 10487163.08
+      },
+      {
+        "label": "Removed \u2013 Full Inst Under $3,000",
+        "count": 82,
+        "amount": 152209.13
+      },
+      {
+        "label": "Original Bid List Total",
+        "count": 1574,
+        "amount": 10639372.21
+      },
+      {
+        "label": "Non-Commercial breakdown by ClassCode",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "0040 Residential",
+        "count": 1393,
+        "amount": 9070807.34
+      },
+      {
+        "label": "0011 Farm Land with Buildings",
+        "count": 31,
+        "amount": 186837.24
+      },
+      {
+        "label": "0021 Farm Land without Buildings",
+        "count": 18,
+        "amount": 26429.16
+      },
+      {
+        "label": "Commercial breakdown by ClassCode",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "0060 Commercial",
+        "count": 40,
+        "amount": 1110790.77
+      },
+      {
+        "label": "0080 Industrial",
+        "count": 10,
+        "amount": 92298.57
+      },
+      {
+        "label": "Flags in revised list",
+        "count": "",
+        "amount": ""
+      },
+      {
+        "label": "Redlined comments (Steger / Univ Park / Park Forest)",
+        "count": 10,
+        "amount": 52348.57
+      }
+    ],
+    "bid_distribution": {
+      "3": 12
+    },
+    "top_comments": {
+      "Do Not Buy-Steger tRedlined": 5,
+      "Do Not Buy-UnivParkRedlined": 3,
+      "Redlined-Park Forest": 2
+    },
+    "non_comm_count": 1444,
+    "comm_count": 52,
+    "removed_count": 84
+  }
+}
