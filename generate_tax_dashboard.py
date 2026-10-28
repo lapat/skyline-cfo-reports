@@ -1,0 +1,616 @@
+#!/usr/bin/env python3
+"""
+generate_tax_dashboard.py -- Compiles the standalone Tax Buying Dashboard (tax.html)
+specifically for Stan Engelsen and Jay Lapat.
+
+Features:
+1. Passcode protected (Jennings2026 / Stan2026) with 30-day mobile persistence.
+2. Leads with the 2025 Historical Intelligence Suite (Jennings' 2.01% baseline & Lake competitors).
+3. Priority Subtax Defense ($127k / 18 parcels) with 1-click check request export for Mary.
+4. Lake County Pre-Sale War Room with Waukegan water-lien redline flags and direct Assessor links.
+5. Multi-county placeholders for DuPage, McHenry, and Will.
+"""
+
+import os
+import json
+import time
+
+TARGETS_JSON = os.path.abspath("lake_presale_targets.json")
+SUBTAX_JSON = os.path.abspath("subtax_opportunities_summary.json")
+OUTPUT_HTML = os.path.abspath("tax.html")
+
+def generate_tax_html():
+    targets_data = {}
+    if os.path.exists(TARGETS_JSON):
+        with open(TARGETS_JSON) as f:
+            targets_data = json.load(f)
+
+    subtax_data = {}
+    if os.path.exists(SUBTAX_JSON):
+        with open(SUBTAX_JSON) as f:
+            subtax_data = json.load(f)
+
+    targets_json_str = json.dumps(targets_data)
+    subtax_json_str = json.dumps(subtax_data)
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jennings Tax Buying Commander · Fall 2026 Campaign</title>
+<style>
+  :root {{
+    --bg-primary: #0b0f19;
+    --bg-secondary: #111827;
+    --bg-card: #1f2937;
+    --border: #374151;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --accent: #3b82f6;
+    --success: #10b981;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --purple: #8b5cf6;
+  }}
+  * {{ box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }}
+  body {{ background-color: var(--bg-primary); color: var(--text-primary); padding: 16px; font-size: 13px; line-height: 1.5; }}
+  .container {{ max-width: 1280px; margin: 0 auto; }}
+  
+  /* Top App Bar */
+  .app-bar {{ display: flex; justify-content: space-between; align-items: center; background: var(--bg-secondary); padding: 14px 20px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }}
+  .brand {{ display: flex; align-items: center; gap: 12px; }}
+  .brand-icon {{ font-size: 24px; }}
+  .brand-title {{ font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }}
+  .brand-sub {{ font-size: 11px; color: var(--text-muted); }}
+
+  /* Passcode Modal */
+  #authOverlay {{ position: fixed; inset: 0; background: rgba(11,15,25,0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }}
+  .auth-card {{ background: var(--bg-secondary); border: 1px solid var(--border); padding: 32px; border-radius: 12px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }}
+  .auth-card h2 {{ font-size: 18px; margin-bottom: 8px; }}
+  .auth-card p {{ font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }}
+  .auth-input {{ width: 100%; padding: 10px 14px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size: 14px; text-align: center; letter-spacing: 2px; margin-bottom: 14px; outline: none; }}
+  .auth-btn {{ width: 100%; padding: 10px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }}
+
+  /* Metric Strips */
+  .metric-strip {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 20px; }}
+  .metric-box {{ background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }}
+  .metric-box.featured {{ border-color: rgba(59,130,246,0.5); background: rgba(30,58,138,0.15); }}
+  .metric-box.alert {{ border-color: rgba(239,68,68,0.5); background: rgba(127,29,29,0.15); }}
+  .metric-label {{ font-size: 10.5px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }}
+  .metric-val {{ font-size: 19px; font-weight: 800; color: #fff; }}
+  .metric-note {{ font-size: 11px; margin-top: 3px; font-weight: 600; }}
+
+  /* Section Containers */
+  .section-card {{ background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 24px; overflow: hidden; }}
+  .section-header {{ background: rgba(255,255,255,0.03); padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
+  .section-title {{ font-size: 14.5px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: #fff; }}
+  .section-desc {{ font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }}
+
+  /* Tables */
+  .table-responsive {{ overflow-x: auto; -webkit-overflow-scrolling: touch; }}
+  table {{ width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }}
+  th {{ background: rgba(0,0,0,0.25); color: var(--text-secondary); padding: 10px 14px; font-weight: 600; border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.5px; }}
+  td {{ padding: 10px 14px; border-bottom: 1px solid var(--border); }}
+  tr:hover td {{ background: rgba(255,255,255,0.02); }}
+  .right {{ text-align: right; }}
+  .badge {{ display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; }}
+  .badge-green {{ background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }}
+  .badge-blue {{ background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }}
+  .badge-purple {{ background: rgba(139,92,246,0.2); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }}
+  .badge-red {{ background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }}
+  .badge-yellow {{ background: rgba(245,158,11,0.2); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }}
+  .btn {{ padding: 6px 14px; font-size: 11.5px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }}
+  .btn-primary {{ background: var(--accent); color: #fff; }}
+  .btn-primary:hover {{ background: #2563eb; }}
+  
+  /* Filter Bar */
+  .filter-bar {{ padding: 12px 18px; background: rgba(0,0,0,0.15); border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }}
+  .filter-select, .filter-input {{ background: var(--bg-card); color: #fff; border: 1px solid var(--border); padding: 5px 10px; border-radius: 5px; font-size: 11.5px; outline: none; }}
+  .filter-input {{ min-width: 240px; }}
+
+  /* Toast Notification */
+  #toastMsg {{ position: fixed; bottom: 20px; right: 20px; background: #1e3a8a; color: #fff; padding: 10px 18px; border-radius: 6px; font-weight: 700; font-size: 12px; display: none; z-index: 10000; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }}
+</style>
+</head>
+<body>
+
+<!-- AUTH OVERLAY -->
+<div id="authOverlay">
+  <div class="auth-card">
+    <div style="font-size:32px; margin-bottom:12px;">🏛️</div>
+    <h2>Jennings Tax Commander</h2>
+    <p>Please enter executive passcode to access the 2026 Collar Counties Auction Suite.</p>
+    <input type="password" id="passcodeInput" class="auth-input" placeholder="PASSCODE" onkeypress="if(event.key==='Enter') verifyPasscode()" />
+    <button onclick="verifyPasscode()" class="auth-btn">Authorize Session</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TOP APP BAR -->
+  <div class="app-bar">
+    <div class="brand">
+      <span class="brand-icon">🏛️</span>
+      <div>
+        <div class="brand-title">Jennings Tax Buying Commander · Fall 2026 Campaign</div>
+        <div class="brand-sub">Dedicated Tax Operations Portal for Stan Engelsen &amp; Jay Lapat &middot; Updated Today</div>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <span class="badge badge-green" style="font-size:11px;">Target: $5,000,000 Total Goal</span>
+      <span class="badge badge-blue" style="font-size:11px;">Remaining Target: $6,500,000</span>
+    </div>
+  </div>
+
+  <!-- METRIC SUMMARY STRIP -->
+  <div class="metric-strip">
+    <div class="metric-box alert">
+      <div class="metric-label">Priority Subtax Defense</div>
+      <div class="metric-val">$127,303</div>
+      <div class="metric-note" style="color:#f87171;">18 Parcels Owned · 12% Statutory Yield</div>
+    </div>
+    <div class="metric-box featured">
+      <div class="metric-label">Lake Co. 1/2 Inst Pool</div>
+      <div class="metric-val">$5,119,825</div>
+      <div class="metric-note" style="color:#60a5fa;">268 Parcels (&gt;95% Redemption Safety)</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Lake Commercial Sub-Pool</div>
+      <div class="metric-val">487 Certs · $8.15M</div>
+      <div class="metric-note" style="color:#34d399;">Avg $16,740 / cert (Jay Priority)</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-label">Next Sale (Lake County)</div>
+      <div class="metric-val">Fri, Nov 13</div>
+      <div class="metric-note" style="color:#fbbf24;">Target Spend: $2,000,000</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: 2025 HISTORICAL INTELLIGENCE (LEADS WITH THIS) -->
+  <div class="section-card">
+    <div class="section-header" style="background:rgba(30,58,138,0.25);">
+      <div>
+        <div class="section-title">📊 1. Full Historical Analysis — Last Year (2025 Auctions) &amp; Competitor Footprints</div>
+        <div class="section-desc">Overall: Jennings deployed $13,540,684 across 2,159 certificates at a 2.01% weighted average winning rate</div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>County</th>
+            <th class="right">Certs Won</th>
+            <th class="right">Capital Won</th>
+            <th class="right">Weighted Avg Bid</th>
+            <th>Dominant Winning Rate</th>
+            <th>Rate Range</th>
+            <th>Market Dynamics &amp; Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
+            <td><b>Lake (Central Buyer)</b></td>
+            <td class="right">853</td>
+            <td class="right" style="color:var(--success);">$6,131,471</td>
+            <td class="right" style="color:var(--accent);">1.84%</td>
+            <td><span class="badge badge-green">2.0% (67% of certs)</span></td>
+            <td>1.0% - 3.0%</td>
+            <td>Jennings #1 in county (30.1% of entire $20.4M auction)</td>
+          </tr>
+          <tr>
+            <td><b>Will</b></td>
+            <td class="right">240</td>
+            <td class="right">$1,457,091</td>
+            <td class="right" style="color:var(--accent);">1.52%</td>
+            <td><span class="badge badge-green">1.0% (71% of certs)</span></td>
+            <td>1.0% - 3.0%</td>
+            <td>Aggressive 1% bids swept logistics &amp; commercial hubs</td>
+          </tr>
+          <tr>
+            <td><b>McHenry</b></td>
+            <td class="right">180</td>
+            <td class="right">$1,452,829</td>
+            <td class="right" style="color:var(--accent);">1.99%</td>
+            <td><span class="badge badge-green">2.0% (89% of certs)</span></td>
+            <td>1.0% - 3.0%</td>
+            <td>Clean 2% bids dominated Route 14 commercial corridors</td>
+          </tr>
+          <tr>
+            <td><b>Kane</b></td>
+            <td class="right">112</td>
+            <td class="right">$852,779</td>
+            <td class="right" style="color:var(--accent);">3.05%</td>
+            <td><span class="badge badge-blue">3.0% (77% of certs)</span></td>
+            <td>2.0% - 7.0%</td>
+            <td>Won $853k at 3% (before Bridge 5% sweep in 2026)</td>
+          </tr>
+          <tr>
+            <td><b>DuPage</b></td>
+            <td class="right">32</td>
+            <td class="right">$254,027</td>
+            <td class="right" style="color:var(--accent);">2.00%</td>
+            <td><span class="badge badge-green">2.0% (100% of certs)</span></td>
+            <td>2.0% - 2.0%</td>
+            <td>Ultra-selective high-equity items; 100% won at 2.0% flat</td>
+          </tr>
+          <tr>
+            <td><b>Kendall</b></td>
+            <td class="right">78</td>
+            <td class="right">$220,883</td>
+            <td class="right" style="color:var(--accent);">3.28%</td>
+            <td><span class="badge badge-blue">3.0% (96% of certs)</span></td>
+            <td>3.0% - 4.0%</td>
+            <td>Won 78 items at 3% (vs $0 won in 2026)</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,0.05); font-weight:800;">
+            <td><b>TOTAL ALL COUNTIES (2025):</b></td>
+            <td class="right"><b>2,159</b></td>
+            <td class="right" style="color:var(--success);"><b>$13,540,684</b></td>
+            <td class="right" style="color:var(--accent);"><b>2.01%</b></td>
+            <td colspan="3"><span class="badge badge-green">OVERALL WEIGHTED AVERAGE BID RATE</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Competitors in Lake -->
+    <div style="padding:14px 20px; background:rgba(0,0,0,0.15); border-top:1px solid var(--border);">
+      <div style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-bottom:8px;">🏢 Lake County 2025 Competitor Footprints ("The Big Guys"):</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:10px;">
+        <div style="background:var(--bg-card); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--success); font-weight:700;">#1 Central Buyer Corp (Jennings)</div>
+          <div style="font-size:15px; font-weight:800;">$6,131,471 (30.1% Share)</div>
+          <div style="font-size:10.5px; color:var(--text-muted);">853 certs &middot; Avg Bid: <b>1.68%</b></div>
+        </div>
+        <div style="background:var(--bg-card); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--accent); font-weight:700;">#2 Private Equity Group ("Bridge")</div>
+          <div style="font-size:15px; font-weight:800;">$2,994,605 (14.7% Share)</div>
+          <div style="font-size:10.5px; color:var(--text-muted);">424 certs &middot; Avg Bid: <b>2.04%</b></div>
+        </div>
+        <div style="background:var(--bg-card); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:#fbbf24; font-weight:700;">#3 American Tax Lien LLC</div>
+          <div style="font-size:15px; font-weight:800;">$2,837,986 (13.9% Share)</div>
+          <div style="font-size:10.5px; color:var(--text-muted);">284 certs &middot; Avg Bid: <b>2.26%</b></div>
+        </div>
+        <div style="background:var(--bg-card); padding:10px 14px; border-radius:6px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--purple); font-weight:700;">#4 Ari Bass (Raven Securities)</div>
+          <div style="font-size:15px; font-weight:800;">$1,295,767 (6.4% Share)</div>
+          <div style="font-size:10.5px; color:var(--text-muted);">88 certs &middot; Avg Bid: <b>2.85%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: PRIORITY SUBTAX DEFENSE -->
+  <div class="section-card">
+    <div class="section-header" style="background:rgba(239,68,68,0.2);">
+      <div>
+        <div class="section-title">🔥 2. Priority Subtax Defense ($127,303 Capital to Sub)</div>
+        <div class="section-desc">18 parcels on the 2026 Lake County list where Jennings ALREADY holds prior certificates &middot; Statutory 12% Annual Penalty (No Bidding Required)</div>
+      </div>
+      <button onclick="exportMarySubtaxCsv()" class="btn btn-primary" style="background:#dc2626;">📥 Export Check Request for Mary</button>
+    </div>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>County</th>
+            <th>PIN</th>
+            <th>Taxpayer / Property Name</th>
+            <th>Certificate Owner</th>
+            <th>Prior Cert #</th>
+            <th>Tax Year</th>
+            <th class="right">Prior Cert Amt</th>
+            <th class="right">Subtax Amount Due</th>
+            <th class="right">12% Annual Yield</th>
+            <th>Status / Action</th>
+          </tr>
+        </thead>
+        <tbody id="subtaxTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 3: LAKE COUNTY PRE-SALE WAR ROOM & SCREENER -->
+  <div class="section-card">
+    <div class="section-header" style="background:rgba(30,58,138,0.3);">
+      <div>
+        <div class="section-title">🎯 3. Lake County 2026 Pre-Sale War Room &amp; Bidding Screener</div>
+        <div class="section-desc">Sale Date: <b>Friday, November 13, 2026</b> &middot; Allocation Target: <b>$2,000,000</b> &middot; Revised Pool: <b>5,011 parcels ($37.4M)</b></div>
+      </div>
+      <button onclick="exportLakeBiddingCsv()" class="btn btn-primary">📥 Export Stan's Bidding CSV</button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filters:</span>
+      <select id="lakeTierFilter" class="filter-select" onchange="renderLakeTargetTable()">
+        <option value="half" selected>⭐ 2nd Installment Only (268 Parcels · $5.12M)</option>
+        <option value="curated">Curated $2.0M Plan (55 Parcels)</option>
+        <option value="all">All High-Yield ($10k+)</option>
+        <option value="50k">Mega Liens (>=$50k)</option>
+        <option value="25k">Core ($25k - $50k)</option>
+        <option value="10k">Selective ($10k - $25k)</option>
+      </select>
+      <select id="lakeClassFilter" class="filter-select" onchange="renderLakeTargetTable()">
+        <option value="all">All Property Classes</option>
+        <option value="commercial">Commercial &amp; Industrial Only (487)</option>
+        <option value="residential">Residential Only</option>
+      </select>
+      <select id="lakeTwpFilter" class="filter-select" onchange="renderLakeTargetTable()">
+        <option value="all">All Townships</option>
+        <option value="waukegan">Waukegan</option>
+        <option value="zion">Zion / Benton</option>
+        <option value="highland park">Highland Park / Moraine</option>
+        <option value="gurnee">Gurnee / Warren</option>
+        <option value="vernon">Vernon Hills / Buffalo Grove</option>
+        <option value="libertyville">Libertyville</option>
+        <option value="antioch">Antioch</option>
+      </select>
+      <input type="text" id="lakeSearchInput" class="filter-input" onkeyup="renderLakeTargetTable()" placeholder="Search PIN, Taxpayer, City, Township..." />
+      <span id="lakeTargetCount" style="font-size:11px; color:var(--text-muted); margin-left:auto;">Showing 0 parcels</span>
+    </div>
+
+    <!-- Screener Table -->
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>PIN (Click to View Assessor)</th>
+            <th>Taxpayer / Business Name</th>
+            <th>City / Township</th>
+            <th>Installment Status</th>
+            <th>Type / Class</th>
+            <th class="right">Tax Due</th>
+            <th class="right">Assessed Bldg</th>
+            <th class="right">Bldg/Land Ratio</th>
+            <th class="right">Recommended Bid</th>
+            <th class="right">12% Subtax Return</th>
+            <th>Risk Rating</th>
+          </tr>
+        </thead>
+        <tbody id="lakeTargetBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 4: UPCOMING COLLAR COUNTIES SCHEDULE -->
+  <div class="section-card">
+    <div class="section-header">
+      <div>
+        <div class="section-title">⚖️ 4. Master 2026 Collar Counties Schedule (Target: $5.0M Deployment)</div>
+        <div class="section-desc">Unified pipeline across Lake, DuPage, McHenry, and Will county auctions</div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>County</th>
+            <th>2026 Sale Date</th>
+            <th>Status</th>
+            <th class="right">Pre-Sale DB Size</th>
+            <th class="right">2026 Target Allocation</th>
+            <th>Strategic Campaign Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(59,130,246,0.08); font-weight:700;">
+            <td><b>Lake</b></td>
+            <td><b>Fri, Nov 13, 2026</b></td>
+            <td><span class="badge badge-blue">UPCOMING (NEXT SALE)</span></td>
+            <td class="right">272 MB (6,078 certs)</td>
+            <td class="right" style="color:var(--accent); font-size:13.5px;"><b>$2,000,000</b></td>
+            <td>487 Commercials ($8.15M) &amp; 1/2 Inst (>=$10k); Bid 4% on >=$25k</td>
+          </tr>
+          <tr>
+            <td><b>DuPage</b></td>
+            <td>Thu, Nov 19, 2026</td>
+            <td><span class="badge badge-purple">UPCOMING</span></td>
+            <td class="right">147 MB</td>
+            <td class="right" style="color:var(--accent);"><b>$1,500,000</b></td>
+            <td>Bldg &gt; 2x Land &amp; Senior Living ($522k winner county)</td>
+          </tr>
+          <tr>
+            <td><b>McHenry</b></td>
+            <td>Mon, Nov 23, 2026</td>
+            <td><span class="badge badge-yellow">UPCOMING</span></td>
+            <td class="right">144 MB</td>
+            <td class="right" style="color:var(--accent);"><b>$1,000,000</b></td>
+            <td>Commercial Corridors (Route 14 &amp; Crystal Lake)</td>
+          </tr>
+          <tr>
+            <td><b>Will</b></td>
+            <td>Tue, Dec 01, 2026</td>
+            <td><span class="badge badge-green">UPCOMING</span></td>
+            <td class="right">434 MB</td>
+            <td class="right" style="color:var(--accent);"><b>$2,000,000</b></td>
+            <td>Logistics/Industrial &amp; '2 Commercials each a half'</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,0.05); font-weight:800;">
+            <td colspan="4">TOTAL REMAINING TARGET ALLOCATION (To hit $5.0M goal):</td>
+            <td class="right" style="color:var(--success); font-size:14px;">$6,500,000</td>
+            <td><span class="badge badge-green">Borrowing Base Compliant</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="toastMsg">Notification</div>
+
+<script>
+const lakePresaleData = {targets_json_str};
+const subtaxHunterData = {subtax_json_str};
+
+// Passcode verification
+function verifyPasscode() {{
+    const val = document.getElementById('passcodeInput').value.trim();
+    if (val === 'Jennings2026' || val === 'Stan2026') {{
+        localStorage.setItem('jennings_tax_auth', 'valid');
+        document.getElementById('authOverlay').style.display = 'none';
+    }} else {{
+        alert('Invalid passcode. Access denied.');
+    }}
+}}
+
+// Check existing auth
+window.addEventListener('DOMContentLoaded', () => {{
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('passcode') === 'Jennings2026' || urlParams.get('passcode') === 'Stan2026' || localStorage.getItem('jennings_tax_auth') === 'valid') {{
+        localStorage.setItem('jennings_tax_auth', 'valid');
+        document.getElementById('authOverlay').style.display = 'none';
+    }}
+    renderSubtaxOpportunityTable();
+    renderLakeTargetTable();
+}});
+
+function renderSubtaxOpportunityTable() {{
+    const tbody = document.getElementById('subtaxTableBody');
+    if (!tbody || !subtaxHunterData || !subtaxHunterData.opportunities) return;
+
+    tbody.innerHTML = subtaxHunterData.opportunities.map(o => `
+        <tr>
+            <td><b>${{o.county}}</b></td>
+            <td><code style="font-size:11px; color:var(--accent); cursor:pointer;" onclick="copyPin('${{o.pin}}')" title="Click to copy PIN">${{o.pin}}</code></td>
+            <td><b>${{o.taxpayer_name}}</b> <span style="font-size:10px; color:var(--text-muted);">(${{o.city}})</span></td>
+            <td><span class="badge badge-purple" style="font-size:9.5px;">${{o.certificate_owner.replace('INTERSTATE FUNDING CORP.', 'IFC').replace('CENTRAL BUYER CORP.', 'Central Buyer')}}</span></td>
+            <td><code style="font-size:10.5px;">${{o.certificate_no}}</code></td>
+            <td>${{o.cert_tax_year}}</td>
+            <td class="right">$${{Number(o.original_cert_amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+            <td class="right" style="color:var(--warn); font-weight:700;">$${{Number(o.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+            <td class="right" style="color:var(--success); font-weight:800;">+$${{Number(o.annual_12pct_interest).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
+            <td><span class="badge badge-green" style="font-size:9.5px;">12% Statutory Sub</span></td>
+        </tr>
+    `).join('');
+}}
+
+function renderLakeTargetTable() {{
+    const tbody = document.getElementById('lakeTargetBody');
+    const countEl = document.getElementById('lakeTargetCount');
+    if (!tbody || !lakePresaleData || !lakePresaleData.top_targets) return;
+
+    const tierVal = document.getElementById('lakeTierFilter') ? document.getElementById('lakeTierFilter').value : 'all';
+    const classVal = document.getElementById('lakeClassFilter') ? document.getElementById('lakeClassFilter').value : 'all';
+    const twpVal = document.getElementById('lakeTwpFilter') ? document.getElementById('lakeTwpFilter').value : 'all';
+    const searchVal = document.getElementById('lakeSearchInput') ? document.getElementById('lakeSearchInput').value.toLowerCase().trim() : '';
+
+    let dataset = (tierVal === 'curated' && lakePresaleData.curated_2m_portfolio)
+        ? lakePresaleData.curated_2m_portfolio.parcels
+        : lakePresaleData.top_targets;
+
+    let filtered = dataset.filter(item => {{
+        if (tierVal === 'half' && !item.is_half_installment) return false;
+        if (tierVal === '50k' && item.tax_due < 50000) return false;
+        if (tierVal === '25k' && (item.tax_due < 25000 || item.tax_due >= 50000)) return false;
+        if (tierVal === '10k' && (item.tax_due < 10000 || item.tax_due >= 25000)) return false;
+
+        if (classVal === 'commercial' && !item.is_commercial) return false;
+        if (classVal === 'residential' && item.is_commercial) return false;
+
+        if (twpVal !== 'all' && !item.township.toLowerCase().includes(twpVal) && !item.city.toLowerCase().includes(twpVal)) return false;
+
+        if (searchVal) {{
+            const matches = item.pin.toLowerCase().includes(searchVal) ||
+                            item.taxpayer.toLowerCase().includes(searchVal) ||
+                            item.city.toLowerCase().includes(searchVal) ||
+                            item.township.toLowerCase().includes(searchVal);
+            if (!matches) return false;
+        }}
+        return true;
+    }});
+
+    if (countEl) countEl.innerText = `Showing ${{filtered.length}} parcels ($${{filtered.reduce((s, x) => s + x.tax_due, 0).toLocaleString('en-US', {{maximumFractionDigits:0}})}})`;
+
+    tbody.innerHTML = filtered.slice(0, 100).map(t => {{
+        const assessorUrl = `https://tax.lakecountyil.gov/search/commonsearch.aspx?mode=realprop`;
+        const redlineBadge = t.waukegan_redline ? `<span class="badge badge-red" style="font-size:9px; margin-left:4px;" title="Stan Redline: Section ${{t.pin.slice(0,5)}} had 8 water lien failures">⚠️ Water Lien Risk</span>` : '';
+        return `
+        <tr>
+            <td>
+                <a href="${{assessorUrl}}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:700; font-family:monospace;" title="Open Lake County Assessor / Tax Portal">${{t.pin}} ↗</a>
+                <span style="cursor:pointer; margin-left:4px; font-size:11px;" onclick="copyPin('${{t.pin}}')" title="Click to copy PIN">📋</span>
+            </td>
+            <td><b>${{t.taxpayer}}</b> ${{redlineBadge}}</td>
+            <td>${{t.city}} <span style="font-size:10px; color:var(--text-muted);">(${{t.township}})</span></td>
+            <td>
+                <span class="badge ${{t.is_half_installment ? 'badge-purple' : 'badge-blue'}}" style="font-size:9px;">${{t.installment_tag}}</span>
+                ${{t.prior_redemptions_count >= 2 ? `<span class="badge badge-green" style="font-size:8.5px; margin-left:3px;" title="Chronic Redeemer: ${{t.prior_redemptions_count}} prior redemptions">${{t.prior_redemptions_count}}x Redeemed</span>` : ''}}
+            </td>
+            <td><span class="badge ${{t.is_commercial ? 'badge-blue' : 'badge-green'}}" style="font-size:9.5px;">${{t.property_type}}</span></td>
+            <td class="right" style="font-weight:700; color:var(--text-primary);">$${{Number(t.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+            <td class="right">$${{Number(t.asmt_bldg).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+            <td class="right" style="color:${{t.bldg_land_ratio >= 2.0 ? 'var(--success)' : 'var(--warn)'}}; font-weight:700;">${{t.bldg_land_ratio}}x</td>
+            <td class="right"><span class="badge ${{t.rec_bid <= 0.04 ? 'badge-green' : 'badge-blue'}}" style="font-size:10px; font-weight:800;">${{t.rec_bid_label}}</span></td>
+            <td class="right" style="color:var(--success); font-weight:700;">+$${{Number(t.subtax_annual_return).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
+            <td><span class="badge ${{t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}}" style="font-size:9.5px;">${{t.risk_rating}}</span></td>
+        </tr>
+        `;
+    }}).join('');
+}}
+
+function copyPin(pin) {{
+    if (navigator.clipboard && navigator.clipboard.writeText) {{
+        navigator.clipboard.writeText(pin);
+        const toast = document.getElementById('toastMsg');
+        if (toast) {{
+            toast.innerText = `📋 Copied PIN: ${{pin}}`;
+            toast.style.display = 'block';
+            setTimeout(() => {{ toast.style.display = 'none'; }}, 2000);
+        }}
+    }}
+}}
+
+function exportMarySubtaxCsv() {{
+    if (!subtaxHunterData || !subtaxHunterData.opportunities) return;
+    let csv = ["County,PIN,Taxpayer,CertificateOwner,CertNo,TaxYear,PriorCertAmount,SubtaxAmountDue,Annual12pctYield,Action"];
+    subtaxHunterData.opportunities.forEach(o => {{
+        csv.push(`"${{o.county}}","${{o.pin}}","${{o.taxpayer_name.replace(/"/g, '""')}} (${{o.city}})","${{o.certificate_owner}}","${{o.certificate_no}}",${{o.cert_tax_year}},${{o.original_cert_amount}},${{o.tax_due}},${{o.annual_12pct_interest}},"SUBTAX CHECK REQUEST - Pay to County Collector"`);
+    }});
+    const blob = new Blob([csv.join('\\n')], {{ type: 'text/csv;charset=utf-8;' }});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Subtax_Check_Requests_Mary.csv';
+    link.click();
+    const toast = document.getElementById('toastMsg');
+    if (toast) {{
+        toast.innerText = '📥 Exported Subtax_Check_Requests_Mary.csv';
+        toast.style.display = 'block';
+        setTimeout(() => {{ toast.style.display = 'none'; }}, 2500);
+    }}
+}}
+
+function exportLakeBiddingCsv() {{
+    if (!lakePresaleData || !lakePresaleData.top_targets) return;
+    let csv = ["PIN,Taxpayer,City,Township,TaxDue,AssessedBldg,AssessedLand,BldgLandRatio,PropertyType,RecommendedBidPercent,SubtaxAnnualReturn12pct,RiskRating"];
+    lakePresaleData.top_targets.forEach(t => {{
+        csv.push(`"${{t.pin}}","${{t.taxpayer.replace(/"/g, '""')}}","${{t.city}}","${{t.township}}",${{t.tax_due}},${{t.asmt_bldg}},${{t.asmt_land}},${{t.bldg_land_ratio}},"${{t.property_type}}",${{t.rec_bid}},${{t.subtax_annual_return}},"${{t.risk_rating}}"`);
+    }});
+    const blob = new Blob([csv.join('\\n')], {{ type: 'text/csv;charset=utf-8;' }});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Lake_County_2026_Stan_Bidding_Targets.csv';
+    link.click();
+    const toast = document.getElementById('toastMsg');
+    if (toast) {{
+        toast.innerText = '📥 Exported Lake_County_2026_Stan_Bidding_Targets.csv';
+        toast.style.display = 'block';
+        setTimeout(() => {{ toast.style.display = 'none'; }}, 2500);
+    }}
+}}
+</script>
+</body>
+</html>"""
+
+    with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"✅ Generated Stan's dedicated Tax Buying Dashboard: {OUTPUT_HTML}")
+    return html
+
+if __name__ == "__main__":
+    generate_tax_html()

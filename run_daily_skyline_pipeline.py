@@ -188,6 +188,14 @@ def run_pipeline(push_to_cloud=True):
     subprocess.run(["cp", "cfo_reports_viewer.html", "index.html"], check=True)
     log(f"Mobile Visual Pro portal compiled in {time.time() - t0:.3f}s", "✅")
 
+    # Step 4b: Recompile Stan's Dedicated Tax Buying Dashboard (tax.html)
+    try:
+        import generate_tax_dashboard
+        generate_tax_dashboard.generate_tax_html()
+        log("Stan's standalone Tax Buying Dashboard compiled (tax.html)", "🏛️")
+    except Exception as e:
+        log(f"Tax dashboard compile note: {e}", "ℹ️")
+
     # Step 5: Deploy Live to Cloud Web Server
     if push_to_cloud:
         log("Deploying updates live to GitHub Pages cloud edge...", "🚀")
@@ -210,8 +218,9 @@ def run_pipeline(push_to_cloud=True):
         log("Synchronizing updated assets and reports to Claude (/vibe/skyline)...", "🤝")
         t0 = time.time()
         try:
-            for f in ["cfo_reports_viewer.html", "generate_cfo_html_viewer.py", "build_north_star_rv_kpi_reports.py"]:
-                subprocess.run(["cp", f, os.path.join(CLAUDE_DIR, f)], check=True)
+            for f in ["cfo_reports_viewer.html", "generate_cfo_html_viewer.py", "build_north_star_rv_kpi_reports.py", "tax.html", "generate_tax_dashboard.py"]:
+                if os.path.exists(f):
+                    subprocess.run(["cp", f, os.path.join(CLAUDE_DIR, f)], check=True)
             log(f"Claude workspace synchronized in {time.time() - t0:.3f}s", "✅")
         except Exception as e:
             log(f"Claude sync failed: {e}", "⚠️")

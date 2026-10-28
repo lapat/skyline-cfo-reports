@@ -263,6 +263,22 @@ def run_tests():
     for nr in node_results:
         assert_test(nr["name"], nr["passed"])
 
+    # =========================================================================
+    # TEST 4: Stan's Standalone Tax Buying Dashboard (tax.html)
+    # =========================================================================
+    print("\n--- Phase 4: Stan's Dedicated Tax Buying Dashboard (tax.html) ---")
+    tax_html_path = "tax.html"
+    assert_test("Standalone tax.html exists on disk", os.path.exists(tax_html_path))
+    if os.path.exists(tax_html_path):
+        with open(tax_html_path) as f:
+            tax_html_content = f.read()
+        assert_test("tax.html requires passcode authentication", 'id="authOverlay"' in tax_html_content)
+        assert_test("tax.html leads with 2025 Historical Intelligence", "1. Full Historical Analysis" in tax_html_content)
+        assert_test("tax.html contains Subtax Defense section", "Priority Subtax Defense" in tax_html_content)
+        assert_test("tax.html contains Lake County War Room table", 'id="lakeTargetBody"' in tax_html_content)
+        assert_test("tax.html contains Waukegan water lien redline tags", "Water Lien Risk" in tax_html_content)
+        assert_test("tax.html contains Lake County Assessor search links", "https://tax.lakecountyil.gov/search/commonsearch.aspx" in tax_html_content)
+
     print("\n" + "=" * 80)
     if passed == total:
         print(f"🎉 ALL {total}/{total} TESTS PASSED PERFECTLY!")

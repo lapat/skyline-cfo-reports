@@ -163,6 +163,12 @@ def process_lake_presale(verbose=True):
         if prior_reds >= 2:
             score += 5   # Chronic redeemer
 
+        # Waukegan Municipal Water Lien Redline check (Stan's 08-20, 08-21, 08-28, 08-29 sectors)
+        is_waukegan_redline = pin.startswith(('08-20', '08-21', '08-28', '08-29'))
+        if is_waukegan_redline:
+            score -= 25
+            risk += " ⚠️ Water Lien Risk"
+
         item = {
             "pin": pin,
             "taxpayer": name,
@@ -181,6 +187,7 @@ def process_lake_presale(verbose=True):
             "prior_redemptions_count": prior_reds,
             "in_forfeiture": in_forf,
             "open_lien_flag": open_lien,
+            "waukegan_redline": is_waukegan_redline,
             "rec_bid": rec_bid,
             "rec_bid_label": rec_bid_label,
             "subtax_annual_return": round(subtax_annual, 2),
