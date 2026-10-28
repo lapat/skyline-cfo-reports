@@ -2242,7 +2242,21 @@ function renderTaxActivityView() {{
             <p>Real-time visibility into certificate payoffs, weekly bank clearing, and capital deployed across Interstate Funding (150), Central Buyer (160), Diamond Quest (180), and Union Tax (190).</p>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Monday Redemptions (10/19)</div>
                 <div class="stat-card-val" style="color:var(--success);">$${{Number(monIn).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -2444,6 +2458,27 @@ function renderTaxActivityView() {{
             </table>
         </div>
 
+
+            <!-- Stan's War Room Hand-off Banner -->
+            <div style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.35); border-radius: 8px; padding: 18px 20px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <div style="font-size: 14px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+                        <span>🎯 Stan's Tactical Bidding &amp; Planning War Room</span>
+                        <span class="badge badge-purple">Separate Operator Workbench</span>
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px; max-width: 680px; line-height: 1.5;">
+                        To keep Jay's executive screen clean and uncluttered, the 268-parcel lien screener, 1-click Google Street View drive-bys, and state auction upload CSVs are housed in Stan's dedicated portal.
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--accent); font-weight: 700; text-decoration: none; padding: 8px 16px; font-size: 12px;">⚡ Open Stan's War Room ↗</a>
+                    <button onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 12px; padding: 8px 14px;">📂 Expand Inside CFO Report</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 2: STAN'S TACTICAL AUCTION WAR ROOM (COLLAPSIBLE / SECONDARY) -->
+        <div id="taxSubViewTactical" style="display: none;">
         <!-- Master Collar Counties Auction Commander -->
         <div style="margin-top:28px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
@@ -2982,6 +3017,7 @@ function renderTaxActivityView() {{
                     <span class="badge badge-green" style="padding:6px 14px; font-size:11.5px;">Awaiting County Collector Final Tax Roll</span>
                 </div>
             </div>
+        </div>
 
         </div>
     `;
@@ -2992,6 +3028,30 @@ function renderTaxActivityView() {{
         renderSubtaxOpportunityTable();
         renderLakeTargetTable();
     }}, 50);
+}}
+
+
+function switchTaxPillarSubView(view) {{
+    const cap = document.getElementById('taxSubViewCapital');
+    const tac = document.getElementById('taxSubViewTactical');
+    const btnCap = document.getElementById('btnTaxViewCapital');
+    const btnTac = document.getElementById('btnTaxViewTactical');
+
+    if (view === 'capital') {{
+        if (cap) cap.style.display = 'block';
+        if (tac) tac.style.display = 'none';
+        if (btnCap) {{ btnCap.className = 'btn btn-primary'; }}
+        if (btnTac) {{ btnTac.className = 'btn btn-outline'; }}
+    }} else {{
+        if (cap) cap.style.display = 'none';
+        if (tac) tac.style.display = 'block';
+        if (btnCap) {{ btnCap.className = 'btn btn-outline'; }}
+        if (btnTac) {{ btnTac.className = 'btn btn-primary'; }}
+        // Ensure child tabs are initialized
+        if (typeof switchAuctionTab === 'function') {{
+            switchAuctionTab('intel');
+        }}
+    }}
 }}
 
 function switchAuctionTab(tabName) {{
@@ -3282,7 +3342,21 @@ function renderCashFlashView() {{
             <p>Captures what has cleared the banks but has <b>NOT YET POSTED</b> into the Skyline General Ledger. Mary's daily sheet tracks real-time bank deposits, clearing wires, and daily disbursements across all 35+ primary operating accounts.</p>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Live Bank Cash (Mary's Sheet)</div>
                 <div class="stat-card-val" style="color:var(--success);">$${{Number(totalBank).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3381,7 +3455,21 @@ function renderForecastView() {{
             <p>Algorithmic working capital projection mapping the 3.5x Florida winter transient surge (Nov-Apr) against baseline portfolio burn and debt facilities.</p>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Current Operating Cash</div>
                 <div class="stat-card-val" style="color:var(--text-primary);">$${{Number(curCash).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3546,7 +3634,21 @@ function renderLiquidityView() {{
             <p>Reconciles audited Skyline General Ledger operating cash against cleared bank wire balances from Mary's daily sheet, backing out Accounts Payable checks in transit, segregated escrows, and unencumbered borrowing headroom.</p>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">True Unrestricted Free Cash</div>
                 <div class="stat-card-val" style="color:var(--success); font-weight:900;">$${{Number(unresCash).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3674,7 +3776,21 @@ function renderCapexView() {{
             <p>Monitors multi-million dollar capital improvement and expansion projects across The Bluffs (50 new sites), Madison (Clubhouse & Golf), and Bay Bayou (Waterfront Phase II).</p>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Expansion Program</div>
                 <div class="stat-card-val" style="color:var(--text-primary);">$${{Number(totBudget).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
@@ -3720,7 +3836,21 @@ function renderNorthStarView() {{
             <span>🟣 <span class="jim-badge">Jim 📌</span> = Jim's CFO Ground-Truth Schedules (PMS Reservation System)</span>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Developed Sites</div>
                 <div class="stat-card-val">773 Sites</div>
@@ -4171,7 +4301,21 @@ function renderContent() {{
             <p>${{e.note}}</p>
         </div>
 
-        <div class="cards-grid">
+        <!-- Jay vs Stan Executive Sub-Navigation -->
+        <div style="margin: 18px 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 6px;">
+                <button id="btnTaxViewCapital" onclick="switchTaxPillarSubView('capital')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🏛️ Jay's Tax Capital &amp; Liquidity (Executive)</button>
+                <button id="btnTaxViewTactical" onclick="switchTaxPillarSubView('tactical')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">🎯 Tactical Auction War Room (Stan's Underwriting)</button>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                <span>Jay's Focus: <b>Capital, Liquidity &amp; Borrowing Base</b></span>
+                <a href="tax.html?passcode=Jennings2026" target="_blank" class="btn btn-primary" style="background: var(--purple); font-size: 10.5px; padding: 4px 10px; text-decoration: none; font-weight: 700;">⚡ Open Stan's Standalone Portal ↗</a>
+            </div>
+        </div>
+
+        <!-- SUB-VIEW 1: JAY'S EXECUTIVE CAPITAL & LIQUIDITY (DEFAULT) -->
+        <div id="taxSubViewCapital" style="display: block;">
+            <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Total Assets (${{currentPeriod.toUpperCase()}})</div>
                 <div class="stat-card-val" style="color:${{pData.isHistorical ? 'var(--warn)' : 'var(--text-primary)'}};">${{pData.assets}}</div>
