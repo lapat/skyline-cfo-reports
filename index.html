@@ -1841,105 +1841,644 @@ function renderTaxActivityView() {
             <p>Real-time visibility into certificate payoffs, weekly bank clearing, and capital deployed across Interstate Funding (150), Central Buyer (160), Diamond Quest (180), and Union Tax (190).</p>
         </div>
 
-        <!-- 🎯 STAN'S MASTER 2026 BIDDING MODELS & 4-COUNTY ROLLUP (TOP LEAD) -->
-        <div class="table-wrapper" style="margin-top:20px; margin-bottom:24px; border:2px solid rgba(139,92,246,0.55); background:linear-gradient(135deg, rgba(30,27,75,0.35), rgba(15,23,42,0.5)); box-shadow:0 4px 20px rgba(139,92,246,0.15);">
-            <div class="table-header" style="background:rgba(139,92,246,0.22); padding:14px 20px;">
-                <div>
-                    <h3 style="margin:0; font-size:16px; font-weight:800; color:#c4b5fd; display:flex; align-items:center; gap:8px;">
-                        <span>🎯 Stan's Master 2026 Bidding Models &amp; 4-County Production Rollup</span>
-                        <span class="badge badge-purple" style="font-size:10px; font-weight:800;">Jay's 2026 Bidding Blueprint</span>
-                    </h3>
-                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:3px;">Parsed directly from Stan's production Excel models emailed to Louis &amp; Jay. Defines Jennings' revised baseline across Lake, DuPage, McHenry, and Will.</div>
-                </div>
-                <span class="badge badge-green" style="font-size:12px; font-weight:800; padding:6px 12px;">Revised Total: 5,656 Certs &middot; $42.13M</span>
-            </div>
-            
-            <!-- 3 Key Takeaways -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; padding:14px 18px; background:rgba(0,0,0,0.15); border-bottom:1px solid var(--border);">
-                <div style="font-size:11.5px; color:var(--text-muted);">
-                    <b style="color:var(--warn);">1. &lt;$3k Filter Rule:</b> Stan eliminated <b>336 certs ($658k)</b> of full delinquent items to cut low-margin servicing overhead.
-                </div>
-                <div style="font-size:11.5px; color:var(--text-muted);">
-                    <b style="color:var(--accent);">2. Commercial Focus:</b> <b>133 certs ($5.05M)</b> averaging <b style="color:#60a5fa;">$37,937 / cert</b> (Jay's large-ticket priority).
-                </div>
-                <div style="font-size:11.5px; color:var(--text-muted);">
-                    <b style="color:var(--success);">3. Win Rate Reality:</b> <b>$42.13M upload</b> cleared <b>$13.54M won</b> last year (~32% win rate @ 2.01% avg bid).
-                </div>
-            </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>County</th>
-                        <th class="right">Non-Comm Certs</th>
-                        <th class="right">Non-Comm $</th>
-                        <th class="right">Comm Certs</th>
-                        <th class="right">Comm $ (Avg ~$38k)</th>
-                        <th class="right" style="color:var(--success);">Revised Bid Certs</th>
-                        <th class="right" style="color:var(--success);">Revised Bid $</th>
-                        <th class="right" style="color:var(--text-muted);">Removed (&lt;$3k)</th>
-                        <th class="right">Orig Total $</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><b>Lake</b></td>
-                        <td class="right">1,611</td>
-                        <td class="right">$11,740,875</td>
-                        <td class="right">29</td>
-                        <td class="right" style="color:var(--accent); font-weight:700;">$2,110,110</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">1,640</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">$13,850,986</td>
-                        <td class="right" style="color:var(--text-muted);">93 ($184k)</td>
-                        <td class="right">$14,034,923</td>
-                    </tr>
-                    <tr>
-                        <td><b>Will</b></td>
-                        <td class="right">1,442</td>
-                        <td class="right">$9,284,074</td>
-                        <td class="right">50</td>
-                        <td class="right" style="color:var(--accent); font-weight:700;">$1,203,089</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">1,492</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">$10,487,163</td>
-                        <td class="right" style="color:var(--text-muted);">82 ($152k)</td>
-                        <td class="right">$10,639,372</td>
-                    </tr>
-                    <tr>
-                        <td><b>McHenry</b></td>
-                        <td class="right">1,328</td>
-                        <td class="right">$7,788,659</td>
-                        <td class="right">31</td>
-                        <td class="right" style="color:var(--accent); font-weight:700;">$679,386</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">1,359</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">$8,468,045</td>
-                        <td class="right" style="color:var(--text-muted);">88 ($166k)</td>
-                        <td class="right">$8,633,629</td>
-                    </tr>
-                    <tr>
-                        <td><b>DuPage</b></td>
-                        <td class="right">1,142</td>
-                        <td class="right">$8,273,859</td>
-                        <td class="right">23</td>
-                        <td class="right" style="color:var(--accent); font-weight:700;">$1,053,094</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">1,165</td>
-                        <td class="right" style="color:var(--success); font-weight:800;">$9,326,953</td>
-                        <td class="right" style="color:var(--text-muted);">73 ($157k)</td>
-                        <td class="right">$9,483,829</td>
-                    </tr>
-                    <tr style="font-weight:800; background:rgba(255,255,255,0.06);">
-                        <td><span class="badge badge-purple" style="font-size:11px;">4-County Rollup</span></td>
-                        <td class="right">5,523</td>
-                        <td class="right">$37,087,468</td>
-                        <td class="right">133</td>
-                        <td class="right" style="color:var(--accent); font-weight:800;">$5,045,679</td>
-                        <td class="right" style="color:var(--success); font-weight:900; font-size:14px;">5,656</td>
-                        <td class="right" style="color:var(--success); font-weight:900; font-size:14px;">$42,133,147</td>
-                        <td class="right" style="color:var(--text-muted);">336 ($659k)</td>
-                        <td class="right">$42,791,753</td>
-                    </tr>
-                </tbody>
-            </table>
+  <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->
+  <div class="section-card" style="border: 2px solid rgba(139, 92, 246, 0.55); background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(15, 23, 42, 0.55)); margin-bottom: 24px; box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);">
+    <div class="section-header" style="background: rgba(139, 92, 246, 0.22); padding: 14px 20px; cursor: pointer;" onclick="toggleSection('cfoStanBody', 'cfoStanIcon')">
+      <div>
+        <div class="section-title" style="color: #c4b5fd; font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 10px;">
+          <span>🎯 Stan's Master 2026 Bidding Models &amp; 4-County Production Rollup</span>
+          <span class="badge badge-purple" style="font-size: 10px; font-weight: 800;">Jay's 2026 Bidding Blueprint</span>
         </div>
+        <div class="section-desc" style="color: var(--text-muted); font-size: 12px; margin-top: 3px;">
+          Complete dataset parsed from Stan's 5 production Excel models emailed to Louis &amp; Jay. Master 4-County Rollup, 133 Commercial Targets ($$5.05M), and Proprietary Redline Rules.
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="badge badge-green" style="font-size: 12px; font-weight: 800; padding: 6px 12px;">Revised Upload: 5,656 Certs &middot; $$42.13M</span>
+        <span id="cfoStanIcon" style="font-size: 14px; color: var(--text-muted); font-weight: 700;">▲</span>
+      </div>
+    </div>
+    
+    <div id="cfoStanBody">
+      <!-- 4 Strategic Takeaway Metrics -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; padding: 18px 20px 14px 20px;">
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Revised Bidding Upload Pool</div>
+          <div style="font-size: 22px; font-weight: 800; color: var(--success); margin: 4px 0;">5,656 Certs &middot; $$42.13M</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">Non-Commercial ($$37.09M) + Commercial ($$5.05M)</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-size: 11px; color: var(--accent); text-transform: uppercase; font-weight: 700;">Commercial / Industrial Focus</div>
+          <div style="font-size: 22px; font-weight: 800; color: var(--accent); margin: 4px 0;">133 Certs &middot; $$5.05M</div>
+          <div style="font-size: 11px; color: var(--text-secondary);"><b style="color:#60a5fa;">$$37,937 / cert avg</b> (Jay's high-dollar priority)</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-size: 11px; color: var(--warn); text-transform: uppercase; font-weight: 700;">Stan's &lt;$$3k Full-Inst Filter</div>
+          <div style="font-size: 22px; font-weight: 800; color: var(--warn); margin: 4px 0;">336 Certs &middot; $$658,606</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">Removed low-margin junk &amp; admin overhead</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-size: 11px; color: var(--purple); text-transform: uppercase; font-weight: 700;">Win Rate Reality &amp; Target Spend</div>
+          <div style="font-size: 22px; font-weight: 800; color: #c4b5fd; margin: 4px 0;">32.1% Win Rate</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">$$42.13M upload cleared $$13.54M won @ 2.01% avg bid</div>
+        </div>
+      </div>
+
+      <!-- Stan Multi-Tab Navigation -->
+      <div style="display: flex; gap: 8px; padding: 0 20px 12px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap;">
+        <button id="cfoStanBtnRollup" onclick="switchStanSubTab('cfoStan', 'rollup')" class="btn btn-primary" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">📊 4-County Master Rollup</button>
+        <button id="cfoStanBtnComm" onclick="switchStanSubTab('cfoStan', 'comm')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🏢 133 Prime Commercial Targets ($$5.05M)</button>
+        <button id="cfoStanBtnRedline" onclick="switchStanSubTab('cfoStan', 'redline')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">⚠️ Stan's Redlines &amp; Exclusions (58 Parcels)</button>
+      </div>
+
+      <!-- TAB 1: MASTER 4-COUNTY ROLLUP TABLE -->
+      <div id="cfoStanTabRollup" style="display: block; padding: 14px 20px;">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>County</th>
+                <th class="right">Non-Comm Certs</th>
+                <th class="right">Non-Comm $</th>
+                <th class="right">Comm Certs</th>
+                <th class="right">Comm $ (Avg ~$$38k)</th>
+                <th class="right" style="color:var(--success);">Revised Bid Certs</th>
+                <th class="right" style="color:var(--success);">Revised Bid $</th>
+                <th class="right" style="color:var(--text-muted);">Removed (&lt;$$3k)</th>
+                <th class="right" style="color:var(--text-muted);">Removed $</th>
+                <th class="right">Orig Total Certs</th>
+                <th class="right">Orig Total $</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <tr style="">
+              <td><b>Lake</b></td>
+              <td class="right">1,611</td>
+              <td class="right">$$11,740,875.39</td>
+              <td class="right">29</td>
+              <td class="right" style="color:var(--accent); font-weight:700;">$$2,110,110.44</td>
+              <td class="right" style="color:var(--success); font-weight:800;">1,640</td>
+              <td class="right" style="color:var(--success); font-weight:800;">$$13,850,985.83</td>
+              <td class="right" style="color:var(--text-muted);">93</td>
+              <td class="right" style="color:var(--text-muted);">$$183,937.01</td>
+              <td class="right" style="color:var(--text-primary);">1,733</td>
+              <td class="right" style="color:var(--text-primary);">$$14,034,922.84</td>
+            </tr>
+            <tr style="">
+              <td><b>DuPage</b></td>
+              <td class="right">1,142</td>
+              <td class="right">$$8,273,859.20</td>
+              <td class="right">23</td>
+              <td class="right" style="color:var(--accent); font-weight:700;">$$1,053,093.80</td>
+              <td class="right" style="color:var(--success); font-weight:800;">1,165</td>
+              <td class="right" style="color:var(--success); font-weight:800;">$$9,326,953.00</td>
+              <td class="right" style="color:var(--text-muted);">73</td>
+              <td class="right" style="color:var(--text-muted);">$$156,875.76</td>
+              <td class="right" style="color:var(--text-primary);">1,238</td>
+              <td class="right" style="color:var(--text-primary);">$$9,483,828.76</td>
+            </tr>
+            <tr style="">
+              <td><b>McHenry</b></td>
+              <td class="right">1,328</td>
+              <td class="right">$$7,788,659.33</td>
+              <td class="right">31</td>
+              <td class="right" style="color:var(--accent); font-weight:700;">$$679,385.82</td>
+              <td class="right" style="color:var(--success); font-weight:800;">1,359</td>
+              <td class="right" style="color:var(--success); font-weight:800;">$$8,468,045.15</td>
+              <td class="right" style="color:var(--text-muted);">88</td>
+              <td class="right" style="color:var(--text-muted);">$$165,583.93</td>
+              <td class="right" style="color:var(--text-primary);">1,447</td>
+              <td class="right" style="color:var(--text-primary);">$$8,633,629.08</td>
+            </tr>
+            <tr style="">
+              <td><b>Will</b></td>
+              <td class="right">1,442</td>
+              <td class="right">$$9,284,073.74</td>
+              <td class="right">50</td>
+              <td class="right" style="color:var(--accent); font-weight:700;">$$1,203,089.34</td>
+              <td class="right" style="color:var(--success); font-weight:800;">1,492</td>
+              <td class="right" style="color:var(--success); font-weight:800;">$$10,487,163.08</td>
+              <td class="right" style="color:var(--text-muted);">82</td>
+              <td class="right" style="color:var(--text-muted);">$$152,209.13</td>
+              <td class="right" style="color:var(--text-primary);">1,574</td>
+              <td class="right" style="color:var(--text-primary);">$$10,639,372.21</td>
+            </tr>
+            <tr style="font-weight:800; background:rgba(255,255,255,0.06);">
+              <td><span class='badge badge-purple' style='font-size:11px; font-weight:800;'>4-County Rollup Total</span></td>
+              <td class="right">5,523</td>
+              <td class="right">$$37,087,467.66</td>
+              <td class="right">133</td>
+              <td class="right" style="color:var(--accent); font-weight:700;">$$5,045,679.40</td>
+              <td class="right" style="color:var(--success); font-weight:800;">5,656</td>
+              <td class="right" style="color:var(--success); font-weight:800;">$$42,133,147.06</td>
+              <td class="right" style="color:var(--text-muted);">336</td>
+              <td class="right" style="color:var(--text-muted);">$$658,605.83</td>
+              <td class="right" style="color:var(--text-primary);">5,992</td>
+              <td class="right" style="color:var(--text-primary);">$$42,791,752.89</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2: 133 PRIME COMMERCIAL TARGETS TABLE -->
+      <div id="cfoStanTabComm" style="display: none; padding: 14px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span style="font-size: 13px; font-weight: 800; color: #fff;">🏢 Stan's 133 Commercial &amp; Industrial War Room Portfolio</span>
+            <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">Total Capital: <b>$$5,045,679</b> &middot; Average Ticket: <b>$$37,937 / cert</b></span>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted);">
+            Includes Stan's exact underwriting comments (AMC, hotel, strip center, skilled nursing home)
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>County</th>
+                <th>PIN</th>
+                <th>Business / Property Name &amp; Address</th>
+                <th class="right">Tax Due</th>
+                <th class="right">Stan Bid</th>
+                <th class="right">Bldg/Land Ratio</th>
+                <th>Flags</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">15-35-402-125</code></td>
+              <td>
+                <b>BRI 1862 RIVERWALK, LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">2100 E LAKE COOK RD (BUFFALO GROVE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$724,500.53</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">7%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">41.8x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">07-25-308-009</code></td>
+              <td>
+                <b>FOUNTAIN SQUARE HOSPITALITY INC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">400 LAKEHURST RD (WAUKEGAN)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$345,151.86</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">6%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">3.4x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">23-15-02-400-015-0000</code></td>
+              <td>
+                <b>ST JAMES PROPERTY LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>skilled nursing home</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1251 E RICHTON RD, CRETE IL 60417 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$289,375.15</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">12.9x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">03-05-200-031</code></td>
+              <td>
+                <b>IHP HOSPITALITY LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>hotel</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1150 N ARLINGTON HTS (ITASCA)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$220,377.93</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">5%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">2.2x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">08-21-211-018</code></td>
+              <td>
+                <b>LAKESIDE PHASED LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">200 JULIAN ST (WAUKEGAN)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$212,789.78</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">6%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">37.2x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">McHenry</b></td>
+              <td><code style="font-size:11px; font-weight:700;">18-28-477-012</code></td>
+              <td>
+                <b>EP HSS LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>4% or higher - self storage</span>
+                <div style="font-size:10.5px; color:var(--text-muted);"> ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$186,431.88</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">6.2x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">09-26-402-028</code></td>
+              <td>
+                <b>A1 HOSPITALITY</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>Hotel</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">7800 KINGERY HWY (WILLOWBROOK)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$174,927.81</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">5%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">3.3x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">07-12-204-005</code></td>
+              <td>
+                <b>BOBR GROUP LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>offfice buildings</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1717 PARK ST (NAPERVILLE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$154,032.31</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">5%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">2.7x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">16-19-105-012</code></td>
+              <td>
+                <b>L2 KARMA FUND 1 LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">1000 LAKESIDE DR (BANNOCKBURN)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$128,252.20</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">5%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">0.2x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">16-22-107-005</code></td>
+              <td>
+                <b>CVS HEALTH CORPORATION</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">2000 SKOKIE VALLEY RD (HIGHLAND PARK)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$119,722.38</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">5%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.0x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">19-09-01-204-004-0000</code></td>
+              <td>
+                <b>TINLEY PARK CHICAGO HOTELS LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">7255 183RD ST, TINLEY PARK IL 60477 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$116,311.41</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">7.7x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">16-16-408-016</code></td>
+              <td>
+                <b>2396 SKOKIE VALLEY LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">2396 SKOKIE VALLEY RD (HIGHLAND PARK)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$111,117.25</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">5%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.3x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">07-01-04-410-060-0000</code></td>
+              <td>
+                <b>NATIONAL RETAIL PROPERTIES LP</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>AMC</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">2815 SHOWPLACE DR, NAPERVILLE IL 60564 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$74,757.59</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">0.6x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">02-02-317-002</code></td>
+              <td>
+                <b>MILLION WAYS SERIES LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>strip center</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">610 E IRVING PARK RD (ROSELLE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$71,869.85</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">2.6x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">15-34-309-002</code></td>
+              <td>
+                <b>100 LEXINGTON PROPERTIES LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">100 LEXINGTON DR (BUFFALO GROVE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$70,473.13</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">3.5x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">06-19-305-006</code></td>
+              <td>
+                <b>DM EQUITIES LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>office</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">555 WATERS EDGE (LOMBARD)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$69,534.80</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">2.3x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">12-02-17-102-029-0000</code></td>
+              <td>
+                <b>RB PROPERTY INVESTMENTS LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>cannabis building</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">190 S WEBER RD, BOLINGBROOK IL 60490 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$67,242.41</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.4x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">11-04-08-304-006-0000</code></td>
+              <td>
+                <b>SENIOR SERVICES CTR WILL CNTY</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">349 S WEBER RD, ROMEOVILLE IL 60446 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$66,136.45</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">0.7x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">McHenry</b></td>
+              <td><code style="font-size:11px; font-weight:700;">09-26-100-046</code></td>
+              <td>
+                <b>LASALLE NATL BK TR 131445</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>4% or higher</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1701 N RICHMOND RD (MCHENRY)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$56,551.20</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.2x</td>
+              <td> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">06-30-407-009</code></td>
+              <td>
+                <b>1430 BRANDING DG LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>office 1/2 installment</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1430 BRANDING AVE (DOWNERS GROVE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$50,579.30</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.1x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">McHenry</b></td>
+              <td><code style="font-size:11px; font-weight:700;">13-25-101-002</code></td>
+              <td>
+                <b>COACHING KIDS INC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>3% or higher</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1310 RIDGEFIELD RD (CRYSTAL LAKE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$49,639.00</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">5.5x</td>
+              <td> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">05-06-15-203-006-0000</code></td>
+              <td>
+                <b>SPECIALTY PROJECTS INC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>storage</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">201 MCDONALD AVE UNIT A, JOLIET IL 60431 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$49,003.67</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">4.2x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">09-04-403-001</code></td>
+              <td>
+                <b>TF PORTFOLIO I LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">19-31 W OGDEN AVE (WESTMONT)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$47,609.57</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.5x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">15-21-405-007</code></td>
+              <td>
+                <b>REALTY INCOME U S CORE PLUS 3 LP</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">675 HEATHROW DR (LINCOLNSHIRE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$44,493.56</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">4.3x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">11-04-23-317-009-0000</code></td>
+              <td>
+                <b>MADHUNT LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">110 W 10TH ST, LOCKPORT IL 60441 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$42,553.46</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">4%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">10.6x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">McHenry</b></td>
+              <td><code style="font-size:11px; font-weight:700;">09-09-451-009</code></td>
+              <td>
+                <b>SUHR ENT INC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>3% or higher</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">5418 BUSINESS PKWY (RINGWOOD)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$39,247.05</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">9.6x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">16-05-11-401-004-0000</code></td>
+              <td>
+                <b>GARCIA ANTONIO LIVING TRUST</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>restaurant</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">14853 S FOUNDERS XING, HOMER GLEN IL 60491 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$36,103.75</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.4x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">12-02-15-402-013-0000</code></td>
+              <td>
+                <b>ELISKA HOSPITALITY LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>motel</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">175 REMINGTON BLVD, BOLINGBROOK IL 60440 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$35,745.79</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.3x</td>
+              <td> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">07-13-436-016</code></td>
+              <td>
+                <b>48 WEST CHICAGO LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>restaurant</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">36-50 W CHICAGO AVE (NAPERVILLE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$33,686.70</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">7.0x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">06-08-100-009</code></td>
+              <td>
+                <b>MILLION WAYS SERIES LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>apts</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">9 N MAIN ST (LOMBARD)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$32,998.22</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">10.2x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">06-03-04-201-046-0000</code></td>
+              <td>
+                <b>RT 59 OPERATIONS INC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>autospa</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">24037 W 135TH ST, PLAINFIELD IL 60544 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$32,241.82</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.5x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">06-03-32-208-084-0000</code></td>
+              <td>
+                <b>ZENITH HOLDINGS LTD</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>dialysis</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">2320 MICHAS DR, PLAINFIELD IL 60586 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$31,956.36</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">5.6x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--accent);">Lake</b></td>
+              <td><code style="font-size:11px; font-weight:700;">11-28-411-006</code></td>
+              <td>
+                <b>BRADFORD LANDINGS SOUTH 6 LLC</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">1680 N MILWAUKEE AVE (VERNON HILLS)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$31,867.56</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.4x</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">Will</b></td>
+              <td><code style="font-size:11px; font-weight:700;">06-03-09-302-056-0000</code></td>
+              <td>
+                <b>LIGHTHOUSE ACADEMY PLAINFIELD</b> 
+                <div style="font-size:10.5px; color:var(--text-muted);">14957 S VAN DYKE RD, PLAINFIELD IL 60544 ()</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$28,779.49</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--success); font-weight:700;">13.5x</td>
+              <td> <span class='badge badge-purple' style='font-size:9px;'>2nd Inst Only</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">DuPage</b></td>
+              <td><code style="font-size:11px; font-weight:700;">07-10-105-013</code></td>
+              <td>
+                <b>PANERA LLC</b> <span class='badge badge-blue' style='font-size:9.5px; font-weight:700;'>panera</span>
+                <div style="font-size:10.5px; color:var(--text-muted);">1620 N ROUTE 59 (NAPERVILLE)</div>
+              </td>
+              <td class="right" style="font-weight:800; color:var(--text-primary);">$$28,553.01</td>
+              <td class="right"><span class="badge badge-green" style="font-size:10.5px; font-weight:800;">3%</span></td>
+              <td class="right" style="color:var(--warn); font-weight:700;">1.1x</td>
+              <td><span class='badge badge-green' style='font-size:9px;'>No Mort</span> </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted); text-align: right;">
+          <i>Showing top 35 commercial items sorted by dollar amount. Full 133 items available in Stan's spreadsheets.</i>
+        </div>
+      </div>
+
+      <!-- TAB 3: STAN'S REDLINE RULES & EXCLUSIONS -->
+      <div id="cfoStanTabRedline" style="display: none; padding: 14px 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 14px;">
+          <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--danger);">🚫 Lake County: North Chicago Redline</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin: 4px 0;">37 Certs &middot; $$185,773</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Flagged: <code>"Do Not Buy - Redlined North Chgo"</code>. Severely distressed housing stock and chronic non-redemption risk.</div>
+          </div>
+
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--warn);">⚠️ DuPage County: Open Prior Sold Taxes</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin: 4px 0;">8 Certs &middot; $$57,415</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Flagged: <code>"DNB - Open Sold Taxes"</code>. Prior unredeemed certificate sales that jeopardize senior lien priority.</div>
+          </div>
+
+          <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--danger);">🚫 Will County: South Suburban Redline</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin: 4px 0;">10 Certs &middot; $$52,349</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Flagged in Steger, University Park, and Park Forest. Zero commercial viability and title extinction risks.</div>
+          </div>
+
+          <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--accent);">🛡️ Total Capital Protected Across 4 Counties</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--success); margin: 4px 0;">58 Certs &middot; $$315,630</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Stan's proprietary exclusions prevented Jennings from trapping $$315k into non-redeeming dead-end assets.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deep Analysis Commentary -->
+      <div style="background: rgba(0, 0, 0, 0.25); border-top: 1px solid var(--border); padding: 14px 20px; font-size: 11.5px; line-height: 1.6; color: var(--text-muted);">
+        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">🔍 Complete Strategic Synthesis from Stan's 5 Excel Spreadsheets:</div>
+        <div>1. <b>The &lt;$$3,000 Filter Rule:</b> Stan deliberately removes certs under $$3,000 where both installments are delinquent. This cut <b>336 certs ($$658,606)</b> across the 4 collar counties, preserving 98.5% of deployable capital while avoiding low-margin title/servicing overhead.</div>
+        <div>2. <b>Commercial High-Yield Focus:</b> Commercial &amp; industrial certs account for only 2.3% of certificate count (133 certs) but generate <b>12.0% of all capital ($$5.05M)</b> with an average ticket of <b>$$37,937</b>. These represent Jennings' primary profit centers (hotels in Itasca, shopping centers in Roselle, AMC Naperville).</div>
+        <div>3. <b>Why Volume Bidding is Required:</b> Last year Jennings won $$13.54M out of $$42.13M bid (~32% clearance rate). Bidding aggressively on $$42M+ across all 4 counties is essential to ensure Jennings deploys its full $$5.0M - $$6.5M capital allocation target against Bridge and Bass.</div>
+      </div>
+    </div>
+  </div>
+
 
         <div class="cards-grid">
             <div class="stat-card">

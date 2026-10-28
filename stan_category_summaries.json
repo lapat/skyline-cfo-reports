@@ -1,0 +1,270 @@
+{
+  "Lake": [
+    {
+      "category": "Category",
+      "count": "Cert Count",
+      "amount": "Dollar Amount"
+    },
+    {
+      "category": "Revised Non-Commercial",
+      "count": 1611,
+      "amount": 11740875.39
+    },
+    {
+      "category": "Commercial",
+      "count": 29,
+      "amount": 2110110.44
+    },
+    {
+      "category": "Revised Total (keep)",
+      "count": 1640,
+      "amount": 13850985.83
+    },
+    {
+      "category": "Removed \u2013 Full Inst Under $3,000",
+      "count": 93,
+      "amount": 183937.01
+    },
+    {
+      "category": "Original Bid List Total",
+      "count": 1733,
+      "amount": 14034922.84
+    },
+    {
+      "category": "Non-Commercial breakdown by type",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "Residential Improvements",
+      "count": 1592,
+      "amount": 11574028.459999999
+    },
+    {
+      "category": "Farm A Improvements",
+      "count": 16,
+      "amount": 163733.71
+    },
+    {
+      "category": "Farmland",
+      "count": 3,
+      "amount": 3113.2200000000003
+    },
+    {
+      "category": "Incl. \"Do Not Buy- Redlined North Chgo\" comment",
+      "count": 37,
+      "amount": 185772.96
+    }
+  ],
+  "DuPage": [
+    {
+      "category": "Category",
+      "count": "Cert Count",
+      "amount": "Dollar Amount"
+    },
+    {
+      "category": "Revised Non-Commercial (Residential)",
+      "count": 1142,
+      "amount": 8273859.2
+    },
+    {
+      "category": "Commercial",
+      "count": 23,
+      "amount": 1053093.8
+    },
+    {
+      "category": "Revised Total (keep)",
+      "count": 1165,
+      "amount": 9326953.0
+    },
+    {
+      "category": "Removed \u2013 Full Inst Under $3,000",
+      "count": 73,
+      "amount": 156875.76
+    },
+    {
+      "category": "Original Bid List Total",
+      "count": 1238,
+      "amount": 9483828.76
+    },
+    {
+      "category": "Flags in revised list",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "2024 comment \"DNB-Open Sold Taxes\" (Revised Non-Commercial)",
+      "count": 8,
+      "amount": 57415.35
+    },
+    {
+      "category": "2024 comment \"DNB-Open Sold Taxes\" (Commercial)",
+      "count": 0,
+      "amount": 0.0
+    }
+  ],
+  "McHenry": [
+    {
+      "category": "Category",
+      "count": "Cert Count",
+      "amount": "Dollar Amount"
+    },
+    {
+      "category": "Revised Non-Commercial",
+      "count": 1328,
+      "amount": 7788659.33
+    },
+    {
+      "category": "Commercial",
+      "count": 31,
+      "amount": 679385.82
+    },
+    {
+      "category": "Revised Total (keep)",
+      "count": 1359,
+      "amount": 8468045.15
+    },
+    {
+      "category": "Removed \u2013 Full Inst Under $3,000",
+      "count": 88,
+      "amount": 165583.93
+    },
+    {
+      "category": "Original Bid List Total",
+      "count": 1447,
+      "amount": 8633629.08
+    },
+    {
+      "category": "Non-Commercial breakdown by USE CODE",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "40 \u2013 Residential",
+      "count": 1244,
+      "amount": 7286128.79
+    },
+    {
+      "category": "50",
+      "count": 3,
+      "amount": 27087.39
+    },
+    {
+      "category": "11 \u2013 Farm",
+      "count": 59,
+      "amount": 455086.8
+    },
+    {
+      "category": "21 \u2013 Farmland",
+      "count": 22,
+      "amount": 20356.35
+    },
+    {
+      "category": "Commercial breakdown by USE CODE",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "60 \u2013 Commercial",
+      "count": 18,
+      "amount": 524643.82
+    },
+    {
+      "category": "70",
+      "count": 13,
+      "amount": 154742.0
+    },
+    {
+      "category": "Flags in revised list",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "2024 comment \"Do Not Buy\" (Non-Commercial)",
+      "count": 3,
+      "amount": 20093.38
+    },
+    {
+      "category": "2024 comment \"Do Not Buy\" (Commercial)",
+      "count": 0,
+      "amount": 0.0
+    }
+  ],
+  "Will": [
+    {
+      "category": "Category",
+      "count": "Cert Count",
+      "amount": "Dollar Amount"
+    },
+    {
+      "category": "Revised Non-Commercial",
+      "count": 1442,
+      "amount": 9284073.74
+    },
+    {
+      "category": "Commercial",
+      "count": 50,
+      "amount": 1203089.34
+    },
+    {
+      "category": "Revised Total (keep)",
+      "count": 1492,
+      "amount": 10487163.08
+    },
+    {
+      "category": "Removed \u2013 Full Inst Under $3,000",
+      "count": 82,
+      "amount": 152209.13
+    },
+    {
+      "category": "Original Bid List Total",
+      "count": 1574,
+      "amount": 10639372.21
+    },
+    {
+      "category": "Non-Commercial breakdown by ClassCode",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "0040 Residential",
+      "count": 1393,
+      "amount": 9070807.34
+    },
+    {
+      "category": "0011 Farm Land with Buildings",
+      "count": 31,
+      "amount": 186837.24
+    },
+    {
+      "category": "0021 Farm Land without Buildings",
+      "count": 18,
+      "amount": 26429.16
+    },
+    {
+      "category": "Commercial breakdown by ClassCode",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "0060 Commercial",
+      "count": 40,
+      "amount": 1110790.77
+    },
+    {
+      "category": "0080 Industrial",
+      "count": 10,
+      "amount": 92298.57
+    },
+    {
+      "category": "Flags in revised list",
+      "count": "",
+      "amount": ""
+    },
+    {
+      "category": "Redlined comments (Steger / Univ Park / Park Forest)",
+      "count": 10,
+      "amount": 52348.57
+    }
+  ]
+}
