@@ -451,6 +451,122 @@ def generate_tax_html():
     </div>
   </div>
 
+
+  <!-- SECTION: STAN'S MASTER 4-COUNTY PRODUCTION BIDDING MODELS -->
+  <div class="section-card" style="border: 1px solid rgba(139, 92, 246, 0.4); background: rgba(30, 27, 75, 0.2);">
+    <div class="section-header" style="cursor:pointer;" onclick="toggleSection('secBodyStan', 'secIconStan')">
+      <div>
+        <div class="section-title" style="color:var(--purple); display:flex; align-items:center; gap:8px;">
+          <span>🎯 Stan's Master 2025 Bidding Models &amp; 4-County Rollup</span>
+          <span class="badge badge-purple" style="font-size:10px;">Production Ground Truth</span>
+        </div>
+        <div class="section-desc">Stan's exact filtering rule: Removed certs &lt; $3,000 where both installments are delinquent. Commercial separated from residential.</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="badge badge-green" style="font-size:11px; font-weight:800;">Revised Total: 5,656 Certs &middot; $42.13M</span>
+        <span id="secIconStan" style="font-size:14px; color:var(--text-muted);">▼</span>
+      </div>
+    </div>
+    <div id="secBodyStan" class="section-body">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>County</th>
+              <th class="right">Non-Comm Certs</th>
+              <th class="right">Non-Comm $</th>
+              <th class="right">Comm Certs</th>
+              <th class="right">Comm $</th>
+              <th class="right" style="color:var(--success);">Revised Bid Certs</th>
+              <th class="right" style="color:var(--success);">Revised Bid $</th>
+              <th class="right" style="color:var(--text-muted);">Removed (&lt;$3k)</th>
+              <th class="right" style="color:var(--text-muted);">Removed $</th>
+              <th class="right">Orig Total Certs</th>
+              <th class="right">Orig Total $</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr style="">
+            <td><b>Lake</b></td>
+            <td class="right">1,611</td>
+            <td class="right">$11,740,875.39</td>
+            <td class="right">29</td>
+            <td class="right" style="color:var(--accent); font-weight:700;">$2,110,110.44</td>
+            <td class="right" style="color:var(--success); font-weight:800;">1,640</td>
+            <td class="right" style="color:var(--success); font-weight:800;">$13,850,985.83</td>
+            <td class="right" style="color:var(--text-muted);">93</td>
+            <td class="right" style="color:var(--text-muted);">$183,937.01</td>
+            <td class="right" style="color:var(--text-primary);">1,733</td>
+            <td class="right" style="color:var(--text-primary);">$14,034,922.84</td>
+        </tr>
+        
+        <tr style="">
+            <td><b>DuPage</b></td>
+            <td class="right">1,142</td>
+            <td class="right">$8,273,859.20</td>
+            <td class="right">23</td>
+            <td class="right" style="color:var(--accent); font-weight:700;">$1,053,093.80</td>
+            <td class="right" style="color:var(--success); font-weight:800;">1,165</td>
+            <td class="right" style="color:var(--success); font-weight:800;">$9,326,953.00</td>
+            <td class="right" style="color:var(--text-muted);">73</td>
+            <td class="right" style="color:var(--text-muted);">$156,875.76</td>
+            <td class="right" style="color:var(--text-primary);">1,238</td>
+            <td class="right" style="color:var(--text-primary);">$9,483,828.76</td>
+        </tr>
+        
+        <tr style="">
+            <td><b>McHenry</b></td>
+            <td class="right">1,328</td>
+            <td class="right">$7,788,659.33</td>
+            <td class="right">31</td>
+            <td class="right" style="color:var(--accent); font-weight:700;">$679,385.82</td>
+            <td class="right" style="color:var(--success); font-weight:800;">1,359</td>
+            <td class="right" style="color:var(--success); font-weight:800;">$8,468,045.15</td>
+            <td class="right" style="color:var(--text-muted);">88</td>
+            <td class="right" style="color:var(--text-muted);">$165,583.93</td>
+            <td class="right" style="color:var(--text-primary);">1,447</td>
+            <td class="right" style="color:var(--text-primary);">$8,633,629.08</td>
+        </tr>
+        
+        <tr style="">
+            <td><b>Will</b></td>
+            <td class="right">1,442</td>
+            <td class="right">$9,284,073.74</td>
+            <td class="right">50</td>
+            <td class="right" style="color:var(--accent); font-weight:700;">$1,203,089.34</td>
+            <td class="right" style="color:var(--success); font-weight:800;">1,492</td>
+            <td class="right" style="color:var(--success); font-weight:800;">$10,487,163.08</td>
+            <td class="right" style="color:var(--text-muted);">82</td>
+            <td class="right" style="color:var(--text-muted);">$152,209.13</td>
+            <td class="right" style="color:var(--text-primary);">1,574</td>
+            <td class="right" style="color:var(--text-primary);">$10,639,372.21</td>
+        </tr>
+        
+        <tr style="font-weight:800; background:rgba(255,255,255,0.05);">
+            <td><span class='badge badge-purple'>4-County Rollup</span></td>
+            <td class="right">5,523</td>
+            <td class="right">$37,087,467.66</td>
+            <td class="right">133</td>
+            <td class="right" style="color:var(--accent); font-weight:700;">$5,045,679.40</td>
+            <td class="right" style="color:var(--success); font-weight:800;">5,656</td>
+            <td class="right" style="color:var(--success); font-weight:800;">$42,133,147.06</td>
+            <td class="right" style="color:var(--text-muted);">336</td>
+            <td class="right" style="color:var(--text-muted);">$658,605.83</td>
+            <td class="right" style="color:var(--text-primary);">5,992</td>
+            <td class="right" style="color:var(--text-primary);">$42,791,752.89</td>
+        </tr>
+        
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:10px; font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div>📌 <i>Directly extracted from Stan's <code>4_County_2025_Sale_Revised_Rollup Claude Analysis.xlsx</code> model sent to Louis &amp; Jay.</i></div>
+        <div><b>Commercial Average Ticket:</b> <span style="color:var(--accent); font-weight:700;">$37,937 / cert</span> (133 prime targets across 4 counties)</div>
+      </div>
+    </div>
+  </div>
+
   <!-- SECTION 3: UPCOMING COLLAR COUNTIES SCHEDULE (COLLAPSED BY DEFAULT) -->
   <div class="section-card">
     <div class="section-header" style="cursor:pointer;" onclick="toggleSection('secBody3', 'secIcon3')">

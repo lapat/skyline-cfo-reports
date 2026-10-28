@@ -1,0 +1,121 @@
+{
+  "title": "2025 Tax Sale \u2013 Revised Bid Totals, 4 County Roll-Up",
+  "description": "Stan's production bidding models. Removed = certs under $3,000 with both installments delinquent. Commercial includes industrial.",
+  "rollup": [
+    {
+      "county": "Lake",
+      "non_commercial": {
+        "count": 1611,
+        "amount": 11740875.39
+      },
+      "commercial": {
+        "count": 29,
+        "amount": 2110110.44
+      },
+      "revised_total": {
+        "count": 1640,
+        "amount": 13850985.83
+      },
+      "removed_under_3k": {
+        "count": 93,
+        "amount": 183937.01
+      },
+      "original_total": {
+        "count": 1733,
+        "amount": 14034922.84
+      }
+    },
+    {
+      "county": "DuPage",
+      "non_commercial": {
+        "count": 1142,
+        "amount": 8273859.2
+      },
+      "commercial": {
+        "count": 23,
+        "amount": 1053093.8
+      },
+      "revised_total": {
+        "count": 1165,
+        "amount": 9326953.0
+      },
+      "removed_under_3k": {
+        "count": 73,
+        "amount": 156875.76
+      },
+      "original_total": {
+        "count": 1238,
+        "amount": 9483828.76
+      }
+    },
+    {
+      "county": "McHenry",
+      "non_commercial": {
+        "count": 1328,
+        "amount": 7788659.33
+      },
+      "commercial": {
+        "count": 31,
+        "amount": 679385.82
+      },
+      "revised_total": {
+        "count": 1359,
+        "amount": 8468045.15
+      },
+      "removed_under_3k": {
+        "count": 88,
+        "amount": 165583.93
+      },
+      "original_total": {
+        "count": 1447,
+        "amount": 8633629.08
+      }
+    },
+    {
+      "county": "Will",
+      "non_commercial": {
+        "count": 1442,
+        "amount": 9284073.74
+      },
+      "commercial": {
+        "count": 50,
+        "amount": 1203089.34
+      },
+      "revised_total": {
+        "count": 1492,
+        "amount": 10487163.08
+      },
+      "removed_under_3k": {
+        "count": 82,
+        "amount": 152209.13
+      },
+      "original_total": {
+        "count": 1574,
+        "amount": 10639372.21
+      }
+    },
+    {
+      "county": "Total",
+      "non_commercial": {
+        "count": 5523,
+        "amount": 37087467.660000004
+      },
+      "commercial": {
+        "count": 133,
+        "amount": 5045679.4
+      },
+      "revised_total": {
+        "count": 5656,
+        "amount": 42133147.059999995
+      },
+      "removed_under_3k": {
+        "count": 336,
+        "amount": 658605.8300000001
+      },
+      "original_total": {
+        "count": 5992,
+        "amount": 42791752.89
+      }
+    }
+  ]
+}

@@ -109,45 +109,63 @@ def generate_email_html():
     </tbody>
   </table>
 
-  <h4>2. WHAT HAPPENED LAST YEAR — BID RATES BY COUNTY &amp; COMPETITORS</h4>
-  <p>Last year (Fall 2025 sales), Jennings won <b>$13.54M across 2,159 certificates</b> at an overall weighted average bid rate of <b>2.01%</b>:</p>
+  <h4>2. WHAT WE BID VS. WHAT WE WON LAST YEAR (STAN'S PRODUCTION ROLLUP)</h4>
+  <p>Per Stan's revised production models, Jennings uploaded <b>5,656 certificates ($42.13M)</b> across the 4 collar counties after removing full installments under $3,000, ultimately winning <b>$13.54M across 2,159 certificates</b> (a 32% win rate):</p>
 
   <table>
     <thead>
       <tr>
         <th>County</th>
+        <th class="right">Stan's Upload Certs</th>
+        <th class="right">Stan's Upload $</th>
         <th class="right">Certs Won</th>
         <th class="right">Capital Won</th>
-        <th class="right">Weighted Avg Bid</th>
-        <th>Dominant Winning Rate</th>
+        <th class="right">Avg Winning Bid</th>
       </tr>
     </thead>
     <tbody>
       <tr style="background:#f0fdf4; font-weight:700;">
-        <td><b>Lake (Central Buyer)</b></td>
+        <td><b>Lake</b></td>
+        <td class="right">1,640</td>
+        <td class="right">$13,850,986</td>
         <td class="right">853</td>
         <td class="right">$6,131,471</td>
         <td class="right">1.84%</td>
-        <td>2.0% (67% of certs)</td>
       </tr>
       <tr>
         <td><b>Will</b></td>
+        <td class="right">1,492</td>
+        <td class="right">$10,487,163</td>
         <td class="right">240</td>
         <td class="right">$1,457,091</td>
         <td class="right">1.52%</td>
-        <td>1.0% (71% of certs)</td>
       </tr>
       <tr>
         <td><b>McHenry</b></td>
+        <td class="right">1,359</td>
+        <td class="right">$8,468,045</td>
         <td class="right">180</td>
         <td class="right">$1,452,829</td>
         <td class="right">1.99%</td>
-        <td>2.0% (89% of certs)</td>
       </tr>
       <tr>
-        <td><b>Kane</b></td>
-        <td class="right">112</td>
-        <td class="right">$852,779</td>
+        <td><b>DuPage</b></td>
+        <td class="right">1,165</td>
+        <td class="right">$9,326,953</td>
+        <td class="right">774</td>
+        <td class="right">$3,648,154</td>
+        <td class="right">2.18%</td>
+      </tr>
+      <tr style="font-weight:800; background:#f8fafc;">
+        <td><b>4-COUNTY TOTAL</b></td>
+        <td class="right"><b>5,656</b></td>
+        <td class="right"><b>$42,133,147</b></td>
+        <td class="right"><b>2,047</b></td>
+        <td class="right"><b>$12,689,545</b></td>
+        <td class="right"><b>1.98%</b></td>
+      </tr>
+    </tbody>
+  </table>
         <td class="right">3.05%</td>
         <td>3.0% (77% of certs)</td>
       </tr>
