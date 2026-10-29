@@ -14,6 +14,12 @@ def build_complete_stan_html(is_cfo_viewer=False):
     with open('data/kendall_auction_results/kendall_results_2026.json') as f:
         kendall_data = json.load(f)
 
+    with open('data/kendall_auction_results/kendall_class_codes_2026.json') as f:
+        kendall_cc_data = json.load(f)
+
+    with open('data/kendall_auction_results/kane_class_codes_2026.json') as f:
+        kane_cc_data = json.load(f)
+
     ds = "$$" if is_cfo_viewer else "$"
 
     # 1. Rollup rows
@@ -143,6 +149,42 @@ def build_complete_stan_html(is_cfo_viewer=False):
           <td class="right">{b['share_pct']}%</td>
           <td class="right"><span class="badge { 'badge-red' if b['wtd_avg_bid'] < 5.0 else 'badge-blue' }" style="font-weight:800;">{b['wtd_avg_bid']}%</span></td>
           <td class="right" style="color:var(--text-muted);">{b['min_bid']}% - {b['max_bid']}%</td>
+        </tr>
+        """
+
+    # 4b. Kendall Use Code Breakdown rows
+    kendall_cc_rows = ""
+    for r in kendall_cc_data:
+        amt_disp = f"${r['amount']:,.2f}"
+        if is_cfo_viewer:
+            amt_disp = amt_disp.replace('$', '$$')
+        is_comm = r['use_code'] in ['50', '60', '70', '80']
+        cc_badge = f"<span class='badge {'badge-purple' if is_comm else 'badge-blue'}' style='font-weight:800;'>Use {r['use_code']}</span>"
+        kendall_cc_rows += f"""
+        <tr>
+          <td><b>{r['buyer']}</b></td>
+          <td>{cc_badge} <span style="font-size:11px; color:var(--text-muted);">{r['desc']}</span></td>
+          <td class="right">{r['certs']}</td>
+          <td class="right" style="font-weight:700;">{amt_disp}</td>
+          <td class="right"><span class="badge {'badge-red' if r['bid'] < 5.0 else 'badge-green'}" style="font-weight:800;">{r['bid']:.2f}%</span></td>
+        </tr>
+        """
+
+    # 4c. Kane Class Code Breakdown rows
+    kane_cc_rows = ""
+    for r in kane_cc_data:
+        amt_disp = f"${r['amount']:,.2f}"
+        if is_cfo_viewer:
+            amt_disp = amt_disp.replace('$', '$$')
+        is_comm = r['class_code'] in ['50', '60', '70', '80']
+        cc_badge = f"<span class='badge {'badge-purple' if is_comm else 'badge-blue'}' style='font-weight:800;'>Class {r['class_code']}</span>"
+        kane_cc_rows += f"""
+        <tr>
+          <td><b>{r['buyer']}</b></td>
+          <td>{cc_badge} <span style="font-size:11px; color:var(--text-muted);">{r['desc']}</span></td>
+          <td class="right">{r['certs']}</td>
+          <td class="right" style="font-weight:700;">{amt_disp}</td>
+          <td class="right"><span class="badge {'badge-red' if r['bid'] < 5.0 else 'badge-green'}" style="font-weight:800;">{r['bid']:.2f}%</span></td>
         </tr>
         """
 
@@ -371,6 +413,32 @@ def build_complete_stan_html(is_cfo_viewer=False):
               </tbody>
             </table>
           </div>
+
+          <!-- KENDALL USE CODE BREAKDOWN (STAN INTEL) -->
+          <div style="margin-top: 14px; background: rgba(0,0,0,0.3); border-radius: 6px; padding: 12px; border-left: 3px solid #8b5cf6;">
+            <div style="font-size: 12px; font-weight: 800; color: #c4b5fd; margin-bottom: 4px;">
+              🏢 Kendall Use Code Breakdown — Competitor Asset Pricing
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+              <b>Stan's Direct Email Intel:</b> <i>"Bridge bought commercials at 4 and 5."</i> Confirms Bridge selectively bid 4.69% on Use Code 60 (Commercial) and 4.63% on Use Code 80 (Industrial).
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tax Buyer</th>
+                    <th>Use Code &amp; Description</th>
+                    <th class="right">Certs Won</th>
+                    <th class="right">Total Amount</th>
+                    <th class="right">Wtd Avg Bid</th>
+                  </tr>
+                </thead>
+                <tbody>
+{kendall_cc_rows}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         <!-- KANE 2026 LIVE BUYS BENCHMARK -->
@@ -403,6 +471,38 @@ def build_complete_stan_html(is_cfo_viewer=False):
           </div>
           <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted);">
             📌 <i>Stan's email to Jay: "Below are the 8 items we bought. They look fine. No mistakes." Confirms Jennings cleared 5.0% bids on high-equity St. Charles &amp; Geneva residential parcels.</i>
+          </div>
+        </div>
+
+        <!-- KANE COMPETITOR CLASS CODE BREAKDOWN -->
+        <div style="margin-top: 18px; background: rgba(59, 130, 246, 0.08); border: 1.5px solid rgba(59, 130, 246, 0.35); border-radius: 8px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-size: 13.5px; font-weight: 800; color: #93c5fd;">📊 Kane County Class Code Pricing Breakdown (Bridge &amp; Heartland Intel)</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
+                Emailed by Stan Engelsen &middot; Analyzes 1,676 certificates ({ds}9.79M total auction) by property classification
+              </div>
+            </div>
+            <span class="badge badge-blue" style="font-size: 10.5px; font-weight: 800;">Class Code Intel</span>
+          </div>
+          <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5;">
+            <b>Key Finding:</b> Heartland dominated residential (Class 40) at an ultra-low <b>2.95%</b>, while Bridge swept commercial (Class 60) at <b>4.67%</b> and industrial (Class 80) at <b>4.57%</b>.
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tax Buyer</th>
+                  <th>Class Code &amp; Description</th>
+                  <th class="right">Certs Won</th>
+                  <th class="right">Total Amount</th>
+                  <th class="right">Wtd Avg Bid</th>
+                </tr>
+              </thead>
+              <tbody>
+{kane_cc_rows}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

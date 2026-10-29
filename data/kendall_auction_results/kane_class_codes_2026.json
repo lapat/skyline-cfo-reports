@@ -1,0 +1,122 @@
+[
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "11",
+    "desc": "Residential Vacant",
+    "certs": 5,
+    "amount": 25120.28,
+    "bid": 5.31
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "21",
+    "desc": "Residential Improved",
+    "certs": 5,
+    "amount": 14195.75,
+    "bid": 5.0
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "30",
+    "desc": "Farm / Rural",
+    "certs": 10,
+    "amount": 21523.07,
+    "bid": 5.83
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "40",
+    "desc": "Residential Improved",
+    "certs": 545,
+    "amount": 2415225.59,
+    "bid": 5.07
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "60",
+    "desc": "Commercial Improved",
+    "certs": 84,
+    "amount": 968699.44,
+    "bid": 4.67
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "70",
+    "desc": "Industrial Vacant",
+    "certs": 12,
+    "amount": 121317.59,
+    "bid": 4.57
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP, LLC (Bridge)",
+    "class_code": "80",
+    "desc": "Industrial Improved",
+    "certs": 25,
+    "amount": 733317.93,
+    "bid": 4.57
+  },
+  {
+    "buyer": "HEARTLAND TAX AUCTION, LLC",
+    "class_code": "11",
+    "desc": "Residential Vacant",
+    "certs": 2,
+    "amount": 52248.85,
+    "bid": 2.78
+  },
+  {
+    "buyer": "HEARTLAND TAX AUCTION, LLC",
+    "class_code": "40",
+    "desc": "Residential Improved",
+    "certs": 317,
+    "amount": 2311547.81,
+    "bid": 2.95
+  },
+  {
+    "buyer": "HEARTLAND TAX AUCTION, LLC",
+    "class_code": "60",
+    "desc": "Commercial Improved",
+    "certs": 9,
+    "amount": 329361.29,
+    "bid": 3.33
+  },
+  {
+    "buyer": "HEARTLAND TAX AUCTION, LLC",
+    "class_code": "70",
+    "desc": "Industrial Vacant",
+    "certs": 1,
+    "amount": 77620.67,
+    "bid": 3.0
+  },
+  {
+    "buyer": "HEARTLAND TAX AUCTION, LLC",
+    "class_code": "80",
+    "desc": "Industrial Improved",
+    "certs": 6,
+    "amount": 279852.23,
+    "bid": 2.51
+  },
+  {
+    "buyer": "RAVEN SECURITIES, INC (Bass)",
+    "class_code": "11",
+    "desc": "Residential Vacant",
+    "certs": 6,
+    "amount": 49962.55,
+    "bid": 4.0
+  },
+  {
+    "buyer": "RAVEN SECURITIES, INC (Bass)",
+    "class_code": "40",
+    "desc": "Residential Improved",
+    "certs": 99,
+    "amount": 622464.14,
+    "bid": 4.16
+  },
+  {
+    "buyer": "RAVEN SECURITIES, INC (Bass)",
+    "class_code": "60",
+    "desc": "Commercial Improved",
+    "certs": 3,
+    "amount": 25411.79,
+    "bid": 5.72
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "11",
+    "desc": "Residential Vacant",
+    "certs": 3,
+    "amount": 11452.34,
+    "bid": 5.0
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "21",
+    "desc": "Residential Improved (Single)",
+    "certs": 4,
+    "amount": 8588.89,
+    "bid": 5.0
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "40",
+    "desc": "Residential Improved (Suburban)",
+    "certs": 120,
+    "amount": 741098.11,
+    "bid": 5.07
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "50",
+    "desc": "Commercial Vacant",
+    "certs": 1,
+    "amount": 5163.17,
+    "bid": 4.0
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "60",
+    "desc": "Commercial Improved",
+    "certs": 14,
+    "amount": 323763.63,
+    "bid": 4.69
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "70",
+    "desc": "Industrial Vacant",
+    "certs": 1,
+    "amount": 29845.97,
+    "bid": 5.0
+  },
+  {
+    "buyer": "PRIVATE EQUITY GROUP (Bridge)",
+    "use_code": "80",
+    "desc": "Industrial Improved",
+    "certs": 3,
+    "amount": 18742.76,
+    "bid": 4.63
+  },
+  {
+    "buyer": "1095 INVESTMENTS LLC",
+    "use_code": "11",
+    "desc": "Residential Vacant",
+    "certs": 5,
+    "amount": 66813.95,
+    "bid": 5.0
+  },
+  {
+    "buyer": "1095 INVESTMENTS LLC",
+    "use_code": "21",
+    "desc": "Residential Improved",
+    "certs": 3,
+    "amount": 8137.77,
+    "bid": 5.0
+  },
+  {
+    "buyer": "1095 INVESTMENTS LLC",
+    "use_code": "40",
+    "desc": "Residential Improved",
+    "certs": 37,
+    "amount": 352865.78,
+    "bid": 5.01
+  },
+  {
+    "buyer": "1095 INVESTMENTS LLC",
+    "use_code": "60",
+    "desc": "Commercial Improved",
+    "certs": 3,
+    "amount": 31681.2,
+    "bid": 5.39
+  },
+  {
+    "buyer": "RAVEN SECURITIES INC (Bass)",
+    "use_code": "21",
+    "desc": "Residential Improved",
+    "certs": 5,
+    "amount": 10974.15,
+    "bid": 4.13
+  },
+  {
+    "buyer": "RAVEN SECURITIES INC (Bass)",
+    "use_code": "40",
+    "desc": "Residential Improved",
+    "certs": 37,
+    "amount": 271078.64,
+    "bid": 4.06
+  },
+  {
+    "buyer": "RAVEN SECURITIES INC (Bass)",
+    "use_code": "50",
+    "desc": "Commercial Vacant",
+    "certs": 3,
+    "amount": 7680.37,
+    "bid": 5.86
+  },
+  {
+    "buyer": "RAVEN SECURITIES INC (Bass)",
+    "use_code": "60",
+    "desc": "Commercial Improved",
+    "certs": 3,
+    "amount": 10161.63,
+    "bid": 4.5
+  }
+]
