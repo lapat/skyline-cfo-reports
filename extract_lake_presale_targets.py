@@ -128,15 +128,11 @@ def process_lake_presale(verbose=True):
         open_lien = meta.get("open_lien_flag", False)
 
         # Recommended Bid Rate:
-        # If >= $25k, bid 4% (beats Bridge at 5% to lock in large ticket where 12% subtax drives return)
-        # If $10k - $25k, bid 5% (matches Bridge)
-        # If < $10k, bid 6%+
-        if amt >= 25000:
-            rec_bid = 0.04
-            rec_bid_label = "4% (Outbid Bridge)"
-        elif amt >= 10000:
+        # Jay's Binding Directive: 5.0% is the absolute lowest rate Jennings will bid.
+        # 5.0% clears competitive auctions against Bridge/Bass while locking in +552 bps net spread.
+        if amt >= 10000:
             rec_bid = 0.05
-            rec_bid_label = "5% (Standard Selective)"
+            rec_bid_label = "5% (Jay's Floor)"
         else:
             rec_bid = 0.06
             rec_bid_label = "6%+"

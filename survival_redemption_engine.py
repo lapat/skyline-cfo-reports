@@ -86,8 +86,8 @@ def compute_quantitative_redemption_metrics(parcel):
     expected_months = round(max(4.5, min(24.0, expected_months)), 1)
 
     # 5. Financial Returns (Initial Bid Penalty + 12% Subtax Carry)
-    # Recommended bid rate (4% on >=$25k, 5% on $10k-$25k)
-    active_bid_pct = 0.04 if tax_due >= 25000 else 0.05
+    # Jay's Directive: 5.0% is the absolute lowest rate Jennings will bid (5.0% Floor)
+    active_bid_pct = 0.05
     initial_penalty = tax_due * active_bid_pct
     annual_subtax_profit = tax_due * 0.12
 

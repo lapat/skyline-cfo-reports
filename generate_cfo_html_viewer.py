@@ -2246,6 +2246,7 @@ function renderTaxActivityView() {{
 
 
 
+
   <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->
   <div class="section-card" style="border: 2px solid rgba(139, 92, 246, 0.55); background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(15, 23, 42, 0.55)); margin-bottom: 24px; box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);">
     <div class="section-header" style="background: rgba(139, 92, 246, 0.22); padding: 14px 20px; cursor: pointer;" onclick="toggleSection('cfoStanBody', 'cfoStanIcon')">
@@ -2972,10 +2973,18 @@ function renderTaxActivityView() {{
             <span class="badge badge-red" style="font-size: 11px; font-weight: 800;">Market Cleared @ 4.88% Wtd Avg</span>
           </div>
 
-          <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; font-size: 11.5px; line-height: 1.5; color: #fecaca; border-left: 3px solid #ef4444;">
-            <b>Jay's Immediate Executive Directive to Stan:</b> <i>"Yeah - so it’s 4’s and 5’s most likely... We are going to bid 5 moving forward so that will be our rate and I will send over the bid ladder so once we have it all approved, we just put in 5."</i>
-            <div style="margin-top: 4px; font-size: 11px; color: var(--text-muted);">
-              <b>Stan's Intel Note:</b> <i>"Bridge took it at 5 but he bid some 4's too. I'm sure he regrets the 4's."</i> Bridge (Private Equity Group) swept half the auction (49.7%) at 4.95%, and Bass (Raven) swept 13.1% at 4.12%.
+          <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; font-size: 11.5px; line-height: 1.5; color: #fecaca; border-left: 3px solid #ef4444;">
+            <div style="font-size: 12px; font-weight: 800; color: #f87171; margin-bottom: 4px;">
+              📧 Ingested from Stan Engelsen's Email: "Kendall Results" (Oct 29, 2026)
+            </div>
+            <div>
+              <b>Stan's Direct Email Intel:</b> <i>"I finally got the Kendall results. Bridge took it at 5 but he bid some 4's too. I'm sure he regrets the 4's. Interstate Funding Corp (Jennings): Items Purchased: 0, Amount: $$0.00."</i>
+            </div>
+            <div style="margin-top: 6px; border-top: 1px dashed rgba(239,68,68,0.4); padding-top: 6px;">
+              <b>Jay's Binding Bidding Mandate:</b> <i>"Yeah - so it’s 4’s and 5’s most likely... We are going to bid 5 moving forward so that will be our rate and I will send over the bid ladder so once we have it all approved, we just put in 5."</i>
+              <div style="font-size: 11px; color: #6ee7b7; margin-top: 3px; font-weight: 700;">
+                🔒 JAY'S 5.0% ABSOLUTE FLOOR: 5.0% is the lowest rate Jennings will bid in upcoming sales. Bidding at 5.0% clears the market against Bridge/Bass while earning +552 bps net carry over borrowing costs.
+              </div>
             </div>
           </div>
 
@@ -3517,7 +3526,7 @@ function renderTaxActivityView() {{
       <div style="background: rgba(0, 0, 0, 0.25); border-top: 1px solid var(--border); padding: 14px 20px; font-size: 11.5px; line-height: 1.6; color: var(--text-muted);">
         <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">🔍 Complete Strategic Synthesis from Stan's Spreadsheets &amp; Live 2026 Auctions:</div>
         <div>1. <b>The &lt;$$3,000 Filter Rule:</b> Stan deliberately removes certs under $$3,000 where both installments are delinquent. This cut <b>336 certs ($$658,606)</b> across the 4 collar counties, preserving 98.5% of deployable capital while avoiding low-margin title/servicing overhead.</div>
-        <div>2. <b>Jay's 5.0% Bidding Mandate:</b> Kendall County proved that bidding 6%-9% results in 0% clearance against Private Equity Group (Bridge) and Raven (Bass). Jay's directive to bid 5.0% flat ensures Jennings clears its target capital while earning +552 bps net carry over borrowing costs.</div>
+        <div>2. <b>Jay's 5.0% Floor Mandate:</b> 5.0% is the absolute lowest rate Jennings will bid in any upcoming auction. Kendall County proved that bidding 6%-9% results in 0% clearance against Bridge (4.95%) and Bass (4.12%). Bidding at Jay's 5.0% floor ensures Jennings clears its target capital while capturing +552 bps net spread carry over borrowing costs.</div>
         <div>3. <b>Commercial High-Yield Focus:</b> Commercial &amp; industrial certs account for only 2.3% of certificate count (133 certs) but generate <b>12.0% of all capital ($$5.05M)</b> with an average ticket of <b>$$37,937</b>.</div>
       </div>
     </div>
