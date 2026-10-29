@@ -1,17 +1,171 @@
 {
-  "as_of_date": "2026-10-28 21:17:51",
+  "as_of_date": "2026-10-28 21:19:08",
   "mary_daily_cash": {
-    "this_week_inflows": 0.0,
-    "this_week_outflows": 0.0,
-    "monday_inflows": 0.0,
-    "daily_breakdown": []
+    "this_week_inflows": 903197.2,
+    "this_week_outflows": -124619.0,
+    "monday_inflows": 342344.02,
+    "daily_breakdown": [
+      {
+        "date": "2026-10-01",
+        "inflows": 52102.69,
+        "outflows": -532756.91,
+        "cb_in": 0.0,
+        "if_in": 0.0,
+        "dq_in": 52102.69,
+        "ut_in": 0.0,
+        "net": -480654.22000000003
+      },
+      {
+        "date": "2026-10-02",
+        "inflows": 60388.69,
+        "outflows": -40045.63,
+        "cb_in": 60388.69,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": 20343.060000000005
+      },
+      {
+        "date": "2026-10-05",
+        "inflows": 1001266.4799999999,
+        "outflows": -1536011.12,
+        "cb_in": 641667.44,
+        "if_in": 277128.89,
+        "dq_in": 69213.56,
+        "ut_in": 13256.59,
+        "net": -534744.6400000002
+      },
+      {
+        "date": "2026-10-06",
+        "inflows": 1310228.9000000001,
+        "outflows": -2500.0,
+        "cb_in": 1303822.58,
+        "if_in": 2291.7,
+        "dq_in": 0.0,
+        "ut_in": 4114.62,
+        "net": 1307728.9000000001
+      },
+      {
+        "date": "2026-10-07",
+        "inflows": 0.0,
+        "outflows": -34343.55,
+        "cb_in": 0.0,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": -34343.55
+      },
+      {
+        "date": "2026-10-08",
+        "inflows": 45327.009999999995,
+        "outflows": -34343.55,
+        "cb_in": 45327.009999999995,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": 10983.459999999992
+      },
+      {
+        "date": "2026-10-09",
+        "inflows": 14090.16,
+        "outflows": 0.0,
+        "cb_in": 0.0,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 14090.16,
+        "net": 14090.16
+      },
+      {
+        "date": "2026-10-12",
+        "inflows": 0.0,
+        "outflows": -500.0,
+        "cb_in": 0.0,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": -500.0
+      },
+      {
+        "date": "2026-10-14",
+        "inflows": 89767.46999999999,
+        "outflows": -162478.88,
+        "cb_in": 89767.46999999999,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": -72711.41000000002
+      },
+      {
+        "date": "2026-10-15",
+        "inflows": 0.0,
+        "outflows": -180060.7,
+        "cb_in": 0.0,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": -180060.7
+      },
+      {
+        "date": "2026-10-19",
+        "inflows": 342344.02,
+        "outflows": 0.0,
+        "cb_in": 337756.76,
+        "if_in": 4587.26,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": 342344.02
+      },
+      {
+        "date": "2026-10-22",
+        "inflows": 129107.45999999999,
+        "outflows": 0.0,
+        "cb_in": 94433.89,
+        "if_in": 34673.57,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": 129107.45999999999
+      },
+      {
+        "date": "2026-10-23",
+        "inflows": 431745.72,
+        "outflows": -124619.0,
+        "cb_in": 226390.0,
+        "if_in": 152809.72,
+        "dq_in": 41338.0,
+        "ut_in": 11208.0,
+        "net": 307126.72
+      },
+      {
+        "date": "2026-10-26",
+        "inflows": 3280.68,
+        "outflows": -1025000.0,
+        "cb_in": 3280.68,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 0.0,
+        "net": -1021719.32
+      },
+      {
+        "date": "2026-10-27",
+        "inflows": 13532.83,
+        "outflows": 0.0,
+        "cb_in": 7525.1,
+        "if_in": 0.0,
+        "dq_in": 0.0,
+        "ut_in": 6007.73,
+        "net": 13532.83
+      }
+    ],
+    "this_week_net": 778578.2,
+    "month_total_inflows": 3493182.11,
+    "month_total_outflows": -3672659.34
   },
   "past_7_days_redemptions": {
     "count": 29,
-    "total_collected": 820008.86,
-    "principal_recovered": 249994.1,
-    "net_profit_earned": 570014.76,
-    "profit_margin_pct": 69.51324403982659,
+    "total_collected": 820008.8600000003,
+    "principal_recovered": 249994.09999999998,
+    "net_profit_earned": 570014.7600000004,
+    "profit_margin_pct": 69.5132440398266,
     "top_redemptions": [
       {
         "county_id": "3",
@@ -101,10 +255,10 @@
   },
   "october_redemptions": {
     "count": 164,
-    "total_collected": 2368126.59,
-    "principal_recovered": 1058846.77,
-    "net_profit_earned": 1309279.8199999998,
-    "profit_margin_pct": 55.28757734188525,
+    "total_collected": 2368126.5900000003,
+    "principal_recovered": 1058846.769999999,
+    "net_profit_earned": 1309279.8200000012,
+    "profit_margin_pct": 55.28757734188531,
     "top_redemptions": [
       {
         "county_id": "3",
@@ -278,13 +432,13 @@
   },
   "ytd_2026_redemptions": {
     "count": 2519,
-    "total_collected": 28219878.42,
-    "principal_recovered": 15977070.59,
-    "net_profit_earned": 12242807.83
+    "total_collected": 28219878.419999953,
+    "principal_recovered": 15977070.590000054,
+    "net_profit_earned": 12242807.829999939
   },
   "recent_subtax_purchases": {
     "count": 782,
-    "total_deployed": 5350378.81,
+    "total_deployed": 5350378.810000005,
     "sample_payments": [
       {
         "date": "09/24/26",
