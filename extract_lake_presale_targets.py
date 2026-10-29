@@ -280,6 +280,16 @@ def process_lake_presale(verbose=True):
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2)
 
+    # Permanently auto-enrich with photos and quantitative survival scores
+    try:
+        import enrich_lake_targets_with_photos
+        enrich_lake_targets_with_photos.enrich_targets()
+        import survival_redemption_engine
+        survival_redemption_engine.process_all_targets()
+    except Exception as e:
+        if verbose:
+            print(f"⚠️ Photo/ML enrichment note: {e}")
+
     if verbose:
         print("=" * 80)
         print("✅ LAKE COUNTY 2026 PRE-SALE OPTIMIZER COMPLETE")
