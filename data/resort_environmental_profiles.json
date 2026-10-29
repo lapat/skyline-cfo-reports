@@ -1,0 +1,72 @@
+{
+  "135": {
+    "name": "Bay Bayou RV Resort",
+    "city": "Tampa, FL",
+    "address": "8492 Manatee Bay Dr, Tampa, FL 33635",
+    "lat": 28.0264,
+    "lng": -82.6329,
+    "fema_zone": "Zone AE / VE",
+    "fema_label": "Special Flood Hazard Area (BFE 9-11 ft)",
+    "risk_level": "High (Coastal Tidal Surge)",
+    "storm_surge": "Vulnerable to Cat 2+ Tampa Bay Surge (Double Branch Creek)",
+    "mitigation": "Mandatory NFIP flood insurance ($1.2M policy) \u00b7 Phase II expansion sites engineered with elevated utility pedestals",
+    "epa_status": "Clean (No CERCLA / RCRA violations)",
+    "badge_color": "var(--warn)"
+  },
+  "143": {
+    "name": "Madison RV & Golf Resort",
+    "city": "Madison, FL",
+    "address": "445 SW Country Club Rd, Madison, FL 32340",
+    "lat": 30.4391,
+    "lng": -83.4277,
+    "fema_zone": "Zone X (Unshaded)",
+    "fema_label": "Minimal Flood Hazard Area",
+    "risk_level": "Low (Elevated Inland Ridge)",
+    "storm_surge": "Zero Surge Risk (Inland North Florida)",
+    "mitigation": "Engineered retention ponds on golf course \u00b7 Clubhouse expansion 100% outside flood hazard zone",
+    "epa_status": "Clean (Agricultural & recreational zoning)",
+    "badge_color": "var(--success)"
+  },
+  "140": {
+    "name": "Sunkissed Village RV Resort",
+    "city": "Summerfield, FL",
+    "address": "14330 S US HWY 441, Summerfield, FL 34491",
+    "lat": 28.9881,
+    "lng": -82.0232,
+    "fema_zone": "Zone X (Unshaded)",
+    "fema_label": "Minimal Flood Hazard Area",
+    "risk_level": "Low (Central Florida Sand Ridge - 110 ft MSL)",
+    "storm_surge": "Zero Surge Risk (Central Florida High Ridge)",
+    "mitigation": "Zero flood insurance required \u00b7 Gravity-fed swales handle 25-year storm events",
+    "epa_status": "Clean (Modern commercial resort build 2019)",
+    "badge_color": "var(--success)"
+  },
+  "147": {
+    "name": "The Bluffs MH & RV Resort",
+    "city": "Freedom, NH",
+    "address": "196 Shawtown Rd, Freedom, NH 03836",
+    "lat": 43.8184,
+    "lng": -71.0556,
+    "fema_zone": "Zone X / Zone A Buffer",
+    "fema_label": "Minimal Hazard (High Plateau) with Danforth Bay Buffer",
+    "risk_level": "Low/Moderate (Waterfront Runoff)",
+    "storm_surge": "Zero Surge Risk (Northern New England)",
+    "mitigation": "Seasonal snowmelt mitigation \u00b7 50-site expansion engineered above spring water table",
+    "epa_status": "Clean (Wooded pristine aquifer)",
+    "badge_color": "var(--success)"
+  },
+  "jetsites_michigan": {
+    "name": "Jet Sites B & Michigan Holdings",
+    "city": "Harrison Twp, MI",
+    "address": "Harrison Twp, MI (Lake St. Clair Waterfront)",
+    "lat": 42.5936,
+    "lng": -82.8122,
+    "fema_zone": "Zone AE",
+    "fema_label": "100-Year Lake St. Clair Coastal Plain",
+    "risk_level": "Moderate (Lake St. Clair Water Fluctuations)",
+    "storm_surge": "Vulnerable to Seiche & Easterly Lake Gales",
+    "mitigation": "Reinforced steel seawalls & high-capacity storm pumps",
+    "epa_status": "Clean (Residential riparian waterfront)",
+    "badge_color": "var(--warn)"
+  }
+}

@@ -250,7 +250,17 @@ def run_tests():
     console.log(JSON.stringify(testResults));
     """
 
-    res = subprocess.run(["node", "-e", node_test_script], capture_output=True, text=True)
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as tf:
+        tf.write(node_test_script)
+        temp_js_path = tf.name
+
+    try:
+        res = subprocess.run(["node", temp_js_path], capture_output=True, text=True)
+    finally:
+        if os.path.exists(temp_js_path):
+            os.remove(temp_js_path)
+
     if res.returncode != 0:
         print(f"❌ FAIL: Node script error: {res.stderr}")
         sys.exit(1)

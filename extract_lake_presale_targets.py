@@ -280,15 +280,17 @@ def process_lake_presale(verbose=True):
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2)
 
-    # Permanently auto-enrich with photos and quantitative survival scores
+    # Permanently auto-enrich with photos, quantitative survival scores, and FEMA flood / EPA data
     try:
         import enrich_lake_targets_with_photos
         enrich_lake_targets_with_photos.enrich_targets()
         import survival_redemption_engine
         survival_redemption_engine.process_all_targets()
+        import enrich_fema_flood_and_environmental
+        enrich_fema_flood_and_environmental.enrich_lake_presale_targets()
     except Exception as e:
         if verbose:
-            print(f"⚠️ Photo/ML enrichment note: {e}")
+            print(f"⚠️ Photo/ML/FEMA enrichment note: {e}")
 
     if verbose:
         print("=" * 80)

@@ -1886,11 +1886,11 @@ def generate_tax_html():
               <th>Installment Status</th>
               <th>Type / Class</th>
               <th class="right">Tax Due</th>
-              <th class="right">Assessed Bldg</th>
+              <th class="right">Assessed Bldg / Specs</th>
               <th class="right">Bldg/Land Ratio</th>
               <th class="right">Recommended Bid</th>
               <th class="right">12% Subtax Return</th>
-              <th>Risk Rating</th>
+              <th>Underwriting &amp; Environmental Intel</th>
               <th>Visuals &amp; Maps (Drive-By)</th>
             </tr>
           </thead>
@@ -2274,6 +2274,11 @@ function renderLakeTargetTable() {{
         const estProfit = t.projected_profit || (t.tax_due * 0.16);
         const irr = t.annualized_irr || 18.4;
 
+        // Environmental, Flood & Building Specs Intel
+        const floodBadge = t.fema_zone ? `<span class="badge" style="background:${{t.fema_zone === 'Zone AE' ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.15)'}}; color:${{t.fema_zone === 'Zone AE' ? '#ef4444' : '#10b981'}}; border:1px solid ${{t.fema_zone === 'Zone AE' ? 'rgba(239,68,68,0.4)' : 'rgba(16,185,129,0.3)'}}; font-size:8px; padding:1px 4px;" title="FEMA NFHL Layer 28: ${{t.fema_zone}} (${{t.flood_label || ''}}) &middot; ${{t.flood_risk || 'Low'}} Risk">🌊 ${{t.fema_zone}}</span>` : '';
+        const epaBadge = (t.is_commercial && t.epa_status) ? `<span class="badge" style="background:${{t.epa_status.includes('Review') ? 'rgba(245,158,11,0.2)' : 'rgba(59,130,246,0.15)'}}; color:${{t.epa_status.includes('Review') ? '#f59e0b' : '#60a5fa'}}; border:1px solid rgba(59,130,246,0.3); font-size:8px; padding:1px 4px;" title="${{t.epa_detail || ''}}">${{t.epa_status}}</span>` : '';
+        const dpvBadge = t.usps_dpv ? `<span class="badge" style="background:rgba(255,255,255,0.06); color:${{t.usps_dpv.includes('Active') ? '#10b981' : 'var(--text-muted)'}}; font-size:8px; padding:1px 4px;" title="${{t.usps_detail || ''}}">${{t.usps_dpv}}</span>` : '';
+
         return `
         <tr>
             <td style="width:110px; padding:6px; vertical-align:middle;">
@@ -2294,14 +2299,26 @@ function renderLakeTargetTable() {{
             </td>
             <td><span class="badge ${{t.is_commercial ? 'badge-blue' : 'badge-green'}}" style="font-size:9.5px;">${{t.property_type}}</span></td>
             <td class="right" style="font-weight:700; color:var(--text-primary);">$${{Number(t.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-            <td class="right">$${{Number(t.asmt_bldg).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+            <td class="right">
+                $${{Number(t.asmt_bldg).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
+                ${{t.est_sqft > 0 ? `<div style="font-size:9px; color:var(--text-muted); margin-top:2px;" title="Estimated Structure: ${{t.est_sqft.toLocaleString()}} sqft &middot; $${{t.tax_per_sqft}}/sqft tax burden &middot; Built ~${{t.est_year || 'N/A'}}">~${{t.est_sqft.toLocaleString()}} sf &middot; $${{t.tax_per_sqft}}/sf</div>` : ''}}
+            </td>
             <td class="right" style="color:${{t.bldg_land_ratio >= 2.0 ? 'var(--success)' : 'var(--warn)'}}; font-weight:700;">${{t.bldg_land_ratio}}x</td>
             <td class="right"><span class="badge ${{activeBid <= 0.04 ? 'badge-green' : 'badge-blue'}}" style="font-size:10.5px; font-weight:800;">${{activeLabel}}</span></td>
             <td class="right" style="color:var(--success); font-weight:700;">
                 +$${{Number(t.subtax_annual_return).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr
                 <div style="font-size:9.5px; color:var(--accent); font-weight:700;" title="Projected net cash profit across expected duration">+$${{Math.round(estProfit).toLocaleString('en-US')}} Est Net</div>
             </td>
-            <td><span class="badge ${{t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}}" style="font-size:9.5px;">${{t.risk_rating}}</span></td>
+            <td>
+                <div style="display:flex; flex-direction:column; gap:3px;">
+                    <div><span class="badge ${{t.quality_score >= 90 ? 'badge-green' : 'badge-blue'}}" style="font-size:9px; font-weight:700;">${{t.risk_rating}}</span></div>
+                    <div style="display:flex; gap:3px; align-items:center; flex-wrap:wrap;">
+                        ${{floodBadge}}
+                        ${{dpvBadge}}
+                        ${{epaBadge}}
+                    </div>
+                </div>
+            </td>
             <td>
                 <div style="display:flex; gap:4px; flex-wrap:wrap;">
                     <a href="${{googleUrl}}" target="_blank" class="btn btn-primary" style="background:#ea4335; font-size:9px; padding:3px 6px; text-decoration:none;" title="Google Maps Street View">📸 Maps</a>
