@@ -10,6 +10,7 @@ __pycache__/
 # Large binary mirrors and sandbox
 live_skyline_fast_mirror/
 sandbox/
+skyline-gl-integration/
 *.sqlite
 *.sqlite-journal
 
