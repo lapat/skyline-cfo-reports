@@ -77,6 +77,8 @@ def run_tests():
     assert_test("Next-Auction Safe Bidding Limit displayed", "Safe Bidding Limit" in html)
     assert_test("Stan's 4-County Rollup Table ($42.13M) displayed", "$42,133,147" in html)
     assert_test("Credit Facility Borrowing Base Headroom ($11.51M) displayed", "$11.51M" in html)
+    assert_test("SOFR Floating Debt Simulator exists in DOM", "simulateSofrRate" in html)
+    assert_test("24-Month Debt Retirement Waterfall displayed", "Debt Retirement Waterfall" in html)
 
     # =========================================================================
     # TEST 3: Headless Execution via Node.js
@@ -276,6 +278,7 @@ def run_tests():
         assert_test("tax.html contains Mary Subtax CSV Export", "exportMarySubtaxCsv" in tax_html_content)
         assert_test("tax.html contains Visuals & Maps (Drive-By) buttons", "📸 Maps" in tax_html_content)
         assert_test("tax.html contains Stan's 4-County Rollup ($42.13M)", "$42,133,147" in tax_html_content)
+        assert_test("tax.html contains Quantitative Redemption Certainty", "% Certainty" in tax_html_content)
 
     print("\n" + "=" * 80)
     if passed == total:

@@ -1385,6 +1385,7 @@ def generate_tax_html():
       <div class="filter-bar">
         <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Filters:</span>
         <select id="lakeTierFilter" class="filter-select" onchange="renderLakeTargetTable()">
+          <option value="ultra95">🛡️ Ultra-Certain Only (&gt;=95% Redemption Score)</option>
           <option value="half" selected>⭐ 2nd Installment Only (268 Parcels · $5.12M)</option>
           <option value="all">All High-Yield ($10k+)</option>
           <option value="curated">Curated $2.0M Plan (55 Parcels)</option>
@@ -1745,6 +1746,7 @@ function renderLakeTargetTable() {{
             if (item.township && item.township.toLowerCase().includes('north chicago')) return false;
         }}
 
+        if (tierVal === 'ultra95' && (!item.redemption_score || item.redemption_score < 95.0)) return false;
         if (tierVal === 'repeat' && (!item.prior_redemptions_count || item.prior_redemptions_count < 1)) return false;
         if (tierVal === 'half' && !item.is_half_installment) return false;
         if (tierVal === '50k' && item.tax_due < 50000) return false;
@@ -1824,6 +1826,7 @@ function renderLakeTargetTable() {{
             <td>${{t.city}} <span style="font-size:10px; color:var(--text-muted);">(${{t.township}})</span></td>
             <td>
                 <span class="badge ${{t.is_half_installment ? 'badge-purple' : 'badge-blue'}}" style="font-size:9px;">${{t.installment_tag}}</span>
+                <span class="badge ${{t.redemption_score >= 95.0 ? 'badge-green' : 'badge-blue'}}" style="font-size:8.5px; margin-left:3px; font-weight:800;" title="Quantitative Algorithmic Score: Building/land ratio, equity, township safety, installment intent">⭐ ${{t.redemption_score || 95.0}}% Certainty</span>
             </td>
             <td><span class="badge ${{t.is_commercial ? 'badge-blue' : 'badge-green'}}" style="font-size:9.5px;">${{t.property_type}}</span></td>
             <td class="right" style="font-weight:700; color:var(--text-primary);">$${{Number(t.tax_due).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>

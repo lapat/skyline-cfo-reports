@@ -3376,6 +3376,115 @@ function renderTaxActivityView() {{
                 </tbody>
             </table>
         </div>
+
+        <!-- ⚖️ INTERACTIVE SOFR SENSITIVITY MATRIX & 24-MONTH REDEMPTION WATERFALL -->
+        <div class="table-wrapper" style="margin-top:20px; border:2px solid rgba(16,185,129,0.4); background:linear-gradient(135deg, rgba(6,78,59,0.15), rgba(15,23,42,0.6)); box-shadow:0 4px 20px rgba(16,185,129,0.1);">
+            <div class="table-header" style="background:rgba(16,185,129,0.22); padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div>
+                    <h3 style="margin:0; font-size:15px; font-weight:800; color:#6ee7b7; display:flex; align-items:center; gap:8px;">
+                        <span>⚖️ Floating Debt SOFR Sensitivity &amp; 24-Month Capital Payoff Waterfall</span>
+                        <span class="badge badge-green" style="font-size:10px; font-weight:800;">Jay Treasury Simulator</span>
+                    </h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:3px;">
+                        Models the net arbitrage spread against 12.0% statutory subtax return across benchmark rate shifts, and projects exact debt payoff velocity.
+                    </div>
+                </div>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:700;">Simulate SOFR:</span>
+                    <button onclick="simulateSofrRate(-1.0)" id="btnSofrM100" class="btn btn-outline" style="font-size:10px; padding:3px 8px;">-100 bps (3.32%)</button>
+                    <button onclick="simulateSofrRate(-0.5)" id="btnSofrM50" class="btn btn-outline" style="font-size:10px; padding:3px 8px;">-50 bps (3.82%)</button>
+                    <button onclick="simulateSofrRate(0.0)" id="btnSofrCur" class="btn btn-primary" style="font-size:10px; padding:3px 8px; font-weight:800;">Current (4.32%)</button>
+                    <button onclick="simulateSofrRate(0.5)" id="btnSofrP50" class="btn btn-outline" style="font-size:10px; padding:3px 8px;">+50 bps (4.82%)</button>
+                    <button onclick="simulateSofrRate(1.0)" id="btnSofrP100" class="btn btn-outline" style="font-size:10px; padding:3px 8px;">+100 bps (5.32%)</button>
+                </div>
+            </div>
+
+            <!-- 4 Dynamic SOFR KPI Badges -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; padding:12px 18px; background:rgba(0,0,0,0.2); border-bottom:1px solid var(--border);">
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Simulated SOFR Benchmark</div>
+                    <div id="dispSofrRate" style="font-size:18px; font-weight:800; color:#fff;">4.324%</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">30-Day Term SOFR</div>
+                </div>
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Weighted Borrowing Cost</div>
+                    <div id="dispWtdBorrow" style="font-size:18px; font-weight:800; color:var(--accent);">6.48%</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">Old Natl (6.32%), Byline (6.82%), 1st Chi (6.32%)</div>
+                </div>
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Net Arbitrage Carry Spread</div>
+                    <div id="dispNetSpread" style="font-size:18px; font-weight:900; color:var(--success);">+552 bps</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">12.00% Subtax Yield minus Debt Cost</div>
+                </div>
+                <div>
+                    <div style="font-size:10.5px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Net Spread Arbitrage Profit</div>
+                    <div id="dispSpreadProfit" style="font-size:18px; font-weight:900; color:var(--success);">+$340,860 / yr</div>
+                    <div style="font-size:10.5px; color:var(--text-secondary);">Pure net profit on $6.175M bank leverage</div>
+                </div>
+            </div>
+
+            <!-- 24-Month Debt Payoff Waterfall Table -->
+            <div style="padding:14px 20px;">
+                <div style="font-size:12px; font-weight:800; color:#fff; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>🌊 15-Year Historical Redemption Decay Curve &amp; Debt Retirement Waterfall</span>
+                    <span style="font-size:11px; color:var(--accent);">Assumes $6,175,000 borrowed at 95% advance rate for Fall 2026 auction</span>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Redemption Velocity Period</th>
+                                <th>Historical Driver</th>
+                                <th class="right">% of Capital Returned</th>
+                                <th class="right">Cash Inflow to Pay Debt</th>
+                                <th class="right">Remaining Bank Debt</th>
+                                <th class="right" style="color:var(--success);">Cumulative Interest Saved</th>
+                                <th>Debt Facility Retired</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Months 1 – 6</b><div style="font-size:10px; color:var(--text-muted);">Immediate Turn</div></td>
+                                <td>Property sales, refinances, title transfers</td>
+                                <td class="right" style="font-weight:700;">35.0%</td>
+                                <td class="right" style="color:var(--success); font-weight:800;">$2,161,250</td>
+                                <td class="right">$4,013,750</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">+$70,024</td>
+                                <td><span class="badge badge-green">Byline Line Paid Down to $2.84M</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Months 7 – 12</b><div style="font-size:10px; color:var(--text-muted);">Summer Tax Cycle</div></td>
+                                <td>Annual county property tax billing notice cure</td>
+                                <td class="right" style="font-weight:700;">45.0%</td>
+                                <td class="right" style="color:var(--success); font-weight:800;">$2,778,750</td>
+                                <td class="right">$1,235,000</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">+$225,480</td>
+                                <td><span class="badge badge-green">Byline Retired &middot; 1st Chicago Paid Down</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Months 13 – 24</b><div style="font-size:10px; color:var(--text-muted);">Pre-Deed Cycle</div></td>
+                                <td>Mortgage servicer pre-foreclosure tax cures</td>
+                                <td class="right" style="font-weight:700;">15.0%</td>
+                                <td class="right" style="color:var(--success); font-weight:800;">$926,250</td>
+                                <td class="right">$308,750</td>
+                                <td class="right" style="color:var(--success); font-weight:700;">+$415,920</td>
+                                <td><span class="badge badge-green">1st Chicago Retired &middot; Old Natl Paid</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Months 25+</b><div style="font-size:10px; color:var(--text-muted);">Final Redemption</div></td>
+                                <td>Final legal notice &amp; courtroom redemptions</td>
+                                <td class="right" style="font-weight:700;">5.0%</td>
+                                <td class="right" style="color:var(--success); font-weight:800;">$308,750</td>
+                                <td class="right" style="color:var(--success); font-weight:900;">$0.00</td>
+                                <td class="right" style="color:var(--success); font-weight:900;">+$482,650</td>
+                                <td><span class="badge badge-purple" style="font-weight:800;">100% DEBT RETIRED &middot; $0 BALANCE</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
                 <span class="badge badge-green" style="font-size:11px; font-weight:800;">$6,250,000 Safe Bidding Limit</span>
             </div>
             <table>
