@@ -1,5 +1,5 @@
 {
-  "as_of_date": "2026-10-29 06:00:46",
+  "as_of_date": "2026-10-29 10:37:35",
   "mary_daily_cash": {
     "this_week_inflows": 903197.2,
     "this_week_outflows": -124619.0,
@@ -161,11 +161,11 @@
     "month_total_outflows": -3672659.34
   },
   "past_7_days_redemptions": {
-    "count": 29,
-    "total_collected": 820008.8600000003,
-    "principal_recovered": 249994.09999999998,
-    "net_profit_earned": 570014.7600000004,
-    "profit_margin_pct": 69.5132440398266,
+    "count": 65,
+    "total_collected": 1307720.8000000003,
+    "principal_recovered": 448257.8600000002,
+    "net_profit_earned": 859462.9400000001,
+    "profit_margin_pct": 65.72220461737703,
     "top_redemptions": [
       {
         "county_id": "3",
@@ -182,6 +182,20 @@
         "check_no": ""
       },
       {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2022001217",
+        "pin": "06-19-201-003",
+        "date_redeemed": "07/15/26",
+        "date_payoff": "10/19/26",
+        "date_updated": "09/30/26",
+        "principal": 14191.55,
+        "payoff": 88971.58,
+        "profit": 74780.03,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "78860"
+      },
+      {
         "county_id": "12",
         "county_name": "Kendall",
         "cert_no": "202200171",
@@ -194,6 +208,20 @@
         "profit": 26369.45,
         "owner": "INTERSTATE FUNDING CORP.",
         "check_no": "130805"
+      },
+      {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2023000648",
+        "pin": "04-03-323-009",
+        "date_redeemed": "09/21/26",
+        "date_payoff": "10/19/26",
+        "date_updated": "09/30/26",
+        "principal": 9253.88,
+        "payoff": 32712.89,
+        "profit": 23459.010000000002,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "78860"
       },
       {
         "county_id": "2",
@@ -212,53 +240,25 @@
       {
         "county_id": "3",
         "county_name": "DuPage",
-        "cert_no": "2023001442",
-        "pin": "07-25-301-092",
-        "date_redeemed": "10/19/26",
-        "date_payoff": "",
-        "date_updated": "10/28/26",
-        "principal": 7406.4,
-        "payoff": 25768.5,
-        "profit": 18362.1,
-        "owner": "CENTRAL BUYER CORP.",
-        "check_no": ""
-      },
-      {
-        "county_id": "12",
-        "county_name": "Kendall",
-        "cert_no": "202200268",
-        "pin": "13-14-252-005",
-        "date_redeemed": "09/24/26",
-        "date_payoff": "10/23/26",
+        "cert_no": "2023000292",
+        "pin": "02-34-202-034",
+        "date_redeemed": "09/23/26",
+        "date_payoff": "10/19/26",
         "date_updated": "09/30/26",
-        "principal": 5830.73,
-        "payoff": 23395.71,
-        "profit": 17564.98,
-        "owner": "INTERSTATE FUNDING CORP.",
-        "check_no": "130805"
-      },
-      {
-        "county_id": "2",
-        "county_name": "Lake",
-        "cert_no": "20220605300005",
-        "pin": "06-05-300-005",
-        "date_redeemed": "09/18/26",
-        "date_payoff": "",
-        "date_updated": "10/22/26",
-        "principal": 4997.47,
-        "payoff": 21168.56,
-        "profit": 16171.09,
-        "owner": "INTERSTATE FUNDING CORP.",
-        "check_no": ""
+        "principal": 8567.8,
+        "payoff": 29837.95,
+        "profit": 21270.15,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "78860"
       }
     ]
   },
   "october_redemptions": {
-    "count": 164,
-    "total_collected": 2368126.5900000003,
-    "principal_recovered": 1058846.769999999,
-    "net_profit_earned": 1309279.8200000012,
-    "profit_margin_pct": 55.28757734188531,
+    "count": 225,
+    "total_collected": 3001658.110000001,
+    "principal_recovered": 1343514.4600000016,
+    "net_profit_earned": 1658143.6499999992,
+    "profit_margin_pct": 55.24092315763433,
     "top_redemptions": [
       {
         "county_id": "3",
@@ -275,6 +275,20 @@
         "check_no": ""
       },
       {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2022001217",
+        "pin": "06-19-201-003",
+        "date_redeemed": "07/15/26",
+        "date_payoff": "10/19/26",
+        "date_updated": "09/30/26",
+        "principal": 14191.55,
+        "payoff": 88971.58,
+        "profit": 74780.03,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "78860"
+      },
+      {
         "county_id": "8",
         "county_name": "McHenry",
         "cert_no": "2022-01117",
@@ -287,6 +301,20 @@
         "profit": 55481.649999999994,
         "owner": "INTERSTATE FUNDING CORP.",
         "check_no": ""
+      },
+      {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2023000332",
+        "pin": "03-02-205-035",
+        "date_redeemed": "07/10/26",
+        "date_payoff": "10/14/26",
+        "date_updated": "09/10/26",
+        "principal": 25523.54,
+        "payoff": 58768.26,
+        "profit": 33244.72,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "78839"
       },
       {
         "county_id": "2",
@@ -373,6 +401,20 @@
         "check_no": "19840"
       },
       {
+        "county_id": "3",
+        "county_name": "DuPage",
+        "cert_no": "2023000648",
+        "pin": "04-03-323-009",
+        "date_redeemed": "09/21/26",
+        "date_payoff": "10/19/26",
+        "date_updated": "09/30/26",
+        "principal": 9253.88,
+        "payoff": 32712.89,
+        "profit": 23459.010000000002,
+        "owner": "CENTRAL BUYER CORP.",
+        "check_no": "78860"
+      },
+      {
         "county_id": "2",
         "county_name": "Lake",
         "cert_no": "20220707414014",
@@ -385,56 +427,14 @@
         "profit": 26831.56,
         "owner": "INTERSTATE FUNDING CORP.",
         "check_no": ""
-      },
-      {
-        "county_id": "6",
-        "county_name": "Will",
-        "cert_no": "23-01722",
-        "pin": "30-07-25-100-040-0000",
-        "date_redeemed": "10/15/25",
-        "date_payoff": "02/10/26",
-        "date_updated": "01/29/26",
-        "principal": 15124.94,
-        "payoff": 31711.92,
-        "profit": 16586.979999999996,
-        "owner": "CENTRAL BUYER CORP.",
-        "check_no": "19840"
-      },
-      {
-        "county_id": "3",
-        "county_name": "DuPage",
-        "cert_no": "2023000603",
-        "pin": "03-35-316-011",
-        "date_redeemed": "10/06/26",
-        "date_payoff": "",
-        "date_updated": "10/15/26",
-        "principal": 8527.15,
-        "payoff": 30614.34,
-        "profit": 22087.190000000002,
-        "owner": "CENTRAL BUYER CORP.",
-        "check_no": ""
-      },
-      {
-        "county_id": "51",
-        "county_name": "Cook Scavenger",
-        "cert_no": "22-0007992",
-        "pin": "17-17-113-115-1095",
-        "date_redeemed": "10/28/25",
-        "date_payoff": "01/05/26",
-        "date_updated": "11/13/25",
-        "principal": 7063.97,
-        "payoff": 29425.62,
-        "profit": 22361.649999999998,
-        "owner": "INTERSTATE FUNDING CORP.",
-        "check_no": "97720"
       }
     ]
   },
   "ytd_2026_redemptions": {
-    "count": 2519,
-    "total_collected": 28219878.419999953,
-    "principal_recovered": 15977070.590000054,
-    "net_profit_earned": 12242807.829999939
+    "count": 2520,
+    "total_collected": 28233918.579999954,
+    "principal_recovered": 15979757.230000056,
+    "net_profit_earned": 12254161.349999938
   },
   "recent_subtax_purchases": {
     "count": 782,

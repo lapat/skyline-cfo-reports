@@ -11,6 +11,9 @@ def build_complete_stan_html(is_cfo_viewer=False):
     with open('stan_county_deep_strategies.json') as f:
         county_deep = json.load(f)
 
+    with open('data/kendall_auction_results/kendall_results_2026.json') as f:
+        kendall_data = json.load(f)
+
     ds = "$$" if is_cfo_viewer else "$"
 
     # 1. Rollup rows
@@ -80,16 +83,12 @@ def build_complete_stan_html(is_cfo_viewer=False):
     county_colors = {'Lake': '#3b82f6', 'DuPage': '#10b981', 'McHenry': '#f59e0b', 'Will': '#8b5cf6'}
     for cname, cinfo in county_deep.items():
         ccolor = county_colors.get(cname, 'var(--accent)')
-        
-        # Format bid dist
         bid_pills = " ".join([f"<span class='badge badge-blue' style='font-size:10px;'>{k}%: <b>{v:,}</b></span>" for k, v in cinfo['bid_distribution'].items() if k])
         if not bid_pills:
             bid_pills = "<span class='badge badge-blue' style='font-size:10px;'>Selective Rates</span>"
 
-        # Format top comments
         comm_pills = " ".join([f"<span class='badge badge-purple' style='font-size:9.5px;'>{k}: <b>{v}</b></span>" for k, v in cinfo['top_comments'].items() if k])
 
-        # Format breakdowns
         items_html = ""
         for b in cinfo['breakdowns']:
             if b['label'] not in ['Category', 'Revised Total (keep)', 'Original Bid List Total', 'Non-Commercial breakdown by type', 'Non-Commercial breakdown by USE CODE', 'Commercial breakdown by USE CODE', 'Non-Commercial breakdown by ClassCode', 'Commercial breakdown by ClassCode', 'Flags in revised list']:
@@ -120,7 +119,34 @@ def build_complete_stan_html(is_cfo_viewer=False):
         </div>
         """
 
-    # 4. Kane Buys rows
+    # 4. Kendall Results Table rows
+    kendall_buyer_rows = ""
+    for b in kendall_data.get('buyers', []):
+        is_tot = b.get('is_total', False)
+        style = "font-weight:800; background:rgba(255,255,255,0.06);" if is_tot else ""
+        b_name = b['buyer_name']
+        if 'PRIVATE EQUITY' in b_name:
+            b_name = f"<b style='color:#ef4444;'>{b_name} (Bridge) ⚠️</b>"
+        elif 'RAVEN' in b_name:
+            b_name = f"<b style='color:#f59e0b;'>{b_name} (Bass)</b>"
+        
+        amt_disp = f"${b['amount_won']:,.2f}"
+        if is_cfo_viewer:
+            amt_disp = amt_disp.replace('$', '$$')
+
+        kendall_buyer_rows += f"""
+        <tr style="{style}">
+          <td><code>{b['buyer_num']}</code></td>
+          <td>{b_name}</td>
+          <td class="right">{b['certs_won']}</td>
+          <td class="right" style="font-weight:700;">{amt_disp}</td>
+          <td class="right">{b['share_pct']}%</td>
+          <td class="right"><span class="badge { 'badge-red' if b['wtd_avg_bid'] < 5.0 else 'badge-blue' }" style="font-weight:800;">{b['wtd_avg_bid']}%</span></td>
+          <td class="right" style="color:var(--text-muted);">{b['min_bid']}% - {b['max_bid']}%</td>
+        </tr>
+        """
+
+    # 5. Kane Buys rows
     kane_buys_data = [
         {"pin": "08-13-427-008", "owner": "BRINGAS, BRAULIO REVOC TR", "addr": "39W240 LONGMEADOW LN, ST CHARLES", "due": 16176.13, "bid": "5%", "bldg": 444179},
         {"pin": "09-04-302-001", "owner": "IZZO, THOMAS & TAYA", "addr": "7N475 HAMPTON DR, ST CHARLES", "due": 11317.40, "bid": "5%", "bldg": 273503},
@@ -164,7 +190,7 @@ def build_complete_stan_html(is_cfo_viewer=False):
           <span class="badge badge-purple" style="font-size: 10px; font-weight: 800;">Jay's 2026 Bidding Blueprint</span>
         </div>
         <div class="section-desc" style="color: var(--text-muted); font-size: 12px; margin-top: 3px;">
-          Complete dataset parsed from Stan's 5 production Excel models &amp; Kane results emailed to Louis &amp; Jay. Master 4-County Rollup, 133 Commercial Targets ({ds}5.05M), County Deep Dives, and Redlines.
+          Complete dataset parsed from Stan's production Excel models, Kane results, and live Kendall auction intelligence emailed to Louis &amp; Jay.
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 10px;">
@@ -195,9 +221,9 @@ def build_complete_stan_html(is_cfo_viewer=False):
         </div>
 
         <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;">
-          <div style="font-size: 11px; color: var(--purple); text-transform: uppercase; font-weight: 700;">Win Rate Reality &amp; Target Spend</div>
-          <div style="font-size: 22px; font-weight: 800; color: #c4b5fd; margin: 4px 0;">32.1% Win Rate</div>
-          <div style="font-size: 11px; color: var(--text-secondary);">{ds}42.13M upload cleared {ds}13.54M won @ 2.01% avg bid</div>
+          <div style="font-size: 11px; color: #f87171; text-transform: uppercase; font-weight: 700;">Live 2026 Auction Intel</div>
+          <div style="font-size: 22px; font-weight: 800; color: #f87171; margin: 4px 0;">Kendall &amp; Kane 2026</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">Bridge swept Kendall @ 4.95% &middot; <b>Jay Mandate: 5% Flat</b></div>
         </div>
       </div>
 
@@ -207,7 +233,7 @@ def build_complete_stan_html(is_cfo_viewer=False):
         <button id="{prefix}BtnDeep" onclick="switchStanSubTab('{prefix}', 'deep')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🗺️ County Strategy Deep Dives</button>
         <button id="{prefix}BtnComm" onclick="switchStanSubTab('{prefix}', 'comm')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🏢 133 Prime Commercial Targets ({ds}5.05M)</button>
         <button id="{prefix}BtnRedline" onclick="switchStanSubTab('{prefix}', 'redline')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">⚠️ Stan's Redlines &amp; Exclusions (58 Parcels)</button>
-        <button id="{prefix}BtnKane" onclick="switchStanSubTab('{prefix}', 'kane')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">💎 Kane 2026 Live Buys (8 Certs @ 5%-7%)</button>
+        <button id="{prefix}BtnKane" onclick="switchStanSubTab('{prefix}', 'kane')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🔥 Live 2026 Intel (Kendall &amp; Kane)</button>
       </div>
 
       <!-- TAB 1: MASTER 4-COUNTY ROLLUP TABLE -->
@@ -306,52 +332,93 @@ def build_complete_stan_html(is_cfo_viewer=False):
         </div>
       </div>
 
-      <!-- TAB 5: KANE 2026 LIVE BUYS BENCHMARK -->
+      <!-- TAB 5: LIVE 2026 AUCTION INTEL (KENDALL & KANE) -->
       <div id="{prefix}TabKane" style="display: none; padding: 14px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-          <div>
-            <span style="font-size: 13px; font-weight: 800; color: #fff;">💎 2026 Kane County Auction Results — Diamond Quest Realty Buys</span>
-            <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">Executed Oct 27, 2026 &middot; 8 Certificates &middot; <b>{ds}86,467 Capital Deployed</b></span>
+        <!-- KENDALL 2026 RESULTS (THE WAKE-UP CALL) -->
+        <div style="background: rgba(239, 68, 68, 0.08); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 16px; margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-size: 14px; font-weight: 800; color: #fca5a5;">🚨 Kendall County 2026 Sale Results (Oct 26, 2026) — The Wake-Up Call</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
+                Jennings bid 179 items ({ds}1.495M) at 6% to 9% &middot; <b style="color:var(--danger);">WON 0 ITEMS ({ds}0.00 DEPLOYED)</b>
+              </div>
+            </div>
+            <span class="badge badge-red" style="font-size: 11px; font-weight: 800;">Market Cleared @ 4.88% Wtd Avg</span>
           </div>
-          <div style="font-size: 11px; color: var(--success); font-weight: 700;">
-            100% Won at 5.0% - 7.0% Bid Rates
+
+          <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; font-size: 11.5px; line-height: 1.5; color: #fecaca; border-left: 3px solid #ef4444;">
+            <b>Jay's Immediate Executive Directive to Stan:</b> <i>"Yeah - so it’s 4’s and 5’s most likely... We are going to bid 5 moving forward so that will be our rate and I will send over the bid ladder so once we have it all approved, we just put in 5."</i>
+            <div style="margin-top: 4px; font-size: 11px; color: var(--text-muted);">
+              <b>Stan's Intel Note:</b> <i>"Bridge took it at 5 but he bid some 4's too. I'm sure he regrets the 4's."</i> Bridge (Private Equity Group) swept half the auction (49.7%) at 4.95%, and Bass (Raven) swept 13.1% at 4.12%.
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Buyer #</th>
+                  <th>Buyer Name / Competitor</th>
+                  <th class="right">Certs Won</th>
+                  <th class="right">Amount Won</th>
+                  <th class="right">Market Share</th>
+                  <th class="right">Wtd Avg Bid</th>
+                  <th class="right">Bid Range</th>
+                </tr>
+              </thead>
+              <tbody>
+{kendall_buyer_rows}
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>PIN</th>
-                <th>Taxpayer Name &amp; Site Address</th>
-                <th class="right">Total Due</th>
-                <th class="right">Winning Bid</th>
-                <th class="right">Assessed Bldg</th>
-                <th>Entity</th>
-              </tr>
-            </thead>
-            <tbody>
+
+        <!-- KANE 2026 LIVE BUYS BENCHMARK -->
+        <div style="background: rgba(16, 185, 129, 0.08); border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-size: 13.5px; font-weight: 800; color: #6ee7b7;">💎 Kane County 2026 Auction Results — Diamond Quest Realty Buys</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
+                Executed Oct 27, 2026 &middot; 8 Certificates &middot; <b>{ds}86,467 Capital Deployed</b> &middot; <b style="color:var(--success);">100% Won at 5.0% - 7.0% Bid Rates</b>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size: 10.5px; font-weight: 800;">5.0% Cleared Market</span>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>PIN</th>
+                  <th>Taxpayer Name &amp; Site Address</th>
+                  <th class="right">Total Due</th>
+                  <th class="right">Winning Bid</th>
+                  <th class="right">Assessed Bldg</th>
+                  <th>Entity</th>
+                </tr>
+              </thead>
+              <tbody>
 {kane_rows}
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted);">
-          📌 <i>From Stan's Tuesday email to Jay: "Below are the 8 items we bought. They look fine. No mistakes." Confirms Jennings cleared 5.0% bids on high-equity St. Charles &amp; Geneva residential parcels.</i>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted);">
+            📌 <i>Stan's email to Jay: "Below are the 8 items we bought. They look fine. No mistakes." Confirms Jennings cleared 5.0% bids on high-equity St. Charles &amp; Geneva residential parcels.</i>
+          </div>
         </div>
       </div>
 
       <!-- Deep Analysis Commentary -->
       <div style="background: rgba(0, 0, 0, 0.25); border-top: 1px solid var(--border); padding: 14px 20px; font-size: 11.5px; line-height: 1.6; color: var(--text-muted);">
-        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">🔍 Complete Strategic Synthesis from Stan's 5 Excel Spreadsheets:</div>
+        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">🔍 Complete Strategic Synthesis from Stan's Spreadsheets &amp; Live 2026 Auctions:</div>
         <div>1. <b>The &lt;{ds}3,000 Filter Rule:</b> Stan deliberately removes certs under {ds}3,000 where both installments are delinquent. This cut <b>336 certs ({ds}658,606)</b> across the 4 collar counties, preserving 98.5% of deployable capital while avoiding low-margin title/servicing overhead.</div>
-        <div>2. <b>Commercial High-Yield Focus:</b> Commercial &amp; industrial certs account for only 2.3% of certificate count (133 certs) but generate <b>12.0% of all capital ({ds}5.05M)</b> with an average ticket of <b>{ds}37,937</b>. These represent Jennings' primary profit centers (hotels in Itasca, shopping centers in Roselle, AMC Naperville).</div>
-        <div>3. <b>Why Volume Bidding is Required:</b> Last year Jennings won {ds}13.54M out of {ds}42.13M bid (~32% clearance rate). Bidding aggressively on {ds}42M+ across all 4 counties is essential to ensure Jennings deploys its full {ds}5.0M - {ds}6.5M capital allocation target against Bridge and Bass.</div>
+        <div>2. <b>Jay's 5.0% Bidding Mandate:</b> Kendall County proved that bidding 6%-9% results in 0% clearance against Private Equity Group (Bridge) and Raven (Bass). Jay's directive to bid 5.0% flat ensures Jennings clears its target capital while earning +552 bps net carry over borrowing costs.</div>
+        <div>3. <b>Commercial High-Yield Focus:</b> Commercial &amp; industrial certs account for only 2.3% of certificate count (133 certs) but generate <b>12.0% of all capital ({ds}5.05M)</b> with an average ticket of <b>{ds}37,937</b>.</div>
       </div>
     </div>
   </div>
 """
     return html
 
-# Doubled-braces for f-strings
 stan_tab_js_fstring = """
 function switchStanSubTab(prefix, tab) {{
     const tabs = ['rollup', 'deep', 'comm', 'redline', 'kane'];
@@ -374,23 +441,31 @@ def update_all():
     stan_tax_component = build_complete_stan_html(is_cfo_viewer=False)
 
     target_top = """  <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->"""
-    if target_top not in tax_code:
-        target_top = """  <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (TOP LEAD) -->"""
-
     end_target = """  <!-- SECTION 1: 2025 HISTORICAL INTELLIGENCE (LEADS WITH THIS - COLLAPSIBLE) -->"""
     idx1 = tax_code.find(target_top)
     idx2 = tax_code.find(end_target)
     if idx1 != -1 and idx2 != -1:
         tax_code = tax_code[:idx1] + stan_tax_component + "\n\n" + tax_code[idx2:]
-        print("✅ Injected complete 5-tab Stan suite into generate_tax_dashboard.py")
+        print("✅ Injected Kendall & Kane 2026 Intel into generate_tax_dashboard.py")
 
-    # Update JS switcher
-    if "function switchStanSubTab" in tax_code:
-        # replace old switcher
-        old_switcher_pattern = r'function switchStanSubTab\(prefix, tab\) \{\{.*?\}\}\n\}\}'
-        tax_code = re.sub(r'function switchStanSubTab\(prefix, tab\) \{\{.*?\}\}\n\}\}', stan_tab_js_fstring.strip(), tax_code, flags=re.DOTALL)
-    else:
-        tax_code = tax_code.replace("function toggleSection", stan_tab_js_fstring + "\nfunction toggleSection")
+    # Update default lakeRatePreset to Jay's 5% Mandate
+    old_preset_select = """        <select id="lakeRatePreset" class="filter-select" onchange="renderLakeTargetTable()" style="border-color:rgba(16,185,129,0.5);">
+          <option value="standard" selected>Strategy: 4% on >=$25k (Beat Bridge) / 5% on $10k-$25k</option>
+          <option value="aggressive">Aggressive: 3% on >=$25k / 4% on $10k-$25k</option>
+          <option value="flat4">Universal: 4% Flat on All Items</option>
+          <option value="flat5">Match Market: 5% Flat on All Items</option>
+        </select>"""
+
+    new_preset_select = """        <select id="lakeRatePreset" class="filter-select" onchange="renderLakeTargetTable()" style="border-color:rgba(16,185,129,0.8); font-weight:700;">
+          <option value="flat5" selected>⭐ Jay's Mandate: 5.0% Flat to Clear Market</option>
+          <option value="standard">Aggressive Spread: 4.0% on >=$25k / 5.0% on $10k-$25k</option>
+          <option value="aggressive">Ultra-Aggressive: 3.0% on >=$25k / 4.0% on $10k-$25k</option>
+          <option value="flat4">Universal: 4.0% Flat on All Items</option>
+        </select>"""
+
+    if old_preset_select in tax_code:
+        tax_code = tax_code.replace(old_preset_select, new_preset_select)
+        print("✅ Set Jay's Mandate (5.0% Flat) as default rate preset in generate_tax_dashboard.py")
 
     with open('generate_tax_dashboard.py', 'w') as f:
         f.write(tax_code)
@@ -401,10 +476,7 @@ def update_all():
 
     stan_cfo_component = build_complete_stan_html(is_cfo_viewer=True)
 
-    target_top_cfo = """        <!-- 🎯 STAN'S MASTER 2026 BIDDING MODELS & 4-COUNTY ROLLUP (TOP LEAD) -->"""
-    if target_top_cfo not in cfo_code:
-        target_top_cfo = """  <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->"""
-
+    target_top_cfo = """  <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->"""
     cards_grid_target = """        <div class="cards-grid">
             <div class="stat-card">
                 <div class="stat-card-label">Monday Redemptions (10/19)</div>"""
@@ -412,13 +484,7 @@ def update_all():
     idx2 = cfo_code.find(cards_grid_target)
     if idx1 != -1 and idx2 != -1:
         cfo_code = cfo_code[:idx1] + stan_cfo_component + "\n\n" + cfo_code[idx2:]
-        print("✅ Injected complete 5-tab Stan suite into generate_cfo_html_viewer.py")
-
-    # Update JS switcher
-    if "function switchStanSubTab" in cfo_code:
-        cfo_code = re.sub(r'function switchStanSubTab\(prefix, tab\) \{\{.*?\}\}\n\}\}', stan_tab_js_fstring.strip(), cfo_code, flags=re.DOTALL)
-    else:
-        cfo_code = cfo_code.replace("function switchAuctionTab", stan_tab_js_fstring + "\nfunction switchAuctionTab")
+        print("✅ Injected Kendall & Kane 2026 Intel into generate_cfo_html_viewer.py")
 
     with open('generate_cfo_html_viewer.py', 'w') as f:
         f.write(cfo_code)

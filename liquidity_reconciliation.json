@@ -1,16 +1,16 @@
 {
-  "as_of_date": "2026-10-29 06:00:48",
+  "as_of_date": "2026-10-29 10:37:37",
   "headline_unrestricted_cash": 10383219.003,
   "headline_strategic_liquidity": 21893604.003,
   "physical_bank_cash": 13643439.003,
-  "skyline_gl_cash": -892903552.7399999,
+  "skyline_gl_cash": -891601675.4800001,
   "ap_float_uncleared": -2415220.0,
   "tax_line_headroom": 11510385.0,
   "bridge_steps": [
     {
       "step": 1,
       "item": "Skyline General Ledger Posted Cash",
-      "amount": -892903552.7399999,
+      "amount": -891601675.4800001,
       "type": "base",
       "note": "Audited double-entry operating cash (10xxxxxx accounts)"
     },

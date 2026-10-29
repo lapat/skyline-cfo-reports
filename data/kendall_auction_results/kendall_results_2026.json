@@ -1,0 +1,163 @@
+{
+  "title": "Kendall County 2026 Tax Sale Results (2025 Taxes)",
+  "sale_date": "2026-10-26",
+  "total_certificates_sold": 417,
+  "total_amount_sold": 2291638.01,
+  "market_wtd_avg_bid": 4.88,
+  "jennings_bids": {
+    "bidder_name": "Interstate Funding Corp (Jennings)",
+    "buyer_code": "042",
+    "items_bid": 179,
+    "total_amount_bid": 1495880.8,
+    "items_won": 0,
+    "amount_won": 0.0,
+    "bid_distribution": [
+      {
+        "rate": "6%",
+        "pins": 35,
+        "amount": 248243.43
+      },
+      {
+        "rate": "7%",
+        "pins": 64,
+        "amount": 502280.67
+      },
+      {
+        "rate": "8%",
+        "pins": 76,
+        "amount": 564806.91
+      },
+      {
+        "rate": "9%",
+        "pins": 4,
+        "amount": 180549.79
+      }
+    ],
+    "outcome": "ZERO WINS (0.0% Clearance)",
+    "lesson": "Bidding 6%-9% resulted in 0 wins because Bridge took 50% of the sale at 4.95% avg, and Bass took 13% at 4.12% avg."
+  },
+  "buyers": [
+    {
+      "buyer_num": "112",
+      "buyer_name": "PRIVATE EQUITY GROUP",
+      "certs_won": 146,
+      "amount_won": 1138654.87,
+      "share_pct": 49.7,
+      "wtd_avg_bid": 4.95,
+      "min_bid": "4",
+      "max_bid": "6",
+      "is_total": false
+    },
+    {
+      "buyer_num": "235",
+      "buyer_name": "1095 INVESTMENTS LLC",
+      "certs_won": 48,
+      "amount_won": 459498.7,
+      "share_pct": 20.1,
+      "wtd_avg_bid": 5.04,
+      "min_bid": "5",
+      "max_bid": "6",
+      "is_total": false
+    },
+    {
+      "buyer_num": "253",
+      "buyer_name": "RAVEN SECURITIES INC",
+      "certs_won": 48,
+      "amount_won": 299894.79,
+      "share_pct": 13.1,
+      "wtd_avg_bid": 4.12,
+      "min_bid": "4",
+      "max_bid": "7",
+      "is_total": false
+    },
+    {
+      "buyer_num": "136",
+      "buyer_name": "AUCTION Z-2 INC",
+      "certs_won": 53,
+      "amount_won": 249850.64,
+      "share_pct": 10.9,
+      "wtd_avg_bid": 4.2,
+      "min_bid": "4",
+      "max_bid": "5",
+      "is_total": false
+    },
+    {
+      "buyer_num": "139",
+      "buyer_name": "CARNIOLA CAPITAL LLC",
+      "certs_won": 62,
+      "amount_won": 84426.33,
+      "share_pct": 3.7,
+      "wtd_avg_bid": 7.73,
+      "min_bid": "7",
+      "max_bid": "9",
+      "is_total": false
+    },
+    {
+      "buyer_num": "254",
+      "buyer_name": "BERNICE LLC",
+      "certs_won": 21,
+      "amount_won": 20049.26,
+      "share_pct": 0.9,
+      "wtd_avg_bid": 0.62,
+      "min_bid": "",
+      "max_bid": "1",
+      "is_total": false
+    },
+    {
+      "buyer_num": "006",
+      "buyer_name": "BYDSOM INC",
+      "certs_won": 12,
+      "amount_won": 15596.99,
+      "share_pct": 0.7,
+      "wtd_avg_bid": 9.0,
+      "min_bid": "9",
+      "max_bid": "9",
+      "is_total": false
+    },
+    {
+      "buyer_num": "241",
+      "buyer_name": "AMERICAN TAX LIEN LLC",
+      "certs_won": 6,
+      "amount_won": 12517.08,
+      "share_pct": 0.5,
+      "wtd_avg_bid": 7.92,
+      "min_bid": "7",
+      "max_bid": "9",
+      "is_total": false
+    },
+    {
+      "buyer_num": "029",
+      "buyer_name": "TAX LIEN INVESTMENTS",
+      "certs_won": 5,
+      "amount_won": 6019.47,
+      "share_pct": 0.3,
+      "wtd_avg_bid": 4.0,
+      "min_bid": "4",
+      "max_bid": "4",
+      "is_total": false
+    },
+    {
+      "buyer_num": "079",
+      "buyer_name": "BIG GROVE INVESTMENT",
+      "certs_won": 16,
+      "amount_won": 5129.88,
+      "share_pct": 0.2,
+      "wtd_avg_bid": 5.2,
+      "min_bid": "3",
+      "max_bid": "9",
+      "is_total": false
+    },
+    {
+      "buyer_num": "",
+      "buyer_name": "TOTAL",
+      "certs_won": 417,
+      "amount_won": 2291638.01,
+      "share_pct": 100.0,
+      "wtd_avg_bid": 4.88,
+      "min_bid": "",
+      "max_bid": "9",
+      "is_total": true
+    }
+  ],
+  "jay_directive": "We are going to bid 5 moving forward so that will be our rate and I will send over the bid ladder so once we have it all approved, we just put in 5."
+}

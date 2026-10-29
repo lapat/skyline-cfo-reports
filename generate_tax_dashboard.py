@@ -144,6 +144,7 @@ def generate_tax_html():
     </div>
   </div>
 
+
   <!-- SECTION: STAN'S MASTER 2026 PRODUCTION BIDDING MODELS & 4-COUNTY ROLLUP (COMPLETE DATA SUITE) -->
   <div class="section-card" style="border: 2px solid rgba(139, 92, 246, 0.55); background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(15, 23, 42, 0.55)); margin-bottom: 24px; box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);">
     <div class="section-header" style="background: rgba(139, 92, 246, 0.22); padding: 14px 20px; cursor: pointer;" onclick="toggleSection('stanPortalBody', 'stanPortalIcon')">
@@ -153,7 +154,7 @@ def generate_tax_html():
           <span class="badge badge-purple" style="font-size: 10px; font-weight: 800;">Jay's 2026 Bidding Blueprint</span>
         </div>
         <div class="section-desc" style="color: var(--text-muted); font-size: 12px; margin-top: 3px;">
-          Complete dataset parsed from Stan's 5 production Excel models &amp; Kane results emailed to Louis &amp; Jay. Master 4-County Rollup, 133 Commercial Targets ($5.05M), County Deep Dives, and Redlines.
+          Complete dataset parsed from Stan's production Excel models, Kane results, and live Kendall auction intelligence emailed to Louis &amp; Jay.
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 10px;">
@@ -184,9 +185,9 @@ def generate_tax_html():
         </div>
 
         <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;">
-          <div style="font-size: 11px; color: var(--purple); text-transform: uppercase; font-weight: 700;">Win Rate Reality &amp; Target Spend</div>
-          <div style="font-size: 22px; font-weight: 800; color: #c4b5fd; margin: 4px 0;">32.1% Win Rate</div>
-          <div style="font-size: 11px; color: var(--text-secondary);">$42.13M upload cleared $13.54M won @ 2.01% avg bid</div>
+          <div style="font-size: 11px; color: #f87171; text-transform: uppercase; font-weight: 700;">Live 2026 Auction Intel</div>
+          <div style="font-size: 22px; font-weight: 800; color: #f87171; margin: 4px 0;">Kendall &amp; Kane 2026</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">Bridge swept Kendall @ 4.95% &middot; <b>Jay Mandate: 5% Flat</b></div>
         </div>
       </div>
 
@@ -196,7 +197,7 @@ def generate_tax_html():
         <button id="stanPortalBtnDeep" onclick="switchStanSubTab('stanPortal', 'deep')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🗺️ County Strategy Deep Dives</button>
         <button id="stanPortalBtnComm" onclick="switchStanSubTab('stanPortal', 'comm')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🏢 133 Prime Commercial Targets ($5.05M)</button>
         <button id="stanPortalBtnRedline" onclick="switchStanSubTab('stanPortal', 'redline')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">⚠️ Stan's Redlines &amp; Exclusions (58 Parcels)</button>
-        <button id="stanPortalBtnKane" onclick="switchStanSubTab('stanPortal', 'kane')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">💎 Kane 2026 Live Buys (8 Certs @ 5%-7%)</button>
+        <button id="stanPortalBtnKane" onclick="switchStanSubTab('stanPortal', 'kane')" class="btn btn-outline" style="font-size: 11.5px; font-weight: 700; padding: 6px 14px;">🔥 Live 2026 Intel (Kendall &amp; Kane)</button>
       </div>
 
       <!-- TAB 1: MASTER 4-COUNTY ROLLUP TABLE -->
@@ -856,30 +857,181 @@ def generate_tax_html():
         </div>
       </div>
 
-      <!-- TAB 5: KANE 2026 LIVE BUYS BENCHMARK -->
+      <!-- TAB 5: LIVE 2026 AUCTION INTEL (KENDALL & KANE) -->
       <div id="stanPortalTabKane" style="display: none; padding: 14px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-          <div>
-            <span style="font-size: 13px; font-weight: 800; color: #fff;">💎 2026 Kane County Auction Results — Diamond Quest Realty Buys</span>
-            <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">Executed Oct 27, 2026 &middot; 8 Certificates &middot; <b>$86,467 Capital Deployed</b></span>
+        <!-- KENDALL 2026 RESULTS (THE WAKE-UP CALL) -->
+        <div style="background: rgba(239, 68, 68, 0.08); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 16px; margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-size: 14px; font-weight: 800; color: #fca5a5;">🚨 Kendall County 2026 Sale Results (Oct 26, 2026) — The Wake-Up Call</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
+                Jennings bid 179 items ($1.495M) at 6% to 9% &middot; <b style="color:var(--danger);">WON 0 ITEMS ($0.00 DEPLOYED)</b>
+              </div>
+            </div>
+            <span class="badge badge-red" style="font-size: 11px; font-weight: 800;">Market Cleared @ 4.88% Wtd Avg</span>
           </div>
-          <div style="font-size: 11px; color: var(--success); font-weight: 700;">
-            100% Won at 5.0% - 7.0% Bid Rates
+
+          <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; font-size: 11.5px; line-height: 1.5; color: #fecaca; border-left: 3px solid #ef4444;">
+            <b>Jay's Immediate Executive Directive to Stan:</b> <i>"Yeah - so it’s 4’s and 5’s most likely... We are going to bid 5 moving forward so that will be our rate and I will send over the bid ladder so once we have it all approved, we just put in 5."</i>
+            <div style="margin-top: 4px; font-size: 11px; color: var(--text-muted);">
+              <b>Stan's Intel Note:</b> <i>"Bridge took it at 5 but he bid some 4's too. I'm sure he regrets the 4's."</i> Bridge (Private Equity Group) swept half the auction (49.7%) at 4.95%, and Bass (Raven) swept 13.1% at 4.12%.
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Buyer #</th>
+                  <th>Buyer Name / Competitor</th>
+                  <th class="right">Certs Won</th>
+                  <th class="right">Amount Won</th>
+                  <th class="right">Market Share</th>
+                  <th class="right">Wtd Avg Bid</th>
+                  <th class="right">Bid Range</th>
+                </tr>
+              </thead>
+              <tbody>
+
+        <tr style="">
+          <td><code>112</code></td>
+          <td><b style='color:#ef4444;'>PRIVATE EQUITY GROUP (Bridge) ⚠️</b></td>
+          <td class="right">146</td>
+          <td class="right" style="font-weight:700;">$1,138,654.87</td>
+          <td class="right">49.7%</td>
+          <td class="right"><span class="badge badge-red" style="font-weight:800;">4.95%</span></td>
+          <td class="right" style="color:var(--text-muted);">4% - 6%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>235</code></td>
+          <td>1095 INVESTMENTS LLC</td>
+          <td class="right">48</td>
+          <td class="right" style="font-weight:700;">$459,498.70</td>
+          <td class="right">20.1%</td>
+          <td class="right"><span class="badge badge-blue" style="font-weight:800;">5.04%</span></td>
+          <td class="right" style="color:var(--text-muted);">5% - 6%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>253</code></td>
+          <td><b style='color:#f59e0b;'>RAVEN SECURITIES INC (Bass)</b></td>
+          <td class="right">48</td>
+          <td class="right" style="font-weight:700;">$299,894.79</td>
+          <td class="right">13.1%</td>
+          <td class="right"><span class="badge badge-red" style="font-weight:800;">4.12%</span></td>
+          <td class="right" style="color:var(--text-muted);">4% - 7%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>136</code></td>
+          <td>AUCTION Z-2 INC</td>
+          <td class="right">53</td>
+          <td class="right" style="font-weight:700;">$249,850.64</td>
+          <td class="right">10.9%</td>
+          <td class="right"><span class="badge badge-red" style="font-weight:800;">4.2%</span></td>
+          <td class="right" style="color:var(--text-muted);">4% - 5%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>139</code></td>
+          <td>CARNIOLA CAPITAL LLC</td>
+          <td class="right">62</td>
+          <td class="right" style="font-weight:700;">$84,426.33</td>
+          <td class="right">3.7%</td>
+          <td class="right"><span class="badge badge-blue" style="font-weight:800;">7.73%</span></td>
+          <td class="right" style="color:var(--text-muted);">7% - 9%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>254</code></td>
+          <td>BERNICE LLC</td>
+          <td class="right">21</td>
+          <td class="right" style="font-weight:700;">$20,049.26</td>
+          <td class="right">0.9%</td>
+          <td class="right"><span class="badge badge-red" style="font-weight:800;">0.62%</span></td>
+          <td class="right" style="color:var(--text-muted);">% - 1%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>006</code></td>
+          <td>BYDSOM INC</td>
+          <td class="right">12</td>
+          <td class="right" style="font-weight:700;">$15,596.99</td>
+          <td class="right">0.7%</td>
+          <td class="right"><span class="badge badge-blue" style="font-weight:800;">9.0%</span></td>
+          <td class="right" style="color:var(--text-muted);">9% - 9%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>241</code></td>
+          <td>AMERICAN TAX LIEN LLC</td>
+          <td class="right">6</td>
+          <td class="right" style="font-weight:700;">$12,517.08</td>
+          <td class="right">0.5%</td>
+          <td class="right"><span class="badge badge-blue" style="font-weight:800;">7.92%</span></td>
+          <td class="right" style="color:var(--text-muted);">7% - 9%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>029</code></td>
+          <td>TAX LIEN INVESTMENTS</td>
+          <td class="right">5</td>
+          <td class="right" style="font-weight:700;">$6,019.47</td>
+          <td class="right">0.3%</td>
+          <td class="right"><span class="badge badge-red" style="font-weight:800;">4.0%</span></td>
+          <td class="right" style="color:var(--text-muted);">4% - 4%</td>
+        </tr>
+        
+        <tr style="">
+          <td><code>079</code></td>
+          <td>BIG GROVE INVESTMENT</td>
+          <td class="right">16</td>
+          <td class="right" style="font-weight:700;">$5,129.88</td>
+          <td class="right">0.2%</td>
+          <td class="right"><span class="badge badge-blue" style="font-weight:800;">5.2%</span></td>
+          <td class="right" style="color:var(--text-muted);">3% - 9%</td>
+        </tr>
+        
+        <tr style="font-weight:800; background:rgba(255,255,255,0.06);">
+          <td><code></code></td>
+          <td>TOTAL</td>
+          <td class="right">417</td>
+          <td class="right" style="font-weight:700;">$2,291,638.01</td>
+          <td class="right">100.0%</td>
+          <td class="right"><span class="badge badge-red" style="font-weight:800;">4.88%</span></td>
+          <td class="right" style="color:var(--text-muted);">% - 9%</td>
+        </tr>
+        
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>PIN</th>
-                <th>Taxpayer Name &amp; Site Address</th>
-                <th class="right">Total Due</th>
-                <th class="right">Winning Bid</th>
-                <th class="right">Assessed Bldg</th>
-                <th>Entity</th>
-              </tr>
-            </thead>
-            <tbody>
+
+        <!-- KANE 2026 LIVE BUYS BENCHMARK -->
+        <div style="background: rgba(16, 185, 129, 0.08); border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span style="font-size: 13.5px; font-weight: 800; color: #6ee7b7;">💎 Kane County 2026 Auction Results — Diamond Quest Realty Buys</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
+                Executed Oct 27, 2026 &middot; 8 Certificates &middot; <b>$86,467 Capital Deployed</b> &middot; <b style="color:var(--success);">100% Won at 5.0% - 7.0% Bid Rates</b>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size: 10.5px; font-weight: 800;">5.0% Cleared Market</span>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>PIN</th>
+                  <th>Taxpayer Name &amp; Site Address</th>
+                  <th class="right">Total Due</th>
+                  <th class="right">Winning Bid</th>
+                  <th class="right">Assessed Bldg</th>
+                  <th>Entity</th>
+                </tr>
+              </thead>
+              <tbody>
 
         <tr>
           <td><code style="font-weight:700;">08-13-427-008</code></td>
@@ -953,20 +1105,21 @@ def generate_tax_html():
           <td><span class="badge badge-purple" style="font-size:9px;">Diamond Quest (180)</span></td>
         </tr>
         
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted);">
-          📌 <i>From Stan's Tuesday email to Jay: "Below are the 8 items we bought. They look fine. No mistakes." Confirms Jennings cleared 5.0% bids on high-equity St. Charles &amp; Geneva residential parcels.</i>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted);">
+            📌 <i>Stan's email to Jay: "Below are the 8 items we bought. They look fine. No mistakes." Confirms Jennings cleared 5.0% bids on high-equity St. Charles &amp; Geneva residential parcels.</i>
+          </div>
         </div>
       </div>
 
       <!-- Deep Analysis Commentary -->
       <div style="background: rgba(0, 0, 0, 0.25); border-top: 1px solid var(--border); padding: 14px 20px; font-size: 11.5px; line-height: 1.6; color: var(--text-muted);">
-        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">🔍 Complete Strategic Synthesis from Stan's 5 Excel Spreadsheets:</div>
+        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">🔍 Complete Strategic Synthesis from Stan's Spreadsheets &amp; Live 2026 Auctions:</div>
         <div>1. <b>The &lt;$3,000 Filter Rule:</b> Stan deliberately removes certs under $3,000 where both installments are delinquent. This cut <b>336 certs ($658,606)</b> across the 4 collar counties, preserving 98.5% of deployable capital while avoiding low-margin title/servicing overhead.</div>
-        <div>2. <b>Commercial High-Yield Focus:</b> Commercial &amp; industrial certs account for only 2.3% of certificate count (133 certs) but generate <b>12.0% of all capital ($5.05M)</b> with an average ticket of <b>$37,937</b>. These represent Jennings' primary profit centers (hotels in Itasca, shopping centers in Roselle, AMC Naperville).</div>
-        <div>3. <b>Why Volume Bidding is Required:</b> Last year Jennings won $13.54M out of $42.13M bid (~32% clearance rate). Bidding aggressively on $42M+ across all 4 counties is essential to ensure Jennings deploys its full $5.0M - $6.5M capital allocation target against Bridge and Bass.</div>
+        <div>2. <b>Jay's 5.0% Bidding Mandate:</b> Kendall County proved that bidding 6%-9% results in 0% clearance against Private Equity Group (Bridge) and Raven (Bass). Jay's directive to bid 5.0% flat ensures Jennings clears its target capital while earning +552 bps net carry over borrowing costs.</div>
+        <div>3. <b>Commercial High-Yield Focus:</b> Commercial &amp; industrial certs account for only 2.3% of certificate count (133 certs) but generate <b>12.0% of all capital ($5.05M)</b> with an average ticket of <b>$37,937</b>.</div>
       </div>
     </div>
   </div>
