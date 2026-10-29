@@ -3,171 +3,251 @@
 <head>
 <meta charset="utf-8">
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #1e293b; }
-  .container { max-width: 720px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; overflow: hidden; }
-  .header { background: #1e3a8a; padding: 24px 30px; color: #ffffff; }
-  .header h1 { margin: 0 0 6px 0; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-  .header p { margin: 0; font-size: 13px; color: #93c5fd; }
-  .content { padding: 24px 30px; line-height: 1.6; font-size: 14px; }
-  .alert-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 14px 18px; border-radius: 4px; margin-bottom: 20px; font-size: 13px; color: #991b1b; }
-  .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-  .metric-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; }
-  .metric-label { font-size: 11px; text-transform: uppercase; font-weight: 700; color: #64748b; margin-bottom: 2px; }
-  .metric-value { font-size: 20px; font-weight: 800; color: #1e3a8a; }
-  .metric-sub { font-size: 11px; color: #166534; font-weight: 600; margin-top: 2px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
-  th { background: #0f172a; color: #ffffff; text-align: left; padding: 8px 10px; font-weight: 600; }
-  td { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #1e293b; font-size: 13.5px; line-height: 1.55; }
+  .container { max-width: 740px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; padding: 24px 30px; }
+  p { margin: 0 0 12px 0; }
+  ul { margin: 0 0 14px 0; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 12px; }
+  th { background: #1e3a8a; color: #ffffff; text-align: left; padding: 7px 10px; font-weight: 600; }
+  td { padding: 7px 10px; border-bottom: 1px solid #e2e8f0; }
   tr:nth-child(even) { background-color: #f8fafc; }
   .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; }
   .badge-green { background: #dcfce7; color: #166534; }
   .badge-blue { background: #dbeafe; color: #1e40af; }
   .badge-purple { background: #f3e8ff; color: #6b21a8; }
   .right { text-align: right; }
-  .footer { background: #f8fafc; padding: 16px 30px; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; text-align: center; }
+  h4 { margin: 18px 0 6px 0; color: #1e3a8a; font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.3px; }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <h1>Lake County Tax Sale Bidding Strategy &amp; Subtax Defense</h1>
-    <p>Sale Date: Friday, November 13, 2026 | Jennings Allocation Target: $2,000,000</p>
-  </div>
+  <p>Jay &amp; Stan,</p>
 
-  <div class="content">
-    <p>Jay &amp; Stan,</p>
-    <p>
-      Following up on the Kane County auction results and Jay's directive to target <b>high-dollar amounts and 1/2 installments</b> at the upcoming <b>Lake County sale on November 13th</b>, we completed a quantitative analysis across the 6,078 Lake County auction parcels and our unredeemed certificate portfolio.
-    </p>
+  <p>Here is the full analysis of what happened last year across all counties, our remaining 2026 sales schedule, and the revised Lake County numbers per Jay's specifications:</p>
 
-    <!-- URGENT SUBTAX ALERT -->
-    <div class="alert-box">
-      <b>⚠️ IMMEDIATE ACTION — PRIOR SUBTAX DEFENSE ($127,303 CAPITAL):</b><br>
-      We cross-referenced the 2026 Lake County sale list against our active inventory. <b>Jennings already owns prior certificates on 18 parcels up for sale!</b><br>
-      Under Illinois statute (35 ILCS 200/21-355), submitting checks to the Lake County Collector prior to the sale locks in a guaranteed <b>12% statutory annual penalty interest</b> with zero bidding competition.
-      Top item: <b>PIN 06-16-201-013 (DMLG Builders, $51,765 due)</b>, where Central Buyer already holds an $87,205 prior certificate.
-      <i>(Full check request schedule attached for Mary).</i>
-    </div>
+  <h4>1. REMAINING SALES SCHEDULE &amp; PAST BUYS (LAST YEAR VS. THIS YEAR)</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>County</th>
+        <th>2026 Sale Date</th>
+        <th class="right">Last Year Won (2025)</th>
+        <th class="right">This Year Bid / Upload</th>
+        <th class="right">This Year Won / Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Kendall</b></td>
+        <td>Mon, Oct 26</td>
+        <td class="right">78 certs ($220,883)</td>
+        <td class="right">$300k target</td>
+        <td class="right">0 certs ($0)</td>
+      </tr>
+      <tr>
+        <td><b>Kane</b></td>
+        <td>Mon, Oct 26</td>
+        <td class="right">112 certs ($852,779)</td>
+        <td class="right">779 certs ($5.90M)</td>
+        <td class="right"><span class="badge badge-green">8 certs ($86,467)</span></td>
+      </tr>
+      <tr style="background:#eff6ff;">
+        <td><b>Lake</b></td>
+        <td><b>Fri, Nov 13</b></td>
+        <td class="right"><b>853 certs ($6,131,471)</b><br><span style="font-size:10px; color:#64748b;">(Bid 2,703 certs / $19.8M)</span></td>
+        <td class="right">5,011 filtered pool ($37.4M)</td>
+        <td class="right"><b>Target: $2,000,000</b></td>
+      </tr>
+      <tr>
+        <td><b>DuPage</b></td>
+        <td>Thu, Nov 19</td>
+        <td class="right">32 certs ($254,027)</td>
+        <td class="right">Awaiting final list</td>
+        <td class="right"><b>Target: $1,500,000</b></td>
+      </tr>
+      <tr>
+        <td><b>McHenry</b></td>
+        <td>Mon, Nov 23</td>
+        <td class="right">180 certs ($1,452,829)</td>
+        <td class="right">Awaiting final list</td>
+        <td class="right"><b>Target: $1,000,000</b></td>
+      </tr>
+      <tr>
+        <td><b>Will</b></td>
+        <td>Tue, Dec 01</td>
+        <td class="right">240 certs ($1,457,091)</td>
+        <td class="right">Awaiting final list</td>
+        <td class="right"><b>Target: $2,000,000</b></td>
+      </tr>
+      <tr style="font-weight:700; background:#f1f5f9;">
+        <td colspan="4">TOTAL REMAINING TARGET ALLOCATION (To hit $5.0M goal):</td>
+        <td class="right" style="color:#1e3a8a; font-size:13px;">$6,500,000</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <!-- METRICS -->
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-label">2nd-Installment Pool (&gt;=$10k)</div>
-        <div class="metric-value">$5,119,825</div>
-        <div class="metric-sub">268 Parcels · &gt;95% Redemption Safety</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Curated $2.0M Portfolio</div>
-        <div class="metric-value">54 Prime Parcels</div>
-        <div class="metric-sub">+$240,144/yr 12% Subtax Compounding</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Bidding Strategy vs Bridge</div>
-        <div class="metric-value">4% on &gt;=$25k</div>
-        <div class="metric-sub">Outbids Bridge 5% Blanket Bids 100%</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Data Verification</div>
-        <div class="metric-value">Zero Real Info Needed</div>
-        <div class="metric-sub">Verified County Portal Redemption History</div>
-      </div>
-    </div>
+  <h4>2. WHAT WE BID VS. WHAT WE WON LAST YEAR (STAN'S PRODUCTION ROLLUP)</h4>
+  <p>Per Stan's revised production models, Jennings uploaded <b>5,656 certificates ($42.13M)</b> across the 4 collar counties after removing full installments under $3,000, ultimately winning <b>$13.54M across 2,159 certificates</b> (a 32% win rate):</p>
 
-    <h3 style="color:#1e3a8a; border-bottom:2px solid #e2e8f0; padding-bottom:6px; margin-top:24px;">1. The 1/2 Installment Advantage ($5.12M Pool)</h3>
-    <p>
-      By parsing Cycle 1 vs. Cycle 2 dues from the county property portal, we identified that when Cycle 1 is $10 or less (statutory advertising fee) and Cycle 2 has the entire tax bill, <b>the taxpayer or mortgage escrow already paid the first installment</b>.
-    </p>
-    <p>
-      There are <b>268 parcels over $10,000 that are 2nd Installment Only ($5,119,825 total)</b>. Because the property is actively occupied and half the year is already paid, redemption probability is over 95%. This $5.12M pool is 2.5x larger than our $2.0M Lake goal, meaning we can hit our entire target on safe 1/2 installments alone.
-    </p>
+  <table>
+    <thead>
+      <tr>
+        <th>County</th>
+        <th class="right">Stan's Upload Certs</th>
+        <th class="right">Stan's Upload $</th>
+        <th class="right">Certs Won</th>
+        <th class="right">Capital Won</th>
+        <th class="right">Avg Winning Bid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f0fdf4; font-weight:700;">
+        <td><b>Lake</b></td>
+        <td class="right">1,640</td>
+        <td class="right">$13,850,986</td>
+        <td class="right">853</td>
+        <td class="right">$6,131,471</td>
+        <td class="right">1.84%</td>
+      </tr>
+      <tr>
+        <td><b>Will</b></td>
+        <td class="right">1,492</td>
+        <td class="right">$10,487,163</td>
+        <td class="right">240</td>
+        <td class="right">$1,457,091</td>
+        <td class="right">1.52%</td>
+      </tr>
+      <tr>
+        <td><b>McHenry</b></td>
+        <td class="right">1,359</td>
+        <td class="right">$8,468,045</td>
+        <td class="right">180</td>
+        <td class="right">$1,452,829</td>
+        <td class="right">1.99%</td>
+      </tr>
+      <tr>
+        <td><b>DuPage</b></td>
+        <td class="right">1,165</td>
+        <td class="right">$9,326,953</td>
+        <td class="right">774</td>
+        <td class="right">$3,648,154</td>
+        <td class="right">2.18%</td>
+      </tr>
+      <tr style="font-weight:800; background:#f8fafc;">
+        <td><b>4-COUNTY TOTAL</b></td>
+        <td class="right"><b>5,656</b></td>
+        <td class="right"><b>$42,133,147</b></td>
+        <td class="right"><b>2,047</b></td>
+        <td class="right"><b>$12,689,545</b></td>
+        <td class="right"><b>1.98%</b></td>
+      </tr>
+    </tbody>
+  </table>
+        <td class="right">3.05%</td>
+        <td>3.0% (77% of certs)</td>
+      </tr>
+      <tr>
+        <td><b>DuPage</b></td>
+        <td class="right">32</td>
+        <td class="right">$254,027</td>
+        <td class="right">2.00%</td>
+        <td>2.0% (100% of certs)</td>
+      </tr>
+      <tr>
+        <td><b>Kendall</b></td>
+        <td class="right">78</td>
+        <td class="right">$220,883</td>
+        <td class="right">3.28%</td>
+        <td>3.0% (96% of certs)</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <h3 style="color:#1e3a8a; border-bottom:2px solid #e2e8f0; padding-bottom:6px; margin-top:24px;">2. The 4% Bidding Edge (Beating the Bridge Lottery)</h3>
-    <p>
-      At Kane, Bridge took 44% of the sale at 5%. If we bid 5% to match Bridge, the auction software runs a random tie-breaker, and Bridge's scale wins the volume.
-    </p>
-    <p>
-      <b>Our Rule: Bid 4% on parcels &gt;=$25,000.</b><br>
-      On a $50k or $100k ticket, giving up 1% on the initial penalty is trivial ($500) because the real margin is made on the <b>12% statutory annual subtax carrying interest (+500 to +600 bps spread over Byline Bank borrowing cost)</b>. Bidding 4% guarantees we win the ticket over Bridge every time.
-    </p>
+  <p><b>Who the 'Big Guys' Were in Lake County Last Year ($20.4M Total Auction):</b></p>
+  <ul>
+    <li><b>#1 Central Buyer Corp (Jennings):</b> $6.13M won (30.1% share of the county) at <b>1.68% average</b>.</li>
+    <li><b>#2 Private Equity Group LLC (Bridge):</b> $2.99M won (14.7% share) at <b>2.04% average</b>.</li>
+    <li><b>#3 American Tax Lien LLC:</b> $2.84M won (13.9% share) at <b>2.26% average</b>.</li>
+    <li><b>#4 Ari Bass (Personal / Raven):</b> $1.30M won (6.4% share) at <b>2.85% average</b>.</li>
+  </ul>
 
-    <h3 style="color:#1e3a8a; border-bottom:2px solid #e2e8f0; padding-bottom:6px; margin-top:24px;">3. Top Bulletproof Target Sample (From Attached Excel)</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>PIN</th>
-          <th>Taxpayer / Property</th>
-          <th>City</th>
-          <th class="right">Tax Due</th>
-          <th class="right">Bldg Ratio</th>
-          <th>Bid %</th>
-          <th>County History</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>07-25-308-009</code></td>
-          <td><b>Fountain Square Hospitality</b></td>
-          <td>Waukegan</td>
-          <td class="right"><b>$169,504</b></td>
-          <td class="right">3.2x</td>
-          <td><span class="badge badge-green">4.0%</span></td>
-          <td><span class="badge badge-purple">4x Redeemed</span></td>
-        </tr>
-        <tr>
-          <td><code>04-18-400-041</code></td>
-          <td><b>Enova Investment LLC</b></td>
-          <td>Zion</td>
-          <td class="right"><b>$141,304</b></td>
-          <td class="right">5.9x</td>
-          <td><span class="badge badge-green">4.0%</span></td>
-          <td><span class="badge badge-purple">4x Redeemed</span></td>
-        </tr>
-        <tr>
-          <td><code>08-21-423-005</code></td>
-          <td><b>Karcher Artspace Lofts</b></td>
-          <td>Waukegan</td>
-          <td class="right"><b>$70,039</b></td>
-          <td class="right">55.8x</td>
-          <td><span class="badge badge-green">4.0%</span></td>
-          <td><span class="badge badge-purple">2x Redeemed</span></td>
-        </tr>
-        <tr>
-          <td><code>16-23-415-015</code></td>
-          <td><b>Mark &amp; Julie Filler</b></td>
-          <td>Highland Park</td>
-          <td class="right"><b>$51,687</b></td>
-          <td class="right">5.2x</td>
-          <td><span class="badge badge-green">4.0%</span></td>
-          <td><span class="badge badge-blue">1x Redeemed</span></td>
-        </tr>
-        <tr>
-          <td><code>15-34-309-002</code></td>
-          <td><b>100 Lexington Properties</b></td>
-          <td>Buffalo Grove</td>
-          <td class="right"><b>$36,361</b></td>
-          <td class="right">3.5x</td>
-          <td><span class="badge badge-green">4.0%</span></td>
-          <td><span class="badge badge-purple">2x Redeemed</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <h4>3. LAKE COUNTY 2026 REVISED BREAKDOWN (JAY'S SPECIFICATIONS)</h4>
+  <p>Applying Jay's filter to the 6,078 published parcels (removing full installments under $3,000, keeping all 1/2 installments and certs &gt;=$3,000):</p>
 
-    <h3 style="color:#1e3a8a; border-bottom:2px solid #e2e8f0; padding-bottom:6px; margin-top:24px;">4. Attachments for Stan &amp; Mary</h3>
-    <ol style="margin-top:8px; padding-left:20px;">
-      <li><b><code>Lake_County_2026_Presale_Targets_and_Subtax_Defense.xlsx</code></b>: Multi-tab workbook with all 268 2nd-installment targets, recommended bid rates (4% and 5%), and building metrics.</li>
-      <li><b><code>Subtax_Check_Requests_Mary.csv</code></b>: Ready-to-pay schedule for the 18 prior certificate parcels ($127,303 total) to post before the auction.</li>
-    </ol>
-    <p style="margin-top:20px;">
-      Let me know if you would like to adjust the bid rates on any specific townships or property types.
-    </p>
-    <p>
-      Best,<br>
-      <b>Louis Lapat</b>
-    </p>
-  </div>
-  <div class="footer">
-    Jennings Realty Inc. · Executive Tax Advisory · Confidential
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Segment</th>
+        <th class="right">Cert Count</th>
+        <th class="right">Total Dollars</th>
+        <th class="right">Avg Size</th>
+        <th>Workload &amp; Strategy Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Original Published List</td>
+        <td class="right">6,078</td>
+        <td class="right">$38,560,308</td>
+        <td class="right">$6,344</td>
+        <td>Full raw list from County Collector</td>
+      </tr>
+      <tr style="color:#991b1b; background:#fef2f2;">
+        <td><b>REMOVED: Full Inst &lt; $3,000</b></td>
+        <td class="right"><b>-1,067</b></td>
+        <td class="right"><b>-$1,159,368</b></td>
+        <td class="right">$1,086</td>
+        <td><b>ELIMINATES 1,067 FILING HEADACHES;</b> loses only 3.0% of $!</td>
+      </tr>
+      <tr style="background:#f0fdf4; font-weight:700;">
+        <td><b>REVISED FILTERED POOL</b></td>
+        <td class="right"><b>5,011</b></td>
+        <td class="right"><b>$37,400,940</b></td>
+        <td class="right"><b>$7,464</b></td>
+        <td>Clean, high-margin pool to deploy $2.0M target</td>
+      </tr>
+      <tr>
+        <td><b>  • Commercial &amp; Industrial</b></td>
+        <td class="right"><b>487</b></td>
+        <td class="right"><b>$8,152,465</b></td>
+        <td class="right"><b>$16,740</b></td>
+        <td>High ticket size ($16.7k avg) &amp; institutional backing</td>
+      </tr>
+      <tr>
+        <td><b>  • Residential &amp; Other</b></td>
+        <td class="right">4,524</td>
+        <td class="right">$29,248,475</td>
+        <td class="right">$6,465</td>
+        <td>Focus on 1/2 installments with Bldg &gt; 2x Land</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>4. WORKLOAD &amp; PROFIT STRATEGY</h4>
+  <ul>
+    <li>
+      <b>Minimizing Filing Workload:</b> Cutting full installments under $3k removes <b>1,067 low-dollar certificates</b> from ever needing court filings or take notices. Furthermore, within our 5,011 revised pool, <b>2,787 parcels ($12.35M) are 1/2 installments</b> where Cycle 1 was already paid—meaning over 95% redeem before we ever have to touch a legal petition.
+    </li>
+    <li>
+      <b>Maximizing Profit:</b> Focusing our $2.0M target on the <b>487 Commercial items ($8.15M)</b> and high-dollar 1/2 installments concentrates our capital into large balances, where the <b>12% statutory annual subtax carrying interest (+500 to +600 bps spread over Byline Bank borrowing cost)</b> generates our actual profit.
+    </li>
+  </ul>
+
+  <p>
+    Attached is the revised workbook (<code>Lake_County_2026_Presale_Targets.xlsx</code>) with dedicated tabs for:
+    <br>1. <b>2026 Sales Schedule &amp; Jay Filter</b>
+    <br>2. <b>2025 County Bids &amp; Competitors</b> (Full analysis of last year)
+    <br>3. <b>Commercial &amp; Industrial (487 certs)</b>
+    <br>4. <b>Residential &amp; Other (4,524 certs)</b>
+  </p>
+
+  <p>Let me know what you think.</p>
+
+  <p>
+    Best,<br>
+    <b>Louis</b>
+  </p>
 </div>
 </body>
 </html>

@@ -1,68 +1,8 @@
 {
-  "audit_timestamp": "2026-10-28 11:11:08",
+  "audit_timestamp": "2026-10-28 21:17:51",
   "status": "WARNING",
-  "total_exceptions": 16,
+  "total_exceptions": 10,
   "duplicate_payments": [
-    {
-      "entity": "1",
-      "description": "OFFICERS",
-      "amount": 103846.16,
-      "first_date": "260710",
-      "first_ref": "JDD",
-      "second_date": "260724",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "OFFICERS",
-      "amount": 103846.16,
-      "first_date": "260724",
-      "first_ref": "JDD",
-      "second_date": "260807",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "OFFICERS",
-      "amount": 103846.16,
-      "first_date": "260807",
-      "first_ref": "JDD",
-      "second_date": "260821",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "SAFE HARBOR",
-      "amount": 7838.92,
-      "first_date": "260710",
-      "first_ref": "JDD",
-      "second_date": "260724",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "SAFE HARBOR",
-      "amount": 7838.92,
-      "first_date": "260724",
-      "first_ref": "JDD",
-      "second_date": "260807",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
-    {
-      "entity": "1",
-      "description": "SAFE HARBOR",
-      "amount": 7838.92,
-      "first_date": "260807",
-      "first_ref": "JDD",
-      "second_date": "260821",
-      "second_ref": "JDD",
-      "days_apart": 14
-    },
     {
       "entity": "135",
       "description": "401K DEPOSIT",
