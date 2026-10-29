@@ -1417,6 +1417,10 @@ def generate_tax_html():
           <option value="flat4">Universal: 4% Flat on All Items</option>
           <option value="flat5">Match Market: 5% Flat on All Items</option>
         </select>
+        <select id="lakeCautionFilter" class="filter-select" onchange="renderLakeTargetTable()" style="border-color:#ef4444; font-weight:700;">
+          <option value="exclude" selected>🛡️ Jay Rule: Exclude Caution Areas (Auto-Purged)</option>
+          <option value="include">⚠️ Show Caution Areas (North Chicago &amp; Waukegan Liens)</option>
+        </select>
         <input type="text" id="lakeSearchInput" class="filter-input" onkeyup="renderLakeTargetTable()" placeholder="Search PIN, Taxpayer, Street Address, City, Township..." />
         <span id="lakeTargetCount" style="font-size:11px; color:var(--text-muted); margin-left:auto; font-weight:600;">Showing 0 parcels</span>
       </div>
@@ -1730,6 +1734,7 @@ function renderLakeTargetTable() {{
     const classVal = document.getElementById('lakeClassFilter') ? document.getElementById('lakeClassFilter').value : 'all';
     const twpVal = document.getElementById('lakeTwpFilter') ? document.getElementById('lakeTwpFilter').value : 'all';
     const ratePreset = document.getElementById('lakeRatePreset') ? document.getElementById('lakeRatePreset').value : 'standard';
+    const cautionVal = document.getElementById('lakeCautionFilter') ? document.getElementById('lakeCautionFilter').value : 'exclude';
     const searchVal = document.getElementById('lakeSearchInput') ? document.getElementById('lakeSearchInput').value.toLowerCase().trim() : '';
 
     let dataset = (tierVal === 'curated' && lakePresaleData.curated_2m_portfolio)
@@ -1737,6 +1742,13 @@ function renderLakeTargetTable() {{
         : lakePresaleData.top_targets;
 
     let filtered = dataset.filter(item => {{
+        // Jay Caution Rule: Auto-purge North Chicago & Waukegan Water Lien Sections
+        if (cautionVal === 'exclude') {{
+            if (item.waukegan_redline) return false;
+            if (item.city && item.city.toLowerCase().includes('north chicago')) return false;
+            if (item.township && item.township.toLowerCase().includes('north chicago')) return false;
+        }}
+
         if (tierVal === 'repeat' && (!item.prior_redemptions_count || item.prior_redemptions_count < 1)) return false;
         if (tierVal === 'half' && !item.is_half_installment) return false;
         if (tierVal === '50k' && item.tax_due < 50000) return false;
