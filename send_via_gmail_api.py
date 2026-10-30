@@ -28,19 +28,41 @@ DEFAULT_RECIPIENT = "louislapat@gmail.com"
 def get_gmail_service():
     """Authenticates and returns the Google Gmail API service instance."""
     creds = None
+    import pickle
+
+    # 1. Try active token.pickle from jim report viewer
+    jim_pickle = "/Users/louislapat/vibe/jim report viewer/token.pickle"
+    if os.path.exists(jim_pickle):
+        try:
+            with open(jim_pickle, "rb") as f:
+                creds = pickle.load(f)
+            if creds and creds.valid:
+                return build("gmail", "v1", credentials=creds)
+            elif creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+                with open(jim_pickle, "wb") as f:
+                    pickle.dump(creds, f)
+                return build("gmail", "v1", credentials=creds)
+        except Exception:
+            creds = None
+
+    # 2. Try credentials/gmail_send_token.json
     if os.path.exists(TOKEN_FILE):
         try:
             creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+            if creds and creds.valid:
+                return build("gmail", "v1", credentials=creds)
+            elif creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+                with open(TOKEN_FILE, "w") as token:
+                    token.write(creds.to_json())
+                return build("gmail", "v1", credentials=creds)
         except Exception:
             creds = None
 
     if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            print(f"[{time.strftime('%H:%M:%S')}] 🔄 Refreshing expired Gmail API OAuth token...")
-            creds.refresh(Request())
-        else:
-            if not os.path.exists(CREDS_FILE):
-                raise FileNotFoundError(f"OAuth credentials not found at {CREDS_FILE}")
+        if not os.path.exists(CREDS_FILE):
+            raise FileNotFoundError(f"OAuth credentials not found at {CREDS_FILE}")
             
             print(f"[{time.strftime('%H:%M:%S')}] 🌐 Opening browser for 1-time Google OAuth authorization...")
             print(f"👉 Please select your account ({DEFAULT_RECIPIENT}) and grant Gmail send permission.")
