@@ -1,5 +1,5 @@
 {
-  "as_of_date": "2026-10-30 06:00:44",
+  "as_of_date": "2026-10-30 10:51:52",
   "mary_daily_cash": {
     "this_week_inflows": 903197.2,
     "this_week_outflows": -124619.0,
@@ -148,17 +148,27 @@
       {
         "date": "2026-10-27",
         "inflows": 13532.83,
-        "outflows": 0.0,
+        "outflows": -21454.1,
         "cb_in": 7525.1,
         "if_in": 0.0,
         "dq_in": 0.0,
         "ut_in": 6007.73,
-        "net": 13532.83
+        "net": -7921.269999999999
+      },
+      {
+        "date": "2026-10-29",
+        "inflows": 13453.54,
+        "outflows": -86126.79,
+        "cb_in": 3901.51,
+        "if_in": 0.0,
+        "dq_in": 9552.03,
+        "ut_in": 0.0,
+        "net": -72673.25
       }
     ],
     "this_week_net": 778578.2,
-    "month_total_inflows": 3493182.11,
-    "month_total_outflows": -3672659.34
+    "month_total_inflows": 3506635.65,
+    "month_total_outflows": -3780240.23
   },
   "past_7_days_redemptions": {
     "count": 65,

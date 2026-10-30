@@ -1,33 +1,33 @@
 {
-  "as_of_date": "2026-10-30 06:00:46",
+  "as_of_date": "2026-10-30 10:57:12",
   "active_tab": "OCT 2026",
-  "total_bank_cash": 6267572.403000001,
+  "total_bank_cash": 8213366.622999989,
   "skyline_gl_cash": -891601675.4800001,
-  "in_flight_unposted": 897869247.8830001,
+  "in_flight_unposted": 899815042.1030002,
   "entity_bank_balances": [
     {
-      "entity": "JRI Byline Bank",
-      "balance": 1189906.0499999998
+      "entity": "J R Management",
+      "balance": 2968135.569999987
     },
     {
       "entity": "Sunkissed Village Operating",
-      "balance": 778655.4699999993
+      "balance": 784554.4299999992
     },
     {
       "entity": "Park City Payroll",
-      "balance": 722914.1100000003
+      "balance": 731384.4700000003
     },
     {
       "entity": "Bay Bayou Money Market",
-      "balance": 632905.6800000011
+      "balance": 597511.5600000011
     },
     {
       "entity": "JRI First Bank Money Market",
-      "balance": 518352.46
+      "balance": 518934.72000000003
     },
     {
       "entity": "Sunkissed Money Market",
-      "balance": 413779.01000000053
+      "balance": 409349.0000000006
     },
     {
       "entity": "Chalet Rent Account",
@@ -35,7 +35,7 @@
     },
     {
       "entity": "J R Inc.",
-      "balance": 236912.51999999798
+      "balance": 215924.97999999794
     },
     {
       "entity": "Lakeview MHP",
@@ -46,12 +46,16 @@
       "balance": 190174.83999999988
     },
     {
-      "entity": "Security Deposits",
-      "balance": 151987.55000000002
+      "entity": "JRI Byline Bank",
+      "balance": 189906.04999999993
     },
     {
       "entity": "The Bluffs West Shore Maint",
-      "balance": 122937.56999999998
+      "balance": 175499.99999999997
+    },
+    {
+      "entity": "Security Deposits",
+      "balance": 151987.55000000002
     },
     {
       "entity": "Diamond Quest Highland Park",
@@ -62,28 +66,24 @@
       "balance": 120003.23999999995
     },
     {
-      "entity": "The Bluffs Maintenance",
-      "balance": 99551.47999999997
-    },
-    {
       "entity": "JRI First Bank Highland Park",
-      "balance": 99297.43000000001
+      "balance": 99247.43000000001
     },
     {
-      "entity": "Diamond Quest Realty",
-      "balance": 95767.12000000023
+      "entity": "Central Buyer Corp",
+      "balance": 96959.7500000014
+    },
+    {
+      "entity": "The Bluffs Maintenance",
+      "balance": 93356.09999999998
     },
     {
       "entity": "Interstate Funding Corp",
-      "balance": 93187.22300000193
+      "balance": 83909.41300000188
     },
     {
       "entity": "Union Tax Investors",
       "balance": 41820.74999999959
-    },
-    {
-      "entity": "Interstate Funding Byline",
-      "balance": 37116.23999999961
     },
     {
       "entity": "Sunkissed Sales",
@@ -92,6 +92,10 @@
     {
       "entity": "Park City Plaza",
       "balance": 33329.05
+    },
+    {
+      "entity": "Interstate Funding Byline",
+      "balance": 28366.239999999612
     },
     {
       "entity": "Home Sites Series B",
@@ -107,11 +111,7 @@
     },
     {
       "entity": "Home Sites",
-      "balance": 7528.739999999991
-    },
-    {
-      "entity": "J R Management",
-      "balance": 6414.650000000838
+      "balance": 7980.259999999998
     },
     {
       "entity": "Bay Bayou RV Operating",
@@ -130,22 +130,22 @@
       "balance": 5.820766091346741e-11
     },
     {
-      "entity": "Central Buyer Corp",
-      "balance": -2.0372681319713593e-10
+      "entity": "Diamond Quest Realty",
+      "balance": -2.9103830456733704e-11
     }
   ],
   "executive_receipts": [
     {
       "category": "\ud83d\udcb5 General Cash Receipts",
-      "amount": 3993748.35
+      "amount": 4169054.93
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Redemptions",
-      "amount": 1112106.93
+      "amount": 1125560.47
     },
     {
       "category": "\ud83c\udfe0 Tenant Rental Income",
-      "amount": 859319.57
+      "amount": 873688.8899999999
     },
     {
       "category": "\ud83c\udfe2 Intercompany Management Fees",
@@ -157,17 +157,17 @@
     },
     {
       "category": "\ud83d\udcc4 Note Receivable Collections",
-      "amount": 1914.02
+      "amount": 1914.0300000000002
     }
   ],
   "executive_disbursements": [
     {
       "category": "\ud83d\udcb8 General Operating Disbursements",
-      "amount": 4814471.88
+      "amount": 5058411.339999999
     },
     {
       "category": "\ud83c\udfdb\ufe0f Tax Certificate Subtaxes Deployed",
-      "amount": 2502320.5399999996
+      "amount": 2502499.46
     },
     {
       "category": "\ud83d\udcbc Management & Operating Overhead",
@@ -175,7 +175,7 @@
     },
     {
       "category": "\ud83d\udc65 Payroll & Employee Benefits",
-      "amount": 487324.71
+      "amount": 509650.37000000005
     },
     {
       "category": "\ud83c\udfe1 Mortgage Principal & Interest",
@@ -187,11 +187,11 @@
     },
     {
       "category": "\ud83d\udcb0 Owner & Trust Distributions",
-      "amount": 31259.26
+      "amount": 80714.26
     },
     {
       "category": "\ud83d\udcd1 Real Estate & Sales Taxes",
-      "amount": 24204.870000000003
+      "amount": 45480.05
     }
   ],
   "raw_receipts": [
@@ -201,11 +201,11 @@
     },
     {
       "category": "C/R REDEMPTIONS",
-      "amount": 1112106.93
+      "amount": 1125560.47
     },
     {
       "category": "C/R RENTS",
-      "amount": 859319.57
+      "amount": 873688.8899999999
     },
     {
       "category": "C/R MANAGEMENT FEES",
@@ -220,6 +220,10 @@
       "amount": 323737.12
     },
     {
+      "category": "C/R OTHER-DEPOSIT ON MH SALE",
+      "amount": 175500.0
+    },
+    {
       "category": "C/R OTHER INSURANCE REFUND",
       "amount": 67818.76999999999
     },
@@ -228,22 +232,22 @@
       "amount": 18803.14
     },
     {
-      "category": "C/R OTHER SPECTRUM REFUND SUNKISSED",
-      "amount": 6221.23
+      "category": "C/R OTHER",
+      "amount": 6335.37
     }
   ],
   "raw_disbursements": [
     {
       "category": "C/D TRANSFER",
-      "amount": 3503192.61
+      "amount": 3534837.04
     },
     {
       "category": "C/D SUBTAXES",
-      "amount": 2481045.36
+      "amount": 2502499.46
     },
     {
       "category": "C/D OPER EXP",
-      "amount": 1259051.6800000002
+      "amount": 1385219.9200000004
     },
     {
       "category": "C/D MGMT FEES-OP COSTS",
@@ -251,7 +255,7 @@
     },
     {
       "category": "C/D PAYROLL",
-      "amount": 394300.01
+      "amount": 416625.67000000004
     },
     {
       "category": "C/D MORTGAGE PYMT",
@@ -262,6 +266,14 @@
       "amount": 93024.7
     },
     {
+      "category": "C/D CERT PURCHASE",
+      "amount": 86126.79
+    },
+    {
+      "category": "C/D TRUST/SUB S DISTRIBUTION",
+      "amount": 80714.26
+    },
+    {
       "category": "C/D FAMILY LOANS",
       "amount": 78959.52
     },
@@ -270,18 +282,10 @@
       "amount": 40060.87
     },
     {
-      "category": "C/D E CHECK FEES",
-      "amount": 34343.55
-    },
-    {
-      "category": "C/D LOAN INTEREST",
-      "amount": 32779.11
-    },
-    {
-      "category": "C/D TRUST/SUB S DISTRIBUTION",
-      "amount": 31259.26
+      "category": "C/D TAX BUYER INTEREST",
+      "amount": 34910.64
     }
   ],
-  "total_receipts_mtd": 6623600.99,
-  "total_disbursements_mtd": -8876825.209999999
+  "total_receipts_mtd": 6826730.4399999995,
+  "total_disbursements_mtd": -9213999.43
 }

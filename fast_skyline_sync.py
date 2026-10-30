@@ -60,18 +60,27 @@ def run_fast_sync(max_workers: int = 16) -> Set[str]:
         if os.path.exists(s):
             tasks.append((s, d))
 
-    # 2. Add all company essential files
-    print(f"Scanning company directories on mapped drive...", flush=True)
+    # 2. Add all company essential files in parallel
+    print(f"Scanning company directories on mapped drive in parallel...", flush=True)
     company_folders = [f for f in os.listdir(SOURCE_IFS) if os.path.isdir(os.path.join(SOURCE_IFS, f)) and not f.startswith(".")]
 
-    for comp in company_folders:
+    def scan_company(comp: str) -> List[Tuple[str, str]]:
+        sub_tasks = []
         src_comp = os.path.join(SOURCE_IFS, comp)
         dst_comp = os.path.join(DEST_LOCAL, "IFS", comp)
-        for tbl in ESSENTIAL_TABLES:
-            s_file = os.path.join(src_comp, tbl)
-            d_file = os.path.join(dst_comp, tbl)
-            if os.path.exists(s_file):
-                tasks.append((s_file, d_file))
+        try:
+            available = set(os.listdir(src_comp))
+            for tbl in ESSENTIAL_TABLES:
+                if tbl in available:
+                    sub_tasks.append((os.path.join(src_comp, tbl), os.path.join(dst_comp, tbl)))
+        except Exception:
+            pass
+        return sub_tasks
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as scan_executor:
+        scan_results = scan_executor.map(scan_company, company_folders)
+        for r in scan_results:
+            tasks.extend(r)
 
     print(f"Total essential files identified across all companies: {len(tasks):,} files.")
     print(f"Starting multi-threaded transfer across {max_workers} threads...", flush=True)
