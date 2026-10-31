@@ -256,6 +256,8 @@ def calculate_nav(verbose=True):
         },
         "jays_communities_schedule": in_place["assets"],
         "jays_expansions_schedule": expansion["projects"],
+        "refinance_feasibility_stress_test": re_data.get("refinance_feasibility_stress_test", {}),
+        "forward_tax_portfolio_model": re_data.get("forward_tax_portfolio_model", {}),
         "pillars": pillars
     }
 

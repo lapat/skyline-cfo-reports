@@ -4640,6 +4640,35 @@ function renderValuationView() {{
     const comms = nav.jays_communities_schedule || [];
     const exps = nav.jays_expansions_schedule || [];
     const pillars = nav.pillars || [];
+    // Direction 2: Refinance Feasibility & Bank DSCR Scenarios
+    const refiStress = nav.refinance_feasibility_stress_test || {{}};
+    const refiScenarios = refiStress.scenarios || [];
+    let refiScenarioRows = "";
+    refiScenarios.forEach(sc => {{
+        const isApproved = sc.overall_bank_approval.includes('✅');
+        const isTight = sc.overall_bank_approval.includes('⚠️');
+        refiScenarioRows += `
+            <tr style="${{sc.interest_rate_pct === 7.0 ? 'background:rgba(59,130,246,0.12); font-weight:700;' : ''}}">
+                <td>
+                    <b>${{sc.rate_label}}</b>
+                    ${{sc.interest_rate_pct === 7.0 ? '<span class="badge badge-blue" style="font-size:9px; margin-left:4px;">Current Market Baseline</span>' : ''}}
+                </td>
+                <td class="right" style="font-size:12px;">$${{Number(sc.total_refinance_loan).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--danger); font-size:12px;">$${{Number(sc.total_annual_debt_service).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--success); font-size:12.5px; font-weight:700;">$${{Number(sc.total_stabilized_noi).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="font-weight:800; color:${{isApproved ? 'var(--success)' : (isTight ? 'var(--warn)' : 'var(--danger)')}}; font-size:13px;">${{sc.portfolio_dscr}}x</td>
+                <td class="right" style="font-weight:700; color:var(--accent); font-size:12.5px;">${{sc.portfolio_debt_yield_pct}}%</td>
+                <td class="right"><span class="badge ${{isApproved ? 'badge-green' : (isTight ? 'badge-blue' : 'badge-purple')}}" style="font-size:9.5px; font-weight:800;">${{sc.overall_bank_approval}}</span></td>
+            </tr>
+        `;
+    }});
+
+    // Direction 3: Forward Tax Business vs Real Estate Scorecard
+    const taxModel = nav.forward_tax_portfolio_model || {{}};
+    const capScorecard = taxModel.capital_allocation_scorecard || {{}};
+    const taxBiz = capScorecard.tax_business || {{}};
+    const reBiz = capScorecard.real_estate_communities || {{}};
+
 
     const inPlaceNav = ip.net_asset_value || 579908477.90;
     const inPlaceGav = ip.gross_asset_value || 676512545.90;
@@ -4853,6 +4882,41 @@ function renderValuationView() {{
             </div>
         </div>
 
+        
+        <!-- DIRECTION 2: EXPANSION REFINANCE DSCR STRESS TEST -->
+        <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(139,92,246,0.35);">
+            <div class="table-header" style="background:rgba(139,92,246,0.12);">
+                <div>
+                    <h3 style="color:#c4b5fd;">🏦 Direction 2: Refinance Feasibility &amp; Bank DSCR Stress Test ($36.75M Debt Takeout)</h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                        Stress-testing Jay's 50% LTV permanent financing takeout across interest rates (6.0% - 8.0%) against commercial bank hurdles: <b>Minimum 1.25x DSCR</b> &amp; <b>9.0% Debt Yield</b> (25-Year Amortization).
+                    </div>
+                </div>
+                <span class="badge badge-purple" style="font-size:11px; font-weight:800;">Bank Underwriting Sizing</span>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Interest Rate Scenario</th>
+                            <th class="right">Total 50% Loan Amount</th>
+                            <th class="right">Annual Debt Service</th>
+                            <th class="right">Stabilized NOI</th>
+                            <th class="right">Debt Service Coverage (DSCR)</th>
+                            <th class="right">Debt Yield %</th>
+                            <th class="right">Bank Credit Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{refiScenarioRows}}
+                    </tbody>
+                </table>
+            </div>
+            <div style="background:rgba(0,0,0,0.2); padding:10px 16px; font-size:11.5px; color:#cbd5e1; border-top:1px solid var(--border); line-height:1.5;">
+                📌 <b>Underwriting Conclusion for Jay:</b> At current market rates (7.0% SOFR + spread), the portfolio generates an average <b>9.78% Debt Yield</b>, satisfying bank underwriting covenants. Sunkissed and Madison easily clear <b>1.30x+ DSCR</b>, while The Bluffs MH (4.0% cap rate) operates at 0.94x DSCR at 50% LTV, meaning the lender will size The Bluffs takeout closer to <b>40% LTV ($12.0M)</b> unless a 30-year amortization or lower interest rate is negotiated.
+            </div>
+        </div>
+
         <!-- SCHEDULE 3: MASTER TOTAL ENTERPRISE NAV WATERFALL -->
         <div class="table-wrapper" style="margin-top:24px;">
             <div class="table-header">
@@ -4897,6 +4961,64 @@ function renderValuationView() {{
                 </table>
             </div>
         </div>
+
+        <!-- DIRECTION 3: CAPITAL ALLOCATION SCORECARD (TAX VS REAL ESTATE) -->
+        <div class="table-wrapper" style="margin-top:24px; border:1px solid rgba(16,185,129,0.4); background:linear-gradient(180deg, rgba(15,23,42,0.85) 0%, rgba(6,78,59,0.3) 100%);">
+            <div class="table-header" style="background:rgba(16,185,129,0.15);">
+                <div>
+                    <h3 style="color:#6ee7b7;">⚖️ Direction 3: Forward 12-Month Capital Allocation Scorecard (Tax Liens vs. Real Estate)</h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                        Applying Jay's forward-looking earnings philosophy to evaluate where Jennings should deploy its next $10M of capital (Opportunity Cost of Capital).
+                    </div>
+                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">26.2% Tax ROE vs. 4.1% Real Estate</span>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Business Segment &amp; Operating Model</th>
+                            <th class="right">Total Asset Base</th>
+                            <th class="right">Jennings Equity Invested</th>
+                            <th class="right">Forward 12M Net Cash Flow</th>
+                            <th class="right">Return on Equity (ROE %)</th>
+                            <th class="right" style="color:var(--accent);">Annual Cash per $1,000,000 Invested</th>
+                            <th>Leverage Architecture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:rgba(16,185,129,0.12); font-weight:700;">
+                            <td>
+                                <b style="color:#a7f3d0; font-size:13px;">🏆 Tax Certificate Buying Business</b>
+                                <div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">6 tax entities (Interstate, Central Buyer, Diamond Quest, Union Tax, etc.)</div>
+                            </td>
+                            <td class="right" style="font-size:12.5px;">$${{Number(taxBiz.asset_base || 40622612).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-size:12.5px; color:#fff;">$${{Number(taxBiz.jennings_equity_invested || 10398298).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-size:13px; color:var(--success); font-weight:800;">+$${{Number(taxBiz.forward_12m_net_cash_flow || 2719875).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-size:15px; color:#34d399; font-weight:900;">${{taxBiz.return_on_equity_pct || 26.2}}% ROE</td>
+                            <td class="right" style="font-size:14px; color:#60a5fa; font-weight:900;">+$${{Number(taxBiz.annual_cash_per_1m_invested || 261500).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
+                            <td style="font-size:11px; color:#93c5fd;">95% Bank Advance Rate (First Chicago &amp; Byline)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b style="font-size:13px;">🏡 Core Manufactured Housing &amp; RV Communities</b>
+                                <div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">Park City, Bay Bayou, Lakeview, Sunkissed, The Bluffs, Madison</div>
+                            </td>
+                            <td class="right" style="font-size:12.5px;">$${{Number(reBiz.asset_base || 600696855).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-size:12.5px; color:#fff;">$${{Number(reBiz.jennings_equity_invested || 536417101).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-size:13px; color:var(--success); font-weight:800;">+$${{Number(reBiz.forward_12m_net_cash_flow || 22094939).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-size:13.5px; color:var(--text-primary); font-weight:800;">${{reBiz.return_on_equity_pct || 4.1}}% COE</td>
+                            <td class="right" style="font-size:13px; color:var(--text-muted); font-weight:700;">+$${{Number(reBiz.annual_cash_per_1m_invested || 41200).toLocaleString('en-US', {{maximumFractionDigits:0}})}}/yr</td>
+                            <td style="font-size:11px; color:var(--text-muted);">10.7% LTV Permanent Institutional Mortgages</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="background:rgba(0,0,0,0.25); padding:12px 16px; font-size:11.5px; color:#cbd5e1; border-top:1px solid var(--border); line-height:1.5;">
+                💡 <b>Strategic Capital Takeaway for Jay &amp; Patrick:</b> The Tax Certificate business delivers a <b>26.2% Return on Equity</b> ($261,500/year per $1M invested) compared to <b>4.1% Cash-on-Equity</b> ($41,200/year per $1M invested) in physical real estate. This massive <b>6.4x return multiplier</b> is driven by institutional 95% bank leverage combined with statutory 12.0% carry. When the $36.75M in expansion cash-out refinance capital is returned to the firm, Jay should deploy that capital into scaling the tax certificate borrowing lines rather than paying down low-cost permanent real estate debt!
+            </div>
+        </div>
+
     `;
 }}
 function renderCapexView() {{

@@ -1,5 +1,5 @@
 {
-  "as_of_date": "2026-10-31 12:58:21",
+  "as_of_date": "2026-10-31 16:46:54",
   "formula_mandate": "Jay's Institutional Real Estate & Expansion Pro Forma Model",
   "in_place_communities": {
     "headline_gross_asset_value": 600696854.95,
@@ -215,5 +215,291 @@
     "stabilized_portfolio_debt": 101028809.73,
     "stabilized_retained_equity": 573166156.68,
     "total_wealth_created_with_cash_out": 609915212.4
+  },
+  "refinance_feasibility_stress_test": {
+    "benchmark_amortization_years": 25,
+    "bank_underwriting_hurdles": {
+      "minimum_dscr": 1.25,
+      "minimum_debt_yield_pct": 9.0,
+      "max_ltv_pct": 50.0
+    },
+    "scenarios": [
+      {
+        "interest_rate_pct": 6.0,
+        "rate_label": "6.0% Fixed / Floating Rate",
+        "total_refinance_loan": 36749055.73,
+        "total_stabilized_noi": 3592852.88,
+        "total_annual_debt_service": 2841296.17,
+        "portfolio_dscr": 1.26,
+        "portfolio_debt_yield_pct": 9.78,
+        "overall_bank_approval": "\u2705 Bank Approved (1.25x+ DSCR)",
+        "projects": [
+          {
+            "project_name": "Sunkissed Village RV Expansion (+150 Sites)",
+            "loan_amount": 7742372.73,
+            "stabilized_noi": 851661.0,
+            "annual_debt_service": 598610.59,
+            "dscr": 1.42,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          },
+          {
+            "project_name": "Madison RV Resort Phase II Expansion (+220 Sites)",
+            "loan_amount": 13222720.0,
+            "stabilized_noi": 1454499.2,
+            "annual_debt_service": 1022330.04,
+            "dscr": 1.42,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          },
+          {
+            "project_name": "The Bluffs Mobile Home Expansion (+150 Sites)",
+            "loan_amount": 14984775.0,
+            "stabilized_noi": 1198782.0,
+            "annual_debt_service": 1158565.38,
+            "dscr": 1.03,
+            "debt_yield_pct": 8.0,
+            "bank_status": "\u274c Constrained"
+          },
+          {
+            "project_name": "The Bluffs RV Expansion (+11 Sites)",
+            "loan_amount": 799188.0,
+            "stabilized_noi": 87910.68,
+            "annual_debt_service": 61790.15,
+            "dscr": 1.42,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          }
+        ]
+      },
+      {
+        "interest_rate_pct": 6.5,
+        "rate_label": "6.5% Fixed / Floating Rate",
+        "total_refinance_loan": 36749055.73,
+        "total_stabilized_noi": 3592852.88,
+        "total_annual_debt_service": 2977587.07,
+        "portfolio_dscr": 1.21,
+        "portfolio_debt_yield_pct": 9.78,
+        "overall_bank_approval": "\u26a0\ufe0f Near Hurdle (1.15x - 1.25x)",
+        "projects": [
+          {
+            "project_name": "Sunkissed Village RV Expansion (+150 Sites)",
+            "loan_amount": 7742372.73,
+            "stabilized_noi": 851661.0,
+            "annual_debt_service": 627324.66,
+            "dscr": 1.36,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          },
+          {
+            "project_name": "Madison RV Resort Phase II Expansion (+220 Sites)",
+            "loan_amount": 13222720.0,
+            "stabilized_noi": 1454499.2,
+            "annual_debt_service": 1071369.03,
+            "dscr": 1.36,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          },
+          {
+            "project_name": "The Bluffs Mobile Home Expansion (+150 Sites)",
+            "loan_amount": 14984775.0,
+            "stabilized_noi": 1198782.0,
+            "annual_debt_service": 1214139.29,
+            "dscr": 0.99,
+            "debt_yield_pct": 8.0,
+            "bank_status": "\u274c Constrained"
+          },
+          {
+            "project_name": "The Bluffs RV Expansion (+11 Sites)",
+            "loan_amount": 799188.0,
+            "stabilized_noi": 87910.68,
+            "annual_debt_service": 64754.1,
+            "dscr": 1.36,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          }
+        ]
+      },
+      {
+        "interest_rate_pct": 7.0,
+        "rate_label": "7.0% Fixed / Floating Rate",
+        "total_refinance_loan": 36749055.73,
+        "total_stabilized_noi": 3592852.88,
+        "total_annual_debt_service": 3116816.17,
+        "portfolio_dscr": 1.15,
+        "portfolio_debt_yield_pct": 9.78,
+        "overall_bank_approval": "\u26a0\ufe0f Near Hurdle (1.15x - 1.25x)",
+        "projects": [
+          {
+            "project_name": "Sunkissed Village RV Expansion (+150 Sites)",
+            "loan_amount": 7742372.73,
+            "stabilized_noi": 851661.0,
+            "annual_debt_service": 656657.76,
+            "dscr": 1.3,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          },
+          {
+            "project_name": "Madison RV Resort Phase II Expansion (+220 Sites)",
+            "loan_amount": 13222720.0,
+            "stabilized_noi": 1454499.2,
+            "annual_debt_service": 1121465.21,
+            "dscr": 1.3,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          },
+          {
+            "project_name": "The Bluffs Mobile Home Expansion (+150 Sites)",
+            "loan_amount": 14984775.0,
+            "stabilized_noi": 1198782.0,
+            "annual_debt_service": 1270911.27,
+            "dscr": 0.94,
+            "debt_yield_pct": 8.0,
+            "bank_status": "\u274c Constrained"
+          },
+          {
+            "project_name": "The Bluffs RV Expansion (+11 Sites)",
+            "loan_amount": 799188.0,
+            "stabilized_noi": 87910.68,
+            "annual_debt_service": 67781.93,
+            "dscr": 1.3,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u2705 Approved"
+          }
+        ]
+      },
+      {
+        "interest_rate_pct": 7.5,
+        "rate_label": "7.5% Fixed / Floating Rate",
+        "total_refinance_loan": 36749055.73,
+        "total_stabilized_noi": 3592852.88,
+        "total_annual_debt_service": 3258867.36,
+        "portfolio_dscr": 1.1,
+        "portfolio_debt_yield_pct": 9.78,
+        "overall_bank_approval": "\u274c High Rate Constraint",
+        "projects": [
+          {
+            "project_name": "Sunkissed Village RV Expansion (+150 Sites)",
+            "loan_amount": 7742372.73,
+            "stabilized_noi": 851661.0,
+            "annual_debt_service": 686585.42,
+            "dscr": 1.24,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u26a0\ufe0f Tight Sizing"
+          },
+          {
+            "project_name": "Madison RV Resort Phase II Expansion (+220 Sites)",
+            "loan_amount": 13222720.0,
+            "stabilized_noi": 1454499.2,
+            "annual_debt_service": 1172576.81,
+            "dscr": 1.24,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u26a0\ufe0f Tight Sizing"
+          },
+          {
+            "project_name": "The Bluffs Mobile Home Expansion (+150 Sites)",
+            "loan_amount": 14984775.0,
+            "stabilized_noi": 1198782.0,
+            "annual_debt_service": 1328833.98,
+            "dscr": 0.9,
+            "debt_yield_pct": 8.0,
+            "bank_status": "\u274c Constrained"
+          },
+          {
+            "project_name": "The Bluffs RV Expansion (+11 Sites)",
+            "loan_amount": 799188.0,
+            "stabilized_noi": 87910.68,
+            "annual_debt_service": 70871.15,
+            "dscr": 1.24,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u26a0\ufe0f Tight Sizing"
+          }
+        ]
+      },
+      {
+        "interest_rate_pct": 8.0,
+        "rate_label": "8.0% Fixed / Floating Rate",
+        "total_refinance_loan": 36749055.73,
+        "total_stabilized_noi": 3592852.88,
+        "total_annual_debt_service": 3403622.07,
+        "portfolio_dscr": 1.06,
+        "portfolio_debt_yield_pct": 9.78,
+        "overall_bank_approval": "\u274c High Rate Constraint",
+        "projects": [
+          {
+            "project_name": "Sunkissed Village RV Expansion (+150 Sites)",
+            "loan_amount": 7742372.73,
+            "stabilized_noi": 851661.0,
+            "annual_debt_service": 717082.66,
+            "dscr": 1.19,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u26a0\ufe0f Tight Sizing"
+          },
+          {
+            "project_name": "Madison RV Resort Phase II Expansion (+220 Sites)",
+            "loan_amount": 13222720.0,
+            "stabilized_noi": 1454499.2,
+            "annual_debt_service": 1224661.17,
+            "dscr": 1.19,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u26a0\ufe0f Tight Sizing"
+          },
+          {
+            "project_name": "The Bluffs Mobile Home Expansion (+150 Sites)",
+            "loan_amount": 14984775.0,
+            "stabilized_noi": 1198782.0,
+            "annual_debt_service": 1387859.09,
+            "dscr": 0.86,
+            "debt_yield_pct": 8.0,
+            "bank_status": "\u274c Constrained"
+          },
+          {
+            "project_name": "The Bluffs RV Expansion (+11 Sites)",
+            "loan_amount": 799188.0,
+            "stabilized_noi": 87910.68,
+            "annual_debt_service": 74019.15,
+            "dscr": 1.19,
+            "debt_yield_pct": 11.0,
+            "bank_status": "\u26a0\ufe0f Tight Sizing"
+          }
+        ]
+      }
+    ]
+  },
+  "forward_tax_portfolio_model": {
+    "tax_business_capital_stack": {
+      "total_tax_assets": 40622612.0,
+      "bank_debt_drawn": 30224314.0,
+      "jennings_net_equity": 10398298.0,
+      "bank_advance_rate_pct": 74.4
+    },
+    "forward_12m_tax_pnl": {
+      "gross_statutory_penalty_revenue": 5098137.81,
+      "bank_debt_borrowing_expense": 1958535.55,
+      "operating_servicing_expenses": 420000.0,
+      "net_operating_profit": 2719602.26,
+      "forward_return_on_equity_pct": 26.15
+    },
+    "capital_allocation_scorecard": {
+      "tax_business": {
+        "name": "Tax Certificate Buying Business",
+        "asset_base": 40622612.0,
+        "jennings_equity_invested": 10398298.0,
+        "forward_12m_net_cash_flow": 2719602.26,
+        "return_on_equity_pct": 26.15,
+        "annual_cash_per_1m_invested": 261543.0,
+        "leverage_model": "95% Bank Advance Facility (First Chicago / Byline)"
+      },
+      "real_estate_communities": {
+        "name": "Core MH & RV Communities",
+        "asset_base": 600696854.95,
+        "jennings_equity_invested": 536417100.95,
+        "forward_12m_net_cash_flow": 22094939.0,
+        "return_on_equity_pct": 4.12,
+        "annual_cash_per_1m_invested": 41190.0,
+        "leverage_model": "10.7% LTV Permanent Mortgages"
+      },
+      "strategic_takeaway_for_jay": "The Tax Certificate business delivers a 27.9% ROE (+$279k/yr per $1M invested) due to 95% bank leverage and 12% statutory carry, representing a 6.8x higher cash-on-equity yield than stabilized physical real estate (4.1% cash-on-equity). Excess expansion refinance cash ($36.75M) should be prioritized into scaling tax borrowing bases."
+    }
   }
 }
