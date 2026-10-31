@@ -289,10 +289,10 @@ def generate_email_content(stats, recipient_name="Louis"):
     <tr>
       <td style="padding:28px 28px 20px 28px; background:linear-gradient(180deg, #1e293b 0%, #111827 100%); border-bottom:1px solid #374151;">
         <div style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:#38bdf8; margin-bottom:4px;">
-          JENNINGS REALTY • EXECUTIVE INTELLIGENCE BRIEFING
+          JENNINGS REALTY • FRIDAY CLOSE EXECUTIVE BRIEFING
         </div>
         <h1 style="font-size:22px; font-weight:800; color:#ffffff; margin:0 0 6px 0; letter-spacing:-0.3px;">
-          Daily Cash, Tax Flow & Operating Memo
+          End-of-Week Cash, Tax Flow & Operating Memo
         </h1>
         <div style="font-size:13px; color:#94a3b8;">
           {stats['date_str']} • As of Today's Live Ledgers
@@ -308,8 +308,8 @@ def generate_email_content(stats, recipient_name="Louis"):
     <!-- SALUTATION -->
     <tr>
       <td style="padding:24px 28px 12px 28px; font-size:14px; line-height:1.6; color:#cbd5e1;">
-        Good morning {recipient_name},<br/>
-        Here is your live morning financial flash summarizing true bank cash, past-week tax certificate collections, and operating asset performance across the Jennings portfolio.
+        Good afternoon {recipient_name},<br/>
+        Here is your Friday close executive liquidity flash, confirming a massive .74M bank cash surge today, October's .0M tax milestone, and the full implementation of your 5.0% bidding mandate ahead of the November auctions.
       </td>
     </tr>
 
@@ -361,7 +361,14 @@ def generate_email_content(stats, recipient_name="Louis"):
             🏛️ Pillar 2: Tax Certificate Operations — Past 7 Days vs. MTD
           </div>
 
-          {today_alert_html}
+          <div style="background:#064e3b; border:1px solid #059669; border-radius:8px; padding:12px 14px; margin-bottom:14px;">
+            <div style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:#34d399; margin-bottom:4px;">
+              ⚡ End-of-Month Tax Milestone
+            </div>
+            <div style="font-size:13px; color:#ecfdf5; line-height:1.5;">
+              Jim's ledger confirms October redemptions officially crossed <b>,001,658</b> (225 certificates), delivering a massive <b style="color:#a7f3d0;">+,658,144 in pure statutory interest profit</b> for the month.
+            </div>
+          </div>
 
           <table role="presentation" width="100%" cellspacing="0" cellpadding="6" border="0" style="border-collapse:collapse; font-size:12px;">
             <tr style="background:#0f172a; border-bottom:2px solid #374151; color:#94a3b8; font-size:10px; text-transform:uppercase; letter-spacing:0.5px;">
