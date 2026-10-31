@@ -575,6 +575,10 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
     border-radius: 8px;
     border: 1px solid var(--border);
     overflow-x: auto;
+    min-height: 38px;
+    align-items: center;
+    gap: 4px;
+    box-sizing: border-box;
 }}
 
 .toggle-btn {{
@@ -583,11 +587,12 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
     font-size: 11.5px;
     font-weight: 700;
     cursor: pointer;
-    border: none;
+    border: 1px solid transparent;
     background: transparent;
     color: var(--text-muted);
-    transition: all 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease;
     white-space: nowrap;
+    box-sizing: border-box;
 }}
 
 .toggle-btn.active {{
@@ -663,16 +668,17 @@ body {{ font-family: var(--font); background: var(--bg-primary); color: var(--te
     font-size: 11.5px;
     font-weight: 800;
     cursor: pointer;
-    border: none;
+    border: 1px solid transparent;
     background: transparent;
     color: var(--text-muted);
-    transition: all 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     white-space: nowrap;
+    box-sizing: border-box;
 }}
 .pillar-tab.active {{
     background: rgba(59, 130, 246, 0.15);
     color: var(--accent);
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.3);
 }}
 
 /* Click to Sort & Export styling */
@@ -5652,8 +5658,26 @@ function toggleTheme() {{
 
 let currentPillar = 'treasury';
 
-function switchPillar(pillar) {{
+const modeToButtonId = {{
+    'summary': 'btnModeSummary',
+    'visual': 'btnModeVisual',
+    'split': 'btnModeSplit',
+    'skyline_pdf': 'btnModeSkylinePdf',
+    'jim_pdf': 'btnModeJimPdf',
+    'jim_summary': 'btnModeJimSummary',
+    'cash_flash': 'btnModeCashFlash',
+    'liquidity': 'btnModeLiquidity',
+    'forecast': 'btnModeForecast',
+    'valuation': 'btnModeValuation',
+    'tax_activity': 'btnModeTaxActivity',
+    'northstar': 'btnModeNorthStar',
+    'capex': 'btnModeCapex'
+}};
+
+function switchPillar(pillar, targetMode) {{
+    if (currentPillar === pillar && !targetMode) return;
     currentPillar = pillar;
+
     document.getElementById('pillarTabFinancials').classList.toggle('active', pillar === 'financials');
     document.getElementById('pillarTabTreasury').classList.toggle('active', pillar === 'treasury');
     document.getElementById('pillarTabAssets').classList.toggle('active', pillar === 'assets');
@@ -5674,11 +5698,14 @@ function switchPillar(pillar) {{
     trsButtons.forEach(id => {{ const el = document.getElementById(id); if (el) el.style.display = (pillar === 'treasury') ? 'inline-block' : 'none'; }});
     astButtons.forEach(id => {{ const el = document.getElementById(id); if (el) el.style.display = (pillar === 'assets') ? 'inline-block' : 'none'; }});
 
-    if (pillar === 'financials' && !finButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {{
+    const currentBtn = modeToButtonId[currentViewMode];
+    if (targetMode) {{
+        setViewMode(targetMode);
+    }} else if (pillar === 'financials' && !finButtons.includes(currentBtn)) {{
         setViewMode('summary');
-    }} else if (pillar === 'treasury' && !trsButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {{
+    }} else if (pillar === 'treasury' && !trsButtons.includes(currentBtn)) {{
         setViewMode('cash_flash');
-    }} else if (pillar === 'assets' && !astButtons.includes('btnMode' + currentViewMode.charAt(0).toUpperCase() + currentViewMode.slice(1))) {{
+    }} else if (pillar === 'assets' && !astButtons.includes(currentBtn)) {{
         setViewMode('tax_activity');
     }}
 }}
