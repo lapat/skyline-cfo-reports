@@ -4629,23 +4629,82 @@ function renderValuationView() {{
     if (!pane) return;
 
     const nav = enterpriseNavData || {{}};
-    const navVal = nav.net_asset_value || 276796498.45;
-    const gavVal = nav.gross_asset_value || 373759812.45;
-    const debtVal = nav.total_enterprise_debt || 96963314.00;
-    const ltvPct = nav.loan_to_value_ratio_pct || 25.9;
+    const ip = nav.in_place_summary || {{}};
+    const stab = nav.stabilized_expansion_summary || {{}};
+    const comms = nav.jays_communities_schedule || [];
+    const exps = nav.jays_expansions_schedule || [];
     const pillars = nav.pillars || [];
-    const insights = nav.strategic_insights_for_jay || [];
 
+    const inPlaceNav = ip.net_asset_value || 579908477.90;
+    const inPlaceGav = ip.gross_asset_value || 676512545.90;
+    const inPlaceDebt = ip.total_enterprise_debt || 96604068.00;
+    const inPlaceLtv = ip.loan_to_value_ratio_pct || 14.3;
+
+    const stabNav = stab.stabilized_net_enterprise_value || 653406589.36;
+    const stabGav = stab.stabilized_gross_asset_value || 750010657.35;
+    const stabLtv = stab.stabilized_ltv_pct || 17.8;
+    const expValue = stab.total_expansion_value_created || 73498111.45;
+    const expCashOut = stab.expansion_refi_cash_extracted || 36749055.73;
+    const expEquity = stab.expansion_retained_equity || 36749055.73;
+
+    // 1. Community Rows (Schedule 1)
+    let commRows = "";
+    comms.forEach(c => {{
+        commRows += `
+            <tr>
+                <td>
+                    <b>${{c.name}}</b>
+                    <span class="badge ${{c.type === 'MH' ? 'badge-purple' : (c.type === 'MIXED' ? 'badge-blue' : 'badge-green')}}" style="font-size:9px; margin-left:4px;">${{c.type}}</span>
+                    <div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">${{c.existing_sites}} Developed Sites &middot; T12 Rev: $${{Number(c.t12_revenue).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                </td>
+                <td class="right" style="color:var(--text-primary); font-size:12px;">$${{Number(c.forward_revenue_plus3pct).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--warn); font-size:12px;">
+                    $${{Number(c.forward_expenses_plus1pct).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
+                    <div style="font-size:9.5px; color:var(--success);" title="Intercompany management fee added back">+${{Number(c.mgmt_fee_addback).toLocaleString('en-US', {{maximumFractionDigits:0}})}} mgmt</div>
+                </td>
+                <td class="right" style="color:var(--success); font-weight:700; font-size:12.5px;">$${{Number(c.forward_noi).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right"><span class="badge badge-blue" style="font-size:10px; font-weight:800;">${{(c.cap_rate * 100).toFixed(1)}}%</span></td>
+                <td class="right" style="color:#fff; font-weight:800; font-size:13px;">$${{Number(c.gross_asset_value).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--danger); font-size:12px;">-$${{Number(c.actual_debt_due_now).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--success); font-weight:900; font-size:13.5px;">$${{Number(c.owners_equity_nav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right"><span class="badge ${{c.loan_to_value_pct <= 25 ? 'badge-green' : 'badge-blue'}}" style="font-size:9.5px; font-weight:700;">${{c.loan_to_value_pct}}%</span></td>
+            </tr>
+        `;
+    }});
+
+    // 2. Expansion Rows (Schedule 2)
+    let expRows = "";
+    exps.forEach(e => {{
+        expRows += `
+            <tr>
+                <td>
+                    <b>${{e.name}}</b>
+                    <span class="badge badge-purple" style="font-size:9px; margin-left:4px;">${{e.site_type}}</span>
+                    <div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">Target: ${{e.target_property}} &middot; <b>+${{e.new_sites}} New Sites</b></div>
+                </td>
+                <td class="right" style="color:var(--text-primary); font-size:12px;">$${{Number(e.expansion_stabilized_revenue).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--warn); font-size:12px;">$${{Number(e.expansion_stabilized_expenses).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--success); font-weight:700; font-size:12.5px;">$${{Number(e.expansion_stabilized_noi).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right"><span class="badge badge-blue" style="font-size:10px; font-weight:800;">${{(e.cap_rate * 100).toFixed(1)}}%</span></td>
+                <td class="right" style="color:#fff; font-weight:800; font-size:13px;">$${{Number(e.expansion_gross_asset_value).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--accent); font-weight:800; font-size:12.5px;">+$${{Number(e.refi_cash_extracted_to_jennings).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:var(--success); font-weight:800; font-size:12.5px;">$${{Number(e.retained_owners_equity_50pct).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                <td class="right" style="color:#34d399; font-weight:900; font-size:13.5px;">$${{Number(e.total_expansion_value_created).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+            </tr>
+        `;
+    }});
+
+    // 3. Enterprise Waterfall Rows (Schedule 3)
     let pillarRows = "";
     pillars.forEach(p => {{
         let subItemsHtml = "";
         if (p.sub_items && p.sub_items.length > 0) {{
             subItemsHtml = `
-                <div style="margin-top:6px; font-size:11px; color:var(--text-muted); background:rgba(0,0,0,0.2); border-radius:4px; padding:6px 10px;">
+                <div style="margin-top:6px; font-size:11px; color:var(--text-muted); background:rgba(0,0,0,0.25); border-radius:4px; padding:6px 10px;">
                     ${{p.sub_items.map(sub => `
                         <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dashed rgba(255,255,255,0.06);">
-                            <span>${{sub.name || sub.item}}</span>
-                            <span style="font-weight:700; color:var(--text-primary);">$${{Number(sub.gross_market_value || sub.amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</span>
+                            <span>${{sub.name}}</span>
+                            <span style="font-weight:700; color:var(--text-primary);">$${{Number(sub.amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</span>
                         </div>
                     `).join('')}}
                 </div>
@@ -4670,142 +4729,170 @@ function renderValuationView() {{
         `;
     }});
 
-    let insightsHtml = "";
-    insights.forEach(ins => {{
-        insightsHtml += `
-            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:16px; border-left:3px solid var(--accent);">
-                <div style="font-size:11px; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:4px;">${{ins.title}}</div>
-                <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:4px;">${{ins.impact}}</div>
-                <div style="font-size:11.5px; color:var(--text-muted); line-height:1.4;">${{ins.rationale}}</div>
-            </div>
-        `;
-    }});
-
-    const levers = nav.hidden_value_levers || [];
-    const proFormaNav = nav.pro_forma_nav || (navVal + 22178571);
-    const totUnlock = nav.total_value_add_unlock || 22178571;
-
-    let leverRows = "";
-    levers.forEach(lev => {{
-        leverRows += `
-            <tr>
-                <td>
-                    <b>${{lev.title}}</b>
-                    <span class="badge badge-purple" style="font-size:9px; margin-left:6px;">${{lev.category}}</span>
-                    <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">${{lev.notes}}</div>
-                </td>
-                <td style="font-size:11px; color:#cbd5e1;">${{lev.current_metric}}</td>
-                <td style="font-size:11px; color:var(--accent); font-weight:700;">${{lev.target_metric}}</td>
-                <td class="right" style="font-size:13px; font-weight:800; color:var(--success);">
-                    +$${{Number(lev.capitalized_value_unlock).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
-                </td>
-            </tr>
-        `;
-    }});
-
     pane.innerHTML = `
         <div class="entity-banner">
             <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                <span class="badge badge-green">Executive Asset Valuation</span>
-                <span class="badge badge-purple">310 Active GL Companies</span>
-                <span class="badge badge-blue">8.0% Institutional Cap Rate</span>
-                <span class="badge badge-green">Marked-to-Market Liquidation Model</span>
+                <span class="badge badge-green">Jay Lapat Executive Valuation Framework</span>
+                <span class="badge badge-purple">Forward 12-Month Operating Model</span>
+                <span class="badge badge-blue">4.0% - 5.5% Mandated Cap Rates</span>
+                <span class="badge badge-green">Self-Financed Recapitalization Model</span>
             </div>
             <h2>💎 Jennings Enterprise Valuation &amp; Net Asset Value (NAV)</h2>
-            <p>Consolidated institutional valuation schedule aggregating all 6 asset pillars: income-capitalized physical real estate across 310 active Skyline GL entities, the live tax certificate portfolio, Cook County Indemnity claims, Friday operating bank cash, and seller-financed modular notes, less total enterprise debt.</p>
+            <p>Prepared for Jay &amp; Patrick: Complete institutional valuation of Jennings Realty's core Manufactured Housing &amp; RV communities, future self-financed expansion pipeline, and full enterprise net worth across all 355 Skyline entities.</p>
         </div>
 
         <div class="cards-grid">
-            <div class="stat-card" style="border-color:rgba(16,185,129,0.4);">
-                <div class="stat-card-label">Net Asset Value (NAV)</div>
-                <div class="stat-card-val" style="color:var(--success); font-weight:900;">$${{Number(navVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
-                <div class="stat-card-sub">Net liquidation equity if all assets sold today</div>
+            <div class="stat-card" style="border-color:rgba(16,185,129,0.5);">
+                <div class="stat-card-label">In-Place Net Asset Value (NAV)</div>
+                <div class="stat-card-val" style="color:var(--success); font-weight:900;">$${{Number(inPlaceNav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Current net liquidation equity across all entities</div>
             </div>
-            <div class="stat-card" style="border-color:rgba(59,130,246,0.4);">
-                <div class="stat-card-label">Gross Asset Value (GAV)</div>
-                <div class="stat-card-val" style="color:var(--accent); font-weight:900;">$${{Number(gavVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
-                <div class="stat-card-sub">Total physical &amp; paper enterprise assets</div>
+            <div class="stat-card" style="border-color:rgba(59,130,246,0.5);">
+                <div class="stat-card-label">In-Place Gross Asset Value (GAV)</div>
+                <div class="stat-card-val" style="color:var(--accent); font-weight:900;">$${{Number(inPlaceGav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Total physical real estate, cash, &amp; tax assets</div>
             </div>
-            <div class="stat-card" style="border-color:rgba(239,68,68,0.4);">
-                <div class="stat-card-label">Total Enterprise Debt</div>
-                <div class="stat-card-val" style="color:var(--danger);">$${{Number(debtVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
-                <div class="stat-card-sub">Mortgages ($66.7M) + Tax lines ($30.2M drawn)</div>
+            <div class="stat-card" style="border-color:rgba(239,68,68,0.5);">
+                <div class="stat-card-label">Total In-Place Enterprise Debt</div>
+                <div class="stat-card-val" style="color:var(--danger);">$${{Number(inPlaceDebt).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Only ${{inPlaceLtv}}% LTV (Ultra-conservative leverage)</div>
             </div>
-            <div class="stat-card" style="border-color:rgba(245,158,11,0.4);">
-                <div class="stat-card-label">Enterprise Leverage Ratio</div>
-                <div class="stat-card-val" style="color:var(--warn); font-weight:900;">${{ltvPct}}% LTV</div>
-                <div class="stat-card-sub">Massively under-leveraged institutional profile</div>
+            <div class="stat-card" style="border-color:rgba(245,158,11,0.5);">
+                <div class="stat-card-label">Stabilized Total Enterprise Value</div>
+                <div class="stat-card-val" style="color:var(--warn); font-weight:900;">$${{Number(stabNav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">+$73.5M expansion upside (+531 sites)</div>
             </div>
         </div>
 
-        <div class="table-wrapper">
-            <div class="table-header">
-                <h3>🏛️ The 6-Pillar Enterprise Valuation Waterfall</h3>
-                <span class="badge badge-green">Audited Asset-by-Asset Reconciliation</span>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Asset Pillar &amp; Valuation Methodology</th>
-                        <th class="right">Asset Valuation</th>
-                        <th class="right">Share of Assets</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${{pillarRows}}
-                    <tr style="background:rgba(239,68,68,0.08); border-top:2px solid rgba(239,68,68,0.3);">
-                        <td><b>Less: Total Enterprise Debt (Mortgages &amp; Drawn Credit Lines)</b><div style="font-size:11px; color:var(--text-muted);">Old National, Byline Bank, and First Chicago credit facilities + permanent property mortgages</div></td>
-                        <td class="right" style="font-size:13px; font-weight:800; color:var(--danger);">-$${{Number(debtVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-                        <td class="right" style="color:var(--danger); font-weight:700;">-${{ltvPct}}%</td>
-                    </tr>
-                    <tr style="background:rgba(16,185,129,0.15); border-top:2px solid rgba(16,185,129,0.5);">
-                        <td><b style="font-size:14px; color:#fff;">🏆 TOTAL ENTERPRISE NET ASSET VALUE (NAV)</b><div style="font-size:11.5px; color:#a7f3d0;">Total net worth / equity attributable to Jennings Realty &amp; Barbara Descendants Trust</div></td>
-                        <td class="right" style="font-size:17px; font-weight:900; color:var(--success);">$${{Number(navVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-                        <td class="right" style="font-weight:900; color:var(--success); font-size:13px;">100.0%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+        <!-- SCHEDULE 1: IN-PLACE MH & RV COMMUNITIES -->
         <div class="table-wrapper" style="margin-top:20px;">
             <div class="table-header">
-                <h3>🎯 Strategic High-Leverage Applications for Jay</h3>
-                <span class="badge badge-purple">Executive Playbook</span>
+                <div>
+                    <h3 style="color:#6ee7b7;">🏡 Schedule 1: Jay's MH &amp; RV Communities Valuation (In-Place Forward 12M Pro Forma)</h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">Formula: T12 Rev (+3%), T12 Exp after mgmt addback (+1%). Cap Rates: <b>Lakeview 4.5%</b> &middot; <b>Park City 4.0%</b> &middot; <b>The Bluffs MH 4.0%</b> &middot; <b>RV Resorts 5.5%</b>.</div>
+                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">$600.7M GAV &middot; $536.4M Equity</span>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; padding:16px;">
-                ${{insightsHtml}}
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Community &amp; Developed Footprint</th>
+                            <th class="right">Forward Rev (+3%)</th>
+                            <th class="right">Forward Exp (+1%)</th>
+                            <th class="right">Forward NOI</th>
+                            <th class="right">Cap Rate</th>
+                            <th class="right">Gross Asset Value (GAV)</th>
+                            <th class="right">Debt Due Now</th>
+                            <th class="right">Owner's Equity (NAV)</th>
+                            <th class="right">LTV %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{commRows}}
+                        <tr style="background:rgba(16,185,129,0.12); border-top:2px solid rgba(16,185,129,0.4); font-weight:800;">
+                            <td><b>TOTAL IN-PLACE COMMUNITIES</b></td>
+                            <td class="right" colspan="4"><span style="color:var(--text-muted); font-size:11px;">Consolidated Forward Operating Performance</span></td>
+                            <td class="right" style="color:#fff; font-size:13.5px;">$600,696,855</td>
+                            <td class="right" style="color:var(--danger); font-size:13px;">-$64,279,754</td>
+                            <td class="right" style="color:var(--success); font-size:15px; font-weight:900;">$536,417,101</td>
+                            <td class="right"><span class="badge badge-green">10.7%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(59,130,246,0.4); background:linear-gradient(180deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.9) 100%);">
-            <div class="table-header" style="background:rgba(59,130,246,0.15);">
+        <!-- SCHEDULE 2: ACTIVE EXPANSIONS PRO FORMA -->
+        <div class="table-wrapper" style="margin-top:24px; border:1px solid rgba(59,130,246,0.35);">
+            <div class="table-header" style="background:rgba(59,130,246,0.12);">
                 <div>
-                    <h3 style="color:#60a5fa;">🚀 Hidden Value Unlock Roadmap (Pro Forma Optimization)</h3>
-                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">Institutional private equity levers to expand baseline NAV from <b>$327.5M</b> to <b>~$350M</b></div>
+                    <h3 style="color:#93c5fd;">🏗️ Schedule 2: Active Expansion Pipeline (Self-Financed 50% Refinance Model)</h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                        Jay's PE Recap Model: <b>Sunkissed (+150 RV)</b> &middot; <b>Madison (+220 RV)</b> &middot; <b>The Bluffs (+150 MH &amp; +11 RV)</b>. Self-financed with firm cash, stabilized, then 50% refi cash-out returned.
+                    </div>
                 </div>
-                <span class="badge badge-green" style="font-size:11px; font-weight:800;">+$22.2M Value-Add Potential</span>
+                <span class="badge badge-purple" style="font-size:11px; font-weight:800;">+531 Sites &middot; +$73.5M Wealth Created</span>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Value-Add Strategy &amp; Opportunity</th>
-                        <th>In-Place Baseline</th>
-                        <th>Target Institutional Milestone</th>
-                        <th class="right">Capitalized Equity Unlock</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${{leverRows}}
-                    <tr style="background:rgba(59,130,246,0.15); border-top:2px solid rgba(59,130,246,0.5);">
-                        <td colspan="3"><b style="font-size:13.5px; color:#fff;">🌟 PRO FORMA OPTIMIZED ENTERPRISE NET ASSET VALUE (NAV)</b><div style="font-size:11px; color:#93c5fd;">Captures Park City rent catch-up, entitled pad expansion, utility submetering, and 1031 tax shield</div></td>
-                        <td class="right" style="font-size:16px; font-weight:900; color:#60a5fa;">$${{Number(proFormaNav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div style="background:rgba(0,0,0,0.25); padding:10px 16px; font-size:11.5px; color:#cbd5e1; border-bottom:1px solid var(--border); line-height:1.5;">
+                💡 <b>Jay's Self-Financed Financing Strategy:</b> Jennings builds expansions with 100% internal cash ($0 construction debt). Upon stabilization, Jennings puts a 50% permanent mortgage on the asset, extracting <b>$36.75M in tax-free cash</b> back to corporate treasury while retaining <b>$36.75M in cash-flowing equity</b>! Total Value Delivered = 100% of GAV (<b>$73.5M</b>).
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Expansion Project &amp; Site Target</th>
+                            <th class="right">Stabilized Rev</th>
+                            <th class="right">Stabilized Exp</th>
+                            <th class="right">Stabilized NOI</th>
+                            <th class="right">Cap Rate</th>
+                            <th class="right">Expansion GAV</th>
+                            <th class="right" style="color:var(--accent);">50% Cash-Out Returned</th>
+                            <th class="right" style="color:var(--success);">50% Retained Equity</th>
+                            <th class="right" style="color:#34d399;">Total Value Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{expRows}}
+                        <tr style="background:rgba(59,130,246,0.15); border-top:2px solid rgba(59,130,246,0.4); font-weight:800;">
+                            <td><b>TOTAL EXPANSION PIPELINE (+531 SITES)</b></td>
+                            <td class="right" colspan="4"><span style="color:var(--text-muted); font-size:11px;">Derived from existing forward per-site economics</span></td>
+                            <td class="right" style="color:#fff; font-size:13.5px;">$73,498,111</td>
+                            <td class="right" style="color:var(--accent); font-size:13px;">+$36,749,056</td>
+                            <td class="right" style="color:var(--success); font-size:13px;">+$36,749,056</td>
+                            <td class="right" style="color:#34d399; font-size:15px; font-weight:900;">+$73,498,111</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SCHEDULE 3: MASTER TOTAL ENTERPRISE NAV WATERFALL -->
+        <div class="table-wrapper" style="margin-top:24px;">
+            <div class="table-header">
+                <div>
+                    <h3 style="color:#fbbf24;">🏛️ Schedule 3: Master Enterprise NAV Waterfall (The Entire Company)</h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">Consolidated balance across all 355 Skyline entities, tax portfolios, bank ledgers, and court claims.</div>
+                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">$579.9M In-Place NAV &middot; $653.4M Stabilized</span>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enterprise Asset Pillar &amp; Valuation Methodology</th>
+                            <th class="right">Asset Valuation</th>
+                            <th class="right">Share of GAV</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${{pillarRows}}
+                        <tr style="background:rgba(239,68,68,0.08); border-top:2px solid rgba(239,68,68,0.3);">
+                            <td><b>Less: Total In-Place Enterprise Debt</b><div style="font-size:11px; color:var(--text-muted);">Real estate mortgages ($64.3M communities + $2.1M Ellis) + Tax lines ($30.2M drawn)</div></td>
+                            <td class="right" style="font-size:13px; font-weight:800; color:var(--danger);">-$${{Number(inPlaceDebt).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="color:var(--danger); font-weight:700;">-${{inPlaceLtv}}%</td>
+                        </tr>
+                        <tr style="background:rgba(16,185,129,0.18); border-top:2px solid rgba(16,185,129,0.6);">
+                            <td><b style="font-size:14.5px; color:#fff;">🏆 IN-PLACE TOTAL ENTERPRISE NET ASSET VALUE (NAV)</b><div style="font-size:11.5px; color:#a7f3d0;">Total current net liquidation equity attributable to Jennings Realty &amp; Barbara Descendants Trust</div></td>
+                            <td class="right" style="font-size:18px; font-weight:900; color:var(--success);">$${{Number(inPlaceNav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="font-weight:900; color:var(--success); font-size:13px;">100.0%</td>
+                        </tr>
+                        <tr style="background:rgba(59,130,246,0.15); border-top:1px dashed rgba(59,130,246,0.4);">
+                            <td><b style="font-size:13.5px; color:#93c5fd;">🚀 PLUS: FUTURE EXPANSION VALUE CREATED (+531 SITES)</b><div style="font-size:11px; color:#cbd5e1;">$36.75M refi cash returned + $36.75M retained equity upon stabilization of Sunkissed, Madison, &amp; The Bluffs</div></td>
+                            <td class="right" style="font-size:15px; font-weight:800; color:#60a5fa;">+$${{Number(expValue).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="color:#60a5fa; font-weight:700;">+10.9%</td>
+                        </tr>
+                        <tr style="background:linear-gradient(90deg, rgba(30,27,75,0.7), rgba(15,23,42,0.9)); border-top:2px solid #8b5cf6;">
+                            <td><b style="font-size:15px; color:#c4b5fd;">🌟 TOTAL STABILIZED ENTERPRISE VALUE (POST-EXPANSION)</b><div style="font-size:11.5px; color:#e0e7ff;">Total enterprise wealth delivered with full 50% cash-out recapitalization</div></td>
+                            <td class="right" style="font-size:19px; font-weight:900; color:#c4b5fd;">$${{Number(stabNav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                            <td class="right" style="color:#c4b5fd; font-weight:800; font-size:13px;">${{stabLtv}}% Future LTV</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     `;
 }}
-
 function renderCapexView() {{
     const pane = document.getElementById('capexPane');
     if (!pane) return;

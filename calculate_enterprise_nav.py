@@ -2,24 +2,36 @@
 """
 calculate_enterprise_nav.py — Master Enterprise Valuation & Net Asset Value (NAV) Engine.
 
-Aggregates all 6 Asset Pillars across 355 Skyline entities, live bank ledgers,
-Jim's tax certificate database, and the Cook County Indemnity Book to compute
-the true institutional Net Asset Value (NAV) of Jennings Realty.
+Fully incorporates Jay's exact valuation directives:
+1. In-Place MH & RV Communities:
+   - T12 Income Statement (Revenue - Expenses)
+   - Add back management fees
+   - Forward 12 Months: +3% Gross Revenue, +1% Expenses
+   - Cap Rates: 4.5% Lakeview, 4.0% Park City & Bluffs (MH), 5.5% RV Resorts (Bay Bayou, Sunkissed, Madison, Bluffs RV)
+   - GAV = Forward NOI / Cap Rate
+   - Net Asset Value = GAV - Actual Debt Due Now
 
-The 6 Asset Pillars:
-1. Operating Real Estate (Income Capitalization FMV @ 8.0% institutional cap rate)
-2. Tax Certificate Investment Portfolio (Book Value + Accrued Penalties)
-3. Cook County Indemnity Judgments Book (40 claims @ Face + 6% simple interest)
-4. Physical Operating Bank Cash (Friday Close cleared ledger)
-5. Cook County Administrative Escrow (Completed redemptions pending county check)
-6. Park City Modular Home Installment Notes (Performing loan receivables)
-Less: Total Enterprise Debt (Drawn mortgages + credit facilities)
+2. Active Expansion Pipeline (Self-Financed Recapitalization Model):
+   - Sunkissed: +150 RV Sites
+   - Madison: +220 RV Sites
+   - The Bluffs: +150 MH Sites & +11 RV Sites
+   - Forward Revenue & Expenses per site applied to new sites
+   - 50% LTV Refinance Cash-Out returned to Jennings (since self-financed with cash)
+   - Total Expansion Value = Retained Equity (50%) + Cash Out (50%) = 100% GAV
+
+3. Total Enterprise Net Asset Value (NAV):
+   - Real Estate Communities (In-Place + Expansion)
+   - Tax Certificate Investment Portfolio ($40.6M)
+   - Cook County Indemnity Judgments Book ($10.2M)
+   - Operating Bank Cash ($16.4M)
+   - Cook County Escrow ($750k)
+   - Modular Notes ($1.8M)
+   Less: Total Enterprise Debt
 """
 
 import os
 import sys
 import json
-import sqlite3
 import time
 
 OUTPUT_JSON = os.path.abspath("enterprise_nav_summary.json")
@@ -27,152 +39,19 @@ OUTPUT_JSON = os.path.abspath("enterprise_nav_summary.json")
 def calculate_nav(verbose=True):
     t0 = time.time()
 
-    # =========================================================================
-    # PILLAR 1: OPERATING REAL ESTATE (INCOME CAPITALIZATION FMV)
-    # =========================================================================
-    # Query Skyline GL for real estate operating performance
-    db_path = os.path.abspath("skyline_live_production.sqlite")
-    park_city_noi = 17785530.00
-    bay_bayou_noi = 2800000.00
-    
-    if os.path.exists(db_path):
-        try:
-            conn = sqlite3.connect(db_path)
-            cur = conn.cursor()
-            
-            # Park City consolidated entities (28, 205, 24, 121, 26, PPCMH)
-            cids_pc = ("28", "205", "24", "121", "26")
-            q_pc = f"""
-                SELECT SUM(CASE WHEN account LIKE '3%' OR account LIKE '4%' THEN -amount ELSE 0 END) -
-                       SUM(CASE WHEN (account LIKE '5%' OR account LIKE '6%' OR account LIKE '7%' OR account LIKE '8%' OR account LIKE '9%') THEN amount ELSE 0 END)
-                FROM journal_entries WHERE ifs_id IN ({','.join(['?']*len(cids_pc))})
-            """
-            cur.execute(q_pc, cids_pc)
-            res_pc = cur.fetchone()[0]
-            if res_pc and res_pc > 1000000:
-                park_city_noi = float(res_pc)
-                
-            conn.close()
-        except Exception as e:
-            if verbose: print(f"⚠️ GL query note: {e}")
+    # 1. Execute Jay's Real Estate & Expansion Engine
+    import jays_valuation_engine
+    re_data = jays_valuation_engine.calculate_jays_valuations()
 
-    # Institutional Cap Rate (8.0% blended for prime Sunbelt/Midwest manufactured housing & RV)
-    CAP_RATE = 0.080
-    
-    real_estate_assets = [
-        {
-            "id": "park_city",
-            "name": "Park City Manufactured Home Community & Plaza",
-            "location": "Park City / Waukegan, IL",
-            "units": "480 MHP Sites + Commercial Shopping Plaza",
-            "valuation_method": "Income Capitalization (7.0% Institutional Cap Rate)",
-            "annual_noi": round(park_city_noi, 2),
-            "cap_rate": 0.070,
-            "gross_market_value": round(park_city_noi / 0.070, 2),
-            "mortgage_debt": 39125000.00,  # $19.125M term loan + $20M revolver
-            "net_equity": round((park_city_noi / 0.070) - 39125000.00, 2),
-            "notes": "Consolidated entities (28, 205, 24, 121, 26). Generates $17.8M NOI. Institutional-grade core asset."
-        },
-        {
-            "id": "bay_bayou",
-            "name": "Bay Bayou Florida RV Resort",
-            "location": "Tampa, FL (Waterfront)",
-            "units": "308 Luxury Waterfront RV Sites",
-            "valuation_method": "Income Capitalization (7.25% Waterfront Cap Rate)",
-            "annual_noi": round(bay_bayou_noi, 2),
-            "cap_rate": 0.0725,
-            "gross_market_value": round(bay_bayou_noi / 0.0725, 2),
-            "mortgage_debt": 8500000.00,
-            "net_equity": round((bay_bayou_noi / 0.0725) - 8500000.00, 2),
-            "notes": "Entity 135. Double Branch Creek waterfront. $2.8M annualized NOI. Prime Tampa luxury destination."
-        },
-        {
-            "id": "sunkissed_village",
-            "name": "Sunkissed Village RV Resort",
-            "location": "Summerfield, FL (The Villages MSA)",
-            "units": "275 Luxury RV Sites",
-            "valuation_method": "Replacement Cost & Debt Equity ($55k/pad)",
-            "annual_noi": 0.0,
-            "cap_rate": 0.080,
-            "gross_market_value": 15125000.00,  # 275 pads @ $55k replacement cost
-            "mortgage_debt": 5000000.00,
-            "net_equity": 10125000.00,
-            "notes": "Entities 140/142. Modern 2019 commercial build. High sand ridge (Zone X). Growing seasonal occupancy."
-        },
-        {
-            "id": "the_bluffs",
-            "name": "The Bluffs MH & RV Resort",
-            "location": "Freedom, NH (Ossipee Lake)",
-            "units": "95 Existing Sites + 50 Site Expansion (145 total)",
-            "valuation_method": "Existing Valuation + Expansion Basis",
-            "annual_noi": 0.0,
-            "cap_rate": 0.080,
-            "gross_market_value": 8500000.00,
-            "mortgage_debt": 2975000.00,
-            "net_equity": 5525000.00,
-            "notes": "Entity 147. Danforth Bay waterfront buffer. 50-site expansion (35% complete, $842k spent, 16% target yield)."
-        },
-        {
-            "id": "madison_resort",
-            "name": "Madison RV & Golf Resort / Jet Sites B",
-            "location": "Madison, FL (Inland High Ridge)",
-            "units": "95 RV Sites + 18-Hole Country Club & Clubhouse",
-            "valuation_method": "Golf & Resort Acquisition Cost Basis",
-            "annual_noi": 0.0,
-            "cap_rate": 0.080,
-            "gross_market_value": 6500000.00,
-            "mortgage_debt": 1039000.00,  # Related party notes
-            "net_equity": 5461000.00,
-            "notes": "Entity 143. Acquired Oct 22, 2024. 18-hole championship golf course + modern clubhouse expansion."
-        },
-        {
-            "id": "lakeview_mhp",
-            "name": "Lakeview Mobile Home Park (Beach Park)",
-            "location": "Beach Park / Lake County, IL",
-            "units": "150 Developed MHP Lots",
-            "valuation_method": "Verified 2026 Market Offers (Invesco LOI Baseline)",
-            "annual_noi": 1105734.00,  # $893k + $212k management addback
-            "cap_rate": 0.0434,        # $1.105M / $25.5M = 4.34% implied market cap rate
-            "gross_market_value": 25500000.00,  # Midpoint of Jay's 5 verified offers ($25M-$26M)
-            "mortgage_debt": 7640754.00,       # Fannie Mae debt balance per July analysis
-            "net_equity": 17859246.00,
-            "notes": "Beach Park, IL. Entity 18 / PLVMH. Sourced directly from Jay's 5 verified July 2026 offers (Invesco/Homestead $25M-$26M all-cash). Adjusted NOI: $1.105M."
-        },
-        {
-            "id": "ellis_apts",
-            "name": "Home Sites Series C (Ellis Street Apartments)",
-            "location": "Peoria, IL",
-            "units": "Multi-Family Residential Complex",
-            "valuation_method": "Appraised Asset Value",
-            "annual_noi": 0.0,
-            "cap_rate": 0.080,
-            "gross_market_value": 3500000.00,
-            "mortgage_debt": 2100000.00,  # Byline Bank
-            "net_equity": 1400000.00,
-            "notes": "Entity 38. Stabilized multi-family rental asset backing Byline credit facility."
-        },
-        {
-            "id": "galaxy_sites",
-            "name": "Home Sites & Galaxy Residential Land Book",
-            "location": "Cook / Collar Counties, IL",
-            "units": "Residential Land & Development Parcels",
-            "valuation_method": "Estimated Land Holdings Value",
-            "annual_noi": 0.0,
-            "cap_rate": 0.080,
-            "gross_market_value": 2500000.00,
-            "mortgage_debt": 0.0,
-            "net_equity": 2500000.00,
-            "notes": "Entities 33, 144, 145, 146. Unencumbered land parcels."
-        }
-    ]
+    in_place = re_data["in_place_communities"]
+    expansion = re_data["expansion_pipeline"]
+    re_totals = re_data["consolidated_real_estate_totals"]
 
-    total_re_market_value = sum(x["gross_market_value"] for x in real_estate_assets)
-    total_re_debt = sum(x["mortgage_debt"] for x in real_estate_assets)
-    total_re_net_equity = sum(x["net_equity"] for x in real_estate_assets)
+    re_in_place_gav = in_place["headline_gross_asset_value"]
+    re_in_place_debt = in_place["headline_actual_debt"]
+    re_in_place_equity = in_place["headline_owners_equity"]
 
-    # =========================================================================
-    # PILLAR 2: TAX CERTIFICATE INVESTMENT PORTFOLIO
-    # =========================================================================
+    # 2. Tax Certificate Investment Portfolio
     tax_summary_file = os.path.abspath("tax_activity_summary.json")
     tax_assets = 40622612.00
     tax_debt = 30224314.00
@@ -189,9 +68,7 @@ def calculate_nav(verbose=True):
         except Exception:
             pass
 
-    # =========================================================================
-    # PILLAR 3: COOK COUNTY INDEMNITY JUDGMENTS BOOK
-    # =========================================================================
+    # 3. Cook County Indemnity Judgments Book
     indemnity_file = "/Users/louislapat/vibe/jim report viewer/data/indemnity_forecast.json"
     indemnity_value = 10219898.81
     indemnity_cost = 4460515.54
@@ -210,13 +87,9 @@ def calculate_nav(verbose=True):
         except Exception:
             pass
 
-    # =========================================================================
-    # PILLAR 4: PHYSICAL OPERATING BANK CASH (FRIDAY CLOSE)
-    # =========================================================================
+    # 4. Physical Operating Bank Cash (Friday Close)
     cash_flash_file = os.path.abspath("cash_flash_summary.json")
-    bank_cash = 16380680.14  # Combined physical cash across Mary's sheet + Tax accounts
     mary_bank_cash = 9004813.54
-    
     if os.path.exists(cash_flash_file):
         try:
             with open(cash_flash_file) as f:
@@ -224,18 +97,13 @@ def calculate_nav(verbose=True):
             mary_bank_cash = float(cf.get("total_bank_cash", mary_bank_cash))
         except Exception:
             pass
-
     # Total physical cash = Mary's operating cash ($9.00M) + Jennings tax cash ($7.38M)
     bank_cash = mary_bank_cash + 7375866.60
 
-    # =========================================================================
-    # PILLAR 5: COOK COUNTY FROZEN ADMINISTRATIVE ESCROW
-    # =========================================================================
-    cook_county_escrow = 750000.00  # Jay's explicit directive: completed redemptions awaiting county check
+    # 5. Cook County Administrative Escrow (Jay's Note)
+    cook_county_escrow = 750000.00
 
-    # =========================================================================
-    # PILLAR 6: PARK CITY MODULAR NOTES BOOK
-    # =========================================================================
+    # 6. Park City Modular Notes Book
     notes_file = os.path.abspath("park_city_notes_summary.json")
     pc_notes_book = 1842500.00
     if os.path.exists(notes_file):
@@ -246,11 +114,16 @@ def calculate_nav(verbose=True):
         except Exception:
             pass
 
+    # Other ancillary real estate (Ellis Apartments + Galaxy Land Book)
+    ancillary_re_gav = 6000000.00   # Ellis $3.5M + Galaxy $2.5M
+    ancillary_re_debt = 2100000.00  # Ellis Byline loan
+
     # =========================================================================
-    # TOTAL ENTERPRISE SUMMATION (GAV & NAV)
+    # IN-PLACE TOTAL ENTERPRISE RECONCILIATION
     # =========================================================================
-    gross_asset_value = (
-        total_re_market_value
+    total_in_place_gav = (
+        re_in_place_gav
+        + ancillary_re_gav
         + tax_assets
         + indemnity_value
         + bank_cash
@@ -258,154 +131,132 @@ def calculate_nav(verbose=True):
         + pc_notes_book
     )
 
-    total_debt = total_re_debt + tax_debt
-    net_asset_value = gross_asset_value - total_debt
-    ltv_pct = round((total_debt / gross_asset_value) * 100, 1)
+    total_in_place_debt = re_in_place_debt + ancillary_re_debt + tax_debt
+    total_in_place_nav = total_in_place_gav - total_in_place_debt
+    in_place_ltv = round((total_in_place_debt / total_in_place_gav) * 100, 1)
+
+    # =========================================================================
+    # STABILIZED PRO FORMA EXPANSION SUMMATION
+    # =========================================================================
+    expansion_gav = expansion["headline_expansion_gav"]
+    expansion_refi_cash = expansion["headline_refi_cash_returned"]
+    expansion_retained_equity = expansion["headline_retained_equity"]
+    total_expansion_value = expansion_refi_cash + expansion_retained_equity
+
+    total_stabilized_gav = total_in_place_gav + expansion_gav
+    total_stabilized_debt = total_in_place_debt + expansion["headline_future_debt_50pct"]
+    total_stabilized_nav = total_in_place_nav + total_expansion_value
+    stabilized_ltv = round((total_stabilized_debt / total_stabilized_gav) * 100, 1)
 
     pillars = [
         {
             "pillar_num": 1,
-            "title": "Operating Real Estate (Income Capitalization FMV)",
-            "value": round(total_re_market_value, 2),
-            "share_of_gav": round((total_re_market_value / gross_asset_value) * 100, 1),
-            "methodology": f"Capitalized at {CAP_RATE*100:.1f}% institutional cap rate across 310 active Skyline GL entities. Park City alone generates $17.8M NOI ($222.3M FMV). Bay Bayou $2.8M NOI ($35.0M FMV).",
-            "sub_items": real_estate_assets
+            "title": "Operating MH & RV Communities (Jay's Forward 12M Cap Rate Model)",
+            "value": round(re_in_place_gav, 2),
+            "share_of_gav": round((re_in_place_gav / total_in_place_gav) * 100, 1),
+            "methodology": "Jay's Mandate: T12 Revenue (+3% growth), T12 Expenses after mgmt fee addback (+1% inflation). Cap rates: Lakeview 4.5%, Park City 4.0%, The Bluffs MH 4.0%, RV Resorts 5.5%.",
+            "sub_items": [
+                {
+                    "name": f"{x['name']} ({x['existing_sites']} sites @ {x['cap_rate']*100:.1f}% Cap)",
+                    "amount": x["gross_asset_value"],
+                    "noi": x["forward_noi"],
+                    "debt": x["actual_debt_due_now"],
+                    "equity": x["owners_equity_nav"],
+                    "ltv": x["loan_to_value_pct"]
+                }
+                for x in in_place["assets"]
+            ]
         },
         {
             "pillar_num": 2,
             "title": "Tax Certificate Investment Portfolio",
             "value": round(tax_assets, 2),
-            "share_of_gav": round((tax_assets / gross_asset_value) * 100, 1),
+            "share_of_gav": round((tax_assets / total_in_place_gav) * 100, 1),
             "methodology": "Total active tax certificates across 6 tax entities (Interstate, Central Buyer, Diamond Quest, Union Tax, National Indemnity, Mutual Fidelity) carrying 12% statutory carry.",
             "sub_items": [
-                {"item": "Total Tax Certificate Book Value", "amount": round(tax_assets, 2)},
-                {"item": "Bank Debt Borrowed on Collateral (95% advance)", "amount": round(-tax_debt, 2)},
-                {"item": "Net Jennings Tax Equity", "amount": round(tax_equity, 2)}
+                {"name": "Total Tax Certificate Book Value", "amount": round(tax_assets, 2)},
+                {"name": "Bank Debt Borrowed on Collateral (95% advance)", "amount": round(-tax_debt, 2)},
+                {"name": "Net Jennings Tax Equity", "amount": round(tax_equity, 2)}
             ]
         },
         {
             "pillar_num": 3,
             "title": "Physical Operating Bank Cash (Friday Close)",
             "value": round(bank_cash, 2),
-            "share_of_gav": round((bank_cash / gross_asset_value) * 100, 1),
+            "share_of_gav": round((bank_cash / total_in_place_gav) * 100, 1),
             "methodology": f"Cleared operating bank cash ($9.00M Mary's sheet + $7.38M Jennings unencumbered tax equity). J R Management at $3.67M, Byline at $1.19M.",
             "sub_items": [
-                {"item": "Mary's Operating Cash Ledger (32 accounts)", "amount": round(mary_bank_cash, 2)},
-                {"item": "Jennings Tax Equity Cash in Clearing", "amount": 7375866.60}
+                {"name": "Mary's Operating Cash Ledger (32 accounts)", "amount": round(mary_bank_cash, 2)},
+                {"name": "Jennings Tax Equity Cash in Clearing", "amount": 7375866.60}
             ]
         },
         {
             "pillar_num": 4,
             "title": "Cook County Indemnity Judgments Book",
             "value": round(indemnity_value, 2),
-            "share_of_gav": round((indemnity_value / gross_asset_value) * 100, 1),
+            "share_of_gav": round((indemnity_value / total_in_place_gav) * 100, 1),
             "methodology": f"40 active court judgment claims purchased at a discount ({indemnity_count} judgments, ${indemnity_cost:,.0f} cost, ${indemnity_face:,.0f} face). Earning 6.0% simple statutory interest.",
             "sub_items": [
-                {"item": f"Active Judgment Face Value ({indemnity_count} claims)", "amount": round(indemnity_face, 2)},
-                {"item": "Accrued 6.0% Statutory Interest", "amount": round(indemnity_value - indemnity_face, 2)},
-                {"item": "Total Value if Disbursed Today", "amount": round(indemnity_value, 2)}
+                {"name": f"Active Judgment Face Value ({indemnity_count} claims)", "amount": round(indemnity_face, 2)},
+                {"name": "Accrued 6.0% Statutory Interest", "amount": round(indemnity_value - indemnity_face, 2)},
+                {"name": "Total Value if Disbursed Today", "amount": round(indemnity_value, 2)}
             ]
         },
         {
             "pillar_num": 5,
             "title": "Park City Modular Home Installment Notes",
             "value": round(pc_notes_book, 2),
-            "share_of_gav": round((pc_notes_book / gross_asset_value) * 100, 1),
+            "share_of_gav": round((pc_notes_book / total_in_place_gav) * 100, 1),
             "methodology": "64 performing seller-financed modular home installment loans at Park City. Generates $28.5k/mo cashflow with 1.8% delinquency.",
             "sub_items": [
-                {"item": "Total Active Performing Notes Receivable", "amount": round(pc_notes_book, 2)}
+                {"name": "Total Active Performing Notes Receivable", "amount": round(pc_notes_book, 2)}
             ]
         },
         {
             "pillar_num": 6,
             "title": "Cook County Frozen Administrative Escrow",
             "value": round(cook_county_escrow, 2),
-            "share_of_gav": round((cook_county_escrow / gross_asset_value) * 100, 1),
+            "share_of_gav": round((cook_county_escrow / total_in_place_gav) * 100, 1),
             "methodology": "Jay's Directive: Completed taxpayer redemptions sitting in Cook County escrow awaiting administrative disbursement checks.",
             "sub_items": [
-                {"item": "Cook County Redemption Checks Pending", "amount": round(cook_county_escrow, 2)}
+                {"name": "Cook County Redemption Checks Pending", "amount": round(cook_county_escrow, 2)}
+            ]
+        },
+        {
+            "pillar_num": 7,
+            "title": "Ancillary Real Estate Holdings (Ellis Apts & Galaxy Land)",
+            "value": round(ancillary_re_gav, 2),
+            "share_of_gav": round((ancillary_re_gav / total_in_place_gav) * 100, 1),
+            "methodology": "Ellis Street Apartments (Byline Bank collateral, $3.5M FMV, $2.1M debt) + Galaxy Sites unencumbered residential land book ($2.5M).",
+            "sub_items": [
+                {"name": "Ellis Street Apartments (Home Sites Series C)", "amount": 3500000.00},
+                {"name": "Galaxy Sites Residential Land Parcels", "amount": 2500000.00}
             ]
         }
     ]
 
-    # =========================================================================
-    # HIDDEN "SHADOW" VALUE & VALUE-ADD OPTIMIZATION LEVERS
-    # =========================================================================
-    hidden_value_levers = [
-        {
-            "id": "loss_to_lease",
-            "title": "Park City Loss-to-Lease Mark-to-Market",
-            "category": "Rent Growth Upside",
-            "current_metric": "$650/mo lot rent",
-            "target_metric": "$775/mo JLT Datacomp Chicago MSA average (+$125/mo gap)",
-            "annual_noi_impact": 720000.00,  # 480 lots * $125 * 12
-            "capitalized_value_unlock": 10285714.29,  # $720k / 0.070
-            "notes": "JLT Datacomp reports Chicago MSA average site rent at $782/mo. Capturing a conservative $125/mo gap adds $10.3M in equity."
-        },
-        {
-            "id": "entitled_pads",
-            "title": "Entitled Expansion Land (Shadow NAV)",
-            "category": "Unbuilt Zoned Land",
-            "current_metric": "Carried at historical cost basis ($0 NOI)",
-            "target_metric": "Market valuation of permitted unbuilt sites ($30k-$45k/pad)",
-            "annual_noi_impact": 0.0,
-            "capitalized_value_unlock": 3250000.00,  # Bluffs 50 pads @ $35k ($1.75M) + Madison 70 acres ($1.5M)
-            "notes": "The Bluffs 50 approved pads ($1.75M) + Madison 70-acre frontage ($1.5M). Institutional buyers pay cash for entitled dirt."
-        },
-        {
-            "id": "rubs_utility",
-            "title": "Utility Submetering Recapture (RUBS)",
-            "category": "Expense Reduction",
-            "current_metric": "Park-paid municipal water/sewer ($185k/yr)",
-            "target_metric": "Tenant billing recapture via submetering (85% recovery)",
-            "annual_noi_impact": 150000.00,
-            "capitalized_value_unlock": 2142857.14,  # $150k / 0.070
-            "notes": "Installing digital water meters and billing back tenants directly converts operating expense into pure bottom-line NOI."
-        },
-        {
-            "id": "tax_shield_1031",
-            "title": "Section 1031 Exchange Tax Shield Preservation",
-            "category": "Capital Preservation",
-            "current_metric": "$6.0M - $8.0M potential tax bill upon Lakeview sale",
-            "target_metric": "100% tax deferral via reverse/forward 1031 exchange",
-            "annual_noi_impact": 0.0,
-            "capitalized_value_unlock": 6500000.00,
-            "notes": "Reinvesting Lakeview proceeds into Manistee/Bluffs expansion preserves $6.5M in equity that would otherwise be paid in taxes."
-        }
-    ]
-
-    total_value_add_unlock = sum(x["capitalized_value_unlock"] for x in hidden_value_levers)
-    pro_forma_nav = net_asset_value + total_value_add_unlock
-
     result = {
         "as_of_date": time.strftime("%Y-%m-%d %H:%M:%S"),
         "date_display": time.strftime("%B %d, %Y"),
-        "net_asset_value": round(net_asset_value, 2),
-        "gross_asset_value": round(gross_asset_value, 2),
-        "total_enterprise_debt": round(total_debt, 2),
-        "loan_to_value_ratio_pct": ltv_pct,
-        "cap_rate_used": CAP_RATE,
-        "pro_forma_nav": round(pro_forma_nav, 2),
-        "total_value_add_unlock": round(total_value_add_unlock, 2),
-        "hidden_value_levers": hidden_value_levers,
-        "pillars": pillars,
-        "strategic_insights_for_jay": [
-            {
-                "title": "Bank Debt Spread Renegotiation",
-                "impact": "Shaving 25-50 bps on $68M debt saves $170k-$340k/yr",
-                "rationale": f"Enterprise LTV sits at an ultra-conservative {ltv_pct}%. Proving $250M+ in hard equity gives Jay immense leverage with Byline and Old National credit committees."
-            },
-            {
-                "title": "Capital Reallocation ROI Matrix",
-                "impact": "Deploying $10M cash into 22% ROE Tax Liens vs 8% Real Estate",
-                "rationale": "Real estate generates a rock-solid 8.0% unlevered yield ($22M NOI), while the tax business delivers 22%+ ROE via 95% bank leverage. Clear quantitative roadmap for next capital deployment."
-            },
-            {
-                "title": "Barbara Descendants Trust Estate Planning",
-                "impact": "Audited market-value backing for CPAs and valuation filings",
-                "rationale": "Automated marked-to-market NAV saves hundreds of billable hours in annual valuation studies and provides ironclad basis support for trust distributions."
-            }
-        ]
+        "valuation_framework": "Jay Lapat's Institutional Real Estate & Expansion Pro Forma Model",
+        "in_place_summary": {
+            "net_asset_value": round(total_in_place_nav, 2),
+            "gross_asset_value": round(total_in_place_gav, 2),
+            "total_enterprise_debt": round(total_in_place_debt, 2),
+            "loan_to_value_ratio_pct": in_place_ltv
+        },
+        "stabilized_expansion_summary": {
+            "stabilized_gross_asset_value": round(total_stabilized_gav, 2),
+            "stabilized_total_debt": round(total_stabilized_debt, 2),
+            "stabilized_net_enterprise_value": round(total_stabilized_nav, 2),
+            "total_expansion_value_created": round(total_expansion_value, 2),
+            "expansion_refi_cash_extracted": round(expansion_refi_cash, 2),
+            "expansion_retained_equity": round(expansion_retained_equity, 2),
+            "stabilized_ltv_pct": stabilized_ltv
+        },
+        "jays_communities_schedule": in_place["assets"],
+        "jays_expansions_schedule": expansion["projects"],
+        "pillars": pillars
     }
 
     with open(OUTPUT_JSON, "w") as f:
@@ -413,12 +264,19 @@ def calculate_nav(verbose=True):
 
     if verbose:
         print("=" * 80)
-        print("JENNINGS REALTY — MASTER ENTERPRISE VALUATION (NAV) COMPLETE")
-        print(f"  Gross Asset Value (GAV):    ${gross_asset_value:,.2f}")
-        print(f"  Total Enterprise Debt:      ${total_debt:,.2f}")
-        print(f"  NET ASSET VALUE (NAV):      ${net_asset_value:,.2f}")
-        print(f"  Enterprise Loan-to-Value:   {ltv_pct}% LTV")
-        print(f"  Saved structured model ->   {OUTPUT_JSON}")
+        print("JENNINGS REALTY — JAY'S ENTERPRISE VALUATION & RECAP ENGINE")
+        print(f"  1. In-Place Gross Asset Value (GAV):    ${total_in_place_gav:,.2f}")
+        print(f"     Total In-Place Debt:                 ${total_in_place_debt:,.2f} ({in_place_ltv}% LTV)")
+        print(f"     IN-PLACE NET ASSET VALUE (NAV):      ${total_in_place_nav:,.2f}")
+        print("-" * 80)
+        print(f"  2. Expansion Pipeline (+{expansion['total_new_sites_planned']} Sites):")
+        print(f"     Stabilized Expansion GAV:            ${expansion_gav:,.2f}")
+        print(f"     50% Refinance Cash Returned to Firm: ${expansion_refi_cash:,.2f}")
+        print(f"     Retained Expansion Equity (50%):     ${expansion_retained_equity:,.2f}")
+        print("-" * 80)
+        print(f"  3. TOTAL STABILIZED ENTERPRISE VALUE:   ${total_stabilized_nav:,.2f} NAV")
+        print(f"     Total Stabilized GAV:                ${total_stabilized_gav:,.2f} ({stabilized_ltv}% LTV)")
+        print(f"     Saved structured model ->            {OUTPUT_JSON}")
         print("=" * 80)
 
     return result

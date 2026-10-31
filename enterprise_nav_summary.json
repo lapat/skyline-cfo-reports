@@ -1,166 +1,271 @@
 {
-  "as_of_date": "2026-10-31 10:03:10",
+  "as_of_date": "2026-10-31 12:58:21",
   "date_display": "October 31, 2026",
-  "net_asset_value": 327536308.61,
-  "gross_asset_value": 424140376.61,
-  "total_enterprise_debt": 96604068.0,
-  "loan_to_value_ratio_pct": 22.8,
-  "cap_rate_used": 0.08,
-  "pro_forma_nav": 349714880.04,
-  "total_value_add_unlock": 22178571.43,
-  "hidden_value_levers": [
+  "valuation_framework": "Jay Lapat's Institutional Real Estate & Expansion Pro Forma Model",
+  "in_place_summary": {
+    "net_asset_value": 579908477.9,
+    "gross_asset_value": 676512545.9,
+    "total_enterprise_debt": 96604068.0,
+    "loan_to_value_ratio_pct": 14.3
+  },
+  "stabilized_expansion_summary": {
+    "stabilized_gross_asset_value": 750010657.35,
+    "stabilized_total_debt": 133353123.73,
+    "stabilized_net_enterprise_value": 653406589.36,
+    "total_expansion_value_created": 73498111.46,
+    "expansion_refi_cash_extracted": 36749055.73,
+    "expansion_retained_equity": 36749055.73,
+    "stabilized_ltv_pct": 17.8
+  },
+  "jays_communities_schedule": [
     {
-      "id": "loss_to_lease",
-      "title": "Park City Loss-to-Lease Mark-to-Market",
-      "category": "Rent Growth Upside",
-      "current_metric": "$650/mo lot rent",
-      "target_metric": "$775/mo JLT Datacomp Chicago MSA average (+$125/mo gap)",
-      "annual_noi_impact": 720000.0,
-      "capitalized_value_unlock": 10285714.29,
-      "notes": "JLT Datacomp reports Chicago MSA average site rent at $782/mo. Capturing a conservative $125/mo gap adds $10.3M in equity."
+      "id": "lakeview",
+      "name": "Lakeview Mobile Home Park (Beach Park)",
+      "type": "MH",
+      "existing_sites": 150,
+      "t12_revenue": 1317818.0,
+      "t12_expenses": 424168.0,
+      "mgmt_fee_addback": 212084.0,
+      "adjusted_t12_expenses": 212084.0,
+      "forward_revenue_plus3pct": 1357352.54,
+      "forward_expenses_plus1pct": 214204.84,
+      "forward_noi": 1143147.7,
+      "cap_rate": 0.045,
+      "gross_asset_value": 25403282.22,
+      "actual_debt_due_now": 7640754.0,
+      "owners_equity_nav": 17762528.22,
+      "loan_to_value_pct": 30.1,
+      "rev_per_site": 9049.02,
+      "exp_per_site": 1428.03,
+      "noi_per_site": 7620.98
     },
     {
-      "id": "entitled_pads",
-      "title": "Entitled Expansion Land (Shadow NAV)",
-      "category": "Unbuilt Zoned Land",
-      "current_metric": "Carried at historical cost basis ($0 NOI)",
-      "target_metric": "Market valuation of permitted unbuilt sites ($30k-$45k/pad)",
-      "annual_noi_impact": 0.0,
-      "capitalized_value_unlock": 3250000.0,
-      "notes": "The Bluffs 50 approved pads ($1.75M) + Madison 70-acre frontage ($1.5M). Institutional buyers pay cash for entitled dirt."
+      "id": "park_city",
+      "name": "Park City Manufactured Home Community & Plaza",
+      "type": "MH",
+      "existing_sites": 480,
+      "t12_revenue": 22450000.0,
+      "t12_expenses": 5850000.0,
+      "mgmt_fee_addback": 1185530.0,
+      "adjusted_t12_expenses": 4664470.0,
+      "forward_revenue_plus3pct": 23123500.0,
+      "forward_expenses_plus1pct": 4711114.7,
+      "forward_noi": 18412385.3,
+      "cap_rate": 0.04,
+      "gross_asset_value": 460309632.5,
+      "actual_debt_due_now": 39125000.0,
+      "owners_equity_nav": 421184632.5,
+      "loan_to_value_pct": 8.5,
+      "rev_per_site": 48173.96,
+      "exp_per_site": 9814.82,
+      "noi_per_site": 38359.14
     },
     {
-      "id": "rubs_utility",
-      "title": "Utility Submetering Recapture (RUBS)",
-      "category": "Expense Reduction",
-      "current_metric": "Park-paid municipal water/sewer ($185k/yr)",
-      "target_metric": "Tenant billing recapture via submetering (85% recovery)",
-      "annual_noi_impact": 150000.0,
-      "capitalized_value_unlock": 2142857.14,
-      "notes": "Installing digital water meters and billing back tenants directly converts operating expense into pure bottom-line NOI."
+      "id": "bay_bayou",
+      "name": "Bay Bayou Florida RV Resort",
+      "type": "RV",
+      "existing_sites": 308,
+      "t12_revenue": 3793570.0,
+      "t12_expenses": 993570.0,
+      "mgmt_fee_addback": 185000.0,
+      "adjusted_t12_expenses": 808570.0,
+      "forward_revenue_plus3pct": 3907377.1,
+      "forward_expenses_plus1pct": 816655.7,
+      "forward_noi": 3090721.4,
+      "cap_rate": 0.055,
+      "gross_asset_value": 56194934.55,
+      "actual_debt_due_now": 8500000.0,
+      "owners_equity_nav": 47694934.55,
+      "loan_to_value_pct": 15.1,
+      "rev_per_site": 12686.29,
+      "exp_per_site": 2651.48,
+      "noi_per_site": 10034.81
     },
     {
-      "id": "tax_shield_1031",
-      "title": "Section 1031 Exchange Tax Shield Preservation",
-      "category": "Capital Preservation",
-      "current_metric": "$6.0M - $8.0M potential tax bill upon Lakeview sale",
-      "target_metric": "100% tax deferral via reverse/forward 1031 exchange",
-      "annual_noi_impact": 0.0,
-      "capitalized_value_unlock": 6500000.0,
-      "notes": "Reinvesting Lakeview proceeds into Manistee/Bluffs expansion preserves $6.5M in equity that would otherwise be paid in taxes."
+      "id": "sunkissed",
+      "name": "Sunkissed Village RV Resort",
+      "type": "RV",
+      "existing_sites": 275,
+      "t12_revenue": 2599444.0,
+      "t12_expenses": 1250000.0,
+      "mgmt_fee_addback": 145000.0,
+      "adjusted_t12_expenses": 1105000.0,
+      "forward_revenue_plus3pct": 2677427.32,
+      "forward_expenses_plus1pct": 1116050.0,
+      "forward_noi": 1561377.32,
+      "cap_rate": 0.055,
+      "gross_asset_value": 28388678.55,
+      "actual_debt_due_now": 5000000.0,
+      "owners_equity_nav": 23388678.55,
+      "loan_to_value_pct": 17.6,
+      "rev_per_site": 9736.1,
+      "exp_per_site": 4058.36,
+      "noi_per_site": 5677.74
+    },
+    {
+      "id": "the_bluffs",
+      "name": "The Bluffs MH & RV Resort",
+      "type": "MIXED",
+      "existing_sites": 95,
+      "t12_revenue": 1139154.0,
+      "t12_expenses": 485000.0,
+      "mgmt_fee_addback": 75000.0,
+      "adjusted_t12_expenses": 410000.0,
+      "forward_revenue_plus3pct": 1173328.62,
+      "forward_expenses_plus1pct": 414100.0,
+      "forward_noi": 759228.62,
+      "cap_rate": 0.04,
+      "gross_asset_value": 18980715.5,
+      "actual_debt_due_now": 2975000.0,
+      "owners_equity_nav": 16005715.5,
+      "loan_to_value_pct": 15.7,
+      "rev_per_site": 12350.83,
+      "exp_per_site": 4358.95,
+      "noi_per_site": 7991.88
+    },
+    {
+      "id": "madison",
+      "name": "Madison RV & Golf Resort / Jet Sites B",
+      "type": "RV",
+      "existing_sites": 95,
+      "t12_revenue": 1119688.0,
+      "t12_expenses": 585000.0,
+      "mgmt_fee_addback": 65000.0,
+      "adjusted_t12_expenses": 520000.0,
+      "forward_revenue_plus3pct": 1153278.64,
+      "forward_expenses_plus1pct": 525200.0,
+      "forward_noi": 628078.64,
+      "cap_rate": 0.055,
+      "gross_asset_value": 11419611.64,
+      "actual_debt_due_now": 1039000.0,
+      "owners_equity_nav": 10380611.64,
+      "loan_to_value_pct": 9.1,
+      "rev_per_site": 12139.78,
+      "exp_per_site": 5528.42,
+      "noi_per_site": 6611.35
+    }
+  ],
+  "jays_expansions_schedule": [
+    {
+      "name": "Sunkissed Village RV Expansion (+150 Sites)",
+      "target_property": "Sunkissed Village RV Resort",
+      "new_sites": 150,
+      "site_type": "RV Sites",
+      "cap_rate": 0.055,
+      "expansion_stabilized_revenue": 1460415.0,
+      "expansion_stabilized_expenses": 608754.0,
+      "expansion_stabilized_noi": 851661.0,
+      "expansion_gross_asset_value": 15484745.45,
+      "future_refinance_debt_50pct": 7742372.73,
+      "refi_cash_extracted_to_jennings": 7742372.73,
+      "retained_owners_equity_50pct": 7742372.73,
+      "total_expansion_value_created": 15484745.45,
+      "notes": "Self-financed development. Stabilized @ 5.5% Cap. 50% cash-out recap extracts $7,742,373 tax-free cash while retaining $7,742,373 equity."
+    },
+    {
+      "name": "Madison RV Resort Phase II Expansion (+220 Sites)",
+      "target_property": "Madison RV & Golf Resort",
+      "new_sites": 220,
+      "site_type": "RV Sites",
+      "cap_rate": 0.055,
+      "expansion_stabilized_revenue": 2670751.6,
+      "expansion_stabilized_expenses": 1216252.4,
+      "expansion_stabilized_noi": 1454499.2,
+      "expansion_gross_asset_value": 26445440.0,
+      "future_refinance_debt_50pct": 13222720.0,
+      "refi_cash_extracted_to_jennings": 13222720.0,
+      "retained_owners_equity_50pct": 13222720.0,
+      "total_expansion_value_created": 26445440.0,
+      "notes": "Self-financed development. Stabilized @ 5.5% Cap. 50% cash-out recap extracts $13,222,720 tax-free cash while retaining $13,222,720 equity."
+    },
+    {
+      "name": "The Bluffs Mobile Home Expansion (+150 Sites)",
+      "target_property": "The Bluffs MH & RV Resort",
+      "new_sites": 150,
+      "site_type": "MH Sites",
+      "cap_rate": 0.04,
+      "expansion_stabilized_revenue": 1852624.5,
+      "expansion_stabilized_expenses": 653842.5,
+      "expansion_stabilized_noi": 1198782.0,
+      "expansion_gross_asset_value": 29969550.0,
+      "future_refinance_debt_50pct": 14984775.0,
+      "refi_cash_extracted_to_jennings": 14984775.0,
+      "retained_owners_equity_50pct": 14984775.0,
+      "total_expansion_value_created": 29969550.0,
+      "notes": "Self-financed development. Stabilized @ 4.0% Cap. 50% cash-out recap extracts $14,984,775 tax-free cash while retaining $14,984,775 equity."
+    },
+    {
+      "name": "The Bluffs RV Expansion (+11 Sites)",
+      "target_property": "The Bluffs MH & RV Resort",
+      "new_sites": 11,
+      "site_type": "RV Sites",
+      "cap_rate": 0.055,
+      "expansion_stabilized_revenue": 135859.13,
+      "expansion_stabilized_expenses": 47948.45,
+      "expansion_stabilized_noi": 87910.68,
+      "expansion_gross_asset_value": 1598376.0,
+      "future_refinance_debt_50pct": 799188.0,
+      "refi_cash_extracted_to_jennings": 799188.0,
+      "retained_owners_equity_50pct": 799188.0,
+      "total_expansion_value_created": 1598376.0,
+      "notes": "Self-financed development. Stabilized @ 5.5% Cap. 50% cash-out recap extracts $799,188 tax-free cash while retaining $799,188 equity."
     }
   ],
   "pillars": [
     {
       "pillar_num": 1,
-      "title": "Operating Real Estate (Income Capitalization FMV)",
-      "value": 354324685.66,
-      "share_of_gav": 83.5,
-      "methodology": "Capitalized at 8.0% institutional cap rate across 310 active Skyline GL entities. Park City alone generates $17.8M NOI ($222.3M FMV). Bay Bayou $2.8M NOI ($35.0M FMV).",
+      "title": "Operating MH & RV Communities (Jay's Forward 12M Cap Rate Model)",
+      "value": 600696854.95,
+      "share_of_gav": 88.8,
+      "methodology": "Jay's Mandate: T12 Revenue (+3% growth), T12 Expenses after mgmt fee addback (+1% inflation). Cap rates: Lakeview 4.5%, Park City 4.0%, The Bluffs MH 4.0%, RV Resorts 5.5%.",
       "sub_items": [
         {
-          "id": "park_city",
-          "name": "Park City Manufactured Home Community & Plaza",
-          "location": "Park City / Waukegan, IL",
-          "units": "480 MHP Sites + Commercial Shopping Plaza",
-          "valuation_method": "Income Capitalization (7.0% Institutional Cap Rate)",
-          "annual_noi": 17785529.72,
-          "cap_rate": 0.07,
-          "gross_market_value": 254078996.0,
-          "mortgage_debt": 39125000.0,
-          "net_equity": 214953996.0,
-          "notes": "Consolidated entities (28, 205, 24, 121, 26). Generates $17.8M NOI. Institutional-grade core asset."
+          "name": "Lakeview Mobile Home Park (Beach Park) (150 sites @ 4.5% Cap)",
+          "amount": 25403282.22,
+          "noi": 1143147.7,
+          "debt": 7640754.0,
+          "equity": 17762528.22,
+          "ltv": 30.1
         },
         {
-          "id": "bay_bayou",
-          "name": "Bay Bayou Florida RV Resort",
-          "location": "Tampa, FL (Waterfront)",
-          "units": "308 Luxury Waterfront RV Sites",
-          "valuation_method": "Income Capitalization (7.25% Waterfront Cap Rate)",
-          "annual_noi": 2800000.0,
-          "cap_rate": 0.0725,
-          "gross_market_value": 38620689.66,
-          "mortgage_debt": 8500000.0,
-          "net_equity": 30120689.66,
-          "notes": "Entity 135. Double Branch Creek waterfront. $2.8M annualized NOI. Prime Tampa luxury destination."
+          "name": "Park City Manufactured Home Community & Plaza (480 sites @ 4.0% Cap)",
+          "amount": 460309632.5,
+          "noi": 18412385.3,
+          "debt": 39125000.0,
+          "equity": 421184632.5,
+          "ltv": 8.5
         },
         {
-          "id": "sunkissed_village",
-          "name": "Sunkissed Village RV Resort",
-          "location": "Summerfield, FL (The Villages MSA)",
-          "units": "275 Luxury RV Sites",
-          "valuation_method": "Replacement Cost & Debt Equity ($55k/pad)",
-          "annual_noi": 0.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 15125000.0,
-          "mortgage_debt": 5000000.0,
-          "net_equity": 10125000.0,
-          "notes": "Entities 140/142. Modern 2019 commercial build. High sand ridge (Zone X). Growing seasonal occupancy."
+          "name": "Bay Bayou Florida RV Resort (308 sites @ 5.5% Cap)",
+          "amount": 56194934.55,
+          "noi": 3090721.4,
+          "debt": 8500000.0,
+          "equity": 47694934.55,
+          "ltv": 15.1
         },
         {
-          "id": "the_bluffs",
-          "name": "The Bluffs MH & RV Resort",
-          "location": "Freedom, NH (Ossipee Lake)",
-          "units": "95 Existing Sites + 50 Site Expansion (145 total)",
-          "valuation_method": "Existing Valuation + Expansion Basis",
-          "annual_noi": 0.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 8500000.0,
-          "mortgage_debt": 2975000.0,
-          "net_equity": 5525000.0,
-          "notes": "Entity 147. Danforth Bay waterfront buffer. 50-site expansion (35% complete, $842k spent, 16% target yield)."
+          "name": "Sunkissed Village RV Resort (275 sites @ 5.5% Cap)",
+          "amount": 28388678.55,
+          "noi": 1561377.32,
+          "debt": 5000000.0,
+          "equity": 23388678.55,
+          "ltv": 17.6
         },
         {
-          "id": "madison_resort",
-          "name": "Madison RV & Golf Resort / Jet Sites B",
-          "location": "Madison, FL (Inland High Ridge)",
-          "units": "95 RV Sites + 18-Hole Country Club & Clubhouse",
-          "valuation_method": "Golf & Resort Acquisition Cost Basis",
-          "annual_noi": 0.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 6500000.0,
-          "mortgage_debt": 1039000.0,
-          "net_equity": 5461000.0,
-          "notes": "Entity 143. Acquired Oct 22, 2024. 18-hole championship golf course + modern clubhouse expansion."
+          "name": "The Bluffs MH & RV Resort (95 sites @ 4.0% Cap)",
+          "amount": 18980715.5,
+          "noi": 759228.62,
+          "debt": 2975000.0,
+          "equity": 16005715.5,
+          "ltv": 15.7
         },
         {
-          "id": "lakeview_mhp",
-          "name": "Lakeview Mobile Home Park (Beach Park)",
-          "location": "Beach Park / Lake County, IL",
-          "units": "150 Developed MHP Lots",
-          "valuation_method": "Verified 2026 Market Offers (Invesco LOI Baseline)",
-          "annual_noi": 1105734.0,
-          "cap_rate": 0.0434,
-          "gross_market_value": 25500000.0,
-          "mortgage_debt": 7640754.0,
-          "net_equity": 17859246.0,
-          "notes": "Beach Park, IL. Entity 18 / PLVMH. Sourced directly from Jay's 5 verified July 2026 offers (Invesco/Homestead $25M-$26M all-cash). Adjusted NOI: $1.105M."
-        },
-        {
-          "id": "ellis_apts",
-          "name": "Home Sites Series C (Ellis Street Apartments)",
-          "location": "Peoria, IL",
-          "units": "Multi-Family Residential Complex",
-          "valuation_method": "Appraised Asset Value",
-          "annual_noi": 0.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 3500000.0,
-          "mortgage_debt": 2100000.0,
-          "net_equity": 1400000.0,
-          "notes": "Entity 38. Stabilized multi-family rental asset backing Byline credit facility."
-        },
-        {
-          "id": "galaxy_sites",
-          "name": "Home Sites & Galaxy Residential Land Book",
-          "location": "Cook / Collar Counties, IL",
-          "units": "Residential Land & Development Parcels",
-          "valuation_method": "Estimated Land Holdings Value",
-          "annual_noi": 0.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 2500000.0,
-          "mortgage_debt": 0.0,
-          "net_equity": 2500000.0,
-          "notes": "Entities 33, 144, 145, 146. Unencumbered land parcels."
+          "name": "Madison RV & Golf Resort / Jet Sites B (95 sites @ 5.5% Cap)",
+          "amount": 11419611.64,
+          "noi": 628078.64,
+          "debt": 1039000.0,
+          "equity": 10380611.64,
+          "ltv": 9.1
         }
       ]
     },
@@ -168,19 +273,19 @@
       "pillar_num": 2,
       "title": "Tax Certificate Investment Portfolio",
       "value": 40622612.0,
-      "share_of_gav": 9.6,
+      "share_of_gav": 6.0,
       "methodology": "Total active tax certificates across 6 tax entities (Interstate, Central Buyer, Diamond Quest, Union Tax, National Indemnity, Mutual Fidelity) carrying 12% statutory carry.",
       "sub_items": [
         {
-          "item": "Total Tax Certificate Book Value",
+          "name": "Total Tax Certificate Book Value",
           "amount": 40622612.0
         },
         {
-          "item": "Bank Debt Borrowed on Collateral (95% advance)",
+          "name": "Bank Debt Borrowed on Collateral (95% advance)",
           "amount": -30224314.0
         },
         {
-          "item": "Net Jennings Tax Equity",
+          "name": "Net Jennings Tax Equity",
           "amount": 10398298.0
         }
       ]
@@ -189,15 +294,15 @@
       "pillar_num": 3,
       "title": "Physical Operating Bank Cash (Friday Close)",
       "value": 16380680.14,
-      "share_of_gav": 3.9,
+      "share_of_gav": 2.4,
       "methodology": "Cleared operating bank cash ($9.00M Mary's sheet + $7.38M Jennings unencumbered tax equity). J R Management at $3.67M, Byline at $1.19M.",
       "sub_items": [
         {
-          "item": "Mary's Operating Cash Ledger (32 accounts)",
+          "name": "Mary's Operating Cash Ledger (32 accounts)",
           "amount": 9004813.54
         },
         {
-          "item": "Jennings Tax Equity Cash in Clearing",
+          "name": "Jennings Tax Equity Cash in Clearing",
           "amount": 7375866.6
         }
       ]
@@ -206,19 +311,19 @@
       "pillar_num": 4,
       "title": "Cook County Indemnity Judgments Book",
       "value": 10219898.81,
-      "share_of_gav": 2.4,
+      "share_of_gav": 1.5,
       "methodology": "40 active court judgment claims purchased at a discount (40 judgments, $4,460,516 cost, $8,620,415 face). Earning 6.0% simple statutory interest.",
       "sub_items": [
         {
-          "item": "Active Judgment Face Value (40 claims)",
+          "name": "Active Judgment Face Value (40 claims)",
           "amount": 8620415.43
         },
         {
-          "item": "Accrued 6.0% Statutory Interest",
+          "name": "Accrued 6.0% Statutory Interest",
           "amount": 1599483.38
         },
         {
-          "item": "Total Value if Disbursed Today",
+          "name": "Total Value if Disbursed Today",
           "amount": 10219898.81
         }
       ]
@@ -227,11 +332,11 @@
       "pillar_num": 5,
       "title": "Park City Modular Home Installment Notes",
       "value": 1842500.0,
-      "share_of_gav": 0.4,
+      "share_of_gav": 0.3,
       "methodology": "64 performing seller-financed modular home installment loans at Park City. Generates $28.5k/mo cashflow with 1.8% delinquency.",
       "sub_items": [
         {
-          "item": "Total Active Performing Notes Receivable",
+          "name": "Total Active Performing Notes Receivable",
           "amount": 1842500.0
         }
       ]
@@ -240,31 +345,31 @@
       "pillar_num": 6,
       "title": "Cook County Frozen Administrative Escrow",
       "value": 750000.0,
-      "share_of_gav": 0.2,
+      "share_of_gav": 0.1,
       "methodology": "Jay's Directive: Completed taxpayer redemptions sitting in Cook County escrow awaiting administrative disbursement checks.",
       "sub_items": [
         {
-          "item": "Cook County Redemption Checks Pending",
+          "name": "Cook County Redemption Checks Pending",
           "amount": 750000.0
         }
       ]
-    }
-  ],
-  "strategic_insights_for_jay": [
-    {
-      "title": "Bank Debt Spread Renegotiation",
-      "impact": "Shaving 25-50 bps on $68M debt saves $170k-$340k/yr",
-      "rationale": "Enterprise LTV sits at an ultra-conservative 22.8%. Proving $250M+ in hard equity gives Jay immense leverage with Byline and Old National credit committees."
     },
     {
-      "title": "Capital Reallocation ROI Matrix",
-      "impact": "Deploying $10M cash into 22% ROE Tax Liens vs 8% Real Estate",
-      "rationale": "Real estate generates a rock-solid 8.0% unlevered yield ($22M NOI), while the tax business delivers 22%+ ROE via 95% bank leverage. Clear quantitative roadmap for next capital deployment."
-    },
-    {
-      "title": "Barbara Descendants Trust Estate Planning",
-      "impact": "Audited market-value backing for CPAs and valuation filings",
-      "rationale": "Automated marked-to-market NAV saves hundreds of billable hours in annual valuation studies and provides ironclad basis support for trust distributions."
+      "pillar_num": 7,
+      "title": "Ancillary Real Estate Holdings (Ellis Apts & Galaxy Land)",
+      "value": 6000000.0,
+      "share_of_gav": 0.9,
+      "methodology": "Ellis Street Apartments (Byline Bank collateral, $3.5M FMV, $2.1M debt) + Galaxy Sites unencumbered residential land book ($2.5M).",
+      "sub_items": [
+        {
+          "name": "Ellis Street Apartments (Home Sites Series C)",
+          "amount": 3500000.0
+        },
+        {
+          "name": "Galaxy Sites Residential Land Parcels",
+          "amount": 2500000.0
+        }
+      ]
     }
   ]
 }
