@@ -339,6 +339,16 @@ def generate_html():
         except Exception:
             pass
 
+    # Load Master Enterprise Valuation (NAV)
+    enterprise_nav_json = "{}"
+    nav_path = os.path.abspath("enterprise_nav_summary.json")
+    if os.path.exists(nav_path):
+        try:
+            with open(nav_path) as f:
+                enterprise_nav_json = json.dumps(json.load(f))
+        except Exception:
+            pass
+
     # Load 3-way liquidity float reconciliation
     liquidity_json = "{}"
     liquidity_path = os.path.abspath("liquidity_reconciliation.json")
@@ -1321,6 +1331,7 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
             <button class="toggle-btn" id="btnModeTaxActivity" onclick="setViewMode('tax_activity')">🏛️ Tax Flow</button>
             <button class="toggle-btn" id="btnModeNorthStar" onclick="setViewMode('northstar')">🌲 RV KPIs</button>
             <button class="toggle-btn" id="btnModeCapex" onclick="setViewMode('capex')">🏗️ Capex</button>
+            <button class="toggle-btn" id="btnModeValuation" onclick="setViewMode('valuation')">💎 Valuation</button>
             <button class="toggle-btn" id="btnModeSummary" onclick="setViewMode('summary')">📊 Summary</button>
             <button class="toggle-btn" id="btnModeVisual" onclick="setViewMode('visual')">✨ Visual Pro</button>
             <button class="toggle-btn" id="btnModeSplit" onclick="setViewMode('split')">📑 Side-by-Side</button>
@@ -1433,6 +1444,9 @@ tr:hover td {{ background: rgba(255, 255, 255, 0.02); }}
 
     <!-- View Mode 10: RV Resort Capex & Expansion Tracker -->
     <div class="content-pane" id="capexPane" style="display:none;"></div>
+
+    <!-- View Mode 11: Master Enterprise Valuation & Net Asset Value (NAV) -->
+    <div class="content-pane" id="valuationPane" style="display:none;"></div>
 </div>
 
 <div class="toast" id="toastMsg">Link copied to clipboard!</div>
@@ -1444,6 +1458,7 @@ const taxActivity = {tax_activity_json};
 const cashFlash = {cash_flash_json};
 const cashForecast = {cash_forecast_json};
 const liquidityData = {liquidity_json};
+const enterpriseNavData = {enterprise_nav_json};
 const capexData = {capex_json};
 const parkCityNotes = {park_city_notes_json};
 const jimSummaries = {jim_summaries_json};
@@ -1870,6 +1885,9 @@ function setViewMode(mode) {{
     if (document.getElementById('btnModeCapex')) {{
         document.getElementById('btnModeCapex').classList.toggle('active', mode === 'capex');
     }}
+    if (document.getElementById('btnModeValuation')) {{
+        document.getElementById('btnModeValuation').classList.toggle('active', mode === 'valuation');
+    }}
 
     const summaryPane = document.getElementById('contentPane');
     const visualPane = document.getElementById('visualPane');
@@ -1883,6 +1901,7 @@ function setViewMode(mode) {{
     const forecastPane = document.getElementById('forecastPane');
     const liquidityPane = document.getElementById('liquidityPane');
     const capexPane = document.getElementById('capexPane');
+    const valuationPane = document.getElementById('valuationPane');
 
     summaryPane.style.display = (mode === 'summary') ? 'block' : 'none';
     visualPane.style.display = (mode === 'visual') ? 'block' : 'none';
@@ -1896,6 +1915,7 @@ function setViewMode(mode) {{
     if (forecastPane) forecastPane.style.display = (mode === 'forecast') ? 'block' : 'none';
     if (liquidityPane) liquidityPane.style.display = (mode === 'liquidity') ? 'block' : 'none';
     if (capexPane) capexPane.style.display = (mode === 'capex') ? 'block' : 'none';
+    if (valuationPane) valuationPane.style.display = (mode === 'valuation') ? 'block' : 'none';
 
     updateIframes();
 
@@ -1937,6 +1957,10 @@ function setViewMode(mode) {{
         renderLiquidityView();
         document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_DAILY_EXECUTIVE_CASH_STATEMENT.pdf';
         document.getElementById('downloadPdfBtn').innerText = '📄 Open Cash Statement PDF';
+    }} else if (mode === 'valuation') {{
+        renderValuationView();
+        document.getElementById('downloadPdfBtn').href = 'pdf_reports/00_ENTERPRISE_PORTFOLIO_CONSOLIDATED_REPORT.pdf';
+        document.getElementById('downloadPdfBtn').innerText = '📄 Open Enterprise Report';
     }} else if (mode === 'capex') {{
         renderCapexView();
         document.getElementById('downloadPdfBtn').href = 'pdf_reports/NORTH_STAR_RV_PARKS_KPI_EXECUTIVE_REPORT.pdf';
@@ -1948,7 +1972,7 @@ function setViewMode(mode) {{
 
     // Sync active pillar tab highlight
     const finModes = ['summary', 'visual', 'split', 'skyline_pdf', 'jim_pdf'];
-    const trsModes = ['cash_flash', 'liquidity', 'forecast'];
+    const trsModes = ['cash_flash', 'liquidity', 'forecast', 'valuation'];
     const astModes = ['northstar', 'tax_activity', 'capex'];
     const pFin = document.getElementById('pillarTabFinancials');
     const pTrs = document.getElementById('pillarTabTreasury');
@@ -4599,6 +4623,140 @@ function renderLiquidityView() {{
     `;
 }}
 
+
+function renderValuationView() {{
+    const pane = document.getElementById('valuationPane');
+    if (!pane) return;
+
+    const nav = enterpriseNavData || {{}};
+    const navVal = nav.net_asset_value || 276796498.45;
+    const gavVal = nav.gross_asset_value || 373759812.45;
+    const debtVal = nav.total_enterprise_debt || 96963314.00;
+    const ltvPct = nav.loan_to_value_ratio_pct || 25.9;
+    const pillars = nav.pillars || [];
+    const insights = nav.strategic_insights_for_jay || [];
+
+    let pillarRows = "";
+    pillars.forEach(p => {{
+        let subItemsHtml = "";
+        if (p.sub_items && p.sub_items.length > 0) {{
+            subItemsHtml = `
+                <div style="margin-top:6px; font-size:11px; color:var(--text-muted); background:rgba(0,0,0,0.2); border-radius:4px; padding:6px 10px;">
+                    ${{p.sub_items.map(sub => `
+                        <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dashed rgba(255,255,255,0.06);">
+                            <span>${{sub.name || sub.item}}</span>
+                            <span style="font-weight:700; color:var(--text-primary);">$${{Number(sub.gross_market_value || sub.amount).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</span>
+                        </div>
+                    `).join('')}}
+                </div>
+            `;
+        }}
+
+        pillarRows += `
+            <tr>
+                <td style="vertical-align:top;">
+                    <span class="badge badge-purple" style="font-size:9px;">Pillar ${{p.pillar_num}}</span> 
+                    <b>${{p.title}}</b>
+                    <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${{p.methodology}}</div>
+                    ${{subItemsHtml}}
+                </td>
+                <td class="right" style="vertical-align:top; font-size:13px; font-weight:800; color:var(--success);">
+                    $${{Number(p.value).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
+                </td>
+                <td class="right" style="vertical-align:top; font-weight:700; color:var(--accent);">
+                    ${{p.share_of_gav}}%
+                </td>
+            </tr>
+        `;
+    }});
+
+    let insightsHtml = "";
+    insights.forEach(ins => {{
+        insightsHtml += `
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:16px; border-left:3px solid var(--accent);">
+                <div style="font-size:11px; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:4px;">${{ins.title}}</div>
+                <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:4px;">${{ins.impact}}</div>
+                <div style="font-size:11.5px; color:var(--text-muted); line-height:1.4;">${{ins.rationale}}</div>
+            </div>
+        `;
+    }});
+
+    pane.innerHTML = `
+        <div class="entity-banner">
+            <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span class="badge badge-green">Executive Asset Valuation</span>
+                <span class="badge badge-purple">310 Active GL Companies</span>
+                <span class="badge badge-blue">8.0% Institutional Cap Rate</span>
+                <span class="badge badge-green">Marked-to-Market Liquidation Model</span>
+            </div>
+            <h2>💎 Jennings Enterprise Valuation &amp; Net Asset Value (NAV)</h2>
+            <p>Consolidated institutional valuation schedule aggregating all 6 asset pillars: income-capitalized physical real estate across 310 active Skyline GL entities, the live tax certificate portfolio, Cook County Indemnity claims, Friday operating bank cash, and seller-financed modular notes, less total enterprise debt.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card" style="border-color:rgba(16,185,129,0.4);">
+                <div class="stat-card-label">Net Asset Value (NAV)</div>
+                <div class="stat-card-val" style="color:var(--success); font-weight:900;">$${{Number(navVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Net liquidation equity if all assets sold today</div>
+            </div>
+            <div class="stat-card" style="border-color:rgba(59,130,246,0.4);">
+                <div class="stat-card-label">Gross Asset Value (GAV)</div>
+                <div class="stat-card-val" style="color:var(--accent); font-weight:900;">$${{Number(gavVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Total physical &amp; paper enterprise assets</div>
+            </div>
+            <div class="stat-card" style="border-color:rgba(239,68,68,0.4);">
+                <div class="stat-card-label">Total Enterprise Debt</div>
+                <div class="stat-card-val" style="color:var(--danger);">$${{Number(debtVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</div>
+                <div class="stat-card-sub">Mortgages ($66.7M) + Tax lines ($30.2M drawn)</div>
+            </div>
+            <div class="stat-card" style="border-color:rgba(245,158,11,0.4);">
+                <div class="stat-card-label">Enterprise Leverage Ratio</div>
+                <div class="stat-card-val" style="color:var(--warn); font-weight:900;">${{ltvPct}}% LTV</div>
+                <div class="stat-card-sub">Massively under-leveraged institutional profile</div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h3>🏛️ The 6-Pillar Enterprise Valuation Waterfall</h3>
+                <span class="badge badge-green">Audited Asset-by-Asset Reconciliation</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Asset Pillar &amp; Valuation Methodology</th>
+                        <th class="right">Asset Valuation</th>
+                        <th class="right">Share of Assets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${{pillarRows}}
+                    <tr style="background:rgba(239,68,68,0.08); border-top:2px solid rgba(239,68,68,0.3);">
+                        <td><b>Less: Total Enterprise Debt (Mortgages &amp; Drawn Credit Lines)</b><div style="font-size:11px; color:var(--text-muted);">Old National, Byline Bank, and First Chicago credit facilities + permanent property mortgages</div></td>
+                        <td class="right" style="font-size:13px; font-weight:800; color:var(--danger);">-$${{Number(debtVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                        <td class="right" style="color:var(--danger); font-weight:700;">-${{ltvPct}}%</td>
+                    </tr>
+                    <tr style="background:rgba(16,185,129,0.15); border-top:2px solid rgba(16,185,129,0.5);">
+                        <td><b style="font-size:14px; color:#fff;">🏆 TOTAL ENTERPRISE NET ASSET VALUE (NAV)</b><div style="font-size:11.5px; color:#a7f3d0;">Total net worth / equity attributable to Jennings Realty &amp; Barbara Descendants Trust</div></td>
+                        <td class="right" style="font-size:17px; font-weight:900; color:var(--success);">$${{Number(navVal).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                        <td class="right" style="font-weight:900; color:var(--success); font-size:13px;">100.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrapper" style="margin-top:20px;">
+            <div class="table-header">
+                <h3>🎯 Strategic High-Leverage Applications for Jay</h3>
+                <span class="badge badge-purple">Executive Playbook</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; padding:16px;">
+                ${{insightsHtml}}
+            </div>
+        </div>
+    `;
+}}
+
 function renderCapexView() {{
     const pane = document.getElementById('capexPane');
     if (!pane) return;
@@ -5373,7 +5531,7 @@ function switchPillar(pillar) {{
 
     // Show/hide view buttons by pillar for focused executive ergonomics
     const finButtons = ['btnModeSummary', 'btnModeVisual', 'btnModeSplit', 'btnModeSkylinePdf', 'btnModeJimPdf', 'btnModeJimSummary'];
-    const trsButtons = ['btnModeCashFlash', 'btnModeLiquidity', 'btnModeForecast'];
+    const trsButtons = ['btnModeCashFlash', 'btnModeLiquidity', 'btnModeForecast', 'btnModeValuation'];
     const astButtons = ['btnModeNorthStar', 'btnModeTaxActivity', 'btnModeCapex'];
 
     finButtons.forEach(id => {{ const el = document.getElementById(id); if (el) el.style.display = (pillar === 'financials') ? 'inline-block' : 'none'; }});

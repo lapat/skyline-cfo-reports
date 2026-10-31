@@ -153,6 +153,14 @@ def run_pipeline(push_to_cloud=True):
     except Exception as e:
         log(f"Lake presale note: {e}", "ℹ️")
 
+    # Step 2l: Master Enterprise Valuation (NAV) Engine
+    try:
+        import calculate_enterprise_nav
+        calculate_enterprise_nav.calculate_nav(verbose=False)
+        log("Master Enterprise Valuation (NAV) modeled (enterprise_nav_summary.json)", "💎")
+    except Exception as e:
+        log(f"Enterprise NAV note: {e}", "ℹ️")
+
     # Step 2l: Automated Multi-County Subtax Priority Hunter & Check Generator
     try:
         import hunt_subtax_opportunities
