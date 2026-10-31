@@ -4681,6 +4681,28 @@ function renderValuationView() {{
         `;
     }});
 
+    const levers = nav.hidden_value_levers || [];
+    const proFormaNav = nav.pro_forma_nav || (navVal + 22178571);
+    const totUnlock = nav.total_value_add_unlock || 22178571;
+
+    let leverRows = "";
+    levers.forEach(lev => {{
+        leverRows += `
+            <tr>
+                <td>
+                    <b>${{lev.title}}</b>
+                    <span class="badge badge-purple" style="font-size:9px; margin-left:6px;">${{lev.category}}</span>
+                    <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">${{lev.notes}}</div>
+                </td>
+                <td style="font-size:11px; color:#cbd5e1;">${{lev.current_metric}}</td>
+                <td style="font-size:11px; color:var(--accent); font-weight:700;">${{lev.target_metric}}</td>
+                <td class="right" style="font-size:13px; font-weight:800; color:var(--success);">
+                    +$${{Number(lev.capitalized_value_unlock).toLocaleString('en-US', {{maximumFractionDigits:0}})}}
+                </td>
+            </tr>
+        `;
+    }});
+
     pane.innerHTML = `
         <div class="entity-banner">
             <div style="margin-bottom:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
@@ -4753,6 +4775,33 @@ function renderValuationView() {{
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; padding:16px;">
                 ${{insightsHtml}}
             </div>
+        </div>
+
+        <div class="table-wrapper" style="margin-top:20px; border:1px solid rgba(59,130,246,0.4); background:linear-gradient(180deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.9) 100%);">
+            <div class="table-header" style="background:rgba(59,130,246,0.15);">
+                <div>
+                    <h3 style="color:#60a5fa;">🚀 Hidden Value Unlock Roadmap (Pro Forma Optimization)</h3>
+                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">Institutional private equity levers to expand baseline NAV from <b>$327.5M</b> to <b>~$350M</b></div>
+                </div>
+                <span class="badge badge-green" style="font-size:11px; font-weight:800;">+$22.2M Value-Add Potential</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Value-Add Strategy &amp; Opportunity</th>
+                        <th>In-Place Baseline</th>
+                        <th>Target Institutional Milestone</th>
+                        <th class="right">Capitalized Equity Unlock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${{leverRows}}
+                    <tr style="background:rgba(59,130,246,0.15); border-top:2px solid rgba(59,130,246,0.5);">
+                        <td colspan="3"><b style="font-size:13.5px; color:#fff;">🌟 PRO FORMA OPTIMIZED ENTERPRISE NET ASSET VALUE (NAV)</b><div style="font-size:11px; color:#93c5fd;">Captures Park City rent catch-up, entitled pad expansion, utility submetering, and 1031 tax shield</div></td>
+                        <td class="right" style="font-size:16px; font-weight:900; color:#60a5fa;">$${{Number(proFormaNav).toLocaleString('en-US', {{maximumFractionDigits:0}})}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     `;
 }}

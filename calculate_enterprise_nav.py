@@ -328,6 +328,55 @@ def calculate_nav(verbose=True):
         }
     ]
 
+    # =========================================================================
+    # HIDDEN "SHADOW" VALUE & VALUE-ADD OPTIMIZATION LEVERS
+    # =========================================================================
+    hidden_value_levers = [
+        {
+            "id": "loss_to_lease",
+            "title": "Park City Loss-to-Lease Mark-to-Market",
+            "category": "Rent Growth Upside",
+            "current_metric": "$650/mo lot rent",
+            "target_metric": "$775/mo JLT Datacomp Chicago MSA average (+$125/mo gap)",
+            "annual_noi_impact": 720000.00,  # 480 lots * $125 * 12
+            "capitalized_value_unlock": 10285714.29,  # $720k / 0.070
+            "notes": "JLT Datacomp reports Chicago MSA average site rent at $782/mo. Capturing a conservative $125/mo gap adds $10.3M in equity."
+        },
+        {
+            "id": "entitled_pads",
+            "title": "Entitled Expansion Land (Shadow NAV)",
+            "category": "Unbuilt Zoned Land",
+            "current_metric": "Carried at historical cost basis ($0 NOI)",
+            "target_metric": "Market valuation of permitted unbuilt sites ($30k-$45k/pad)",
+            "annual_noi_impact": 0.0,
+            "capitalized_value_unlock": 3250000.00,  # Bluffs 50 pads @ $35k ($1.75M) + Madison 70 acres ($1.5M)
+            "notes": "The Bluffs 50 approved pads ($1.75M) + Madison 70-acre frontage ($1.5M). Institutional buyers pay cash for entitled dirt."
+        },
+        {
+            "id": "rubs_utility",
+            "title": "Utility Submetering Recapture (RUBS)",
+            "category": "Expense Reduction",
+            "current_metric": "Park-paid municipal water/sewer ($185k/yr)",
+            "target_metric": "Tenant billing recapture via submetering (85% recovery)",
+            "annual_noi_impact": 150000.00,
+            "capitalized_value_unlock": 2142857.14,  # $150k / 0.070
+            "notes": "Installing digital water meters and billing back tenants directly converts operating expense into pure bottom-line NOI."
+        },
+        {
+            "id": "tax_shield_1031",
+            "title": "Section 1031 Exchange Tax Shield Preservation",
+            "category": "Capital Preservation",
+            "current_metric": "$6.0M - $8.0M potential tax bill upon Lakeview sale",
+            "target_metric": "100% tax deferral via reverse/forward 1031 exchange",
+            "annual_noi_impact": 0.0,
+            "capitalized_value_unlock": 6500000.00,
+            "notes": "Reinvesting Lakeview proceeds into Manistee/Bluffs expansion preserves $6.5M in equity that would otherwise be paid in taxes."
+        }
+    ]
+
+    total_value_add_unlock = sum(x["capitalized_value_unlock"] for x in hidden_value_levers)
+    pro_forma_nav = net_asset_value + total_value_add_unlock
+
     result = {
         "as_of_date": time.strftime("%Y-%m-%d %H:%M:%S"),
         "date_display": time.strftime("%B %d, %Y"),
@@ -336,6 +385,9 @@ def calculate_nav(verbose=True):
         "total_enterprise_debt": round(total_debt, 2),
         "loan_to_value_ratio_pct": ltv_pct,
         "cap_rate_used": CAP_RATE,
+        "pro_forma_nav": round(pro_forma_nav, 2),
+        "total_value_add_unlock": round(total_value_add_unlock, 2),
+        "hidden_value_levers": hidden_value_levers,
         "pillars": pillars,
         "strategic_insights_for_jay": [
             {
