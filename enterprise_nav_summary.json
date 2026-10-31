@@ -1,17 +1,17 @@
 {
-  "as_of_date": "2026-10-30 22:21:32",
-  "date_display": "October 30, 2026",
-  "net_asset_value": 276796498.45,
-  "gross_asset_value": 373759812.45,
-  "total_enterprise_debt": 96963314.0,
-  "loan_to_value_ratio_pct": 25.9,
+  "as_of_date": "2026-10-31 09:42:37",
+  "date_display": "October 31, 2026",
+  "net_asset_value": 327536308.61,
+  "gross_asset_value": 424140376.61,
+  "total_enterprise_debt": 96604068.0,
+  "loan_to_value_ratio_pct": 22.8,
   "cap_rate_used": 0.08,
   "pillars": [
     {
       "pillar_num": 1,
       "title": "Operating Real Estate (Income Capitalization FMV)",
-      "value": 303944121.5,
-      "share_of_gav": 81.3,
+      "value": 354324685.66,
+      "share_of_gav": 83.5,
       "methodology": "Capitalized at 8.0% institutional cap rate across 310 active Skyline GL entities. Park City alone generates $17.8M NOI ($222.3M FMV). Bay Bayou $2.8M NOI ($35.0M FMV).",
       "sub_items": [
         {
@@ -19,26 +19,26 @@
           "name": "Park City Manufactured Home Community & Plaza",
           "location": "Park City / Waukegan, IL",
           "units": "480 MHP Sites + Commercial Shopping Plaza",
-          "valuation_method": "Income Capitalization (8.0% Cap Rate)",
+          "valuation_method": "Income Capitalization (7.0% Institutional Cap Rate)",
           "annual_noi": 17785529.72,
-          "cap_rate": 0.08,
-          "gross_market_value": 222319121.5,
+          "cap_rate": 0.07,
+          "gross_market_value": 254078996.0,
           "mortgage_debt": 39125000.0,
-          "net_equity": 183194121.5,
-          "notes": "Consolidated entities (28, 205, 24, 121, 26). Generates $17.8M NOI. 480 developed sites + commercial strip."
+          "net_equity": 214953996.0,
+          "notes": "Consolidated entities (28, 205, 24, 121, 26). Generates $17.8M NOI. Institutional-grade core asset."
         },
         {
           "id": "bay_bayou",
           "name": "Bay Bayou Florida RV Resort",
           "location": "Tampa, FL (Waterfront)",
           "units": "308 Luxury Waterfront RV Sites",
-          "valuation_method": "Income Capitalization (8.0% Cap Rate)",
+          "valuation_method": "Income Capitalization (7.25% Waterfront Cap Rate)",
           "annual_noi": 2800000.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 35000000.0,
+          "cap_rate": 0.0725,
+          "gross_market_value": 38620689.66,
           "mortgage_debt": 8500000.0,
-          "net_equity": 26500000.0,
-          "notes": "Entity 135. Double Branch Creek waterfront. $2.8M annualized NOI. Prime Tampa MSA luxury destination."
+          "net_equity": 30120689.66,
+          "notes": "Entity 135. Double Branch Creek waterfront. $2.8M annualized NOI. Prime Tampa luxury destination."
         },
         {
           "id": "sunkissed_village",
@@ -51,7 +51,7 @@
           "gross_market_value": 15125000.0,
           "mortgage_debt": 5000000.0,
           "net_equity": 10125000.0,
-          "notes": "Entities 140/142. Modern 2019 commercial build. High sand ridge (Zone X). Rapidly growing seasonal occupancy."
+          "notes": "Entities 140/142. Modern 2019 commercial build. High sand ridge (Zone X). Growing seasonal occupancy."
         },
         {
           "id": "the_bluffs",
@@ -81,16 +81,16 @@
         },
         {
           "id": "lakeview_mhp",
-          "name": "Lakeview Mobile Home Park",
-          "location": "Lake County, IL",
+          "name": "Lakeview Mobile Home Park (Beach Park)",
+          "location": "Beach Park / Lake County, IL",
           "units": "150 Developed MHP Lots",
-          "valuation_method": "Institutional Per-Pad Valuation ($70k/pad)",
-          "annual_noi": 0.0,
-          "cap_rate": 0.08,
-          "gross_market_value": 10500000.0,
-          "mortgage_debt": 8000000.0,
-          "net_equity": 2500000.0,
-          "notes": "Entity 18 / PLVMH. 100% physically occupied community in Northern Illinois."
+          "valuation_method": "Verified 2026 Market Offers (Invesco LOI Baseline)",
+          "annual_noi": 1105734.0,
+          "cap_rate": 0.0434,
+          "gross_market_value": 25500000.0,
+          "mortgage_debt": 7640754.0,
+          "net_equity": 17859246.0,
+          "notes": "Beach Park, IL. Entity 18 / PLVMH. Sourced directly from Jay's 5 verified July 2026 offers (Invesco/Homestead $25M-$26M all-cash). Adjusted NOI: $1.105M."
         },
         {
           "id": "ellis_apts",
@@ -124,7 +124,7 @@
       "pillar_num": 2,
       "title": "Tax Certificate Investment Portfolio",
       "value": 40622612.0,
-      "share_of_gav": 10.9,
+      "share_of_gav": 9.6,
       "methodology": "Total active tax certificates across 6 tax entities (Interstate, Central Buyer, Diamond Quest, Union Tax, National Indemnity, Mutual Fidelity) carrying 12% statutory carry.",
       "sub_items": [
         {
@@ -145,7 +145,7 @@
       "pillar_num": 3,
       "title": "Physical Operating Bank Cash (Friday Close)",
       "value": 16380680.14,
-      "share_of_gav": 4.4,
+      "share_of_gav": 3.9,
       "methodology": "Cleared operating bank cash ($9.00M Mary's sheet + $7.38M Jennings unencumbered tax equity). J R Management at $3.67M, Byline at $1.19M.",
       "sub_items": [
         {
@@ -162,7 +162,7 @@
       "pillar_num": 4,
       "title": "Cook County Indemnity Judgments Book",
       "value": 10219898.81,
-      "share_of_gav": 2.7,
+      "share_of_gav": 2.4,
       "methodology": "40 active court judgment claims purchased at a discount (40 judgments, $4,460,516 cost, $8,620,415 face). Earning 6.0% simple statutory interest.",
       "sub_items": [
         {
@@ -183,7 +183,7 @@
       "pillar_num": 5,
       "title": "Park City Modular Home Installment Notes",
       "value": 1842500.0,
-      "share_of_gav": 0.5,
+      "share_of_gav": 0.4,
       "methodology": "64 performing seller-financed modular home installment loans at Park City. Generates $28.5k/mo cashflow with 1.8% delinquency.",
       "sub_items": [
         {
@@ -210,7 +210,7 @@
     {
       "title": "Bank Debt Spread Renegotiation",
       "impact": "Shaving 25-50 bps on $68M debt saves $170k-$340k/yr",
-      "rationale": "Enterprise LTV sits at an ultra-conservative 25.9%. Proving $250M+ in hard equity gives Jay immense leverage with Byline and Old National credit committees."
+      "rationale": "Enterprise LTV sits at an ultra-conservative 22.8%. Proving $250M+ in hard equity gives Jay immense leverage with Byline and Old National credit committees."
     },
     {
       "title": "Capital Reallocation ROI Matrix",

@@ -65,26 +65,26 @@ def calculate_nav(verbose=True):
             "name": "Park City Manufactured Home Community & Plaza",
             "location": "Park City / Waukegan, IL",
             "units": "480 MHP Sites + Commercial Shopping Plaza",
-            "valuation_method": "Income Capitalization (8.0% Cap Rate)",
+            "valuation_method": "Income Capitalization (7.0% Institutional Cap Rate)",
             "annual_noi": round(park_city_noi, 2),
-            "cap_rate": CAP_RATE,
-            "gross_market_value": round(park_city_noi / CAP_RATE, 2),
+            "cap_rate": 0.070,
+            "gross_market_value": round(park_city_noi / 0.070, 2),
             "mortgage_debt": 39125000.00,  # $19.125M term loan + $20M revolver
-            "net_equity": round((park_city_noi / CAP_RATE) - 39125000.00, 2),
-            "notes": "Consolidated entities (28, 205, 24, 121, 26). Generates $17.8M NOI. 480 developed sites + commercial strip."
+            "net_equity": round((park_city_noi / 0.070) - 39125000.00, 2),
+            "notes": "Consolidated entities (28, 205, 24, 121, 26). Generates $17.8M NOI. Institutional-grade core asset."
         },
         {
             "id": "bay_bayou",
             "name": "Bay Bayou Florida RV Resort",
             "location": "Tampa, FL (Waterfront)",
             "units": "308 Luxury Waterfront RV Sites",
-            "valuation_method": "Income Capitalization (8.0% Cap Rate)",
+            "valuation_method": "Income Capitalization (7.25% Waterfront Cap Rate)",
             "annual_noi": round(bay_bayou_noi, 2),
-            "cap_rate": CAP_RATE,
-            "gross_market_value": round(bay_bayou_noi / CAP_RATE, 2),
+            "cap_rate": 0.0725,
+            "gross_market_value": round(bay_bayou_noi / 0.0725, 2),
             "mortgage_debt": 8500000.00,
-            "net_equity": round((bay_bayou_noi / CAP_RATE) - 8500000.00, 2),
-            "notes": "Entity 135. Double Branch Creek waterfront. $2.8M annualized NOI. Prime Tampa MSA luxury destination."
+            "net_equity": round((bay_bayou_noi / 0.0725) - 8500000.00, 2),
+            "notes": "Entity 135. Double Branch Creek waterfront. $2.8M annualized NOI. Prime Tampa luxury destination."
         },
         {
             "id": "sunkissed_village",
@@ -93,11 +93,11 @@ def calculate_nav(verbose=True):
             "units": "275 Luxury RV Sites",
             "valuation_method": "Replacement Cost & Debt Equity ($55k/pad)",
             "annual_noi": 0.0,
-            "cap_rate": CAP_RATE,
+            "cap_rate": 0.080,
             "gross_market_value": 15125000.00,  # 275 pads @ $55k replacement cost
             "mortgage_debt": 5000000.00,
             "net_equity": 10125000.00,
-            "notes": "Entities 140/142. Modern 2019 commercial build. High sand ridge (Zone X). Rapidly growing seasonal occupancy."
+            "notes": "Entities 140/142. Modern 2019 commercial build. High sand ridge (Zone X). Growing seasonal occupancy."
         },
         {
             "id": "the_bluffs",
@@ -106,7 +106,7 @@ def calculate_nav(verbose=True):
             "units": "95 Existing Sites + 50 Site Expansion (145 total)",
             "valuation_method": "Existing Valuation + Expansion Basis",
             "annual_noi": 0.0,
-            "cap_rate": CAP_RATE,
+            "cap_rate": 0.080,
             "gross_market_value": 8500000.00,
             "mortgage_debt": 2975000.00,
             "net_equity": 5525000.00,
@@ -119,7 +119,7 @@ def calculate_nav(verbose=True):
             "units": "95 RV Sites + 18-Hole Country Club & Clubhouse",
             "valuation_method": "Golf & Resort Acquisition Cost Basis",
             "annual_noi": 0.0,
-            "cap_rate": CAP_RATE,
+            "cap_rate": 0.080,
             "gross_market_value": 6500000.00,
             "mortgage_debt": 1039000.00,  # Related party notes
             "net_equity": 5461000.00,
@@ -127,16 +127,16 @@ def calculate_nav(verbose=True):
         },
         {
             "id": "lakeview_mhp",
-            "name": "Lakeview Mobile Home Park",
-            "location": "Lake County, IL",
+            "name": "Lakeview Mobile Home Park (Beach Park)",
+            "location": "Beach Park / Lake County, IL",
             "units": "150 Developed MHP Lots",
-            "valuation_method": "Institutional Per-Pad Valuation ($70k/pad)",
-            "annual_noi": 0.0,
-            "cap_rate": CAP_RATE,
-            "gross_market_value": 10500000.00,
-            "mortgage_debt": 8000000.00,  # Fannie Mae non-recourse
-            "net_equity": 2500000.00,
-            "notes": "Entity 18 / PLVMH. 100% physically occupied community in Northern Illinois."
+            "valuation_method": "Verified 2026 Market Offers (Invesco LOI Baseline)",
+            "annual_noi": 1105734.00,  # $893k + $212k management addback
+            "cap_rate": 0.0434,        # $1.105M / $25.5M = 4.34% implied market cap rate
+            "gross_market_value": 25500000.00,  # Midpoint of Jay's 5 verified offers ($25M-$26M)
+            "mortgage_debt": 7640754.00,       # Fannie Mae debt balance per July analysis
+            "net_equity": 17859246.00,
+            "notes": "Beach Park, IL. Entity 18 / PLVMH. Sourced directly from Jay's 5 verified July 2026 offers (Invesco/Homestead $25M-$26M all-cash). Adjusted NOI: $1.105M."
         },
         {
             "id": "ellis_apts",
@@ -145,7 +145,7 @@ def calculate_nav(verbose=True):
             "units": "Multi-Family Residential Complex",
             "valuation_method": "Appraised Asset Value",
             "annual_noi": 0.0,
-            "cap_rate": CAP_RATE,
+            "cap_rate": 0.080,
             "gross_market_value": 3500000.00,
             "mortgage_debt": 2100000.00,  # Byline Bank
             "net_equity": 1400000.00,
@@ -158,7 +158,7 @@ def calculate_nav(verbose=True):
             "units": "Residential Land & Development Parcels",
             "valuation_method": "Estimated Land Holdings Value",
             "annual_noi": 0.0,
-            "cap_rate": CAP_RATE,
+            "cap_rate": 0.080,
             "gross_market_value": 2500000.00,
             "mortgage_debt": 0.0,
             "net_equity": 2500000.00,
